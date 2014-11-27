@@ -5,3 +5,13 @@
  */
 define('PRISMIC_URL', 'https://blogtemplate.prismic.io/api');
 
+/**
+ * The theme corresponds to a subfolder of ./themes/
+ */
+define('PI_THEME', 'default');
+
+/**
+ * Your site title
+ */
+define('SITE_TITLE', 'New Prismic.io Site');
+

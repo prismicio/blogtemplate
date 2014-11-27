@@ -1,7 +1,7 @@
 {
     "require": {
         "slim/slim": "2.*",
+        "twig/twig": "~1.0",
         "prismic/php-sdk": "1.0.13"
     }
 }
-

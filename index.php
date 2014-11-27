@@ -1,35 +1,24 @@
 <?php
 require 'vendor/autoload.php';
 require_once 'config.php';
-
-use Prismic\Api;
-use Prismic\Predicates;
+require_once 'lib/prismic.php';
+require_once 'lib/template-helpers.php';
 
 $app = new \Slim\Slim();
 
 // Page
-$app->get('/page/:pid/:slug', function() {
-    echo "Hello, page :pid";
+$app->get('/page/:pid/:slug', function($pid, $slug) {
+    include('themes/' . PI_THEME . '/page.php');
 });
 
 // Post
-$app->get('/:docid/:slug', function() {
-    echo "Hello, doc :docid";
+$app->get('/:docid/:slug', function($docid, $slug) {
+    include('themes/' . PI_THEME . '/single.php');
 });
 
 // Index
 $app->get('/', function() {
-    $api = Api::get(PRISMIC_URL);
-    $pages = $api->forms()
-        ->everything
-        ->query(Predicates::at("document.type", "page"))
-        ->ref($api->master())
-        ->submit();
-    echo "Hello, world";
-    echo "<ul>";
-    foreach($pages->getResults() as $page) {
-        echo "<li>" . $page->getText("page.title") . "</li>";
-    }
+    include('themes/' . PI_THEME . '/index.php');
 });
 
 $app->run();
