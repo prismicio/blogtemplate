@@ -22,7 +22,7 @@ function get_pages() {
     return $api->forms()
         ->everything
         ->query(Predicates::at("document.type", "page"))
-        ->ref($api->master())
+        ->ref(get_ref())
         ->submit()
         ->getResults();
 }
@@ -30,4 +30,14 @@ function get_pages() {
 function get_url_for($doc) {
     global $linkResolver;
     return $linkResolver->resolveDocument($doc);
+}
+
+function current_document() {
+    global $currentDocument;
+    return $currentDocument;
+}
+
+function html_for($field) {
+    global $linkResolver, $currentDocument;
+    return $currentDocument->get($field)->asHtml($linkResolver);
 }

@@ -4,7 +4,7 @@
     <script src="//static.cdn.prismic.io/prismic.min.js"></script>
 </head>
 
-<h1><?php get_title() ?></h1>
+<h1><a href="/"><?php get_title() ?></a></h1>
 
 <ul>
 <?php foreach(get_pages() as $page) { ?>
