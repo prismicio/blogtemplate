@@ -1,5 +1,5 @@
-<? get_header() ?>
+<?php get_header() ?>
 
 page
 
-<? get_footer() ?>
+<?php get_footer() ?>

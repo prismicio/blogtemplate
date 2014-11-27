@@ -5,12 +5,16 @@ require_once 'lib/prismic.php';
 
 use Prismic\Predicates;
 
+function get_title() {
+    echo SITE_TITLE;
+}
+
 function get_header() {
-    include('themes/' . PI_THEME . '../header.php');
+    include('themes/' . PI_THEME . '/header.php');
 }
 
 function get_footer() {
-    include('themes/' . PI_THEME . '../footer.php');
+    include('themes/' . PI_THEME . '/footer.php');
 }
 
 function get_pages() {

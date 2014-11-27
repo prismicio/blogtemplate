@@ -16,6 +16,15 @@ $app->get('/:docid/:slug', function($docid, $slug) {
     include('themes/' . PI_THEME . '/single.php');
 });
 
+// Previews
+$app->get('/preview', function() {
+    global $app, $linkResolver;
+    $token = $app->request()->params('token');
+    $url = get_api()->previewSession($token, $linkResolver, '/');
+    $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
+    $app->response->redirect($url, 301);
+});
+
 // Index
 $app->get('/', function() {
     include('themes/' . PI_THEME . '/index.php');
