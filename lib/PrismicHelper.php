@@ -45,13 +45,21 @@ class PrismicHelper
         }
     }
 
+    static function form()
+    {
+        return PrismicHelper::get_api()->forms()->everything->ref(PrismicHelper::get_ref());
+    }
+
+    static function get_authors() {
+        return PrismicHelper::form()
+            ->query(Predicates::at("document.type", "author"))
+            ->submit();
+    }
+
     static function get_document($id)
     {
-        $api = PrismicHelper::get_api();
-        $results = $api->forms()
-            ->everything
+        $results = PrismicHelper::form()
             ->query(Predicates::at("document.id", $id))
-            ->ref(PrismicHelper::get_ref())
             ->submit()
             ->getResults();
         if (count($results) > 0) {
@@ -61,20 +69,20 @@ class PrismicHelper
         }
     }
 
-    static function get_all($type, $page = 0)
+    static function get_pages()
     {
-        $api = PrismicHelper::get_api();
-        return $api->forms()
-            ->everything
-            ->query(Predicates::at("document.type", $type))
-            ->ref(PrismicHelper::get_ref())
-            ->page($page)
-            ->submit();
+        return PrismicHelper::form()
+            ->query(Predicates::at("document.type", "page"))
+            ->submit()
+            ->getResults();
     }
 
     static function get_posts($page)
     {
-        return PrismicHelper::get_all("post", $page)->getResults();
+        return PrismicHelper::form()
+            ->query(Predicates::at("document.type", "post"))
+            ->page($page)
+            ->submit();
     }
 
 }

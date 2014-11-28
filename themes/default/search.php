@@ -1,5 +1,5 @@
 <?php get_header() ?>
 
-search
+Query: <?php echo get_search_query() ?>
 
 <?php get_footer() ?>

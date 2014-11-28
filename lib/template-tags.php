@@ -2,6 +2,12 @@
 require 'vendor/autoload.php';
 require_once 'config.php';
 require_once 'lib/PrismicHelper.php';
+require_once 'lib/State.php';
+
+/**
+ * The way the tags are written can lead to the same request being done several times,
+ * but it's OK because the Prismic kit has a built-in cache (APC).
+ */
 
 // General tags
 
@@ -18,6 +24,11 @@ function get_header()
 function get_footer()
 {
     Theme::render('footer');
+}
+
+function get_search_query()
+{
+    return State::current_query();
 }
 
 // Author tags
@@ -37,39 +48,36 @@ function list_authors()
 
 }
 
-// Document tags
+// Documents tags
+
+function posts() {
+    return PrismicHelper::get_posts(State::current_page())->getResults();
+}
 
 function get_url_for($doc)
 {
     return PrismicHelper::$linkResolver->resolveDocument($doc);
 }
 
-function previous_post_link()
-{
-    echo 'TODO';
-}
-
-function next_post_link()
-{
-    echo 'TODO';
-}
-
 function current_document()
 {
-    global $currentDocument;
-    return $currentDocument;
+    return State::current_document();
 }
 
-function html_for($field)
+function get_text($field)
 {
-    global $linkResolver, $currentDocument;
-    return $currentDocument->get($field)->asHtml(PrismicHelper::$linkResolver);
+    return current_document()->get($field)->asText(PrismicHelper::$linkResolver);
+}
+
+function get_html($field)
+{
+    return current_document()->get($field)->asHtml(PrismicHelper::$linkResolver);
 }
 
 // Pages tags
 
 function get_pages()
 {
-    return PrismicHelper::get_all("page")->getResults();
+    return PrismicHelper::get_pages();
 }
 
