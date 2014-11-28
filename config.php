@@ -13,5 +13,5 @@ define('PI_THEME', 'default');
 /**
  * Your site title
  */
-define('SITE_TITLE', 'New Prismic.io Site');
+define('SITE_TITLE', 'New Prismic.io Blog');
 

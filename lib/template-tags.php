@@ -11,7 +11,7 @@ require_once 'lib/State.php';
 
 // General tags
 
-function get_title()
+function site_title()
 {
     echo SITE_TITLE;
 }
@@ -62,6 +62,18 @@ function get_url_for($doc)
 function current_document()
 {
     return State::current_document();
+}
+
+function single_post_title($prefix = "", $display = true)
+{
+    $doc = current_document();
+    $doc_title = $doc ? $doc->getText($doc->getType() . ".title") : "";
+    $result = $prefix . $doc_title;
+    if ($display) {
+        echo $result;
+    } else {
+        return $result;
+    }
 }
 
 function get_text($field)
