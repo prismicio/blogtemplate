@@ -4,7 +4,9 @@ require 'vendor/autoload.php';
 require_once 'config.php';
 require_once 'lib/PrismicHelper.php';
 require_once 'lib/theme.php';
-require_once 'lib/template-tags.php';
+
+require_once 'tags/general.php';
+require_once 'tags/posts.php';
 
 $app = new \Slim\Slim();
 

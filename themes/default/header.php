@@ -2,7 +2,7 @@
 
 <head>
     <script src="//static.cdn.prismic.io/prismic.min.js"></script>
-    <title><?php single_post_title() ?> <?php site_title() ?></title>
+    <title><?php post_title() ?> <?php site_title() ?></title>
 </head>
 
 <h1><a href="/"><?php site_title() ?></a></h1>
@@ -16,7 +16,7 @@
 
 <ul>
 <?php foreach(get_pages() as $page) { ?>
-    <li><a href="<?php echo get_url($page) ?>"><?php echo $page->getText("page.title") ?></a></li>
+    <li><a href="<?php document_url($page) ?>"><?php echo $page->getText("page.title") ?></a></li>
 <?php } ?>
 </ul>
 
