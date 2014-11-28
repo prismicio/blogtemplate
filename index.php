@@ -20,6 +20,19 @@ $app->get('/page/:pid/:slug', function($pid, $slug) {
     }
 });
 
+// Author
+$app->get('/author/:id/:slug', function($id, $slug) {
+    global $app;
+    State::$current_document_id = $id;
+
+    if (current_document() == null) {
+        $app->response->setStatus(404);
+        Theme::render('404');
+    } else {
+        Theme::render('author');
+    }
+});
+
 // Post
 $app->get('/:id/:slug', function($id, $slug) {
     global $app;

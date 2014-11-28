@@ -54,8 +54,9 @@ function posts() {
     return PrismicHelper::get_posts(State::current_page())->getResults();
 }
 
-function get_url_for($doc)
+function get_url($document)
 {
+    $doc = $document ? $document : current_document();
     return PrismicHelper::$linkResolver->resolveDocument($doc);
 }
 
@@ -76,14 +77,43 @@ function single_post_title($prefix = "", $display = true)
     }
 }
 
-function get_text($field)
+function get_text($field, $document = null)
 {
-    return current_document()->get($field)->asText(PrismicHelper::$linkResolver);
+    $doc = $document ? $document : current_document();
+    return $doc->get($field)->asText(PrismicHelper::$linkResolver);
 }
 
-function get_html($field)
+function get_html($field, $document = null)
 {
-    return current_document()->get($field)->asHtml(PrismicHelper::$linkResolver);
+    $doc = $document ? $document : current_document();
+    return $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
+}
+
+function get_date($field, $format, $document = null)
+{
+    $doc = $document ? $document : current_document();
+    if (!$doc) return null;
+    $date = $doc->getDate($field);
+    if ($date != null) {
+        return date_format($date->asDateTime(), $format);
+    } else {
+        return null;
+    }
+}
+
+function get_author($document = null) {
+    $doc = $document ? $document : current_document();
+    if ($doc == null) return null;
+    $docLink = $doc->getLink($doc->getType() . ".author");
+    return PrismicHelper::get_document($docLink->getId());
+}
+
+function author_link($author = null) {
+    $auth = $author ? $author : get_author();
+    if (!$auth) return null;
+    $author_name = $auth->getText("author.full_name");
+    $author_link = PrismicHelper::$linkResolver->resolveDocument($auth);
+    echo '<a href = "' . $author_link . '">' . $author_name . '</a>';
 }
 
 // Pages tags

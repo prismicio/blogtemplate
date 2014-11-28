@@ -15,6 +15,9 @@ class BlogLinkResolver extends LinkResolver
         if ($link->getType() == "page") {
             return "/page/" . $link->getId() . '/' . $link->getSlug();
         }
+        if ($link->getType() == "author") {
+            return "/author/" . $link->getId() . '/' . $link->getSlug();
+        }
         return "/" . $link->getId() . '/' . $link->getSlug();
     }
 }
