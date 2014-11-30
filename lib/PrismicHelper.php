@@ -72,6 +72,16 @@ class PrismicHelper
         }
     }
 
+    static function search($q, $page = 1, $pageSize = 20)
+    {
+        return PrismicHelper::form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
     static function get_pages()
     {
         return PrismicHelper::form()
@@ -84,7 +94,7 @@ class PrismicHelper
     {
         return PrismicHelper::form()
             ->query(Predicates::at("document.type", "post"))
-            ->orderings("[my.post.date]")
+            ->orderings("[my.post.date desc]")
             ->page($page)
             ->pageSize($pageSize)
             ->submit();
