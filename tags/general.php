@@ -13,12 +13,12 @@ require_once 'lib/State.php';
 
 function site_title()
 {
-    echo SITE_TITLE;
+    return SITE_TITLE;
 }
 
 function site_description()
 {
-    echo SITE_DESCRIPTION;
+    return SITE_DESCRIPTION;
 }
 
 function home_link($label, $attrs = array())
@@ -27,11 +27,12 @@ function home_link($label, $attrs = array())
     if($_SERVER['REQUEST_URI'] == "/") {
         $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
     }
-    echo '<a ';
+    $result = '<a ';
     foreach($attrs as $k => $v) {
-        echo $k . '="' . $v . '" ';
+        $result .= ($k . '="' . $v . '" ');
     }
-    echo '>' . $label . '</a>';
+    $result .= ('>' . $label . '</a>');
+    return $result;
 }
 
 function sidebar()
@@ -54,23 +55,6 @@ function get_search_query()
     return htmlentities(State::current_query());
 }
 
-// Author tags
-
-function get_the_author()
-{
-    return 'TODO';
-}
-
-function the_author()
-{
-    echo get_the_author();
-}
-
-function list_authors()
-{
-
-}
-
 function get_calendar() {
     return PrismicHelper::get_calendar();
 }
@@ -88,9 +72,10 @@ function page_link($page, $attrs = array())
     if($_SERVER['REQUEST_URI'] == $attrs['href']) {
         $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
     }
-    echo '<a ';
+    $result = '<a ';
     foreach($attrs as $k => $v) {
-        echo $k . '="' . $v . '" ';
+        $result .= ($k . '="' . $v . '" ');
     }
-    echo '>' . htmlentities($page->getText("page.title")) . '</a>';
+    $result .= ('>' . htmlentities($page->getText("page.title")) . '</a>');
+    return $result;
 }

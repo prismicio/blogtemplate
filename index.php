@@ -7,6 +7,7 @@ require_once 'lib/theme.php';
 
 require_once 'tags/general.php';
 require_once 'tags/posts.php';
+require_once 'tags/author.php';
 
 $app = new \Slim\Slim();
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?php post_title() ?> <?php site_title() ?></title>
+    <title><?= post_title() ?> <?= site_title() ?></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -23,9 +23,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-        <?php home_link('Home', array('class' => 'blog-nav-item')) ?>
+        <?= home_link('Home', array('class' => 'blog-nav-item')) ?>
         <?php foreach(get_pages() as $page) { ?>
-            <?php page_link($page, array('class' => 'blog-nav-item')) ?>
+            <?= page_link($page, array('class' => 'blog-nav-item')) ?>
         <?php } ?>
         </nav>
     </div>
@@ -34,8 +34,8 @@
 <div class="container">
 
     <div class="blog-header">
-        <h1 class="blog-title"><?php site_title() ?></h1>
-        <p class="lead blog-description"><?php site_description() ?></p>
+        <h1 class="blog-title"><?= site_title() ?></h1>
+        <p class="lead blog-description"><?= site_description() ?></p>
     </div>
 
     <div class="row">

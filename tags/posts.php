@@ -68,20 +68,3 @@ function get_date($field, $format, $document = null)
         return null;
     }
 }
-
-function get_author($document = null) {
-    $doc = $document ? $document : current_document();
-    if ($doc == null) return null;
-    $docLink = $doc->getLink($doc->getType() . ".author");
-    return PrismicHelper::get_document($docLink->getId());
-}
-
-function author_link($author = null) {
-    $auth = $author ? $author : get_author();
-    if (!$auth) return null;
-    $author_name = $auth->getText("author.full_name");
-    $author_link = PrismicHelper::$linkResolver->resolveDocument($auth);
-    echo '<a href = "' . $author_link . '">' . htmlentities($author_name) . '</a>';
-}
-
-
