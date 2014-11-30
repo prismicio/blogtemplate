@@ -21,6 +21,19 @@ function site_description()
     echo SITE_DESCRIPTION;
 }
 
+function home_link($label, $attrs = array())
+{
+    $attrs['href'] = '/';
+    if($_SERVER['REQUEST_URI'] == "/") {
+        $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
+    }
+    echo '<a ';
+    foreach($attrs as $k => $v) {
+        echo $k . '="' . $v . '" ';
+    }
+    echo '>' . $label . '</a>';
+}
+
 function sidebar()
 {
     Theme::render('sidebar');
@@ -65,3 +78,15 @@ function get_pages()
     return PrismicHelper::get_pages();
 }
 
+function page_link($page, $attrs = array())
+{
+    $attrs['href'] = get_document_url($page);
+    if($_SERVER['REQUEST_URI'] == $attrs['href']) {
+        $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
+    }
+    echo '<a ';
+    foreach($attrs as $k => $v) {
+        echo $k . '="' . $v . '" ';
+    }
+    echo '>' . $page->getText("page.title") . '</a>';
+}

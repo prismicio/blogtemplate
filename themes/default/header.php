@@ -23,10 +23,10 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="blog-nav-item <?php if($_SERVER['REQUEST_URI'] == "/") echo "active" ?>" href="/">Home</a>
-            <?php foreach(get_pages() as $page) { ?>
-            <a class="blog-nav-item <?php if($_SERVER['REQUEST_URI'] == get_document_url($page)) echo "active" ?>" href="<?php document_url($page) ?>"><?php echo $page->getText("page.title") ?></a>
-            <?php } ?>
+        <?php home_link('Home', array('class' => 'blog-nav-item')) ?>
+        <?php foreach(get_pages() as $page) { ?>
+            <?php page_link($page, array('class' => 'blog-nav-item')) ?>
+        <?php } ?>
         </nav>
     </div>
 </div>
