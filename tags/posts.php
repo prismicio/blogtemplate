@@ -28,31 +28,27 @@ function posts() {
     return PrismicHelper::get_posts(State::current_page())->getResults();
 }
 
-function get_document_url($document)
+function document_url($document)
 {
     $doc = $document ? $document : current_document();
     return PrismicHelper::$linkResolver->resolveDocument($doc);
 }
 
-function document_url($document) {
-    echo get_document_url($document);
-}
-
-function get_post_title($document = null)
-{
-    $doc = $document ? $document : current_document();
-    return $doc ? $doc->getText($doc->getType() . ".title") : "";
-}
-
 function post_title($document = null)
 {
-    echo get_post_title($document);
+    $doc = $document ? $document : current_document();
+    return $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
+}
+
+function link_to_post($post)
+{
+    return '<a href="' . document_url($post) . '">' . post_title($post) . '</a>';
 }
 
 function get_text($field, $document = null)
 {
     $doc = $document ? $document : current_document();
-    return $doc->get($field)->asText(PrismicHelper::$linkResolver);
+    return htmlentities($doc->get($field)->asText(PrismicHelper::$linkResolver));
 }
 
 function get_html($field, $document = null)
@@ -85,7 +81,7 @@ function author_link($author = null) {
     if (!$auth) return null;
     $author_name = $auth->getText("author.full_name");
     $author_link = PrismicHelper::$linkResolver->resolveDocument($auth);
-    echo '<a href = "' . $author_link . '">' . $author_name . '</a>';
+    echo '<a href = "' . $author_link . '">' . htmlentities($author_name) . '</a>';
 }
 
 

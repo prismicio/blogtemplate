@@ -51,7 +51,7 @@ function get_footer()
 
 function get_search_query()
 {
-    return State::current_query();
+    return htmlentities(State::current_query());
 }
 
 // Author tags
@@ -84,7 +84,7 @@ function get_pages()
 
 function page_link($page, $attrs = array())
 {
-    $attrs['href'] = get_document_url($page);
+    $attrs['href'] = document_url($page);
     if($_SERVER['REQUEST_URI'] == $attrs['href']) {
         $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
     }
@@ -92,5 +92,5 @@ function page_link($page, $attrs = array())
     foreach($attrs as $k => $v) {
         echo $k . '="' . $v . '" ';
     }
-    echo '>' . $page->getText("page.title") . '</a>';
+    echo '>' . htmlentities($page->getText("page.title")) . '</a>';
 }

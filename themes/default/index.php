@@ -2,10 +2,10 @@
 
 <?php foreach(posts() as $post) { ?>
 <div class="blog-post">
-    <h2 class="blog-post-title"><a href="<?php document_url($post) ?>"><?php echo $post->getText("post.title") ?></a></h2>
+    <h2 class="blog-post-title"><?= link_to_post($post) ?></h2>
     <p class="blog-post-meta"><?= get_date("post.date", "F, jS Y", $post) ?> by <?php author_link(get_author($post)) ?></p>
 
-    <?php get_html("post.body", $post); ?>
+    <?= get_html("post.body", $post); ?>
 </div>
 <?php } ?>
 
