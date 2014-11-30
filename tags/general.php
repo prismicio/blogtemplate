@@ -71,6 +71,10 @@ function list_authors()
 
 }
 
+function get_calendar() {
+    return PrismicHelper::get_calendar();
+}
+
 // Pages tags
 
 function get_pages()

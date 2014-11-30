@@ -80,12 +80,32 @@ class PrismicHelper
             ->getResults();
     }
 
-    static function get_posts($page)
+    static function get_posts($page, $pageSize = 20)
     {
         return PrismicHelper::form()
             ->query(Predicates::at("document.type", "post"))
+            ->orderings("[my.post.date]")
             ->page($page)
+            ->pageSize($pageSize)
             ->submit();
+    }
+
+    static function get_calendar()
+    {
+        $calendar = array();
+        $page = 1;
+        do {
+            $posts = PrismicHelper::get_posts($page, 100);
+            foreach ($posts->getResults() as $post) {
+                $date = $post->getDate("post.date")->asDateTime();
+                $key = $date->format("F Y");
+                if ($key != end($calendar)) {
+                    array_push($calendar, $key);
+                }
+                $page++;
+            }
+        } while ($posts->getNextPage());
+        return $calendar;
     }
 
 }
