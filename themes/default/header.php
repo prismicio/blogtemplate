@@ -23,9 +23,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="blog-nav-item" href="/">Home</a>
+            <a class="blog-nav-item <?php if($_SERVER['REQUEST_URI'] == "/") echo "active" ?>" href="/">Home</a>
             <?php foreach(get_pages() as $page) { ?>
-            <a class="blog-nav-item" href="<?php document_url($page) ?>"><?php echo $page->getText("page.title") ?></a>
+            <a class="blog-nav-item <?php if($_SERVER['REQUEST_URI'] == get_document_url($page)) echo "active" ?>" href="<?php document_url($page) ?>"><?php echo $page->getText("page.title") ?></a>
             <?php } ?>
         </nav>
     </div>
