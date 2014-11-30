@@ -16,6 +16,16 @@ function site_title()
     echo SITE_TITLE;
 }
 
+function site_description()
+{
+    echo SITE_DESCRIPTION;
+}
+
+function sidebar()
+{
+    Theme::render('sidebar');
+}
+
 function get_header()
 {
     Theme::render('header');
