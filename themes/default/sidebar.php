@@ -15,7 +15,7 @@
     <h4>Archives</h4>
     <ol class="list-unstyled">
         <?php foreach(get_calendar() as $month) { ?>
-        <li><a href="#"><?php echo $month ?></a></li>
+        <li><a href="#"><?= $month ?></a></li>
         <?php } ?>
         <!-- li><a href="#">March 2014</a></li>
         <li><a href="#">February 2014</a></li>
