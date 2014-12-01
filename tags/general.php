@@ -46,6 +46,11 @@ function get_search_query()
     return htmlentities(State::current_query());
 }
 
+function get_category()
+{
+    return htmlentities(State::$current_category);
+}
+
 function get_calendar() {
     return PrismicHelper::get_calendar();
 }

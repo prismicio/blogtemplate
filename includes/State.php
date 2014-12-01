@@ -6,6 +6,7 @@ class State {
 
     static $current_document_id;
     static $current_archive_date;
+    static $current_category;
 
     static function current_query()
     {

@@ -43,6 +43,12 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
     Theme::render('archive');
 });
 
+// Category
+$app->get('/category/:category', function ($category) {
+    State::$current_category = $category;
+    Theme::render('category');
+});
+
 // Index
 $app->get('/', function() {
     Theme::render('index');

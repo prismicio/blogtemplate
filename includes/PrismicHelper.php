@@ -87,6 +87,16 @@ class PrismicHelper
             ->submit();
     }
 
+    static function category($category, $page = 1, $pageSize = 20)
+    {
+        return PrismicHelper::form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.category", $category)))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
     static function archives($date, $page = 1, $pageSize = 20)
     {
         if (!$date['month']) {

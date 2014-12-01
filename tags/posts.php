@@ -23,6 +23,9 @@ function posts() {
     } else if (State::current_archive_date() != null) {
         // Archive page
         return PrismicHelper::archives(State::current_archive_date(), State::current_page())->getResults();
+    } else if (State::$current_category != null) {
+        // Category page
+        return PrismicHelper::category(State::$current_category, State::current_page())->getResults();
     }
     // Index page
     return PrismicHelper::get_posts(State::current_page())->getResults();
@@ -77,4 +80,16 @@ function post_date_link($document = null)
     $label = date_format($date, "F, jS Y");
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
     return '<a href="' . $url . '">' . $label . '</a>';
+}
+
+function category_link($document = null)
+{
+    $doc = $document ? $document : current_document();
+    if (!$doc) return null;
+    $category = $document->getText("post.category");
+    if (!$category) {
+        return null;
+    }
+    $url = '/category/' . $category;
+    return '<a href="' . $url . '">' . $category . '</a>';
 }

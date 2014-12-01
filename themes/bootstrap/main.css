@@ -75,7 +75,7 @@ h6, .h6 {
 
 .blog-nav .navbar-form {
   margin-top: 6px;
-  margin-bottom: 0;
+  margin-bottom: ;
 }
 
 /*
@@ -146,13 +146,19 @@ h6, .h6 {
 }
 .blog-post-title {
   margin-bottom: 5px;
-  font-size: 40px;
+  font-size: 36px;
 }
 .blog-post-meta {
+  font-size: 16px;
   margin-bottom: 20px;
   color: #999;
 }
-
+.blog-post-meta span {
+  margin-left: 15px;
+}
+.blog-post-meta span:first-child {
+  margin-left: 0;
+}
 
 /*
  * Footer
