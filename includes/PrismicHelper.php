@@ -17,9 +17,6 @@ class BlogLinkResolver extends LinkResolver
         if ($link->isBroken()) {
             return null;
         }
-        if ($link->getType() == "page") {
-            return "/page/" . $link->getId() . '/' . $link->getSlug();
-        }
         if ($link->getType() == "author") {
             return "/author/" . $link->getId() . '/' . $link->getSlug();
         }
@@ -100,20 +97,17 @@ class PrismicHelper
     static function archives($date, $page = 1, $pageSize = 20)
     {
         if (!$date['month']) {
-            $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-01-01');
-            $upperBound = clone $lowerBound;
-            $lowerBound->modify('-1 day');
-            $upperBound->modify('+1 year');
+            $lowerBound = DateTime::createFromFormat('Y-m-d', ($date['year'] - 1) . '-12-31');
+            $upperBound = DateTime::createFromFormat('Y-m-d', ($date['year'] + 1) . '-01-01');
         } else if (!$date['day']) {
             $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-' . $date['month'] .'-01');
             $upperBound = clone $lowerBound;
             $lowerBound->modify('-1 day');
-            $upperBound->modify('+1 month');
+            $upperBound->modify('+1 month - 1 day');
         } else {
             $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-' . $date['month'] .'-' . $date['day']);
             $upperBound = clone $lowerBound;
             $lowerBound->modify('-1 day');
-            $upperBound->modify('+1 day');
         }
         return PrismicHelper::form()
             ->query(array(
@@ -133,6 +127,9 @@ class PrismicHelper
         $bkIds = array();
         foreach ($bookmarks as $name => $id) {
             array_push($bkIds, $id);
+        }
+        if (count($bkIds) == 0) {
+            return array();
         }
         return PrismicHelper::form()
             ->query(Predicates::any("document.id", $bkIds))

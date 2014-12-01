@@ -76,7 +76,7 @@ $app->get('/:id/:slug', function($id, $slug) {
     }
 });
 
-// Page
+// Page (bookmarks)
 $app->get('/:name', function($name) {
     global $app;
 
