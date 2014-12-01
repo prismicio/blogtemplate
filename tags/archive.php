@@ -30,3 +30,15 @@ function archive_date() {
         return $dt->format('F jS, Y');
     }
 }
+
+function archive_link($year, $month = null, $day = null)
+{
+    $url = '/archive/' . $year;
+    if ($month) {
+        $url .= '/' . $month;
+    }
+    if ($month && $day) {
+        $url .= '/' . $day;
+    }
+    return $url;
+}

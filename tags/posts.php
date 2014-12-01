@@ -60,14 +60,21 @@ function get_html($field, $document = null)
     return null;
 }
 
-function get_date($field, $format, $document = null)
+function get_date($field, $document = null)
 {
     $doc = $document ? $document : current_document();
     if (!$doc) return null;
-    $date = $doc->getDate($field);
-    if ($date != null) {
-        return date_format($date->asDateTime(), $format);
-    } else {
+    return $doc->getDate($field);
+}
+
+function post_date_link($document = null)
+{
+    $date = get_date("post.date", $document);
+    if (!$date) {
         return null;
     }
+    $date = $date->asDateTime();
+    $label = date_format($date, "F, jS Y");
+    $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
+    return '<a href="' . $url . '">' . $label . '</a>';
 }
