@@ -33,7 +33,7 @@ function archive_date() {
 
 function archive_link($year, $month = null, $day = null)
 {
-    $url = '/archive/' . $year;
+    $url = '/' . $year;
     if ($month) {
         $url .= '/' . $month;
     }

@@ -9,10 +9,9 @@ class BlogLinkResolver extends LinkResolver
 {
     public function resolve($link)
     {
-        foreach(PrismicHelper::get_api()->bookmarks() as $name => $id) {
-            if ($link->getId() == $id) {
-                return '/' . $name;
-            }
+        $name = PrismicHelper::get_bookmark_name($link->getId());
+        if ($name) {
+            return '/' . $name;
         }
         if ($link->isBroken()) {
             return null;
@@ -20,8 +19,25 @@ class BlogLinkResolver extends LinkResolver
         if ($link->getType() == "author") {
             return "/author/" . $link->getId() . '/' . $link->getSlug();
         }
-        return "/" . $link->getId() . '/' . $link->getSlug();
+        return $this->resolveDocument(PrismicHelper::get_document($link->getId()));
     }
+
+    public function resolveDocument($doc)
+    {
+        $name = PrismicHelper::get_bookmark_name($doc->getId());
+        if ($name) {
+            return '/' . $name;
+        }
+        if ($doc->getType() == "author") {
+            return "/author/" . $doc->getId() . '/' . $doc->getSlug();
+        }
+        $date = get_date("post.date", $doc);
+        $year = $date ? $date->asDateTime()->format('Y') : '0';
+        $month = $date ? $date->asDateTime()->format('m') : '0';
+        $day = $date ? $date->asDateTime()->format('d') : '0';
+        return "/" . $year . '/' . $month . '/' . $day . '/' . $doc->getId() . '/' . $doc->getSlug();
+    }
+
 }
 
 class PrismicHelper
@@ -72,6 +88,16 @@ class PrismicHelper
         } else {
             return null;
         }
+    }
+
+    static function get_bookmark_name($documentId)
+    {
+        foreach(PrismicHelper::get_api()->bookmarks() as $name => $id) {
+            if ($documentId == $id) {
+                return $name;
+            }
+        }
+        return null;
     }
 
     static function search($q, $page = 1, $pageSize = 20)

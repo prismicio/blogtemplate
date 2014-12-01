@@ -37,12 +37,6 @@ $app->get('/search', function() {
     Theme::render('search');
 });
 
-// Archive
-$app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) {
-    State::set_current_archive($year, $month, $day);
-    Theme::render('archive');
-});
-
 // Category
 $app->get('/category/:category', function ($category) {
     State::$current_category = $category;
@@ -64,7 +58,7 @@ $app->get('/preview', function() {
 });
 
 // Post
-$app->get('/:id/:slug', function($id, $slug) {
+$app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $slug) {
     global $app;
     State::$current_document_id = $id;
 
@@ -74,6 +68,12 @@ $app->get('/:id/:slug', function($id, $slug) {
     } else {
         Theme::render('single');
     }
+});
+
+// Archive
+$app->get('/:year/:month(/:day)', function ($year, $month, $day = null) {
+    State::set_current_archive($year, $month, $day);
+    Theme::render('archive');
 });
 
 // Page (bookmarks)
