@@ -19,20 +19,6 @@ require 'tags/archive.php';
 
 $app = new \Slim\Slim();
 
-// Page
-$app->get('/page/:pid/:slug', function($pid, $slug) {
-    global $app;
-    State::$current_document_id = $pid;
-    if (current_document() == null) {
-        $app->response->setStatus(404);
-        Theme::render('404');
-    } else {
-        $doc = current_document();
-        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
-        Theme::render('page');
-    }
-});
-
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) {
     global $app;
@@ -81,6 +67,21 @@ $app->get('/:id/:slug', function($id, $slug) {
         Theme::render('404');
     } else {
         Theme::render('single');
+    }
+});
+
+// Page
+$app->get('/:name', function($name) {
+    global $app;
+
+    State::$current_document_id = $bookmarks = PrismicHelper::get_api()->bookmark($name);
+    if (current_document() == null) {
+        $app->response->setStatus(404);
+        Theme::render('404');
+    } else {
+        $doc = current_document();
+        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
+        Theme::render('page');
     }
 });
 

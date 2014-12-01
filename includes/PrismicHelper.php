@@ -9,6 +9,11 @@ class BlogLinkResolver extends LinkResolver
 {
     public function resolve($link)
     {
+        foreach(PrismicHelper::get_api()->bookmarks() as $name => $id) {
+            if ($link->getId() == $id) {
+                return '/' . $name;
+            }
+        }
         if ($link->isBroken()) {
             return null;
         }
@@ -109,10 +114,16 @@ class PrismicHelper
             ->submit();
     }
 
-    static function get_pages()
+    static function get_bookmarks()
     {
+        $bookmarks = PrismicHelper::get_api()->bookmarks();
+        $bkIds = array();
+        foreach ($bookmarks as $name => $id) {
+            array_push($bkIds, $id);
+        }
         return PrismicHelper::form()
-            ->query(Predicates::at("document.type", "page"))
+            ->query(Predicates::any("document.id", $bkIds))
+            ->orderings("[my.page.priority desc]")
             ->submit()
             ->getResults();
     }
@@ -120,10 +131,10 @@ class PrismicHelper
     static function get_posts($page, $pageSize = 20)
     {
         return PrismicHelper::form()
-            ->query(Predicates::at("document.type", "post"))
-            ->orderings("[my.post.date desc]")
             ->page($page)
             ->pageSize($pageSize)
+            ->query(Predicates::at("document.type", "post"))
+            ->orderings("[my.post.date desc]")
             ->submit();
     }
 
@@ -146,6 +157,7 @@ class PrismicHelper
         do {
             $posts = PrismicHelper::get_posts($page, 100);
             foreach ($posts->getResults() as $post) {
+                if (!$post->getDate("post.date")) continue;
                 $date = $post->getDate("post.date")->asDateTime();
                 $key = $date->format("F Y");
                 if ($key != end($calendar)['label']) {

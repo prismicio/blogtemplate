@@ -5,7 +5,10 @@ function author($document = null) {
     $doc = $document ? $document : current_document();
     if ($doc == null) return null;
     $docLink = $doc->getLink($doc->getType() . ".author");
-    return PrismicHelper::get_document($docLink->getId());
+    if ($docLink) {
+        return PrismicHelper::get_document($docLink->getId());
+    }
+    return null;
 }
 
 function author_name($author = null) {

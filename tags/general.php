@@ -54,7 +54,7 @@ function get_calendar() {
 
 function get_pages()
 {
-    return PrismicHelper::get_pages();
+    return PrismicHelper::get_bookmarks();
 }
 
 function page_link($page, $attrs = array())

@@ -54,7 +54,10 @@ function get_text($field, $document = null)
 function get_html($field, $document = null)
 {
     $doc = $document ? $document : current_document();
-    return $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
+    if ($doc->get($field)) {
+        return $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
+    }
+    return null;
 }
 
 function get_date($field, $format, $document = null)
