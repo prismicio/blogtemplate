@@ -7,7 +7,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/themes/default/main.css">
+    <link rel="stylesheet" href="/themes/bootstrap/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -23,6 +23,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
+            <form class="navbar-form navbar-right" method="get" action="search">
+                <input type="text" placeholder="Search..." name="q">
+            </form>
         <?= home_link('Home', array('class' => 'blog-nav-item')) ?>
         <?php foreach(get_pages() as $page) { ?>
             <?= page_link($page, array('class' => 'blog-nav-item')) ?>

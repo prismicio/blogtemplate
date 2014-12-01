@@ -1,11 +1,6 @@
 <?php
 require 'vendor/autoload.php';
 
-require_once 'config.php';
-require_once 'includes/PrismicHelper.php';
-require_once 'includes/State.php';
-
-
 function author($document = null) {
     $doc = $document ? $document : current_document();
     if ($doc == null) return null;

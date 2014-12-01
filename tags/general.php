@@ -1,8 +1,5 @@
 <?php
 require 'vendor/autoload.php';
-require_once 'config.php';
-require_once 'includes/PrismicHelper.php';
-require_once 'includes/State.php';
 
 /**
  * The way the tags are written can lead to the same request being done several times,

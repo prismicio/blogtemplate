@@ -73,6 +73,10 @@ h6, .h6 {
   border-left: 5px solid transparent;
 }
 
+.blog-nav .navbar-form {
+  margin-top: 6px;
+  margin-bottom: 0;
+}
 
 /*
  * Blog name and description

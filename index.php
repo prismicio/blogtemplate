@@ -8,12 +8,13 @@ if (file_exists('config.php')) {
     exit();
 }
 
-require_once 'includes/PrismicHelper.php';
-require_once 'includes/theme.php';
+require 'includes/PrismicHelper.php';
+require 'includes/State.php';
+require 'includes/theme.php';
 
-require_once 'tags/general.php';
-require_once 'tags/posts.php';
-require_once 'tags/author.php';
+require 'tags/general.php';
+require 'tags/posts.php';
+require 'tags/author.php';
 
 $app = new \Slim\Slim();
 
@@ -40,8 +41,6 @@ $app->get('/author/:id/:slug', function($id, $slug) {
         $app->response->setStatus(404);
         Theme::render('404');
     } else {
-        $doc = current_document();
-        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
         Theme::render('author');
     }
 });
@@ -55,8 +54,6 @@ $app->get('/:id/:slug', function($id, $slug) {
         $app->response->setStatus(404);
         Theme::render('404');
     } else {
-        $doc = current_document();
-        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
         Theme::render('single');
     }
 });

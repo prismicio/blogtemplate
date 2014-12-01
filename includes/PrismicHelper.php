@@ -32,7 +32,7 @@ class PrismicHelper
     static function get_api()
     {
         if (PrismicHelper::$api == null) {
-            PrismicHelper::$api = Api::get(PRISMIC_URL);
+            PrismicHelper::$api = Api::get(PRISMIC_URL, ACCESS_TOKEN);
         }
         return PrismicHelper::$api;
     }
