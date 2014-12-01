@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 require_once 'config.php';
-require_once 'lib/PrismicHelper.php';
-require_once 'lib/State.php';
+require_once 'includes/PrismicHelper.php';
+require_once 'includes/State.php';
 
 /**
  * The way the tags are written can lead to the same request being done several times,
@@ -23,16 +23,10 @@ function site_description()
 
 function home_link($label, $attrs = array())
 {
-    $attrs['href'] = '/';
     if($_SERVER['REQUEST_URI'] == "/") {
         $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
     }
-    $result = '<a ';
-    foreach($attrs as $k => $v) {
-        $result .= ($k . '="' . $v . '" ');
-    }
-    $result .= ('>' . $label . '</a>');
-    return $result;
+    return _make_link('/', $label, $attrs);
 }
 
 function sidebar()
@@ -68,14 +62,22 @@ function get_pages()
 
 function page_link($page, $attrs = array())
 {
-    $attrs['href'] = document_url($page);
-    if($_SERVER['REQUEST_URI'] == $attrs['href']) {
+    $url = document_url($page);
+    if($_SERVER['REQUEST_URI'] == $url) {
         $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
     }
+    return _make_link($url, htmlentities($page->getText("page.title")), $attrs);
+}
+
+// Helpers (shouldn't be used in templates)
+
+function _make_link($url, $label, $attrs)
+{
+    $attrs['href'] = $url;
     $result = '<a ';
     foreach($attrs as $k => $v) {
         $result .= ($k . '="' . $v . '" ');
     }
-    $result .= ('>' . htmlentities($page->getText("page.title")) . '</a>');
+    $result .= ('>' . $label . '</a>');
     return $result;
 }

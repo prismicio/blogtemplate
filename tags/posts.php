@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 require_once 'config.php';
-require_once 'lib/PrismicHelper.php';
-require_once 'lib/State.php';
+require_once 'includes/PrismicHelper.php';
+require_once 'includes/State.php';
 
 /**
  * Most of these functions accept a $document as parameter.

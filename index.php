@@ -1,9 +1,15 @@
 <?php
 require 'vendor/autoload.php';
 
-require_once 'config.php';
-require_once 'lib/PrismicHelper.php';
-require_once 'lib/theme.php';
+if (file_exists('config.php')) {
+    require_once 'config.php';
+} else {
+    include 'includes/templates/firstrun.php';
+    exit();
+}
+
+require_once 'includes/PrismicHelper.php';
+require_once 'includes/theme.php';
 
 require_once 'tags/general.php';
 require_once 'tags/posts.php';
@@ -19,6 +25,8 @@ $app->get('/page/:pid/:slug', function($pid, $slug) {
         $app->response->setStatus(404);
         Theme::render('404');
     } else {
+        $doc = current_document();
+        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
         Theme::render('page');
     }
 });
@@ -32,6 +40,8 @@ $app->get('/author/:id/:slug', function($id, $slug) {
         $app->response->setStatus(404);
         Theme::render('404');
     } else {
+        $doc = current_document();
+        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
         Theme::render('author');
     }
 });
@@ -45,6 +55,8 @@ $app->get('/:id/:slug', function($id, $slug) {
         $app->response->setStatus(404);
         Theme::render('404');
     } else {
+        $doc = current_document();
+        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
         Theme::render('single');
     }
 });

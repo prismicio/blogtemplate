@@ -1,8 +1,9 @@
 <?php
 require 'vendor/autoload.php';
+
 require_once 'config.php';
-require_once 'lib/PrismicHelper.php';
-require_once 'lib/State.php';
+require_once 'includes/PrismicHelper.php';
+require_once 'includes/State.php';
 
 
 function author($document = null) {
