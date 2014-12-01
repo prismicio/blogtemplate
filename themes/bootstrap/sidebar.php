@@ -6,8 +6,8 @@
 <div class="sidebar-module">
     <h4>Archives</h4>
     <ol class="list-unstyled">
-        <?php foreach(get_calendar() as $month) { ?>
-        <li><a href="#"><?= $month ?></a></li>
+        <?php foreach(get_calendar() as $entry) { ?>
+        <li><a href="<?= $entry['link'] ?>"><?= $entry['label'] ?></a></li>
         <?php } ?>
     </ol>
 </div>

@@ -20,6 +20,9 @@ function posts() {
     if (State::current_query() != null) {
         // Search page
         return PrismicHelper::search(State::current_query(), State::current_page())->getResults();
+    } else if (State::current_archive_date() != null) {
+        // Archive page
+        return PrismicHelper::archives(State::current_archive_date(), State::current_page())->getResults();
     }
     // Index page
     return PrismicHelper::get_posts(State::current_page())->getResults();

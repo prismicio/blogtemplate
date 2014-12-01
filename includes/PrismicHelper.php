@@ -82,6 +82,33 @@ class PrismicHelper
             ->submit();
     }
 
+    static function archives($date, $page = 1, $pageSize = 20)
+    {
+        if (!$date['month']) {
+            $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-01-01');
+            $upperBound = clone $lowerBound;
+            $upperBound->modify('+1 year');
+        } else if (!$date['day']) {
+            $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-' . $date['month'] .'-01');
+            $upperBound = clone $lowerBound;
+            $upperBound->modify('+1 month');
+        } else {
+            $lowerBound = DateTime::createFromFormat('Y-m-d', $date['year'] . '-' . $date['month'] .'-' . $date['day']);
+            $upperBound = clone $lowerBound;
+            $upperBound->modify('+1 day');
+        }
+        return PrismicHelper::form()
+            ->query(array(
+                Predicates::at("document.type", "post"),
+                Predicates::dateAfter("my.post.date", $lowerBound),
+                Predicates::dateBefore("my.post.date", $upperBound)
+            ))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
     static function get_pages()
     {
         return PrismicHelper::form()
@@ -100,6 +127,18 @@ class PrismicHelper
             ->submit();
     }
 
+    private static function date_link($year, $month = null, $day = null)
+    {
+        $url = '/archive/' . $year;
+        if ($month) {
+            $url .= '/' . $month;
+        }
+        if ($month && $day) {
+            $url .= '/' . $day;
+        }
+        return $url;
+    }
+
     static function get_calendar()
     {
         $calendar = array();
@@ -109,8 +148,11 @@ class PrismicHelper
             foreach ($posts->getResults() as $post) {
                 $date = $post->getDate("post.date")->asDateTime();
                 $key = $date->format("F Y");
-                if ($key != end($calendar)) {
-                    array_push($calendar, $key);
+                if ($key != end($calendar)['label']) {
+                    array_push($calendar, array(
+                        'label' => $key,
+                        'link' => PrismicHelper::date_link($date->format('Y'), $date->format('m'))
+                    ));
                 }
                 $page++;
             }

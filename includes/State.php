@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 class State {
 
     static $current_document_id;
+    static $current_archive_date;
 
     static function current_query()
     {
@@ -23,6 +24,18 @@ class State {
             return null;
         }
         return PrismicHelper::get_document(State::$current_document_id);
+    }
+
+    static function set_current_archive($year, $month, $day) {
+        State::$current_archive_date = array(
+            'year' => $year,
+            'month' => $month,
+            'day' => $day
+        );
+    }
+
+    static function current_archive_date() {
+        return State::$current_archive_date;
     }
 
 }
