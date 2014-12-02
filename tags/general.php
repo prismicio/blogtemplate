@@ -1,5 +1,4 @@
 <?php
-require 'vendor/autoload.php';
 
 /**
  * The way the tags are written can lead to the same request being done several times,

@@ -1,5 +1,4 @@
 <?php
-require 'vendor/autoload.php';
 
 function author($document = null) {
     $doc = $document ? $document : current_document();

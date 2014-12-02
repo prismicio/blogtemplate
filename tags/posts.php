@@ -1,5 +1,4 @@
 <?php
-require 'vendor/autoload.php';
 
 /**
  * Most of these functions accept a $document as parameter.

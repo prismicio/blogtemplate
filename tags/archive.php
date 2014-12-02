@@ -1,6 +1,4 @@
 <?php
-require 'vendor/autoload.php';
-
 
 function is_day() {
     return State::$current_archive_date && State::$current_archive_date['day'];
@@ -23,6 +21,9 @@ function archive_date() {
         return $dt->format('F Y');
     }
     if (is_day()) {
+        echo State::$current_archive_date['year']
+        . '-' . State::$current_archive_date['month']
+        . '-' . State::$current_archive_date['day'];
         $dt = DateTime::createFromFormat('!Y-m-d',
             State::$current_archive_date['year']
             . '-' . State::$current_archive_date['month']
