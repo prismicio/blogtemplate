@@ -51,13 +51,18 @@ h6, .h6 {
   position: relative;
   font-weight: 500;
 }
-.blog-nav-item a {
+.blog-nav-item a, .dropdown-menu > li > a {
   display: inline-block;
   padding: 10px;
   color: #cdddeb;
 }
+.dropdown-menu > li > a:hover {
+  background: #428bca none;
+  color: #fff;
+}
 .dropdown-menu {
   border-radius: 0;
+  background-color: #428bca;
 }
 .blog-nav-item a:hover,
 .blog-nav-item a:focus {

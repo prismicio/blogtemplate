@@ -34,8 +34,8 @@
                 <?php } ?>
                 <!-- li class="blog-nav-item dropdown"><a href="#">With submenu <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/page2">Page2</a>
-                        </li>
+                        <li><a href="#">Page2</a></li>
+                        <li><a href="#">Page3</a></li>
                     </ul>
                 </li -->
             </ul>
