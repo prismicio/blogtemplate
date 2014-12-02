@@ -25,7 +25,7 @@ function the_feed_link($anchor)
 function home_link($label, $attrs = array())
 {
     if($_SERVER['REQUEST_URI'] == "/") {
-        $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
+        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
     return _make_link('/', $label, $attrs);
 }
@@ -70,7 +70,7 @@ function page_link($page, $attrs = array())
 {
     $url = document_url($page);
     if($_SERVER['REQUEST_URI'] == $url) {
-        $attrs['class'] = $attrs['class'] ? ($attrs['class'] . ' active') : 'active';
+        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
     return _make_link($url, htmlentities($page->getText("page.title")), $attrs);
 }

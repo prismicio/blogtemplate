@@ -27,10 +27,18 @@
             <form class="navbar-form navbar-right" method="get" action="search">
                 <input type="text" placeholder="Search..." name="q">
             </form>
-        <?= home_link('Home', array('class' => 'blog-nav-item')) ?>
-        <?php foreach(get_pages() as $page) { ?>
-            <?= page_link($page, array('class' => 'blog-nav-item')) ?>
-        <?php } ?>
+            <ul>
+                <li class="blog-nav-item"><?= home_link('Home') ?></li>
+                <?php foreach(get_pages() as $page) { ?>
+                    <li class="blog-nav-item"><?= page_link($page) ?></li>
+                <?php } ?>
+                <!-- li class="blog-nav-item dropdown"><a href="#">With submenu <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/page2">Page2</a>
+                        </li>
+                    </ul>
+                </li -->
+            </ul>
         </nav>
     </div>
 </div>

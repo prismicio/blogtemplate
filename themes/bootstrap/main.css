@@ -42,15 +42,25 @@ h6, .h6 {
 }
 
 /* Nav links */
+.blog-nav ul {
+  padding: 0;
+  margin: 0;
+}
 .blog-nav-item {
+  display: inline-block;
   position: relative;
+  font-weight: 500;
+}
+.blog-nav-item a {
   display: inline-block;
   padding: 10px;
-  font-weight: 500;
   color: #cdddeb;
 }
-.blog-nav-item:hover,
-.blog-nav-item:focus {
+.dropdown-menu {
+  border-radius: 0;
+}
+.blog-nav-item a:hover,
+.blog-nav-item a:focus {
   color: #fff;
   text-decoration: none;
 }
@@ -75,7 +85,13 @@ h6, .h6 {
 
 .blog-nav .navbar-form {
   margin-top: 6px;
-  margin-bottom: ;
+}
+
+.blog-nav .dropdown:hover ul.dropdown-menu {
+  display: block;
+}
+.blog-nav .dropdown {
+  display: inline-block;
 }
 
 /*
