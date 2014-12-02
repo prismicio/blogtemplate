@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Prismic\Api;
 use Prismic\LinkResolver;

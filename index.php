@@ -1,4 +1,5 @@
 <?php
+
 require 'vendor/autoload.php';
 
 if (file_exists('config.php')) {
@@ -16,6 +17,10 @@ require 'tags/general.php';
 require 'tags/posts.php';
 require 'tags/author.php';
 require 'tags/archive.php';
+
+use Suin\RSSWriter\Channel;
+use Suin\RSSWriter\Feed;
+use Suin\RSSWriter\Item;
 
 $app = new \Slim\Slim();
 
@@ -48,11 +53,37 @@ $app->get('/', function() {
     Theme::render('index');
 });
 
+// RSS Feed
+$app->get('/feed', function() {
+    global $app;
+    $blogUrl = $app->request()->getUrl();
+    $feed = new Feed();
+    $channel = new Channel();
+    $channel
+        ->title(SITE_TITLE)
+        ->description(SITE_DESCRIPTION)
+        ->url($blogUrl)
+        ->appendTo($feed);
+
+    foreach (posts() as $post) {
+        echo 'Add item: ' . post_title($post);
+        $item = new Item();
+        $item
+            ->title(post_title($post))
+            ->description(get_html("post.body", $post))
+            ->url($blogUrl . PrismicHelper::$linkResolver->resolveDocument($post))
+            ->pubDate($post->getDate("post.date")->asEpoch())
+            ->appendTo($channel);
+    }
+
+    echo $feed;
+});
+
 // Previews
 $app->get('/preview', function() {
-    global $app, $linkResolver;
+    global $app;
     $token = $app->request()->params('token');
-    $url = PrismicHelper::get_api()->previewSession($token, $linkResolver, '/');
+    $url = PrismicHelper::get_api()->previewSession($token, PrismicHelper::$linkResolver, '/');
     $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
     $app->response->redirect($url, 301);
 });

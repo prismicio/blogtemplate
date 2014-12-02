@@ -18,6 +18,11 @@ function site_description()
     return SITE_DESCRIPTION;
 }
 
+function the_feed_link($anchor)
+{
+    return '<a href="/feed">' . $anchor . '</a>';
+}
+
 function home_link($label, $attrs = array())
 {
     if($_SERVER['REQUEST_URI'] == "/") {
