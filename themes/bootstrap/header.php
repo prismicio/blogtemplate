@@ -32,16 +32,16 @@
                 <?php foreach(get_pages() as $page) { ?>
                     <?php if(count($page['children']) > 0) { ?>
                         <li class="blog-nav-item dropdown">
-                            <a href="<?= $page['url'] ?>"><?= $page['label'] ?></a>
+                            <?= page_link($page) ?>
                             <ul class="dropdown-menu">
                                 <?php foreach($page['children'] as $subpage) { ?>
-                                    <a href="<?= $subpage['url'] ?>"><?= $subpage['label'] ?></a>
+                                    <?= page_link($subpage) ?>
                                 <?php } ?>
                             </ul>
                         </li>
                     <?php } else { ?>
                         <li class="blog-nav-item">
-                            <a href="<?= $page['url'] ?>"><?= $page['label'] ?></a>
+                            <?= page_link($page) ?>
                         </li>
                     <?php } ?>
                 <?php } ?>

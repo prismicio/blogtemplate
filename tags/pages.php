@@ -5,20 +5,12 @@ function home()
     return PrismicHelper::get_document(PrismicHelper::get_api()->bookmark("home"));
 }
 
-function page_title($page)
+function page_link($page, $attrs = array())
 {
-    return $page->getText("page.title");
-}
-
-function page_link($page, $label = null)
-{
-    $url = document_url($page);
-    if (!$label) $label = htmlentities(page_title($page));
-    $attrs = array();
-    if($_SERVER['REQUEST_URI'] == $url) {
-        $attrs['class'] = 'active';
+    if($_SERVER['REQUEST_URI'] == $page['url']) {
+        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
-    return _make_link($url, $label, $attrs);
+    return _make_link($page['url'], $page['label'], $attrs);
 }
 
 function has_children($page)

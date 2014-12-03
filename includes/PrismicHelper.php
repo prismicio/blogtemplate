@@ -9,8 +9,8 @@ class BlogLinkResolver extends LinkResolver
     public function resolve($link)
     {
         $name = PrismicHelper::get_bookmark_name($link->getId());
-        if ($name) {
-            return '/' . $name;
+        if ($name == 'home') {
+            return '/';
         }
         if ($link->isBroken()) {
             return null;
@@ -102,7 +102,7 @@ class PrismicHelper
         return null;
     }
 
-    static function search($q, $page = 1, $pageSize = 20)
+    static function search($q, $page = 1, $pageSize = PAGE_SIZE)
     {
         return PrismicHelper::form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
@@ -112,7 +112,7 @@ class PrismicHelper
             ->submit();
     }
 
-    static function category($category, $page = 1, $pageSize = 20)
+    static function category($category, $page = 1, $pageSize = PAGE_SIZE)
     {
         return PrismicHelper::form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.category", $category)))
@@ -122,7 +122,7 @@ class PrismicHelper
             ->submit();
     }
 
-    static function archives($date, $page = 1, $pageSize = 20)
+    static function archives($date, $page = 1, $pageSize = PAGE_SIZE)
     {
         if (!$date['month']) {
             $lowerBound = DateTime::createFromFormat('Y-m-d', ($date['year'] - 1) . '-12-31');
@@ -166,7 +166,7 @@ class PrismicHelper
             ->getResults();
     }
 
-    static function get_posts($page, $pageSize = 20)
+    static function get_posts($page, $pageSize = PAGE_SIZE)
     {
         return PrismicHelper::form()
             ->page($page)

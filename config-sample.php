@@ -15,6 +15,11 @@ define('ACCESS_TOKEN', null);
 define('PI_THEME', 'bootstrap');
 
 /**
+ * Page size: applies for any page containing multiple posts: index, archive, search...
+ */
+define('PAGE_SIZE', 10);
+
+/**
  * Your site title
  */
 define('SITE_TITLE', 'New Prismic.io Blog');

@@ -20,6 +20,7 @@ if(file_exists('themes/' . PI_THEME . '/function.php')) {
 }
 
 require 'tags/general.php';
+require 'tags/navigation.php';
 require 'tags/posts.php';
 require 'tags/pages.php';
 require 'tags/author.php';

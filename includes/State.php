@@ -5,6 +5,7 @@ class State {
     static $current_document_id;
     static $current_archive_date;
     static $current_category;
+    static $current_posts;
 
     static function current_query()
     {
@@ -23,6 +24,17 @@ class State {
             return null;
         }
         return PrismicHelper::get_document(State::$current_document_id);
+    }
+
+    static function current_posts() {
+        if (!State::$current_posts) {
+            State::$current_posts = PrismicHelper::get_posts(State::current_page());
+        }
+        return State::$current_posts;
+    }
+
+    static function total_pages() {
+        return State::current_posts()->getTotalPages();
     }
 
     static function set_current_archive($year, $month, $day) {
