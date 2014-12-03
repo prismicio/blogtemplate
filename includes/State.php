@@ -28,6 +28,17 @@ class State {
 
     static function current_posts() {
         if (!State::$current_posts) {
+            if (State::current_query() != null) {
+                // Search page
+                State::$current_posts = PrismicHelper::search(State::current_query(), State::current_page());
+            } else if (State::current_archive_date() != null) {
+                // Archive page
+                State::$current_posts = PrismicHelper::archives(State::current_archive_date(), State::current_page());
+            } else if (State::$current_category != null) {
+                // Category page
+                State::$current_posts = PrismicHelper::category(State::$current_category, State::current_page());
+            }
+            // Index page
             State::$current_posts = PrismicHelper::get_posts(State::current_page());
         }
         return State::$current_posts;
