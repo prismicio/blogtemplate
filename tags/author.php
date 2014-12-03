@@ -2,6 +2,7 @@
 
 function author($document = null) {
     $doc = $document ? $document : current_document();
+    if ($doc && $doc->getType() == "author") return $doc;
     if ($doc == null) return null;
     $docLink = $doc->getLink($doc->getType() . ".author");
     if ($docLink) {
@@ -23,8 +24,14 @@ function author_link($author = null) {
     return '<a href = "' . $author_link . '">' . author_name($author) . '</a>';
 }
 
-function list_authors()
-{
-
+function author_image($author = null) {
+    $auth = $author ? $author : author();
+    if (!$auth) return null;
+    $photo = $auth->getImage('author.photo');
+    if ($photo) {
+        return $photo->asHtml();
+    } else {
+        return null;
+    }
 }
 

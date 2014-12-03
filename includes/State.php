@@ -37,6 +37,9 @@ class State {
             } else if (State::$current_category != null) {
                 // Category page
                 State::$current_posts = PrismicHelper::category(State::$current_category, State::current_page());
+            } else if (State::current_document() && State::current_document()->getType() == "author") {
+                // Author page
+                State::$current_posts = PrismicHelper::byAuthor(State::$current_document_id, State::current_page());
             }
             // Index page
             State::$current_posts = PrismicHelper::get_posts(State::current_page());

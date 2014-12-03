@@ -122,6 +122,16 @@ class PrismicHelper
             ->submit();
     }
 
+    static function byAuthor($authorDocId, $page = 1, $pageSize = PAGE_SIZE)
+    {
+        return PrismicHelper::form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.author", $authorDocId)))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
     static function archives($date, $page = 1, $pageSize = PAGE_SIZE)
     {
         if (!$date['month']) {
