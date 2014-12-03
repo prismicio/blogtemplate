@@ -50,6 +50,18 @@ function get_search_query()
     return htmlentities(State::current_query());
 }
 
+function get_search_form($echo = true)
+{
+    $html = '<form method = "get" action = "search" >
+                <input type = "text" placeholder = "Search..." name = "q" >
+            </form >';
+    if ($echo) {
+        echo $html;
+    } else {
+        return $html;
+    }
+}
+
 function get_category()
 {
     return htmlentities(State::$current_category);

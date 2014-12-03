@@ -24,9 +24,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <form class="navbar-form navbar-right" method="get" action="search">
-                <input type="text" placeholder="Search..." name="q">
-            </form>
+            <div class="navbar-form navbar-right">
+                <?php get_search_form() ?>
+            </div>
             <ul>
                 <li class="blog-nav-item"><?= home_link('Home') ?></li>
                 <?php foreach(get_pages() as $page) { ?>
