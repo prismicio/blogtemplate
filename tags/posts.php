@@ -10,6 +10,72 @@
  * but it's OK because the Prismic kit has a built-in cache (APC).
  */
 
+// Loop management
+
+function have_posts()
+{
+    return Loop::has_more();
+}
+
+function the_post()
+{
+    Loop::increment();
+}
+
+function rewind_posts()
+{
+    Loop::reset();
+}
+
+// To be used within the loop
+
+function the_permalink()
+{
+    echo PrismicHelper::$linkResolver->resolveDocument(Loop::current_post());
+}
+
+function the_title()
+{
+    $doc = Loop::current_post();
+    echo $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
+}
+
+function the_category($separator = '', $parents = '', $post_id = false)
+{
+    $doc = $post_id ? PrismicHelper::get_document($post_id) : Loop::current_post();
+    if (!$doc) return null;
+    $category = $doc->getText("post.category");
+    if (!$category) {
+        return null;
+    }
+    $url = '/category/' . $category;
+    echo '<a href="' . $url . '">' . $category . '</a>';
+}
+
+function the_date_link($format = "F, jS Y")
+{
+    $date = get_date("post.date", Loop::current_post());
+    if (!$date) {
+        return null;
+    }
+    $date = $date->asDateTime();
+    $label = date_format($date, $format);
+    $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
+    echo '<a href="' . $url . '">' . $label . '</a>';
+}
+
+function the_content($more_link_text = '(more...')
+{
+    $doc = Loop::current_post();
+    if (!$doc) return null;
+    $field = $doc->getType() . '.body';
+    if ($doc->get($field)) {
+        echo $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
+    }
+}
+
+// Other tags
+
 function current_document()
 {
     return State::current_document();
@@ -70,14 +136,3 @@ function post_date_link($document = null)
     return '<a href="' . $url . '">' . $label . '</a>';
 }
 
-function category_link($document = null)
-{
-    $doc = $document ? $document : current_document();
-    if (!$doc) return null;
-    $category = $document->getText("post.category");
-    if (!$category) {
-        return null;
-    }
-    $url = '/category/' . $category;
-    return '<a href="' . $url . '">' . $category . '</a>';
-}

@@ -12,6 +12,7 @@ if (file_exists('config.php')) {
 
 require 'includes/PrismicHelper.php';
 require 'includes/State.php';
+require 'includes/Loop.php';
 require 'includes/theme.php';
 
 if(file_exists('themes/' . PI_THEME . '/function.php')) {

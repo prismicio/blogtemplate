@@ -71,6 +71,15 @@ function get_calendar() {
     return PrismicHelper::get_calendar();
 }
 
+function get_template_part($slug, $name = null)
+{
+    if ($name) {
+        Theme::render($slug . '-' . $name);
+    } else {
+        Theme::render($slug);
+    }
+}
+
 // Helpers (shouldn't be used in templates)
 
 function _make_link($url, $label, $attrs)
@@ -83,3 +92,5 @@ function _make_link($url, $label, $attrs)
     $result .= ('>' . $label . '</a>');
     return $result;
 }
+
+
