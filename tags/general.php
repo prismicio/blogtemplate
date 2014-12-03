@@ -59,22 +59,6 @@ function get_calendar() {
     return PrismicHelper::get_calendar();
 }
 
-// Pages tags
-
-function get_pages()
-{
-    return PrismicHelper::get_bookmarks();
-}
-
-function page_link($page, $attrs = array())
-{
-    $url = document_url($page);
-    if($_SERVER['REQUEST_URI'] == $url) {
-        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
-    }
-    return _make_link($url, htmlentities($page->getText("page.title")), $attrs);
-}
-
 // Helpers (shouldn't be used in templates)
 
 function _make_link($url, $label, $attrs)

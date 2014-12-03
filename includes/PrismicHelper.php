@@ -23,8 +23,11 @@ class BlogLinkResolver extends LinkResolver
 
     public function resolveDocument($doc)
     {
+        if (!$doc) return null;
         $name = PrismicHelper::get_bookmark_name($doc->getId());
-        if ($name) {
+        if ($name == 'home') {
+            return '/';
+        } else if ($name) {
             return '/' . $name;
         }
         if ($doc->getType() == "author") {

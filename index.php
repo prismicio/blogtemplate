@@ -72,7 +72,7 @@ $app->get('/preview', function() {
     $app->response->redirect($url, 301);
 });
 
-// Post
+// Post or page
 $app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $slug) {
     global $app;
     State::$current_document_id = $id;
@@ -80,6 +80,8 @@ $app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $sl
     if (current_document() == null) {
         $app->response->setStatus(404);
         Theme::render('404');
+    } else if (current_document()->getType() == 'page') {
+        Theme::render('page');
     } else {
         Theme::render('single');
     }
@@ -89,21 +91,6 @@ $app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $sl
 $app->get('/:year/:month(/:day)', function ($year, $month, $day = null) {
     State::set_current_archive($year, $month, $day);
     Theme::render('archive');
-});
-
-// Page (bookmarks)
-$app->get('/:name', function($name) {
-    global $app;
-
-    State::$current_document_id = $bookmarks = PrismicHelper::get_api()->bookmark($name);
-    if (current_document() == null) {
-        $app->response->setStatus(404);
-        Theme::render('404');
-    } else {
-        $doc = current_document();
-        $app->etag(PrismicHelper::get_ref() . ':' . $doc->getId());
-        Theme::render('page');
-    }
 });
 
 $app->run();

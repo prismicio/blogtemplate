@@ -30,14 +30,21 @@
             <ul>
                 <li class="blog-nav-item"><?= home_link('Home') ?></li>
                 <?php foreach(get_pages() as $page) { ?>
-                    <li class="blog-nav-item"><?= page_link($page) ?></li>
+                    <?php if(count($page['children']) > 0) { ?>
+                        <li class="blog-nav-item dropdown">
+                            <a href="<?= $page['url'] ?>"><?= $page['label'] ?></a>
+                            <ul class="dropdown-menu">
+                                <?php foreach($page['children'] as $subpage) { ?>
+                                    <a href="<?= $subpage['url'] ?>"><?= $subpage['label'] ?></a>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } else { ?>
+                        <li class="blog-nav-item">
+                            <a href="<?= $page['url'] ?>"><?= $page['label'] ?></a>
+                        </li>
+                    <?php } ?>
                 <?php } ?>
-                <!-- li class="blog-nav-item dropdown"><a href="#">With submenu <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Page2</a></li>
-                        <li><a href="#">Page3</a></li>
-                    </ul>
-                </li -->
             </ul>
         </nav>
     </div>
