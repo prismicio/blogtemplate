@@ -1,5 +1,8 @@
 <?php
 
+// Some themes check for WP version, let's not bother them
+$GLOBALS['wp_version'] = '10.0';
+
 /**
  * Stubs for compatibility with wordpress
  */
@@ -44,8 +47,6 @@ function esc_html($input)
     return $input;
 }
 
-function wp_nav_menu() {}
-
 function get_header_image() {}
 
 function get_post_format() {}
@@ -71,3 +72,18 @@ function get_the_tag_list() {}
 function edit_post_link() {}
 
 function comments_template() {}
+
+function get_post_format_strings() {
+    return array();
+}
+
+function get_post_format_string() {
+    return null;
+}
+
+function dynamic_sidebar() {
+}
+
+function do_action() {}
+
+function wp_footer() {}

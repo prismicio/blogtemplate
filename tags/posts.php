@@ -56,6 +56,11 @@ function the_title()
     echo $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
 }
 
+function the_title_attribute()
+{
+    return the_title();
+}
+
 function the_date_link($format = "F, jS Y")
 {
     $date = get_date("post.date", Loop::current_post());
@@ -103,11 +108,30 @@ function the_post_thumbnail()
     // TODO
 }
 
+function has_post_thumbnail()
+{
+    // TODO
+    return false;
+}
+
+function has_post_format($format = array(), $post = null)
+{
+    // TODO
+    return false;
+}
+
 function get_the_excerpt()
 {
     $doc = Loop::current_post();
     if (!$doc) return null;
     return PrismicHelper::get_document_excerpt($doc);
+}
+
+function get_post_type()
+{
+    $doc = Loop::current_post();
+    if (!$doc) return null;
+    return $doc->getType();
 }
 
 function the_excerpt()

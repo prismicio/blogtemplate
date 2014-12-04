@@ -75,9 +75,14 @@ function home_link($label, $attrs = array())
     return _make_link('/', $label, $attrs);
 }
 
-function sidebar()
+function get_sidebar()
 {
     Theme::render('sidebar');
+}
+
+function is_active_sidebar()
+{
+    return true;
 }
 
 function get_header()

@@ -1,5 +1,11 @@
 <?php
 
+function is_home()
+{
+    global $app;
+    return $app->request()->getUrl() == '/';
+}
+
 function get_previous_posts_link($label = '« Previous Page') {
     global $app;
     if (State::current_page() == 1) {
@@ -41,3 +47,8 @@ function next_post_link() {
 function wp_link_pages($args) {
     // TODO
 }
+
+function wp_nav_menu() {
+    // TODO
+}
+
