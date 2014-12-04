@@ -26,4 +26,5 @@ require 'tags/posts.php';
 require 'tags/pages.php';
 require 'tags/author.php';
 require 'tags/archive.php';
+require 'tags/categories.php';
 

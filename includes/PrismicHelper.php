@@ -18,6 +18,9 @@ class BlogLinkResolver extends LinkResolver
         if ($link->getType() == "author") {
             return "/author/" . $link->getId() . '/' . $link->getSlug();
         }
+        if ($link->getType() == "category") {
+            return "/category/" . $link->getId() . '/' . $link->getSlug();
+        }
         return $this->resolveDocument(PrismicHelper::get_document($link->getId()));
     }
 
@@ -92,6 +95,19 @@ class PrismicHelper
         }
     }
 
+    // Array of DocumentLink
+    static function document_categories($document)
+    {
+        $result = array();
+        if (!$document) return $result;
+        $group = $document->getGroup('post.categories');
+        if (!$group) return $result;
+        foreach ($group->getArray() as $item) {
+            array_push($result, $item['link']);
+        }
+        return $result;
+    }
+
     static function get_bookmark_name($documentId)
     {
         foreach(PrismicHelper::get_api()->bookmarks() as $name => $id) {
@@ -112,10 +128,10 @@ class PrismicHelper
             ->submit();
     }
 
-    static function category($category, $page = 1, $pageSize = PAGE_SIZE)
+    static function category($categoryId, $page = 1, $pageSize = PAGE_SIZE)
     {
         return PrismicHelper::form()
-            ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.category", $category)))
+            ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
             ->orderings("[my.post.date desc]")
             ->page($page)
             ->pageSize($pageSize)

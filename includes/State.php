@@ -4,7 +4,7 @@ class State {
 
     static $current_document_id;
     static $current_archive_date;
-    static $current_category;
+    static $current_category_id;
     static $current_posts;
 
     static function current_query()
@@ -26,6 +26,13 @@ class State {
         return PrismicHelper::get_document(State::$current_document_id);
     }
 
+    static function current_category() {
+        if (State::$current_category_id == null) {
+            return null;
+        }
+        return PrismicHelper::get_document(State::$current_category_id);
+    }
+
     static function current_posts() {
         if (!State::$current_posts) {
             if (State::current_query() != null) {
@@ -34,15 +41,16 @@ class State {
             } else if (State::current_archive_date() != null) {
                 // Archive page
                 State::$current_posts = PrismicHelper::archives(State::current_archive_date(), State::current_page());
-            } else if (State::$current_category != null) {
+            } else if (State::$current_category_id != null) {
                 // Category page
-                State::$current_posts = PrismicHelper::category(State::$current_category, State::current_page());
+                State::$current_posts = PrismicHelper::category(State::$current_category_id, State::current_page());
             } else if (State::current_document() && State::current_document()->getType() == "author") {
                 // Author page
                 State::$current_posts = PrismicHelper::byAuthor(State::$current_document_id, State::current_page());
+            } else {
+                // Index page
+                State::$current_posts = PrismicHelper::get_posts(State::current_page());
             }
-            // Index page
-            State::$current_posts = PrismicHelper::get_posts(State::current_page());
         }
         return State::$current_posts;
     }

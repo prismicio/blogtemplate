@@ -27,8 +27,8 @@ $app->get('/search', function() {
 });
 
 // Category
-$app->get('/category/:category', function ($category) {
-    State::$current_category = $category;
+$app->get('/category/:id/:slug', function ($id, $slug) {
+    State::$current_category_id = $id;
     Theme::render('category');
 });
 

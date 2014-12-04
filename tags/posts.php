@@ -44,12 +44,13 @@ function the_category($separator = '', $parents = '', $post_id = false)
 {
     $doc = $post_id ? PrismicHelper::get_document($post_id) : Loop::current_post();
     if (!$doc) return null;
-    $category = $doc->getText("post.category");
-    if (!$category) {
-        return null;
+    $strings = array();
+    foreach (PrismicHelper::document_categories($doc) as $category) {
+        $url = PrismicHelper::$linkResolver->resolve($category);
+        $label = PrismicHelper::get_document($category->getId())->getText('category.name');
+        array_push($strings, '<a href="' . $url . '">' . $label . '</a>');
     }
-    $url = '/category/' . $category;
-    echo '<a href="' . $url . '">' . $category . '</a>';
+    echo join($separator, $strings);
 }
 
 function the_date_link($format = "F, jS Y")
