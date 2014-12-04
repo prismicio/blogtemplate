@@ -2,7 +2,7 @@
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 
-<?php sidebar() ?>
+<?php get_sidebar() ?>
 
 </div><!-- /.blog-sidebar -->
 

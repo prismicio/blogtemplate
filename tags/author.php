@@ -34,7 +34,7 @@ function author_link($author = null) {
     $auth = $author ? $author : author();
     if (!$auth) return null;
     $author_link = PrismicHelper::$linkResolver->resolveDocument($auth);
-    return '<a href = "' . $author_link . '">' . author_name($author) . '</a>';
+    return '<a href = "' . $author_link . '">' . get_the_author($author) . '</a>';
 }
 
 function author_image($author = null) {
@@ -56,7 +56,7 @@ function get_the_author_meta($field, $userID = null)
     switch ($field)
     {
         case 'ID': return $author->getID();
-        case 'display_name': return $author->getText('author.full_name');
+        case 'display_name': return $author->getText('author.full_name')->asText();
         default: return null;
     }
 }
