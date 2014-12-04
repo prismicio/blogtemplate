@@ -35,4 +35,13 @@ class Loop {
         }
     }
 
+    static function current_author() {
+        $authorId = Loop::current_author_id();
+        if ($authorId) {
+            return PrismicHelper::get_document($authorId);
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -17,13 +17,14 @@ function the_author()
 }
 
 function get_the_author() {
-    $auth = PrismicHelper::get_document(Loop::current_author_id());
+    $auth = Loop::current_author();
     if (!$auth) return null;
     return htmlentities($auth->getText("author.full_name"));
 }
 
 function get_author_posts_url($author_id, $author_nicename = '')
 {
+    if (!$author_id) return null;
     $auth = PrismicHelper::get_document($author_id);
     if (!$auth) return null;
     return PrismicHelper::$linkResolver->resolveDocument($auth);
@@ -49,7 +50,9 @@ function author_image($author = null) {
 
 function get_the_author_meta($field, $userID = null)
 {
-    $author = PrismicHelper::get_document($userID ? $userID : Loop::current_author_id());
+    $author_id = $userID ? $userID : Loop::current_author_id();
+    if (!$author_id) return null;
+    $author = PrismicHelper::get_document($author_id);
     switch ($field)
     {
         case 'ID': return $author->getID();
@@ -60,5 +63,5 @@ function get_the_author_meta($field, $userID = null)
 
 function the_author_meta($field, $userID = null)
 {
-    echo get_the_author_meta();
+    echo get_the_author_meta($field, $userID = null);
 }

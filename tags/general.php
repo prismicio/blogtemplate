@@ -153,4 +153,3 @@ function _make_link($url, $label, $attrs)
     return $result;
 }
 
-

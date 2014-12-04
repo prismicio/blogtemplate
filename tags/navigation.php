@@ -48,7 +48,32 @@ function wp_link_pages($args) {
     // TODO
 }
 
-function wp_nav_menu() {
-    // TODO
+function wp_nav_menu($args) {
+    $p = array_merge(array(
+        'menu_class' => null,
+        'menu_id' => null,
+        'container' => 'div',
+        'container_class' => null,
+        'container_id' => null
+    ), $args);
+    function cls($c) { return $c ? ' class="' . $c . '"' : ''; }
+    function id($id) { return $id ? ' id="' . $id . '"' : ''; }
+
+    echo '<' . $p['container'] . cls($p['container_class']) . id($p['container_id']) . '>';
+    echo '<ul' . cls($p['menu_class']) . id($p['menu_id']) . '>';
+    echo '<li>' . home_link('Home') . '</li>';
+    foreach(get_pages() as $page) {
+        if(count($page['children']) > 0) {
+            echo '<li>' . page_link($page) . '<ul>';
+            foreach($page['children'] as $subpage) {
+                echo page_link($subpage);
+            }
+            echo '</ul></li>';
+        } else {
+            echo '<li>' . page_link($page) . '</li>';
+        }
+    }
+
+    echo '</ul></' . $p['container'] . '>';
 }
 
