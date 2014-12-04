@@ -9,5 +9,5 @@
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <?php the_category() ?>
     </p>
 
-    <?php the_content() ?>
+    <?php the_excerpt() ?>
 </div>

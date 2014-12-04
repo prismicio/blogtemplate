@@ -75,6 +75,18 @@ function the_content($more_link_text = '(more...')
     }
 }
 
+function get_the_excerpt()
+{
+    $doc = Loop::current_post();
+    if (!$doc) return null;
+    return PrismicHelper::get_document_excerpt($doc);
+}
+
+function the_excerpt()
+{
+    echo get_the_excerpt();
+}
+
 // Other tags
 
 function current_document()

@@ -95,6 +95,21 @@ class PrismicHelper
         }
     }
 
+    static function get_document_excerpt($document)
+    {
+        if (!$document) return null;
+        if ($document->getStructuredText('post.shortlede')) {
+            return $document->getStructuredText('post.shortlede')->asHtml(PrismicHelper::$linkResolver);
+        }
+        // Plain text to avoid open tag at the end
+        $body = $document->getStructuredText('post.body');
+        if (strlen($body->asText()) > 300) {
+            return substr($body->asText(), 0, 300) . "...";
+        } else {
+            return $body->asText();
+        }
+    }
+
     // Array of DocumentLink
     static function document_categories($document)
     {
