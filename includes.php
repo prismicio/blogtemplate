@@ -15,11 +15,6 @@ require 'includes/State.php';
 require 'includes/Loop.php';
 require 'includes/theme.php';
 
-if(file_exists('themes/' . PI_THEME . '/function.php')) {
-    // Optional helpers that theme developers can provide
-    include 'themes/' . PI_THEME . '/functions.php';
-}
-
 require 'tags/general.php';
 require 'tags/navigation.php';
 require 'tags/posts.php';
@@ -27,4 +22,10 @@ require 'tags/pages.php';
 require 'tags/author.php';
 require 'tags/archive.php';
 require 'tags/categories.php';
+require 'tags/stubs.php';
+
+if(file_exists('themes/' . PI_THEME . '/functions.php')) {
+    // Optional helpers that theme developers can provide
+    include 'themes/' . PI_THEME . '/functions.php';
+}
 

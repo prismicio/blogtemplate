@@ -29,28 +29,31 @@ function rewind_posts()
 
 // To be used within the loop
 
+function the_ID()
+{
+    echo Loop::current_post()->getId();
+}
+
+function is_sticky()
+{
+    return false;
+}
+
 function the_permalink()
 {
-    echo PrismicHelper::$linkResolver->resolveDocument(Loop::current_post());
+    echo get_permalink();
+}
+
+function get_permalink($id = null, $leavename = false)
+{
+    $doc = $id ? PrismicHelper::get_document($id) : Loop::current_post();
+    return PrismicHelper::$linkResolver->resolveDocument($doc);
 }
 
 function the_title()
 {
     $doc = Loop::current_post();
     echo $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
-}
-
-function the_category($separator = '', $parents = '', $post_id = false)
-{
-    $doc = $post_id ? PrismicHelper::get_document($post_id) : Loop::current_post();
-    if (!$doc) return null;
-    $strings = array();
-    foreach (PrismicHelper::document_categories($doc) as $category) {
-        $url = PrismicHelper::$linkResolver->resolve($category);
-        $label = PrismicHelper::get_document($category->getId())->getText('category.name');
-        array_push($strings, '<a href="' . $url . '">' . $label . '</a>');
-    }
-    echo join($separator, $strings);
 }
 
 function the_date_link($format = "F, jS Y")
@@ -65,6 +68,26 @@ function the_date_link($format = "F, jS Y")
     echo '<a href="' . $url . '">' . $label . '</a>';
 }
 
+function get_the_date()
+{
+    $date = get_date("post.date", Loop::current_post());
+    if (!$date) {
+        return null;
+    }
+    $date = $date->asDateTime();
+    return date_format($date, 'F, jS Y');
+}
+
+function get_the_time()
+{
+    $date = get_date("post.date", Loop::current_post());
+    if (!$date) {
+        return null;
+    }
+    $date = $date->asDateTime();
+    return date_format($date, 'g:iA');
+}
+
 function the_content($more_link_text = '(more...')
 {
     $doc = Loop::current_post();
@@ -73,6 +96,11 @@ function the_content($more_link_text = '(more...')
     if ($doc->get($field)) {
         echo $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
     }
+}
+
+function the_post_thumbnail()
+{
+    // TODO
 }
 
 function get_the_excerpt()

@@ -30,3 +30,14 @@ function next_posts_link($label = 'Next Page »') {
     echo get_next_posts_link($label);
 }
 
+function previous_post_link() {
+    // TODO
+}
+
+function next_post_link() {
+    // TODO
+}
+
+function wp_link_pages($args) {
+    // TODO
+}

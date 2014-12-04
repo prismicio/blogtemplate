@@ -25,4 +25,14 @@ class Loop {
         return $posts[Loop::$loop_index];
     }
 
+    static function current_author_id() {
+        $post = Loop::current_post();
+        if ($post) {
+            $author = $post->getLink($post->getType() . '.author');
+            return $author ? $author->getId() : null;
+        } else {
+            return null;
+        }
+    }
+
 }
