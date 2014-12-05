@@ -24,15 +24,15 @@ class Theme {
         return '/' . Theme::directory();
     }
 
-    public static function render($name) {
+    public static function render($name, $parameters = array()) {
         if (Theme::isWP()) {
             include Theme::directory() . '/' . $name . '.php';
         } else {
-            echo Theme::twig()->render($name . '.html.twig', array(
+            echo Theme::twig()->render($name . '.html.twig', array_merge(array(
                 "site_title" => SITE_TITLE,
                 "home" => NavMenuItem::home(),
                 "posts" => State::current_posts()
-            ));
+            ), $parameters));
         }
     }
 

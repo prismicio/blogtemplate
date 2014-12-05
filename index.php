@@ -77,13 +77,18 @@ $app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $sl
     global $app;
     State::$current_document_id = $id;
 
-    if (current_document() == null) {
+    $doc = State::current_document();
+    if ($doc == null) {
         $app->response->setStatus(404);
         Theme::render('404');
-    } else if (current_document()->getType() == 'page') {
-        Theme::render('page');
+    } else if ($doc->getType() == 'page') {
+        Theme::render('page', array(
+            'page' => new Page($doc)
+        ));
     } else {
-        Theme::render('single');
+        Theme::render('single', array(
+            'post' => new Post($doc)
+        ));
     }
 });
 

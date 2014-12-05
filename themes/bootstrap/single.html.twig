@@ -1,10 +1,24 @@
-<?php get_header() ?>
+{% extends "base.html.twig" %}
 
-<h2 class="blog-post-title"><?= get_text("post.title") ?></h2>
-<p class="blog-post-meta">
-    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?= post_date_link() ?>,
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= author_link(author()) ?></p>
+{% block content %}
 
-<?= get_html("post.body") ?>
+    <div class="blog-post">
+        <h2 class="blog-post-title">
+            <a href="{{ post.permalink }}">{{ post.title }}</a>
+        </h2>
+        <p class="blog-post-meta">
+            {% if post.date is not null %}
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.date|date('F, jS Y') }}
+            {% endif %}
+            {% if author is not null %}
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ author.permalink }}">{{ author.name }}</a>
+            {% endif %}
+            {% if categories is not empty %}
+                <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link }}
+            {% endif %}
+        </p>
 
-<?php get_footer() ?>
+        {{ post.body|raw }}
+    </div>
+
+{% endblock %}

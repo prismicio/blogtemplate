@@ -1,9 +1,11 @@
-<?php get_header() ?>
+{% extends "base.html.twig" %}
 
-<h2><?= get_text("page.title") ?></h2>
+{% block content %}
+
+<h2>{{ page.title }}</h2>
 
 <div id="page-content">
-    <?= get_html("page.content") ?>
+    {{ page.body|raw }}
 </div>
 
-<?php get_footer() ?>
+{% endblock %}
