@@ -33,7 +33,7 @@ class State {
         return PrismicHelper::get_document(State::$current_category_id);
     }
 
-    static function current_posts() {
+    static function current_response() {
         if (!State::$current_posts) {
             if (State::current_query() != null) {
                 // Search page
@@ -53,6 +53,12 @@ class State {
             }
         }
         return State::$current_posts;
+    }
+
+    static function current_posts() {
+        return array_map(function($doc) {
+            return new Post($doc);
+        }, State::current_response()->getResults());
     }
 
     static function total_pages() {

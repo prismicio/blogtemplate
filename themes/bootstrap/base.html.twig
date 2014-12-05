@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?= post_title() ?> <?= site_title() ?></title>
+    <title>{% block title %}{{ site_title }}{% endblock title %}</title>
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
 
     <!-- Bootstrap -->
@@ -25,26 +25,28 @@
     <div class="container">
         <nav class="blog-nav">
             <div class="navbar-form navbar-right">
-                <?php get_search_form() ?>
+                <form method = "get" action = "search" >
+                    <input type = "text" placeholder = "Search..." name = "q" >
+                </form >'
             </div>
             <ul>
-                <li class="blog-nav-item"><?= home_link('Home') ?></li>
-                <?php foreach(get_pages() as $page) { ?>
-                    <?php if(count($page['children']) > 0) { ?>
+                <li class="blog-nav-item">{{ home|link }}</li>
+                {% for page in home.children %}
+                    {% if home.children is empty %}
+                        <li class="blog-nav-item">
+                            {{ page|link }}
+                        </li>
+                    {% else %}
                         <li class="blog-nav-item dropdown">
-                            <?= page_link($page) ?>
+                            {{ page|link }}
                             <ul class="dropdown-menu">
-                                <?php foreach($page['children'] as $subpage) { ?>
-                                    <?= page_link($subpage) ?>
-                                <?php } ?>
+                                {% for subpage in page.children %}
+                                    {{ subpage|link }}
+                                {% endfor %}
                             </ul>
                         </li>
-                    <?php } else { ?>
-                        <li class="blog-nav-item">
-                            <?= page_link($page) ?>
-                        </li>
-                    <?php } ?>
-                <?php } ?>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </nav>
     </div>

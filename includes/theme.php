@@ -4,7 +4,7 @@ class Theme {
 
     private static $twig;
 
-    private static function twig() {
+    public static function twig() {
         if (!Theme::$twig) {
             Twig_Autoloader::register();
 
@@ -29,6 +29,8 @@ class Theme {
             include Theme::directory() . '/' . $name . '.php';
         } else {
             echo Theme::twig()->render($name . '.html.twig', array(
+                "site_title" => SITE_TITLE,
+                "home" => NavMenuItem::home(),
                 "posts" => State::current_posts()
             ));
         }

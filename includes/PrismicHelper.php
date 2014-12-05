@@ -36,7 +36,7 @@ class BlogLinkResolver extends LinkResolver
         if ($doc->getType() == "author") {
             return "/author/" . $doc->getId() . '/' . $doc->getSlug();
         }
-        $date = get_date("post.date", $doc);
+        $date = $doc->getDate("post.date");
         $year = $date ? $date->asDateTime()->format('Y') : '0';
         $month = $date ? $date->asDateTime()->format('m') : '0';
         $day = $date ? $date->asDateTime()->format('d') : '0';
