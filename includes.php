@@ -15,17 +15,23 @@ require 'includes/State.php';
 require 'includes/Loop.php';
 require 'includes/theme.php';
 
-require 'tags/general.php';
-require 'tags/navigation.php';
-require 'tags/posts.php';
-require 'tags/pages.php';
-require 'tags/author.php';
-require 'tags/archive.php';
-require 'tags/categories.php';
-require 'tags/stubs.php';
+if (file_exists('themes/' . PI_THEME . '/index.php')) {
+    // Wordpress Theme
+    require 'wp-tags/general.php';
+    require 'wp-tags/navigation.php';
+    require 'wp-tags/posts.php';
+    require 'wp-tags/pages.php';
+    require 'wp-tags/author.php';
+    require 'wp-tags/archive.php';
+    require 'wp-tags/categories.php';
+    require 'wp-tags/stubs.php';
 
-if(file_exists('themes/' . PI_THEME . '/functions.php')) {
-    // Optional helpers that theme developers can provide
-    include 'themes/' . PI_THEME . '/functions.php';
+    if (file_exists('themes/' . PI_THEME . '/functions.php')) {
+        // Optional helpers that theme developers can provide
+        include 'themes/' . PI_THEME . '/functions.php';
+    }
+} else {
+    // Twig theme
+    require 'tags/general.php';
 }
 

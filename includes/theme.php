@@ -28,7 +28,9 @@ class Theme {
         if (Theme::isWP()) {
             include Theme::directory() . '/' . $name . '.php';
         } else {
-            echo Theme::twig()->render($name . '.html');
+            echo Theme::twig()->render($name . '.html.twig', array(
+                "posts" => State::current_posts()
+            ));
         }
     }
 

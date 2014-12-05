@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><?= post_title() ?> <?= site_title() ?></title>
+    <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/themes/wpbootstrap/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <div class="navbar-form navbar-right">
+                <?php get_search_form() ?>
+            </div>
+            <ul>
+                <li class="blog-nav-item"><?= home_link('Home') ?></li>
+                <?php foreach(get_pages() as $page) { ?>
+                    <?php if(count($page['children']) > 0) { ?>
+                        <li class="blog-nav-item dropdown">
+                            <?= page_link($page) ?>
+                            <ul class="dropdown-menu">
+                                <?php foreach($page['children'] as $subpage) { ?>
+                                    <?= page_link($subpage) ?>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } else { ?>
+                        <li class="blog-nav-item">
+                            <?= page_link($page) ?>
+                        </li>
+                    <?php } ?>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="blog-header">
+        <h1 class="blog-title"><?= site_title() ?></h1>
+        <p class="lead blog-description"><?= site_description() ?></p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+        {% block content %}{% endblock %}
+
+        </div> <!-- blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>About</h4>
+                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            </div>
+
+            <div class="sidebar-module">
+                <h4>Archives</h4>
+                <ol class="list-unstyled">
+                    <?php foreach(get_calendar() as $entry) { ?>
+                    <li><a href="<?= $entry['link'] ?>"><?= $entry['label'] ?></a></li>
+                    <?php } ?>
+                </ol>
+            </div>
+            <div class="sidebar-module">
+                <h4>Elsewhere</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ol>
+            </div>
+
+        </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+
+<footer class="blog-footer">
+    <p>Based on a blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</footer>
+
+<!-- Prismic toolbar -->
+<script src="//static.cdn.prismic.io/prismic.min.js"></script>
+
+</body>
+</html>
