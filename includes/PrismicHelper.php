@@ -84,10 +84,7 @@ class PrismicHelper
 
     static function get_document($id)
     {
-        $results = PrismicHelper::form()
-            ->query(Predicates::at("document.id", $id))
-            ->submit()
-            ->getResults();
+        $results = PrismicHelper::single($id)->getResults();
         if (count($results) > 0) {
             return $results[0];
         } else {
@@ -116,6 +113,13 @@ class PrismicHelper
             }
         }
         return null;
+    }
+
+    static function single($documentId)
+    {
+        return PrismicHelper::form()
+            ->query(array(Predicates::at("document.id", $documentId)))
+            ->submit();
     }
 
     static function search($q, $page = 1, $pageSize = PAGE_SIZE)

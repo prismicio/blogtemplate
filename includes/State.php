@@ -47,6 +47,9 @@ class State {
             } else if (State::current_document() && State::current_document()->getType() == "author") {
                 // Author page
                 State::$current_posts = PrismicHelper::byAuthor(State::$current_document_id, State::current_page());
+            } else if (State::$current_document_id != null) {
+                // Single page/post
+                State::$current_posts = PrismicHelper::single(State::$current_document_id);
             } else {
                 // Index page
                 State::$current_posts = PrismicHelper::get_posts(State::current_page());
@@ -57,7 +60,7 @@ class State {
 
     static function current_posts() {
         return array_map(function($doc) {
-            return new Post($doc);
+            return BlogDocument::fromPrismicDoc($doc);
         }, State::current_response()->getResults());
     }
 

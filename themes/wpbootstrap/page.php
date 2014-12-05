@@ -1,9 +1,12 @@
 <?php get_header() ?>
 
-<h2><?= get_text("page.title") ?></h2>
+<?php while ( have_posts() ) : the_post(); ?>
 
-<div id="page-content">
-    <?= get_html("page.content") ?>
-</div>
+    <h2><?php the_title() ?></h2>
+    <div id="page-content">
+        <?php the_content() ?>
+    </div>
+
+<?php endwhile; // end of the loop. ?>
 
 <?php get_footer() ?>
