@@ -40,6 +40,11 @@ class Post
         return Author::fromId($authorLink->getId());
     }
 
+    public function getCategories()
+    {
+        return PrismicHelper::document_categories($this->document);
+    }
+
     public static function fromId($docId)
     {
         $doc = PrismicHelper::get_document($docId);

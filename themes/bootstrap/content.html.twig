@@ -1,4 +1,5 @@
 {% set author = post.author %}
+{% set categories = post.categories %}
 
 <div class="blog-post">
     <h2 class="blog-post-title">
@@ -11,7 +12,9 @@
         {% if author is not null %}
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ author.permalink }}">{{ author.name }}</a>
         {% endif %}
-        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <?php the_category() ?>
+        {% if categories is not empty %}
+        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link }}
+        {% endif %}
     </p>
 
     {{ post.body|raw }}

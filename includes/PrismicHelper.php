@@ -110,7 +110,7 @@ class PrismicHelper
         }
     }
 
-    // Array of DocumentLink
+    // Array of Category
     static function document_categories($document)
     {
         $result = array();
@@ -118,7 +118,7 @@ class PrismicHelper
         $group = $document->getGroup('post.categories');
         if (!$group) return $result;
         foreach ($group->getArray() as $item) {
-            array_push($result, $item['link']);
+            array_push($result, Category::fromId($item['link']->getId()));
         }
         return $result;
     }

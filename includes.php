@@ -18,6 +18,7 @@ require 'includes/theme.php';
 require 'includes/models/Author.php';
 require 'includes/models/Post.php';
 require 'includes/models/NavMenuItem.php';
+require 'includes/models/Category.php';
 
 if (file_exists('themes/' . PI_THEME . '/index.php')) {
     // Wordpress Theme

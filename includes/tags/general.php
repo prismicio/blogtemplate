@@ -6,10 +6,19 @@ $home_link = new Twig_SimpleFunction('home_link', function ($label = 'Home') {
     return '<a href="' . $url . '">' . $label . '</a>';
 }, array('is_safe' => array('html')));
 
-$link = new Twig_SimpleFilter('link', function ($page) {
-    return '<a href="' . $page->getPermalink() . '" class="' . ($page->isActive() ? 'active' : '') . '">' . $page->getTitle() . '</a>';
+$link = new Twig_SimpleFilter('link', function ($input, $separator = '') {
+    global $link;
+    if ($input instanceof NavMenuItem) {
+        return '<a href="' . $input->getPermalink() . '" class="' . ($input->isActive() ? 'active' : '') . '">' . $input->getTitle() . '</a>';
+    }
+    if ($input instanceof Category) {
+        return '<a href="' . $input->getPermalink() . '">' . $input->getName() . '</a>';
+    }
+    if (is_array($input)) {
+        // Return an array of string, then the join filter can be used
+        return join($separator, array_map($link->getCallable(), $input));
+    }
 }, array('is_safe' => array('html')));
-
 
 Theme::twig()->addFunction($home_link);
 Theme::twig()->addFilter($link);
