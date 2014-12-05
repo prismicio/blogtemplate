@@ -2,13 +2,8 @@
 
 function author($document = null) {
     $doc = $document ? $document : current_document();
-    if ($doc && $doc->getType() == "author") return $doc;
     if ($doc == null) return null;
-    $docLink = $doc->getLink($doc->getType() . ".author");
-    if ($docLink) {
-        return PrismicHelper::get_document($docLink->getId());
-    }
-    return null;
+    return $doc->getAuthor();
 }
 
 function the_author()
@@ -19,7 +14,7 @@ function the_author()
 function get_the_author() {
     $auth = Loop::current_author();
     if (!$auth) return null;
-    return htmlentities($auth->getText("author.full_name"));
+    return htmlentities($auth->getName());
 }
 
 function get_author_posts_url($author_id, $author_nicename = '')
@@ -33,7 +28,7 @@ function get_author_posts_url($author_id, $author_nicename = '')
 function author_link($author = null) {
     $auth = $author ? $author : author();
     if (!$auth) return null;
-    $author_link = PrismicHelper::$linkResolver->resolveDocument($auth);
+    $author_link = $auth->getPermalink();
     return '<a href = "' . $author_link . '">' . get_the_author($author) . '</a>';
 }
 

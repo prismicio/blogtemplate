@@ -62,7 +62,7 @@ class State {
     }
 
     static function total_pages() {
-        return State::current_posts()->getTotalPages();
+        return State::current_response()->getTotalPages();
     }
 
     static function set_current_archive($year, $month, $day) {

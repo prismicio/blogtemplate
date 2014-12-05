@@ -14,34 +14,19 @@ class Loop {
 
     static function has_more() {
         // -1 because we check before incrementing
-        return Loop::$loop_index < (State::current_posts()->getResultsSize() - 1);
+        return Loop::$loop_index < (State::current_response()->getResultsSize() - 1);
     }
 
     static function current_post() {
-        $posts = State::current_posts()->getResults();
+        $posts = State::current_posts();
         if (Loop::$loop_index < 0 || Loop::$loop_index >= count($posts)) {
             return null;
         }
         return $posts[Loop::$loop_index];
     }
 
-    static function current_author_id() {
-        $post = Loop::current_post();
-        if ($post) {
-            $author = $post->getLink($post->getType() . '.author');
-            return $author ? $author->getId() : null;
-        } else {
-            return null;
-        }
-    }
-
     static function current_author() {
-        $authorId = Loop::current_author_id();
-        if ($authorId) {
-            return PrismicHelper::get_document($authorId);
-        } else {
-            return null;
-        }
+        return Loop::current_post()->getAuthor();
     }
 
 }

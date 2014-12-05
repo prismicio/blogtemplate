@@ -46,14 +46,14 @@ function the_permalink()
 
 function get_permalink($id = null, $leavename = false)
 {
-    $doc = $id ? PrismicHelper::get_document($id) : Loop::current_post();
-    return PrismicHelper::$linkResolver->resolveDocument($doc);
+    $post = $id ? PrismicHelper::get_document($id) : Loop::current_post();
+    return $post ? $post->getPermalink() : null;
 }
 
 function the_title()
 {
     $doc = Loop::current_post();
-    echo $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
+    echo $doc ? htmlentities($doc->getTitle()) : "";
 }
 
 function the_title_attribute()
@@ -67,7 +67,6 @@ function the_date_link($format = "F, jS Y")
     if (!$date) {
         return null;
     }
-    $date = $date->asDateTime();
     $label = date_format($date, $format);
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
     echo '<a href="' . $url . '">' . $label . '</a>';
@@ -124,7 +123,7 @@ function get_the_excerpt()
 {
     $doc = Loop::current_post();
     if (!$doc) return null;
-    return PrismicHelper::get_document_excerpt($doc);
+    return $doc->getExcerpt();
 }
 
 function get_post_type()
