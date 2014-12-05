@@ -1,9 +1,11 @@
 <?php
 
 function author($document = null) {
-    $doc = $document ? $document : current_document();
-    if ($doc == null) return null;
-    return $doc->getAuthor();
+    if (!$document && current_document()) {
+        $document = new Post(current_document());
+    }
+    if (!$document) return null;
+    return $document->getAuthor();
 }
 
 function the_author()
@@ -29,7 +31,7 @@ function author_link($author = null) {
     $auth = $author ? $author : author();
     if (!$auth) return null;
     $author_link = $auth->getPermalink();
-    return '<a href = "' . $author_link . '">' . get_the_author($author) . '</a>';
+    return '<a href = "' . $author_link . '">' . $author->getName() . '</a>';
 }
 
 function author_image($author = null) {

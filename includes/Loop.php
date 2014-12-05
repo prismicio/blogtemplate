@@ -26,7 +26,9 @@ class Loop {
     }
 
     static function current_author() {
-        return Loop::current_post()->getAuthor();
+        if (Loop::current_post()) {
+            return Loop::current_post()->getAuthor();
+        } else return null;
     }
 
 }

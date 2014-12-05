@@ -96,10 +96,7 @@ function the_content($more_link_text = '(more...')
 {
     $doc = Loop::current_post();
     if (!$doc) return null;
-    $field = $doc->getType() . '.body';
-    if ($doc->get($field)) {
-        echo $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
-    }
+    echo $doc->getBody();
 }
 
 function the_post_thumbnail()
@@ -166,10 +163,15 @@ function link_to_post($post)
     return '<a href="' . document_url($post) . '">' . post_title($post) . '</a>';
 }
 
-function get_text($field, $document = null)
+ function single_post_title($prefix = '', $display = true)
 {
-    $doc = $document ? $document : current_document();
-    return htmlentities($doc->get($field)->asText(PrismicHelper::$linkResolver));
+    $doc = new Post(current_document());
+    $result = $prefix . $doc->getTitle();
+    if ($display) {
+        echo htmlentities($result);
+    } else {
+        return $result;
+    }
 }
 
 function get_html($field, $document = null)
