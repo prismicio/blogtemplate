@@ -6,6 +6,8 @@ class HomepageTests extends LocalWebTestCase
     {
         $this->client->get('/');
         $this->assertEquals(200, $this->client->response->status());
-        $this->assertEquals($this->app->config('version'), $this->client->response->body());
+
+        $html = str_get_dom($this->client->response->body());
+        $this->assertEquals(2, count($html('div.blog-post')));
     }
 }

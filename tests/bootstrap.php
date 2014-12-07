@@ -1,4 +1,8 @@
 <?php
+
+// HTML Parser
+include 'ganon.php';
+
 // Settings to make all errors more obvious during testing
 error_reporting(-1);
 ini_set('display_errors', 1);
@@ -18,8 +22,7 @@ class LocalWebTestCase extends WebTestCase {
         $app = new \Slim\Slim(array(
             'version'        => '0.0.0',
             'debug'          => false,
-            'mode'           => 'testing',
-            // 'templates.path' => __DIR__ . '../app/themes',
+            'mode'           => 'testing'
         ));
 
         // Include our core application file
