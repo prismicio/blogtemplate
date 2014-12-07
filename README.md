@@ -9,9 +9,10 @@ Deploying from the zip (not available yet):
 To deploy it from the source:
 
 * Install composer
-* Edit `config.php`
+* Edit `app/config.php`
 * Run `composer install` to get the dependencies
 
 Running locally:
 
 * `php -S localhost:8000`
+

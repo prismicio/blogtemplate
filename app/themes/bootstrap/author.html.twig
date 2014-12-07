@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    {% for post in posts %}
+        {% include "content.html.twig" %}
+    {%  endfor %}
+    {%  if posts is empty %}
+        <p>Sorry, no posts matched your criteria.</p>
+    {%  endif %}
+
+    <?php previous_posts_link() ?>
+
+    <?php next_posts_link() ?>
+
+{% endblock %}
