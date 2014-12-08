@@ -33,6 +33,11 @@ class NavMenuItem
         return $app->request()->getPath() == $this->getPermalink();
     }
 
+    public function isExternal()
+    {
+        return $this->link instanceof Prismic\Fragment\Link\WebLink;
+    }
+
     public static function home($prismic)
     {
         $homeId = $prismic->get_api()->bookmark('home');
@@ -56,8 +61,8 @@ class NavMenuItem
         if (!$group) return $result;
         foreach ($group->getArray() as $item) {
             if (!isset($item['label']) || !isset($item['link'])) continue;
-            $label = $item['label']->asText();
-            $link = $item['link'];
+            $label = $item->getText('label');
+            $link = $item->getLink('link');
             $children = array();
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
                 $children = NavMenuItem::getPageChildren($prismic->get_document($link->getId()), $prismic);

@@ -6,7 +6,10 @@ function filter_link($app, $input, $separator = '')
         return null;
     }
     if ($input instanceof NavMenuItem) {
-        return '<a href="' . $input->getPermalink() . '" class="' . ($input->isActive($app) ? 'active' : '') . '">' . $input->getTitle() . '</a>';
+        $classes = array();
+        if ($input->isActive($app)) array_push($classes, 'active');
+        if ($input->isExternal()) array_push($classes, 'external');
+        return '<a href="' . $input->getPermalink() . '" class="' . join(' ', $classes) . '">' . $input->getTitle() . '</a>';
     }
     if ($input instanceof BlogDocument) {
         return '<a href="' . $input->getPermalink() . '">' . $input->getTitle() . '</a>';
