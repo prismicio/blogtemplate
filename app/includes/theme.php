@@ -70,6 +70,7 @@ class Theme {
         } else {
             echo $this->twig()->render($name . '.html.twig', array_merge(array(
                 "site_title" => $this->app->config('site.title'),
+                "site_description" => $this->app->config('site.description'),
                 "home" => NavMenuItem::home($this->prismic),
                 "posts" => $this->state->current_posts($this->prismic),
                 "search_query" => $this->state->current_query()
