@@ -71,7 +71,8 @@ class Theme {
             echo $this->twig()->render($name . '.html.twig', array_merge(array(
                 "site_title" => $this->app->config('site.title'),
                 "home" => NavMenuItem::home($this->prismic),
-                "posts" => $this->state->current_posts($this->prismic)
+                "posts" => $this->state->current_posts($this->prismic),
+                "search_query" => $this->state->current_query()
             ), $parameters));
         }
     }

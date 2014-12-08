@@ -1,17 +1,19 @@
-<?php get_header() ?>
+{% extends "base.html.twig" %}
 
-Query: <?= get_search_query() ?>
+{% block content %}
 
+    Query: {{ search_query }}
 
-<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <?php get_template_part('content'); ?>
-<?php endwhile; else : ?>
-    <p>Sorry, no posts matched your criteria.</p>
-<?php endif; ?>
+    {% for post in posts %}
+        {% include "content.html.twig" %}
+    {%  endfor %}
+    {%  if posts is empty %}
+        <p>Sorry, no posts matched your criteria.</p>
+    {%  endif %}
 
+    {{ previous_posts_link() }}
 
-<?php previous_posts_link() ?>
+    {{ next_posts_link() }}
 
-<?php next_posts_link() ?>
+{% endblock %}
 
-<?php get_footer() ?>
