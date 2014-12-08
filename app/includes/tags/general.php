@@ -24,10 +24,6 @@ function filter_link($app, $input, $separator = '')
 
 function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $state)
 {
-    $home_link = new Twig_SimpleFunction('home_link', function ($label = 'Home') {
-        $url = '/';
-        return '<a href="' . $url . '">' . $label . '</a>';
-    }, array('is_safe' => array('html')));
 
     $link = new Twig_SimpleFilter('link', function ($input, $separator = '') use($app) {
         return filter_link($app, $input, $separator);
@@ -53,15 +49,43 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
     }, array('is_safe' => array('html')));
 
+    $nav_menu = new Twig_SimpleFunction('nav_menu', function () use($app, $prismic, $state) {
+        $home = NavMenuItem::home($prismic);
+        $result = "<ul>";
+        $result .= "<li class='blog-nav-item'>" . filter_link($app, $home) . "</li>";
+        foreach($home->getChildren() as $page) {
+            if (count($page->getChildren()) == 0) {
+                $result .= '<li class="blog-nav-item" >' . filter_link($app, $page) . '</li>';
+            } else {
+                $result .= '<li class="blog-nav-item dropdown" >' . filter_link($app, $page);
+                $result .= '<ul class="dropdown-menu" >';
+                foreach ($page->getChildren() as $subpage) {
+                    $result .= filter_link($app, $subpage);
+                }
+                $result .= '</ul>';
+                $result .= '</li>';
+            }
+        }
+        $result .= '</ul>';
+        return $result;
+    }, array('is_safe' => array('html')));
+
+    $search_form = new Twig_SimpleFunction('search_form', function($placeholder = "Search...") {
+        return '<form method="get" action = "search" >'
+        . '<input type="text" placeholder="Search..." name="q">'
+        . '</form >';
+    }, array('is_safe' => array('html')));
+
     $calendar = new Twig_SimpleFunction('calendar', function () use($prismic) {
         return $prismic->get_calendar();
     });
 
-    $twig->addFunction($home_link);
     $twig->addFilter($link);
     $twig->addFunction($previous_posts_link);
     $twig->addFunction($next_posts_link);
     $twig->addFunction($calendar);
+    $twig->addFunction($nav_menu);
+    $twig->addFunction($search_form);
 }
 
 

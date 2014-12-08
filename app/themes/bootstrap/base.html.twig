@@ -25,29 +25,9 @@
     <div class="container">
         <nav class="blog-nav">
             <div class="navbar-form navbar-right">
-                <form method = "get" action = "search" >
-                    <input type = "text" placeholder = "Search..." name = "q" >
-                </form >
+                {{ search_form() }}
             </div>
-            <ul>
-                <li class="blog-nav-item">{{ home|link }}</li>
-                {% for page in home.children %}
-                    {% if home.children is empty %}
-                        <li class="blog-nav-item">
-                            {{ page|link }}
-                        </li>
-                    {% else %}
-                        <li class="blog-nav-item dropdown">
-                            {{ page|link }}
-                            <ul class="dropdown-menu">
-                                {% for subpage in page.children %}
-                                    {{ subpage|link }}
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            {{ nav_menu() }}
         </nav>
     </div>
 </div>
@@ -78,7 +58,7 @@
                 <h4>Archives</h4>
                 <ol class="list-unstyled">
                     {% for entry in calendar() %}
-                    <li><a href="{{ entry['link'] }} ?>">{{ entry['label'] }}</a></li>
+                    <li><a href="{{ entry['link'] }}">{{ entry['label'] }}</a></li>
                     {% endfor %}
                     <?php } ?>
                 </ol>
