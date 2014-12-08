@@ -24,6 +24,19 @@ class Theme {
                 'loop' => new Loop($this->prismic, $this->state),
                 'state' => $this->state
             );
+            // Wordpress tags
+            require_once 'wp-tags/general.php';
+            require_once 'wp-tags/navigation.php';
+            require_once 'wp-tags/posts.php';
+            require_once 'wp-tags/pages.php';
+            require_once 'wp-tags/author.php';
+            require_once 'wp-tags/archive.php';
+            require_once 'wp-tags/categories.php';
+            require_once 'wp-tags/stubs.php';
+            if (file_exists($this->directory() . '/functions.php')) {
+                // Optional helpers that theme developers can provide
+                require_once ($this->directory() . '/functions.php');
+            }
         }
     }
 
@@ -47,25 +60,12 @@ class Theme {
     }
 
     public function directory_url() {
-        return '/' . $this->directory();
+        return '/app/themes/' . $this->name;
     }
 
     public function render($name, $parameters = array()) {
         global $WPGLOBAL;
         if ($this->isWP()) {
-            // Wordpress tags
-            require_once 'wp-tags/general.php';
-            require_once 'wp-tags/navigation.php';
-            require_once 'wp-tags/posts.php';
-            require_once 'wp-tags/pages.php';
-            require_once 'wp-tags/author.php';
-            require_once 'wp-tags/archive.php';
-            require_once 'wp-tags/categories.php';
-            require_once 'wp-tags/stubs.php';
-            if (file_exists('themes/' . $this->name . '/functions.php')) {
-                // Optional helpers that theme developers can provide
-                include 'themes/' . $this->name . '/functions.php';
-            }
             include $this->directory() . '/' . $name . '.php';
         } else {
             echo $this->twig()->render($name . '.html.twig', array_merge(array(

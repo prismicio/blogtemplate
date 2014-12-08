@@ -37,7 +37,7 @@ function the_ID()
 {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
-    echo $loop->current_post()->getId();
+    echo $loop->current_post()->document->getId();
 }
 
 function is_sticky()
@@ -93,7 +93,6 @@ function get_the_date()
     if (!$date) {
         return null;
     }
-    $date = $date->asDateTime();
     return date_format($date, 'F, jS Y');
 }
 
@@ -105,7 +104,6 @@ function get_the_time()
     if (!$date) {
         return null;
     }
-    $date = $date->asDateTime();
     return date_format($date, 'g:iA');
 }
 

@@ -25,10 +25,12 @@ function get_the_author() {
 
 function get_author_posts_url($author_id, $author_nicename = '')
 {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     if (!$author_id) return null;
-    $auth = PrismicHelper::get_document($author_id);
+    $auth = $prismic->get_document($author_id);
     if (!$auth) return null;
-    return PrismicHelper::$linkResolver->resolveDocument($auth);
+    return $prismic->linkResolver->resolveDocument($auth);
 }
 
 function get_the_author_link() {
@@ -63,12 +65,17 @@ function author_image() {
 
 function get_the_author_meta($field, $userID = null)
 {
-    $author_id = $userID ? $userID : Loop::current_author_id();
-    if (!$author_id) return null;
-    $author = PrismicHelper::get_document($author_id);
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $prismic = $WPGLOBAL['prismic'];
+    if ($userID) {
+        $author = $prismic->get_document($userID);
+    } else {
+        $author = $loop->current_author();
+    }
     switch ($field)
     {
-        case 'ID': return $author->getID();
+        case 'ID': return $author->document->getId();
         case 'display_name': return $author->getText('author.full_name')->asText();
         default: return null;
     }
