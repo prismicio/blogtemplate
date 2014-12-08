@@ -230,6 +230,18 @@ class PrismicHelper
             ->submit();
     }
 
+    function archive_link($year, $month = null, $day = null)
+    {
+        $url = '/' . $year;
+        if ($month) {
+            $url .= '/' . $month;
+        }
+        if ($month && $day) {
+            $url .= '/' . $day;
+        }
+        return $url;
+    }
+
     function get_calendar()
     {
         $calendar = array();
@@ -243,7 +255,7 @@ class PrismicHelper
                 if ($key != end($calendar)['label']) {
                     array_push($calendar, array(
                         'label' => $key,
-                        'link' => archive_link($date->format('Y'), $date->format('m'))
+                        'link' => $this->archive_link($date->format('Y'), $date->format('m'))
                     ));
                 }
                 $page++;

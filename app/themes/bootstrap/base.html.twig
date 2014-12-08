@@ -77,8 +77,9 @@
             <div class="sidebar-module">
                 <h4>Archives</h4>
                 <ol class="list-unstyled">
-                    <?php foreach(get_calendar() as $entry) { ?>
-                    <li><a href="<?= $entry['link'] ?>"><?= $entry['label'] ?></a></li>
+                    {% for entry in calendar() %}
+                    <li><a href="{{ entry['link'] }} ?>">{{ entry['label'] }}</a></li>
+                    {% endfor %}
                     <?php } ?>
                 </ol>
             </div>

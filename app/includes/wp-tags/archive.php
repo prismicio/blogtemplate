@@ -26,12 +26,7 @@ function archive_date() {
 
 function archive_link($year, $month = null, $day = null)
 {
-    $url = '/' . $year;
-    if ($month) {
-        $url .= '/' . $month;
-    }
-    if ($month && $day) {
-        $url .= '/' . $day;
-    }
-    return $url;
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    return $prismic->archive_link($year, $month, $day);
 }

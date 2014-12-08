@@ -53,10 +53,15 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
     }, array('is_safe' => array('html')));
 
+    $calendar = new Twig_SimpleFunction('calendar', function () use($prismic) {
+        return $prismic->get_calendar();
+    });
+
     $twig->addFunction($home_link);
     $twig->addFilter($link);
     $twig->addFunction($previous_posts_link);
     $twig->addFunction($next_posts_link);
+    $twig->addFunction($calendar);
 }
 
 
