@@ -42,6 +42,42 @@ abstract class BlogDocument
         return Author::fromId($this->prismic, $authorLink->getId());
     }
 
+    public function getPrevious()
+    {
+        $found = false;
+        $page = 1;
+        do {
+            $response = $this->prismic->get_posts($page, 100);
+            foreach ($response->getResults() as $post) {
+                if ($found) {
+                    return new Post($post, $this->prismic);
+                }
+                if ($post->getId() == $this->document->getId()) {
+                    $found = true;
+                }
+            }
+        } while($response->getNextPage());
+
+        return null;
+    }
+
+    public function getNext()
+    {
+        $next = null;
+        $page = 1;
+        do {
+            $response = $this->prismic->get_posts($page, 100);
+            foreach ($response->getResults() as $post) {
+                if ($post->getId() == $this->document->getId() && $next) {
+                    return new Post($next, $this->prismic);
+                }
+                $next = $post;
+            }
+        } while($response->getNextPage());
+
+        return null;
+    }
+
     public static function fromPrismicDoc(\Prismic\Document $document, PrismicHelper $prismic)
     {
         if (!$document) return null;

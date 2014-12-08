@@ -2,11 +2,14 @@
 
 function filter_link($app, $input, $separator = '')
 {
+    if ($input == null) {
+        return null;
+    }
     if ($input instanceof NavMenuItem) {
         return '<a href="' . $input->getPermalink() . '" class="' . ($input->isActive($app) ? 'active' : '') . '">' . $input->getTitle() . '</a>';
     }
-    if ($input instanceof Category) {
-        return '<a href="' . $input->getPermalink() . '">' . $input->getName() . '</a>';
+    if ($input instanceof BlogDocument) {
+        return '<a href="' . $input->getPermalink() . '">' . $input->getTitle() . '</a>';
     }
     if (is_array($input)) {
         // Return an array of string, then the join filter can be used
@@ -27,8 +30,7 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         return filter_link($app, $input, $separator);
     }, array('is_safe' => array('html')));
 
-    $previous_posts_link = new Twig_SimpleFunction('previous_posts_link', function ($label = '« Previous Page') use($state) {
-        global $app;
+    $previous_posts_link = new Twig_SimpleFunction('previous_posts_link', function ($label = '« Previous Page') use($app, $state) {
         if ($state->current_page() == 1) {
             return "";
         }
@@ -38,8 +40,7 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
     }, array('is_safe' => array('html')));
 
-    $next_posts_link = new Twig_SimpleFunction('next_posts_link', function ($label = 'Next Page »') use($prismic, $state) {
-        global $app;
+    $next_posts_link = new Twig_SimpleFunction('next_posts_link', function ($label = 'Next Page »') use($app, $prismic, $state) {
         if ($state->current_page() >= $state->total_pages($prismic)) {
             return "";
         }

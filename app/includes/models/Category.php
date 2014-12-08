@@ -18,6 +18,11 @@ class Category
         return $this->document->getText("category.name");
     }
 
+    public function getTitle()
+    {
+        return $this->getName();
+    }
+
     public function getDescription()
     {
         return $this->document->getStructuredText("category.description")->asHtml();

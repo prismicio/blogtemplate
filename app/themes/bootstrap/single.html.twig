@@ -21,4 +21,8 @@
         {{ post.body|raw }}
     </div>
 
+    {{ post.previous|link }}
+
+    {{ post.next|link }}
+
 {% endblock %}
