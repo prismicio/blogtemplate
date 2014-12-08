@@ -6,9 +6,16 @@ use Prismic\Predicates;
 
 class BlogLinkResolver extends LinkResolver
 {
+    private $prismic;
+
+    public function __construct($prismic)
+    {
+        $this->prismic = $prismic;
+    }
+
     public function resolve($link)
     {
-        $name = PrismicHelper::get_bookmark_name($link->getId());
+        $name = $this->prismic->get_bookmark_name($link->getId());
         if ($name == 'home') {
             return '/';
         }
@@ -21,13 +28,13 @@ class BlogLinkResolver extends LinkResolver
         if ($link->getType() == "category") {
             return "/category/" . $link->getId() . '/' . $link->getSlug();
         }
-        return $this->resolveDocument(PrismicHelper::get_document($link->getId()));
+        return $this->resolveDocument($this->prismic->get_document($link->getId()));
     }
 
     public function resolveDocument($doc)
     {
         if (!$doc) return null;
-        $name = PrismicHelper::get_bookmark_name($doc->getId());
+        $name = $this->prismic->get_bookmark_name($doc->getId());
         if ($name == 'home') {
             return '/';
         } else if ($name) {
@@ -48,52 +55,55 @@ class BlogLinkResolver extends LinkResolver
 class PrismicHelper
 {
 
-    static $linkResolver;
+    private $app;
+    public $linkResolver;
 
-    private static $api = null;
-
-    private static function pageSize()
-    {
-        global $app;
-        return $app->config('page_size');
+    public function __construct($app) {
+        $this->app = $app;
+        $this->linkResolver = new BlogLinkResolver($this);
     }
 
-    static function get_api()
+    private $api = null;
+
+    private function pageSize()
     {
-        global $app;
-        $url = $app->config('prismic.url');
-        $access_token = $app->config('prismic.access_token');
-        if (PrismicHelper::$api == null) {
-            PrismicHelper::$api = Api::get($url, $access_token);
+        return $this->app->config('page_size');
+    }
+
+    function get_api()
+    {
+        $url = $this->app->config('prismic.url');
+        $access_token = $this->app->config('prismic.access_token');
+        if ($this->api == null) {
+            $this->api = Api::get($url, $access_token);
         }
-        return PrismicHelper::$api;
+        return $this->api;
     }
 
-    static function get_ref()
+    function get_ref()
     {
-        global $app;
-        $previewCookie = $app->request()->cookies[Prismic\PREVIEW_COOKIE];
+        $previewCookie = $this->app->request()->cookies[Prismic\PREVIEW_COOKIE];
         if ($previewCookie != null) {
             return $previewCookie;
         } else {
-            return PrismicHelper::get_api()->master();
+            return $this->get_api()->master();
         }
     }
 
-    static function form()
+    function form()
     {
-        return PrismicHelper::get_api()->forms()->everything->ref(PrismicHelper::get_ref());
+        return $this->get_api()->forms()->everything->ref(PrismicHelper::get_ref());
     }
 
-    static function get_authors() {
-        return PrismicHelper::form()
+    function get_authors() {
+        return $this->form()
             ->query(Predicates::at("document.type", "author"))
             ->submit();
     }
 
-    static function get_document($id)
+    function get_document($id)
     {
-        $results = PrismicHelper::single($id)->getResults();
+        $results = $this->single($id)->getResults();
         if (count($results) > 0) {
             return $results[0];
         } else {
@@ -102,21 +112,21 @@ class PrismicHelper
     }
 
     // Array of Category
-    static function document_categories($document)
+    function document_categories($document)
     {
         $result = array();
         if (!$document) return $result;
         $group = $document->getGroup('post.categories');
         if (!$group) return $result;
         foreach ($group->getArray() as $item) {
-            array_push($result, Category::fromId($item['link']->getId()));
+            array_push($result, Category::fromId($item['link']->getId(), $this));
         }
         return $result;
     }
 
-    static function get_bookmark_name($documentId)
+    function get_bookmark_name($documentId)
     {
-        foreach(PrismicHelper::get_api()->bookmarks() as $name => $id) {
+        foreach($this->get_api()->bookmarks() as $name => $id) {
             if ($documentId == $id) {
                 return $name;
             }
@@ -124,17 +134,17 @@ class PrismicHelper
         return null;
     }
 
-    static function single($documentId)
+    function single($documentId)
     {
-        return PrismicHelper::form()
+        return $this->form()
             ->query(array(Predicates::at("document.id", $documentId)))
             ->submit();
     }
 
-    static function search($q, $page = 1, $pageSize = null)
+    function search($q, $page = 1, $pageSize = null)
     {
-        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
-        return PrismicHelper::form()
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
             ->orderings("[my.post.date desc]")
             ->page($page)
@@ -142,10 +152,10 @@ class PrismicHelper
             ->submit();
     }
 
-    static function category($categoryId, $page = 1, $pageSize = null)
+    function category($categoryId, $page = 1, $pageSize = null)
     {
-        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
-        return PrismicHelper::form()
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
             ->orderings("[my.post.date desc]")
             ->page($page)
@@ -153,10 +163,10 @@ class PrismicHelper
             ->submit();
     }
 
-    static function byAuthor($authorDocId, $page = 1, $pageSize = null)
+    function byAuthor($authorDocId, $page = 1, $pageSize = null)
     {
-        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
-        return PrismicHelper::form()
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.author", $authorDocId)))
             ->orderings("[my.post.date desc]")
             ->page($page)
@@ -164,9 +174,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function archives($date, $page = 1, $pageSize = null)
+    function archives($date, $page = 1, $pageSize = null)
     {
-        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
+        if (!$pageSize) $pageSize = $this->pageSize();
         if (!$date['month']) {
             $lowerBound = DateTime::createFromFormat('Y-m-d', ($date['year'] - 1) . '-12-31');
             $upperBound = DateTime::createFromFormat('Y-m-d', ($date['year'] + 1) . '-01-01');
@@ -180,7 +190,7 @@ class PrismicHelper
             $upperBound = clone $lowerBound;
             $lowerBound->modify('-1 day');
         }
-        return PrismicHelper::form()
+        return $this->form()
             ->query(array(
                 Predicates::at("document.type", "post"),
                 Predicates::dateAfter("my.post.date", $lowerBound),
@@ -192,9 +202,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function get_bookmarks()
+    function get_bookmarks()
     {
-        $bookmarks = PrismicHelper::get_api()->bookmarks();
+        $bookmarks = $this->get_api()->bookmarks();
         $bkIds = array();
         foreach ($bookmarks as $name => $id) {
             array_push($bkIds, $id);
@@ -202,17 +212,17 @@ class PrismicHelper
         if (count($bkIds) == 0) {
             return array();
         }
-        return PrismicHelper::form()
+        return $this->form()
             ->query(Predicates::any("document.id", $bkIds))
             ->orderings("[my.page.priority desc]")
             ->submit()
             ->getResults();
     }
 
-    static function get_posts($page, $pageSize = null)
+    function get_posts($page, $pageSize = null)
     {
-        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
-        return PrismicHelper::form()
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
             ->page($page)
             ->pageSize($pageSize)
             ->query(Predicates::at("document.type", "post"))
@@ -220,12 +230,12 @@ class PrismicHelper
             ->submit();
     }
 
-    static function get_calendar()
+    function get_calendar()
     {
         $calendar = array();
         $page = 1;
         do {
-            $posts = PrismicHelper::get_posts($page, 100);
+            $posts = $this->get_posts($page, 100);
             foreach ($posts->getResults() as $post) {
                 if (!$post->getDate("post.date")) continue;
                 $date = $post->getDate("post.date")->asDateTime();
@@ -244,4 +254,3 @@ class PrismicHelper
 
 }
 
-PrismicHelper::$linkResolver = new BlogLinkResolver();

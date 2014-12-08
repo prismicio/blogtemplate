@@ -2,48 +2,82 @@
 
 class Theme {
 
-    private static $twig;
+    private $twig;
+    private $app;
+    private $prismic;
+    private $name;
+    private $state;
 
-    private static function themeName() {
-        global $app;
-        return $app->config('theme');
+    public function __construct(\Slim\Slim $app, State $state, PrismicHelper $prismic)
+    {
+        global $WPGLOBAL;
+        $this->app = $app;
+        $this->prismic = $prismic;
+        $this->name = $app->config('theme');
+        $this->state = $state;
+
+        if ($this->isWP()) {
+            $WPGLOBAL = array(
+                'theme' => $this,
+                'app' => $this->app,
+                'prismic' => $this->prismic,
+                'loop' => new Loop($this->prismic, $this->state),
+                'state' => $this->state
+            );
+        }
     }
 
-    public static function twig() {
-        if (!Theme::$twig) {
+    public function twig() {
+        if (!$this->twig) {
             Twig_Autoloader::register();
 
-            $loader = new Twig_Loader_Filesystem(Theme::directory());
-            Theme::$twig = new Twig_Environment($loader, array(
+            $loader = new Twig_Loader_Filesystem($this->directory());
+            $this->twig = new Twig_Environment($loader, array(
                 // 'cache' => '/path/to/compilation_cache',
             ));
+            // Twig tags
+            require_once 'tags/general.php';
+            register_tags($this->app, $this->twig, $this->prismic, $this->state);
         }
-        return Theme::$twig;
+        return $this->twig;
     }
 
-    public static function directory() {
-        return __DIR__ . '/../themes/' . Theme::themeName();
+    public function directory() {
+        return __DIR__ . '/../themes/' . $this->name;
     }
 
-    public static function directory_url() {
-        return '/' . Theme::directory();
+    public function directory_url() {
+        return '/' . $this->directory();
     }
 
-    public static function render($name, $parameters = array()) {
-        global $app;
-        if (Theme::isWP()) {
-            include Theme::directory() . '/' . $name . '.php';
+    public function render($name, $parameters = array()) {
+        global $WPGLOBAL;
+        if ($this->isWP()) {
+            // Wordpress tags
+            require_once 'wp-tags/general.php';
+            require_once 'wp-tags/navigation.php';
+            require_once 'wp-tags/posts.php';
+            require_once 'wp-tags/pages.php';
+            require_once 'wp-tags/author.php';
+            require_once 'wp-tags/archive.php';
+            require_once 'wp-tags/categories.php';
+            require_once 'wp-tags/stubs.php';
+            if (file_exists('themes/' . $this->name . '/functions.php')) {
+                // Optional helpers that theme developers can provide
+                include 'themes/' . $this->name . '/functions.php';
+            }
+            include $this->directory() . '/' . $name . '.php';
         } else {
-            echo Theme::twig()->render($name . '.html.twig', array_merge(array(
-                "site_title" => $app->config('site.title'),
-                "home" => NavMenuItem::home(),
-                "posts" => State::current_posts()
+            echo $this->twig()->render($name . '.html.twig', array_merge(array(
+                "site_title" => $this->app->config('site.title'),
+                "home" => NavMenuItem::home($this->prismic),
+                "posts" => $this->state->current_posts($this->prismic)
             ), $parameters));
         }
     }
 
-    private static function isWP() {
-        return file_exists('themes/' . Theme::themeName() . '/index.php');
+    private function isWP() {
+        return file_exists($this->directory() . '/index.php');
     }
 
 }

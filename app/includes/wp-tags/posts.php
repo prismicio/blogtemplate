@@ -14,24 +14,30 @@
 
 function have_posts()
 {
-    return Loop::has_more();
+    global $WPGLOBAL;
+    return $WPGLOBAL['loop']->has_more();
 }
 
 function the_post()
 {
-    Loop::increment();
+    global $WPGLOBAL;
+    $WPGLOBAL['loop']->increment();
 }
 
 function rewind_posts()
 {
-    Loop::reset();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $loop->reset();
 }
 
 // To be used within the loop
 
 function the_ID()
 {
-    echo Loop::current_post()->getId();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    echo $loop->current_post()->getId();
 }
 
 function is_sticky()
@@ -46,13 +52,18 @@ function the_permalink()
 
 function get_permalink($id = null, $leavename = false)
 {
-    $post = $id ? PrismicHelper::get_document($id) : Loop::current_post();
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $loop = $WPGLOBAL['loop'];
+    $post = $id ? $prismic->get_document($id) : $loop->current_post();
     return $post ? $post->getPermalink() : null;
 }
 
 function the_title()
 {
-    $doc = Loop::current_post();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $doc = $loop->current_post();
     echo $doc ? htmlentities($doc->getTitle()) : "";
 }
 
@@ -63,7 +74,9 @@ function the_title_attribute()
 
 function the_date_link($format = "F, jS Y")
 {
-    $date = get_date("post.date", Loop::current_post());
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
     }
@@ -74,7 +87,9 @@ function the_date_link($format = "F, jS Y")
 
 function get_the_date()
 {
-    $date = get_date("post.date", Loop::current_post());
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
     }
@@ -84,7 +99,9 @@ function get_the_date()
 
 function get_the_time()
 {
-    $date = get_date("post.date", Loop::current_post());
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
     }
@@ -94,7 +111,9 @@ function get_the_time()
 
 function the_content($more_link_text = '(more...')
 {
-    $doc = Loop::current_post();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $doc = $loop->current_post();
     if (!$doc) return null;
     echo $doc->getBody();
 }
@@ -118,14 +137,18 @@ function has_post_format($format = array(), $post = null)
 
 function get_the_excerpt()
 {
-    $doc = Loop::current_post();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $doc = $loop->current_post();
     if (!$doc) return null;
     return $doc->getExcerpt();
 }
 
 function get_post_type()
 {
-    $doc = Loop::current_post();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $doc = $loop->current_post();
     if (!$doc) return null;
     return $doc->getType();
 }
@@ -139,17 +162,24 @@ function the_excerpt()
 
 function current_document()
 {
-    return State::current_document();
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    $prismic = $WPGLOBAL['prismic'];
+    return $state->current_document($prismic);
 }
 
 function posts() {
-    return State::current_posts()->getResults();
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    return $state->current_posts()->getResults();
 }
 
 function document_url($document)
 {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $doc = $document ? $document : current_document();
-    return PrismicHelper::$linkResolver->resolveDocument($doc);
+    return $prismic->linkResolver->resolveDocument($doc);
 }
 
 function post_title($document = null)
@@ -165,7 +195,9 @@ function link_to_post($post)
 
  function single_post_title($prefix = '', $display = true)
 {
-    $doc = new Post(current_document());
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $doc = new Post(current_document(), $prismic);
     $result = $prefix . $doc->getTitle();
     if ($display) {
         echo htmlentities($result);
@@ -176,9 +208,11 @@ function link_to_post($post)
 
 function get_html($field, $document = null)
 {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $doc = $document ? $document : current_document();
     if ($doc->get($field)) {
-        return $doc->get($field)->asHtml(PrismicHelper::$linkResolver);
+        return $doc->get($field)->asHtml($prismic->linkResolver);
     }
     return null;
 }

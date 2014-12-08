@@ -15,12 +15,13 @@ $composer = json_decode(file_get_contents(__DIR__ . '/composer.json'));
 $app = new \Slim\Slim(
     array(
       'version'        => $composer->version,
-      'debug'          => false,
-      'mode'           => 'production',
+      'debug'          => DEBUG,
+      'mode'           => MODE,
       'prismic.url'    => PRISMIC_URL,
       'theme'          => PI_THEME,
       'site.title'     => SITE_TITLE,
-      'page_size'      => PAGE_SIZE
+      'site.description' => SITE_DESCRIPTION,
+      'page_size'      => PAGE_SIZE,
     )
 );
 

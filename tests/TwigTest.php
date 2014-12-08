@@ -1,6 +1,6 @@
 <?php
 
-class HomepageTests extends LocalWebTestCase
+class TwigTests extends LocalWebTestCase
 {
     public function testVersion()
     {

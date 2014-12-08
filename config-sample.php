@@ -26,3 +26,10 @@ define('SITE_TITLE', 'New Prismic.io Blog');
 define('SITE_DESCRIPTION', 'This is a sample theme using Bootstrap');
 
 define('ADMIN_EMAIL', '');
+
+/**
+ * Only change this if you're hacking Blog Template
+ */
+define('MODE', 'production');
+define('DEBUG', 'false');
+

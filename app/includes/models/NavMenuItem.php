@@ -3,13 +3,14 @@
 
 class NavMenuItem
 {
-    private $label, $link, $children;
+    private $prismic, $label, $link, $children;
 
-    public function __construct($label, $docLink, array $children)
+    public function __construct($prismic, $label, $docLink, array $children)
     {
         $this->label = $label;
         $this->link = $docLink;
         $this->children = $children;
+        $this->prismic = $prismic;
     }
 
     public function getTitle()
@@ -19,7 +20,7 @@ class NavMenuItem
 
     public function getPermalink()
     {
-        return $this->link->getUrl(PrismicHelper::$linkResolver);
+        return $this->link->getUrl($this->prismic->linkResolver);
     }
 
     public function getChildren()
@@ -27,27 +28,27 @@ class NavMenuItem
         return $this->children;
     }
 
-    public function isActive()
+    public function isActive($app)
     {
-        global $app;
         return $app->request()->getPath() == $this->getPermalink();
     }
 
-    public static function home()
+    public static function home($prismic)
     {
-        $homeId = PrismicHelper::get_api()->bookmark('home');
+        $homeId = $prismic->get_api()->bookmark('home');
         if (!$homeId) return null;
-        $doc = PrismicHelper::get_document($homeId);
+        $doc = $prismic->get_document($homeId);
         if (!$doc || $doc->getType() != "page") return null;
 
         return new NavMenuItem(
+            $prismic,
             'Home',
             new \Prismic\Fragment\Link\DocumentLink($doc->getId(), "page", array(), "home", false),
-            NavMenuItem::getPageChildren($doc)
+            NavMenuItem::getPageChildren($doc, $prismic)
         );
     }
 
-    private static function getPageChildren($page)
+    private static function getPageChildren($page, $prismic)
     {
         $result = array();
         if (!$page) return $result;
@@ -59,9 +60,9 @@ class NavMenuItem
             $link = $item['link'];
             $children = array();
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
-                $children = NavMenuItem::getPageChildren(PrismicHelper::get_document($link->getId()));
+                $children = NavMenuItem::getPageChildren($prismic->get_document($link->getId()), $prismic);
             }
-            array_push($result, new NavMenuItem($label, $link, $children));
+            array_push($result, new NavMenuItem($prismic, $label, $link, $children));
         }
         return $result;
     }

@@ -2,7 +2,9 @@
 
 function single_cat_title($prefix = '', $display = true)
 {
-    $category = State::current_category();
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    $category = $state->current_category();
     $result = null;
     if ($category) {
         $result = $prefix . $category->getText('category.name');
@@ -21,7 +23,10 @@ function get_the_category_list($separator = '',$parents='', $post_id = null)
 
 function the_category($separator = '', $parents = '', $post_id = null)
 {
-    $doc = $post_id ? PrismicHelper::get_document($post_id) : Loop::current_post();
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $loop = $WPGLOBAL['loop'];
+    $doc = $post_id ? $prismic->get_document($post_id) : $loop->current_post();
     if (!$doc) return null;
     $strings = array();
     foreach ($doc->getCategories() as $category) {

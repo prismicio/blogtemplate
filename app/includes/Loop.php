@@ -2,32 +2,40 @@
 
 class Loop {
 
-    static $loop_index = -1;
+    public $loop_index = -1;
+    private $prismic;
+    private $state;
 
-    static function reset() {
-        Loop::$loop_index = -1;
+    public function __construct(PrismicHelper $prismic, State $state)
+    {
+        $this->prismic = $prismic;
+        $this->state = $state;
     }
 
-    static function increment() {
-        Loop::$loop_index += 1;
+    function reset() {
+        $this->loop_index = -1;
     }
 
-    static function has_more() {
+    function increment() {
+        $this->loop_index += 1;
+    }
+
+    function has_more() {
         // -1 because we check before incrementing
-        return Loop::$loop_index < (State::current_response()->getResultsSize() - 1);
+        return $this->loop_index < ($this->state->current_response($this->prismic)->getResultsSize() - 1);
     }
 
-    static function current_post() {
-        $posts = State::current_posts();
-        if (Loop::$loop_index < 0 || Loop::$loop_index >= count($posts)) {
+    function current_post() {
+        $posts = $this->state->current_posts($this->prismic);
+        if ($this->loop_index < 0 || $this->loop_index >= count($posts)) {
             return null;
         }
-        return $posts[Loop::$loop_index];
+        return $posts[$this->loop_index];
     }
 
-    static function current_author() {
-        if (Loop::current_post()) {
-            return Loop::current_post()->getAuthor();
+    function current_author() {
+        if ($this->current_post()) {
+            return $this->current_post()->getAuthor($this->prismic);
         } else return null;
     }
 

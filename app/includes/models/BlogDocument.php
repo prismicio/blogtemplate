@@ -5,11 +5,12 @@ use Prismic\Document;
 abstract class BlogDocument
 {
     public $document;
-    private $author;
+    protected $prismic;
 
-    public function __construct(Document $doc)
+    public function __construct(Document $doc, PrismicHelper $prismic)
     {
         $this->document = $doc;
+        $this->prismic = $prismic;
     }
 
     public function getTitle()
@@ -25,7 +26,7 @@ abstract class BlogDocument
 
     public function getPermalink()
     {
-        return PrismicHelper::$linkResolver->resolveDocument($this->document);
+        return $this->prismic->linkResolver->resolveDocument($this->document);
     }
 
     public function getDate()
@@ -38,23 +39,23 @@ abstract class BlogDocument
     {
         $authorLink = $this->document->getLink($this->document->getType() . ".author");
         if (!$authorLink) return null;
-        return Author::fromId($authorLink->getId());
+        return Author::fromId($this->prismic, $authorLink->getId());
     }
 
-    public static function fromPrismicDoc($document)
+    public static function fromPrismicDoc(\Prismic\Document $document, PrismicHelper $prismic)
     {
         if (!$document) return null;
         switch ($document->getType()) {
-            case "post": return new Post($document);
-            case "author": return new Author($document);
-            case "category": return new Category($document);
-            case "page": return new Page($document);
+            case "post": return new Post($document, $prismic);
+            case "author": return new Author($document, $prismic);
+            case "category": return new Category($document, $prismic);
+            case "page": return new Page($document, $prismic);
         }
     }
 
-    public static function fromId($docId)
+    public static function fromId(PrismicHelper $prismic, $docId)
     {
-        return BlogDocument::fromPrismicDoc(PrismicHelper::get_document($docId));
+        return BlogDocument::fromPrismicDoc($prismic->get_document($docId), $prismic);
     }
 
 }

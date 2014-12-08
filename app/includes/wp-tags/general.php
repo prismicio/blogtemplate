@@ -15,13 +15,13 @@ function get_bloginfo($show = 'name')
         case 'rdf_url':
         case 'rss_url':
         case 'rss2_url': return '/feed';
-        case 'description': return SITE_DESCRIPTION;
+        case 'description': return $app->config('site.description');
         case 'wpurl':
         case 'url': return $app->request()->getUrl();
         case 'admin_email': return ADMIN_EMAIL;
         case 'charset': return 'UTF-8';
         case 'language': return 'en-US';
-        case 'name': return SITE_TITLE;
+        case 'name': return $app->config('site.title');
         default: return '';
     }
 }
@@ -33,12 +33,15 @@ function bloginfo($show = 'name')
 
 function site_title()
 {
-    return SITE_TITLE;
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    return $app->config('site.title');
 }
 
 function home_url($path = '', $scheme = null)
 {
-    global $app;
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
     return $app->request()->getUrl() . $path;
 }
 
@@ -49,17 +52,23 @@ function wp_title()
 
 function get_template_directory_uri()
 {
-    return Theme::directory_url();
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
+    return $theme->directory_url();
 }
 
 function get_template_directory()
 {
-    return Theme::directory();
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
+    return $theme->directory();
 }
 
 function site_description()
 {
-    return SITE_DESCRIPTION;
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    return $app->config('site.description');
 }
 
 function the_feed_link($anchor)
@@ -69,7 +78,9 @@ function the_feed_link($anchor)
 
 function home_link($label, $attrs = array())
 {
-    if($_SERVER['REQUEST_URI'] == "/") {
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    if($app->request->getUrl() == "/") {
         $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
     return _make_link('/', $label, $attrs);
@@ -77,7 +88,9 @@ function home_link($label, $attrs = array())
 
 function get_sidebar()
 {
-    Theme::render('sidebar');
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
+    $theme->render('sidebar');
 }
 
 function is_active_sidebar()
@@ -87,17 +100,23 @@ function is_active_sidebar()
 
 function get_header()
 {
-    Theme::render('header');
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
+    $theme->render('header');
 }
 
 function get_footer()
 {
-    Theme::render('footer');
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
+    $theme->render('footer');
 }
 
 function get_search_query()
 {
-    return htmlentities(State::current_query());
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    return htmlentities($state->current_query());
 }
 
 function get_search_form($echo = true)
@@ -113,31 +132,41 @@ function get_search_form($echo = true)
 }
 
 function get_calendar() {
-    return PrismicHelper::get_calendar();
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    return $prismic->get_calendar();
 }
 
 function get_template_part($slug, $name = null)
 {
+    global $WPGLOBAL;
+    $theme = $WPGLOBAL['theme'];
     if ($name) {
-        Theme::render($slug . '-' . $name);
+        $theme->render($slug . '-' . $name);
     } else {
-        Theme::render($slug);
+        $theme->render($slug);
     }
 }
 
 function is_search()
 {
-    return State::current_query() != null;
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    return $state->current_query() != null;
 }
 
 function is_single()
 {
-    return State::current_document() && State::current_document()->getType() == "post";
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    return $state->current_document() && $state->current_document()->getType() == "post";
 }
 
 function is_singular()
 {
-    return State::current_document() != null;
+    global $WPGLOBAL;
+    $state = $WPGLOBAL['state'];
+    return $state->current_document() != null;
 }
 
 // Helpers (shouldn't be used in templates)

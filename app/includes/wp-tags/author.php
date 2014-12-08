@@ -1,11 +1,13 @@
 <?php
 
 function author($document = null) {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     if (!$document && current_document()) {
-        $document = new Post(current_document());
+        $document = new Post(current_document(), $prismic);
     }
     if (!$document) return null;
-    return $document->getAuthor();
+    return $document->getAuthor($prismic);
 }
 
 function the_author()
@@ -14,7 +16,9 @@ function the_author()
 }
 
 function get_the_author() {
-    $auth = Loop::current_author();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $auth = $loop->current_author();
     if (!$auth) return null;
     return htmlentities($auth->getName());
 }
@@ -27,14 +31,18 @@ function get_author_posts_url($author_id, $author_nicename = '')
     return PrismicHelper::$linkResolver->resolveDocument($auth);
 }
 
-function author_link($author = null) {
-    $auth = $author ? $author : author();
+function get_the_author_link() {
+    $auth = author();
     if (!$auth) return null;
     $author_link = $auth->getPermalink();
-    return '<a href = "' . $author_link . '">' . $author->getName() . '</a>';
+    return '<a href = "' . $author_link . '">' . $auth->getName() . '</a>';
 }
 
-function author_image($author = null) {
+function the_author_link() {
+    echo get_the_author_link();
+}
+
+function author_image() {
     $auth = $author ? $author : author();
     if (!$auth) return null;
     $photo = $auth->getImage('author.photo');

@@ -2,12 +2,16 @@
 
 function home()
 {
-    return PrismicHelper::get_document(PrismicHelper::get_api()->bookmark("home"));
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    return $prismic->get_document($prismic->get_api()->bookmark("home"));
 }
 
 function page_link($page, $attrs = array())
 {
-    if($_SERVER['REQUEST_URI'] == $page['url']) {
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    if($app->request->getUrl() == $page['url']) {
         $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
     return _make_link($page['url'], $page['label'], $attrs);
@@ -21,6 +25,8 @@ function has_children($page)
 
 function get_page_children($page)
 {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $result = array();
     if (!$page) return $result;
     $group = $page->getGroup("page.children");
@@ -29,10 +35,10 @@ function get_page_children($page)
         if (!isset($item['label']) || !isset($item['link'])) continue;
         $label = $item['label']->asText();
         $link = $item['link'];
-        $url = $link->getUrl(PrismicHelper::$linkResolver);
+        $url = $link->getUrl($prismic->linkResolver);
         $children = array();
         if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
-            $children = get_page_children(PrismicHelper::get_document($link->getId()));
+            $children = get_page_children($prismic->get_document($link->getId()));
         }
         array_push($result, array(
             'label' => $label,

@@ -4,13 +4,12 @@ use Prismic\Document;
 
 class Post extends BlogDocument
 {
-    public $document;
     private $author;
 
     function getExcerpt()
     {
         if ($this->document->getStructuredText('post.shortlede')) {
-            return $this->document->getStructuredText('post.shortlede')->asHtml(PrismicHelper::$linkResolver);
+            return $this->document->getStructuredText('post.shortlede')->asHtml($this->prismic->linkResolver);
         }
         // Plain text to avoid open tag at the end
         $body = $this->document->getStructuredText('post.body');
@@ -23,7 +22,7 @@ class Post extends BlogDocument
 
     public function getCategories()
     {
-        return PrismicHelper::document_categories($this->document);
+        return $this->prismic->document_categories($this->document);
     }
 
 }

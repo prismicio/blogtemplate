@@ -30,7 +30,6 @@ class LocalWebTestCase extends WebTestCase {
     }
 
     public function getSlimInstance() {
-        global $app;
         $app = new \Slim\Slim($this->getConfig());
 
         // Include our core application file

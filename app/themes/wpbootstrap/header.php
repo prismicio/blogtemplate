@@ -4,11 +4,12 @@
 <head>
     <title><?= post_title() ?> <?= site_title() ?></title>
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
+    <!-- Theme: WP Bootstrap -->
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/themes/wpbootstrap/main.css">
+    <link rel="stylesheet" href="/app/themes/wpbootstrap/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

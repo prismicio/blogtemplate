@@ -5,10 +5,12 @@ use Prismic\Document;
 class Category
 {
     public $document;
+    private $prismic;
 
-    public function __construct(Document $doc)
+    public function __construct(Document $doc, PrismicHelper $prismic)
     {
         $this->document = $doc;
+        $this->prismic = $prismic;
     }
 
     public function getName()
@@ -28,14 +30,14 @@ class Category
 
     public function getPermalink()
     {
-        return PrismicHelper::$linkResolver->resolveDocument($this->document);
+        return $this->prismic->linkResolver->resolveDocument($this->document);
     }
 
-    public static function fromId($docId)
+    public static function fromId($docId, PrismicHelper $prismic)
     {
-        $doc = PrismicHelper::get_document($docId);
+        $doc = $prismic->get_document($docId);
         if (!$doc || $doc->getType() != "category") return null;
-        return new Category($doc);
+        return new Category($doc, $prismic);
     }
 
 }
