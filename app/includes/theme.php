@@ -4,6 +4,11 @@ class Theme {
 
     private static $twig;
 
+    private static function themeName() {
+        global $app;
+        return $app->config('theme');
+    }
+
     public static function twig() {
         if (!Theme::$twig) {
             Twig_Autoloader::register();
@@ -17,7 +22,7 @@ class Theme {
     }
 
     public static function directory() {
-        return __DIR__ . '/../themes/' . PI_THEME;
+        return __DIR__ . '/../themes/' . Theme::themeName();
     }
 
     public static function directory_url() {
@@ -25,11 +30,12 @@ class Theme {
     }
 
     public static function render($name, $parameters = array()) {
+        global $app;
         if (Theme::isWP()) {
             include Theme::directory() . '/' . $name . '.php';
         } else {
             echo Theme::twig()->render($name . '.html.twig', array_merge(array(
-                "site_title" => SITE_TITLE,
+                "site_title" => $app->config('site.title'),
                 "home" => NavMenuItem::home(),
                 "posts" => State::current_posts()
             ), $parameters));
@@ -37,7 +43,7 @@ class Theme {
     }
 
     private static function isWP() {
-        return file_exists('themes/' . PI_THEME . '/index.php');
+        return file_exists('themes/' . Theme::themeName() . '/index.php');
     }
 
 }

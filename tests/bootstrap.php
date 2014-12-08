@@ -15,19 +15,29 @@ define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
 require_once PROJECT_ROOT . '/vendor/autoload.php';
 
-// Initialize our own copy of the slim application
+
 class LocalWebTestCase extends WebTestCase {
-    public function getSlimInstance() {
-        global $app;
-        $app = new \Slim\Slim(array(
+
+    public function getConfig() {
+        return array(
             'version'        => '0.0.0',
             'debug'          => false,
-            'mode'           => 'testing'
-        ));
+            'mode'           => 'testing',
+            'site.title'     => 'Blog Template',
+            'prismic.url'    => 'https://blogtemplate.prismic.io/api',
+            'theme'          => 'bootstrap'
+        );
+    }
+
+    public function getSlimInstance() {
+        global $app;
+        $app = new \Slim\Slim($this->getConfig());
 
         // Include our core application file
         require PROJECT_ROOT . '/app/app.php';
         return $app;
     }
+
 };
+
 

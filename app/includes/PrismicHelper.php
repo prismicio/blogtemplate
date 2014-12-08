@@ -52,10 +52,19 @@ class PrismicHelper
 
     private static $api = null;
 
+    private static function pageSize()
+    {
+        global $app;
+        return $app->config('page_size');
+    }
+
     static function get_api()
     {
+        global $app;
+        $url = $app->config('prismic.url');
+        $access_token = $app->config('prismic.access_token');
         if (PrismicHelper::$api == null) {
-            PrismicHelper::$api = Api::get(PRISMIC_URL, ACCESS_TOKEN);
+            PrismicHelper::$api = Api::get($url, $access_token);
         }
         return PrismicHelper::$api;
     }
@@ -122,8 +131,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function search($q, $page = 1, $pageSize = PAGE_SIZE)
+    static function search($q, $page = 1, $pageSize = null)
     {
+        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
         return PrismicHelper::form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
             ->orderings("[my.post.date desc]")
@@ -132,8 +142,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function category($categoryId, $page = 1, $pageSize = PAGE_SIZE)
+    static function category($categoryId, $page = 1, $pageSize = null)
     {
+        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
         return PrismicHelper::form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
             ->orderings("[my.post.date desc]")
@@ -142,8 +153,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function byAuthor($authorDocId, $page = 1, $pageSize = PAGE_SIZE)
+    static function byAuthor($authorDocId, $page = 1, $pageSize = null)
     {
+        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
         return PrismicHelper::form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.author", $authorDocId)))
             ->orderings("[my.post.date desc]")
@@ -152,8 +164,9 @@ class PrismicHelper
             ->submit();
     }
 
-    static function archives($date, $page = 1, $pageSize = PAGE_SIZE)
+    static function archives($date, $page = 1, $pageSize = null)
     {
+        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
         if (!$date['month']) {
             $lowerBound = DateTime::createFromFormat('Y-m-d', ($date['year'] - 1) . '-12-31');
             $upperBound = DateTime::createFromFormat('Y-m-d', ($date['year'] + 1) . '-01-01');
@@ -196,8 +209,9 @@ class PrismicHelper
             ->getResults();
     }
 
-    static function get_posts($page, $pageSize = PAGE_SIZE)
+    static function get_posts($page, $pageSize = null)
     {
+        if (!$pageSize) $pageSize = PrismicHelper::pageSize();
         return PrismicHelper::form()
             ->page($page)
             ->pageSize($pageSize)
