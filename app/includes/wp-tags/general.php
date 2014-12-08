@@ -80,7 +80,7 @@ function home_link($label, $attrs = array())
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    if($app->request->getUrl() == "/") {
+    if($app->request->getPath() == "/") {
         $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
     }
     return _make_link('/', $label, $attrs);
