@@ -141,6 +141,7 @@ function get_the_excerpt()
     $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
     if (!$doc) return null;
+    if ($doc instanceof Author) return null;
     return $doc->getExcerpt();
 }
 
@@ -182,12 +183,6 @@ function document_url($document)
     return $prismic->linkResolver->resolveDocument($doc);
 }
 
-function post_title($document = null)
-{
-    $doc = $document ? $document : current_document();
-    return $doc ? htmlentities($doc->getText($doc->getType() . ".title")) : "";
-}
-
 function link_to_post($post)
 {
     return '<a href="' . document_url($post) . '">' . post_title($post) . '</a>';
@@ -197,8 +192,8 @@ function link_to_post($post)
 {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    $doc = new Post(current_document(), $prismic);
-    $result = $prefix . $doc->getTitle();
+    if (!current_document()) return null;
+    $result = $prefix . current_document()->getTitle();
     if ($display) {
         echo htmlentities($result);
     } else {
@@ -221,6 +216,7 @@ function get_date($field, $document = null)
 {
     $doc = $document ? $document : current_document();
     if (!$doc) return null;
+    if ($doc instanceof Author) return null;
     return $doc->getDate($field);
 }
 
@@ -230,7 +226,6 @@ function post_date_link($document = null)
     if (!$date) {
         return null;
     }
-    $date = $date->asDateTime();
     $label = date_format($date, "F, jS Y");
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
     return '<a href="' . $url . '">' . $label . '</a>';

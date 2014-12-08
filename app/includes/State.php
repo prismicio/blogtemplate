@@ -24,40 +24,40 @@ class State {
         return $pageQuery == null ? '1' : $pageQuery;
     }
 
-    function current_document(PrismicHelper $prismic) {
+    function current_document() {
         if ($this->current_document_id == null) {
             return null;
         }
-        return $prismic->get_document($this->current_document_id);
+        return new Post($this->prismic->get_document($this->current_document_id), $this->prismic);
     }
 
-    function current_category(PrismicHelper $prismic) {
+    function current_category() {
         if ($this->current_category_id == null) {
             return null;
         }
-        return $prismic->get_document($this->current_category_id);
+        return $this->prismic->get_document($this->current_category_id);
     }
 
-    function current_response(PrismicHelper $prismic) {
+    function current_response() {
         if (!$this->current_posts) {
             if ($this->current_query() != null) {
                 // Search page
-                $this->current_posts = $prismic->search($this->current_query(), $this->current_page());
+                $this->current_posts = $this->prismic->search($this->current_query(), $this->current_page());
             } else if ($this->current_archive_date() != null) {
                 // Archive page
-                $this->current_posts = $prismic->archives($this->current_archive_date(), $this->current_page());
+                $this->current_posts = $this->prismic->archives($this->current_archive_date(), $this->current_page());
             } else if ($this->current_category_id != null) {
                 // Category page
-                $this->current_posts = $prismic->category($this->current_category_id, $this->current_page());
-            } else if ($this->current_document($prismic) && $this->current_document($prismic)->getType() == "author") {
+                $this->current_posts = $this->prismic->category($this->current_category_id, $this->current_page());
+            } else if ($this->current_document($this->prismic) && $this->current_document() instanceof Author) {
                 // Author page
-                $this->current_posts = $prismic->byAuthor($this->current_document_id, $this->current_page());
+                $this->current_posts = $this->prismic->byAuthor($this->current_document_id, $this->current_page());
             } else if ($this->current_document_id != null) {
                 // Single page/post
-                $this->current_posts = $prismic->single($this->current_document_id);
+                $this->current_posts = $this->prismic->single($this->current_document_id);
             } else {
                 // Index page
-                $this->current_posts = $prismic->get_posts($this->current_page());
+                $this->current_posts = $this->prismic->get_posts($this->current_page());
             }
         }
         return $this->current_posts;

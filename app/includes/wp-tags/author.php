@@ -3,8 +3,8 @@
 function author($document = null) {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    if (!$document && current_document()) {
-        $document = new Post(current_document(), $prismic);
+    if (!$document) {
+        $document = current_document();
     }
     if (!$document) return null;
     return $document->getAuthor($prismic);
@@ -32,7 +32,15 @@ function get_author_posts_url($author_id, $author_nicename = '')
 }
 
 function get_the_author_link() {
-    $auth = author();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $post = $loop->current_post();
+    if (!$post) return null;
+    if ($post instanceof Author) {
+        $auth = $post;
+    } else {
+        $auth = $post->getAuthor();
+    }
     if (!$auth) return null;
     $author_link = $auth->getPermalink();
     return '<a href = "' . $author_link . '">' . $auth->getName() . '</a>';
@@ -43,7 +51,7 @@ function the_author_link() {
 }
 
 function author_image() {
-    $auth = $author ? $author : author();
+    $auth = author();
     if (!$auth) return null;
     $photo = $auth->getImage('author.photo');
     if ($photo) {

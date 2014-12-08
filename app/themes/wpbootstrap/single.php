@@ -7,7 +7,11 @@
     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?= post_date_link() ?>,
     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= the_author_link() ?></p>
 
-<?php the_content() ?>
+    <?php the_content() ?>
+
+    <?php previous_post_link() ?>
+
+    <?php next_post_link() ?>
 
 <?php endwhile; ?>
 

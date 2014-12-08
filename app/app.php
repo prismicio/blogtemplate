@@ -94,13 +94,13 @@ $app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $sl
     if ($doc == null) {
         $app->response->setStatus(404);
         $theme->render('404');
-    } else if ($doc->getType() == 'page') {
+    } else if ($doc instanceof Page) {
         $theme->render('page', array(
-            'page' => new Page($doc, $prismic)
+            'page' => $doc
         ));
     } else {
         $theme->render('single', array(
-            'post' => new Post($doc, $prismic)
+            'post' => $doc
         ));
     }
 });

@@ -18,6 +18,11 @@ class Author
         return $this->document->getText("author.full_name");
     }
 
+    public function getTitle()
+    {
+        return $this->getName();
+    }
+
     public function getPermalink()
     {
         return $this->prismic->linkResolver->resolveDocument($this->document);

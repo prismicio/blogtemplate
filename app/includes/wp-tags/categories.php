@@ -28,6 +28,7 @@ function the_category($separator = '', $parents = '', $post_id = null)
     $loop = $WPGLOBAL['loop'];
     $doc = $post_id ? $prismic->get_document($post_id) : $loop->current_post();
     if (!$doc) return null;
+    if ($doc instanceof Author) return null;
     $strings = array();
     foreach ($doc->getCategories() as $category) {
         $url = $category->getPermalink();
