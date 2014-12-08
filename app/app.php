@@ -111,7 +111,9 @@ $app->get('/:year/:month(/:day)', function ($year, $month, $day = null) use($app
     $state = new State($app, $prismic);
     $theme = new Theme($app, $state, $prismic);
     $state->set_current_archive($year, $month, $day);
-    $theme->render('archive');
+    $theme->render('archive', array(
+        'archive_date' => $state->current_archive_date_formatted()
+    ));
 });
 
 

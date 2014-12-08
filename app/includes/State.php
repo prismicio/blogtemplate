@@ -85,4 +85,35 @@ class State {
         return $this->current_archive_date;
     }
 
+    function is_day() {
+        return $this->current_archive_date && $this->current_archive_date['day'];
+    }
+
+    function is_month() {
+        return $this->current_archive_date && !$this->is_day() && $this->current_archive_date['month'];
+    }
+
+    function is_year() {
+        return $this->current_archive_date && !$this->is_month() && !$this->is_day();
+    }
+
+    function current_archive_date_formatted() {
+        if ($this->is_year()) {
+            return $this->current_archive_date['year'];
+        }
+        if ($this->is_month()) {
+            $dt = DateTime::createFromFormat('!Y-m', $this->current_archive_date['year'] . '-' . $this->current_archive_date['month']);
+            return $dt->format('F Y');
+        }
+        if ($this->is_day()) {
+            echo $this->current_archive_date['year']
+                . '-' . $this->current_archive_date['month']
+                . '-' . $this->current_archive_date['day'];
+            $dt = DateTime::createFromFormat('!Y-m-d',
+                $this->current_archive_date['year']
+                . '-' . $this->current_archive_date['month']
+                . '-' . $this->current_archive_date['day']);
+            return $dt->format('F jS, Y');
+        }
+    }
 }

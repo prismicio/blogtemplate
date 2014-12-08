@@ -1,11 +1,20 @@
-<?php get_header() ?>
+{% extends "base.html.twig" %}
 
-<h2>Archives for <?= archive_date() ?></h2>
+{% block content %}
 
-<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <?php get_template_part('content'); ?>
-<?php endwhile; else : ?>
-    <p>Sorry, no posts matched your criteria.</p>
-<?php endif; ?>
+    <h2>Archives for {{ archive_date }}</h2>
 
-<?php get_footer() ?>
+    {% for post in posts %}
+        {% include "content.html.twig" %}
+    {%  endfor %}
+    {%  if posts is empty %}
+        <p>Sorry, no posts matched your criteria.</p>
+    {%  endif %}
+
+    {{ previous_posts_link() }}
+
+    {{ next_posts_link() }}
+
+{% endblock %}
+
+
