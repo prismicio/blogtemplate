@@ -87,6 +87,18 @@ h6, .h6 {
   border-bottom: 5px solid;
   border-left: 5px solid transparent;
 }
+.blog-nav .external:before {
+  content: '\e135';
+  float: left;
+  display:inline-block;
+  font-family:'Glyphicons Halflings';
+  font-style:normal;
+  font-weight:400;
+  line-height:1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding: 3px;
+}
 
 .blog-nav .navbar-form {
   margin-top: 6px;
