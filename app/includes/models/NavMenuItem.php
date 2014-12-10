@@ -65,7 +65,11 @@ class NavMenuItem
             $link = $item->getLink('link');
             $children = array();
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
-                $children = NavMenuItem::getPageChildren($prismic->get_document($link->getId()), $prismic);
+                $doc = $prismic->get_document($link->getId());
+                if (!$label) {
+                    $label = BlogDocument::fromPrismicDoc($doc, $prismic)->getTitle();
+                }
+                $children = NavMenuItem::getPageChildren($doc, $prismic);
             }
             array_push($result, new NavMenuItem($prismic, $label, $link, $children));
         }

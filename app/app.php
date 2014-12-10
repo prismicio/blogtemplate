@@ -83,6 +83,17 @@ $app->get('/preview', function() use($app) {
     $app->response->redirect($url, 301);
 });
 
+// Archive
+$app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) use($app) {
+    $prismic = new PrismicHelper($app);
+    $state = new State($app, $prismic);
+    $theme = new Theme($app, $state, $prismic);
+    $state->set_current_archive($year, $month, $day);
+    $theme->render('archive', array(
+        'archive_date' => $state->current_archive_date_formatted()
+    ));
+});
+
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
     $prismic = new PrismicHelper($app);
@@ -106,7 +117,8 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
 });
 
 // Page
-$app->get('/:uid', function($uid) use($app) {
+$app->get('/:uid(/:uid2)', function($uid, $uid2 = null) use($app) {
+    if ($uid2) $uid = $uid2; // If $uid2 is defined, $uid is the parent
     $prismic = new PrismicHelper($app);
     $state = new State($app, $prismic);
     $theme = new Theme($app, $state, $prismic);
@@ -126,16 +138,3 @@ $app->get('/:uid', function($uid) use($app) {
         $theme->render('404');
     }
 });
-
-// Archive
-$app->get('/:year/:month(/:day)', function ($year, $month, $day = null) use($app) {
-    $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->set_current_archive($year, $month, $day);
-    $theme->render('archive', array(
-        'archive_date' => $state->current_archive_date_formatted()
-    ));
-});
-
-

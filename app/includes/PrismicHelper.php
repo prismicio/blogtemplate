@@ -50,6 +50,13 @@ class BlogLinkResolver extends LinkResolver
             $day = $date ? $date->asDateTime()->format('d') : '0';
             return "/" . $year . '/' . $month . '/' . $day . '/' . $doc->getUid();
         }
+        if ($doc->getType() == "page") {
+            $homeId = $this->prismic->get_api()->bookmark('home');
+            $parent = $this->prismic->get_parent($doc->getId());
+            if ($parent && $parent->getId() != $homeId) {
+                return "/" . $parent->getUid() . "/" . $doc->getUid();
+            }
+        }
         return "/" . $doc->getUid();
     }
 
@@ -239,7 +246,7 @@ class PrismicHelper
 
     function archive_link($year, $month = null, $day = null)
     {
-        $url = '/' . $year;
+        $url = '/archive/' . $year;
         if ($month) {
             $url .= '/' . $month;
         }
@@ -247,6 +254,17 @@ class PrismicHelper
             $url .= '/' . $day;
         }
         return $url;
+    }
+
+    function get_parent($pageId)
+    {
+        $results = $this->form()
+            ->query(Predicates::any("my.page.children.link", array($pageId)))
+            ->submit()->getResults();
+        if (count($results) > 0) {
+            return $results[0];
+        }
+        return null;
     }
 
     function get_calendar()
