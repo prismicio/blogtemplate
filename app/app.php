@@ -78,30 +78,52 @@ $app->get('/feed', function() use ($app) {
 $app->get('/preview', function() use($app) {
     $prismic = new PrismicHelper($app);
     $token = $app->request()->params('token');
-    $url = $prismic->get_api()->previewSession($token, PrismicHelper::$linkResolver, '/');
+    $url = $prismic->get_api()->previewSession($token, $prismic->$linkResolver, '/');
     $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
     $app->response->redirect($url, 301);
 });
 
-// Post or page
-$app->get('/:year/:month/:day/:id/:slug', function($year, $month, $day, $id, $slug) use($app) {
+// Post
+$app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
     $prismic = new PrismicHelper($app);
     $state = new State($app, $prismic);
     $theme = new Theme($app, $state, $prismic);
-    $state->current_document_id = $id;
+    $state->current_document_id = $uid;
 
     $doc = $state->current_document($prismic);
-    if ($doc == null) {
-        $app->response->setStatus(404);
-        $theme->render('404');
-    } else if ($doc instanceof Page) {
-        $theme->render('page', array(
-            'page' => $doc
-        ));
-    } else {
+    if ($doc->document->getUid() != $uid) {
+        // The user came from a URL with an older uid
+        $app->response->redirect($prismic->linkResolver->resolveDocument($doc->document));
+    }
+    if ($doc instanceof Post) {
         $theme->render('single', array(
             'post' => $doc
         ));
+    } else {
+        $app->response->setStatus(404);
+        $theme->render('404');
+    }
+});
+
+// Page
+$app->get('/:uid', function($uid) use($app) {
+    $prismic = new PrismicHelper($app);
+    $state = new State($app, $prismic);
+    $theme = new Theme($app, $state, $prismic);
+    $state->current_document_id = $uid;
+
+    $page = $state->current_document($prismic);
+    if ($page->document->getUid() != $uid) {
+        // The user came from a URL with an older uid
+        $app->response->redirect($prismic->linkResolver->resolveDocument($page->document));
+    }
+    if ($page instanceof Page) {
+        $theme->render('page', array(
+            'page' => $page
+        ));
+    } else {
+        $app->response->setStatus(404);
+        $theme->render('404');
     }
 });
 

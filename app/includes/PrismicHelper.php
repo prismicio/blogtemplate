@@ -43,11 +43,14 @@ class BlogLinkResolver extends LinkResolver
         if ($doc->getType() == "author") {
             return "/author/" . $doc->getId() . '/' . $doc->getSlug();
         }
-        $date = $doc->getDate("post.date");
-        $year = $date ? $date->asDateTime()->format('Y') : '0';
-        $month = $date ? $date->asDateTime()->format('m') : '0';
-        $day = $date ? $date->asDateTime()->format('d') : '0';
-        return "/" . $year . '/' . $month . '/' . $day . '/' . $doc->getId() . '/' . $doc->getSlug();
+        if ($doc->getType() == "post") {
+            $date = $doc->getDate("post.date");
+            $year = $date ? $date->asDateTime()->format('Y') : '0';
+            $month = $date ? $date->asDateTime()->format('m') : '0';
+            $day = $date ? $date->asDateTime()->format('d') : '0';
+            return "/" . $year . '/' . $month . '/' . $day . '/' . $doc->getUid();
+        }
+        return "/" . $doc->getUid();
     }
 
 }
@@ -101,14 +104,18 @@ class PrismicHelper
             ->submit();
     }
 
+    // Try with uid, fallback to id
     function get_document($id)
     {
+        $results = $this->single($id, "document.uid")->getResults();
+        if (count($results) > 0) {
+            return $results[0];
+        }
         $results = $this->single($id)->getResults();
         if (count($results) > 0) {
             return $results[0];
-        } else {
-            return null;
         }
+        return null;
     }
 
     // Array of Category
@@ -134,10 +141,10 @@ class PrismicHelper
         return null;
     }
 
-    function single($documentId)
+    function single($documentId, $field = "document.id")
     {
         return $this->form()
-            ->query(array(Predicates::at("document.id", $documentId)))
+            ->query(array(Predicates::at($field, $documentId)))
             ->submit();
     }
 

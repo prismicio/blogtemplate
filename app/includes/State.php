@@ -28,7 +28,7 @@ class State {
         if ($this->current_document_id == null) {
             return null;
         }
-        return new Post($this->prismic->get_document($this->current_document_id), $this->prismic);
+        return BlogDocument::fromId($this->prismic, $this->current_document_id);
     }
 
     function current_category() {
