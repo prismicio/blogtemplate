@@ -87,6 +87,7 @@ h6, .h6 {
   border-bottom: 5px solid;
   border-left: 5px solid transparent;
 }
+
 .blog-nav .external:before {
   content: '\e135';
   float: left;
@@ -191,6 +192,12 @@ h6, .h6 {
 }
 .blog-post-meta span:first-child {
   margin-left: 0;
+}
+
+.blog-post .block-quotation {
+  font-size: 26px;
+  font-style: italic;
+  text-align: center;
 }
 
 /*
