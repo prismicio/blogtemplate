@@ -82,12 +82,18 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         return $prismic->get_calendar();
     });
 
+    $archivelink = new Twig_SimpleFilter('archivelink', function($date) use($prismic) {
+        $url = $prismic->archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
+        return '<a href="' . $url . '">' . $date->format('F, jS Y') . '</a>';
+    }, array('is_safe' => array('html')));
+
     $twig->addFilter($link);
     $twig->addFunction($previous_posts_link);
     $twig->addFunction($next_posts_link);
     $twig->addFunction($calendar);
     $twig->addFunction($nav_menu);
     $twig->addFunction($search_form);
+    $twig->addFilter($archivelink);
 }
 
 

@@ -7,7 +7,7 @@
     </h2>
     <p class="blog-post-meta">
         {% if post.date is not null %}
-        <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.date|date('F, jS Y') }}
+        <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.date|archivelink }}
         {% endif %}
         {% if author is not null %}
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ author.permalink }}">{{ author.name }}</a>
