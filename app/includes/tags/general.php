@@ -53,17 +53,19 @@ function register_tags(Slim\Slim $app, $twig, PrismicHelper $prismic, State $sta
         $home = NavMenuItem::home($prismic);
         $result = "<ul>";
         $result .= "<li class='blog-nav-item'>" . filter_link($app, $home) . "</li>";
-        foreach($home->getChildren() as $page) {
-            if (count($page->getChildren()) == 0) {
-                $result .= '<li class="blog-nav-item" >' . filter_link($app, $page) . '</li>';
-            } else {
-                $result .= '<li class="blog-nav-item dropdown" >' . filter_link($app, $page);
-                $result .= '<ul class="dropdown-menu" >';
-                foreach ($page->getChildren() as $subpage) {
-                    $result .= filter_link($app, $subpage);
+        if ($home) {
+            foreach ($home->getChildren() as $page) {
+                if (count($page->getChildren()) == 0) {
+                    $result .= '<li class="blog-nav-item" >' . filter_link($app, $page) . '</li>';
+                } else {
+                    $result .= '<li class="blog-nav-item dropdown" >' . filter_link($app, $page);
+                    $result .= '<ul class="dropdown-menu" >';
+                    foreach ($page->getChildren() as $subpage) {
+                        $result .= filter_link($app, $subpage);
+                    }
+                    $result .= '</ul>';
+                    $result .= '</li>';
                 }
-                $result .= '</ul>';
-                $result .= '</li>';
             }
         }
         $result .= '</ul>';
