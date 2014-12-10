@@ -106,9 +106,6 @@ class State {
             return $dt->format('F Y');
         }
         if ($this->is_day()) {
-            echo $this->current_archive_date['year']
-                . '-' . $this->current_archive_date['month']
-                . '-' . $this->current_archive_date['day'];
             $dt = DateTime::createFromFormat('!Y-m-d',
                 $this->current_archive_date['year']
                 . '-' . $this->current_archive_date['month']
