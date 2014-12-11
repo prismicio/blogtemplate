@@ -26,8 +26,10 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     $author = $prismic->get_document($id);
 
     if (!check_404($app, $theme, $author)) {
+        $posts = $prismic->byAuthor($id)->getResults();
         $theme->render('author', array(
-            'author' => new Author($author, $prismic)
+            'author' => $author,
+            'posts' => $posts
         ));
     }
 });

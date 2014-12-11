@@ -118,9 +118,9 @@ class PrismicHelper
         if (count($results) > 0) {
             return $results[0];
         }
-        $results = $this->single($id, "document.id")->getResults();
-        if (count($results) > 0) {
-            return $results[0];
+        $results2 = $this->single($id, "document.id")->getResults();
+        if (count($results2) > 0) {
+            return $results2[0];
         }
         return null;
     }
