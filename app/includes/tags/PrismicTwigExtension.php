@@ -23,13 +23,19 @@ class PrismicTwigExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            new Twig_SimpleFilter('html', array($this, 'htmlFilter'), array('is_safe' => array('html')))
+            new Twig_SimpleFilter('html', array($this, 'htmlFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('text', array($this, 'textFilter'))
         );
     }
 
     public function htmlFilter($input)
     {
         return $input->asHtml($this->linkResolver);
+    }
+
+    public function textFilter($input)
+    {
+        return $input->asText();
     }
 
 }

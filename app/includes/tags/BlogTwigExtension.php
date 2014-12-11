@@ -15,6 +15,7 @@ class BlogTwigExtension extends Twig_Extension
     {
         return array(
             new Twig_SimpleFilter('link', array($this, 'linkFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('author', array($this, 'authorFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('archivelink', array($this, 'archivelinkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('excerpt', array($this, 'excerptFilter'), array('is_safe' => array('html')))
         );
@@ -47,7 +48,12 @@ class BlogTwigExtension extends Twig_Extension
         }
         if ($input instanceof \Prismic\Document) {
             $url = $this->prismic->linkResolver->resolveDocument($input);
-            $label = $input->getText($input->getType() . '.title');
+            if ($input->getType() == "author") {
+                $field = "author.full_name";
+            } else {
+                $field = $input->getType() . '.title';
+            }
+            $label = $input->getText($field);
             return '<a href="' . $url . '">' . $label . '</a>';
         }
         if (is_array($input)) {
@@ -111,6 +117,17 @@ class BlogTwigExtension extends Twig_Extension
 
     function calendar() {
         return $this->prismic->get_calendar();
+    }
+
+    public function authorFilter($document)
+    {
+        $authorLink = $document->getLink($document->getType() . ".author");
+        if (!$authorLink) return null;
+        $results = $this->prismic->single($authorLink->getId())->getResults();
+        if (count($results) > 0) {
+            return $results[0];
+        }
+        return null;
     }
 
     function archivelinkFilter($date) {

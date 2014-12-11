@@ -1,4 +1,4 @@
-{% set author = post.author %}
+{% set author = post|author %}
 {% set categories = post.categories %}
 
 <div class="blog-post">
@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.get('post.date')|archivelink }}
         {% endif %}
         {% if author is not null %}
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ author.permalink }}">{{ author.name }}</a>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ author|link }}
         {% endif %}
         {% if categories is not empty %}
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link }}
