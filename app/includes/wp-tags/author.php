@@ -33,16 +33,17 @@ function get_author_posts_url($author_id, $author_nicename = '')
 function get_the_author_link() {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
+    $prismic = $WPGLOBAL['prismic'];
     $post = $loop->current_post();
     if (!$post) return null;
-    if ($post instanceof Author) {
+    if ($post->getType() == 'author') {
         $auth = $post;
     } else {
-        $auth = $post->getAuthor();
+        $auth = $prismic->get_document($post->getLink('post.author')->getId());
     }
     if (!$auth) return null;
-    $author_link = $auth->getPermalink();
-    return '<a href = "' . $author_link . '">' . $auth->getName() . '</a>';
+    $author_link = $prismic->linkResolver->resolveDocument($auth);
+    return '<a href = "' . $author_link . '">' . $auth->getText('author.full_name') . '</a>';
 }
 
 function the_author_link() {

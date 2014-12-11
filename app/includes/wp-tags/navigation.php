@@ -46,21 +46,23 @@ function next_posts_link($label = 'Next Page »') {
 function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
-    $previous = $loop->current_post() ? $loop->current_post()->getPrevious() : null;
+    // TODO
+/*    $previous = $loop->current_post() ? $loop->current_post()->getPrevious() : null;
     if ($previous) {
         $label = str_replace('%link', htmlentities($previous->getTitle()), $format);
         echo '<a href="' . $previous->getPermalink() . '">' . $label . '</a>';
-    }
+    }*/
 }
 
 function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
-    $next = $loop->current_post() ? $loop->current_post()->getNext() : null;
+    // TODO
+/*    $next = $loop->current_post() ? $loop->current_post()->getNext() : null;
     if ($next) {
         $label = str_replace('%link', htmlentities($next->getTitle()), $format);
         echo '<a href="' . $next->getPermalink() . '">' . $label . '</a>';
-    }
+    }*/
 }
 
 function wp_link_pages($args) {

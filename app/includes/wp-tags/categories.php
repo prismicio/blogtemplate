@@ -30,7 +30,7 @@ function the_category($separator = '', $parents = '', $post_id = null)
     if (!$doc) return null;
     if ($doc instanceof Author) return null;
     $strings = array();
-    foreach ($doc->getCategories() as $category) {
+    foreach ($prismic->document_categories($doc) as $category) {
         $url = $category->getPermalink();
         $label = $category->getName();
         array_push($strings, '<a href="' . $url . '">' . $label . '</a>');

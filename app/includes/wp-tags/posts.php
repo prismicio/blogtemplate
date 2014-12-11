@@ -56,7 +56,7 @@ function get_permalink($id = null, $leavename = false)
     $prismic = $WPGLOBAL['prismic'];
     $loop = $WPGLOBAL['loop'];
     $post = $id ? $prismic->get_document($id) : $loop->current_post();
-    return $post ? $post->getPermalink() : null;
+    return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
 function the_title()
@@ -64,7 +64,13 @@ function the_title()
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
-    echo $doc ? htmlentities($doc->getTitle()) : "";
+    if ($doc) {
+        if ($doc->getType() == 'page') {
+            echo htmlentities($doc->getText('page.name'));
+        } else {
+            echo htmlentities($doc->getText($doc->getType() . '.title'));
+        }
+    }
 }
 
 function the_title_attribute()
@@ -79,6 +85,9 @@ function the_date_link($format = "F, jS Y")
     $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
+    }
+    if ($date instanceof \Prismic\Fragment\Date) {
+        $date = $date->asDateTime();
     }
     $label = date_format($date, $format);
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
@@ -104,16 +113,27 @@ function get_the_time($format = 'g:iA')
     if (!$date) {
         return null;
     }
+    if ($date instanceof \Prismic\Fragment\Date) {
+        $date = $date->asDateTime();
+    }
     return date_format($date, $format);
 }
 
 function the_content($more_link_text = '(more...')
 {
     global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
     if (!$doc) return null;
-    echo $doc->getBody();
+    if ($doc->getType() == 'page') {
+        $body = $doc->getStructuredText('page.content');
+    } else {
+        $body = $doc->getStructuredText('post.body');
+    }
+    if ($body) {
+        echo $body->asHtml($prismic->linkResolver);
+    }
 }
 
 function the_post_thumbnail()
@@ -140,7 +160,16 @@ function get_the_excerpt()
     $doc = $loop->current_post();
     if (!$doc) return null;
     if ($doc instanceof Author) return null;
-    return $doc->getExcerpt();
+    if ($doc->getStructuredText('post.shortlede')) {
+        return $doc->getStructuredText('post.shortlede')->asHtml($this->prismic->linkResolver);
+    }
+    // Plain text to avoid open tag at the end
+    $body = $doc->getStructuredText('post.body');
+    if (strlen($body->asText()) > 300) {
+        return substr($body->asText(), 0, 300) . "...";
+    } else {
+        return $body->asText();
+    }
 }
 
 function get_post_type()
@@ -185,7 +214,7 @@ function single_post_title($prefix = '', $display = true)
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
     if (!single_post()) return null;
-    $result = $prefix . single_post()->getTitle();
+    $result = $prefix . single_post()->getText('post.title');
     if ($display) {
         echo htmlentities($result);
     } else {
