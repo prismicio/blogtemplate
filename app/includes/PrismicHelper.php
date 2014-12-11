@@ -289,5 +289,39 @@ class PrismicHelper
         return $calendar;
     }
 
+    function previous($document) {
+        $found = false;
+        $page = 1;
+        do {
+            $response = $this->get_posts($page, 100);
+            foreach ($response->getResults() as $post) {
+                if ($found) {
+                    return $post;
+                }
+                if ($post->getId() == $document->getId()) {
+                    $found = true;
+                }
+            }
+        } while($response->getNextPage());
+
+        return null;
+    }
+
+    function next($document) {
+        $next = null;
+        $page = 1;
+        do {
+            $response = $this->get_posts($page, 100);
+            foreach ($response->getResults() as $post) {
+                if ($post->getId() == $document->getId() && $next) {
+                    return $next;
+                }
+                $next = $post;
+            }
+        } while($response->getNextPage());
+
+        return null;
+    }
+
 }
 

@@ -36,9 +36,10 @@ function get_the_author_link() {
     $prismic = $WPGLOBAL['prismic'];
     $post = $loop->current_post();
     if (!$post) return null;
+    $auth = null;
     if ($post->getType() == 'author') {
         $auth = $post;
-    } else {
+    } else if ($post->getLink('post.author') != null) {
         $auth = $prismic->get_document($post->getLink('post.author')->getId());
     }
     if (!$auth) return null;

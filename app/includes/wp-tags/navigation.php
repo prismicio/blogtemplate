@@ -45,24 +45,26 @@ function next_posts_link($label = 'Next Page »') {
 
 function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $loop = $WPGLOBAL['loop'];
-    // TODO
-/*    $previous = $loop->current_post() ? $loop->current_post()->getPrevious() : null;
+    $previous = $prismic->previous($loop->current_post());
     if ($previous) {
-        $label = str_replace('%link', htmlentities($previous->getTitle()), $format);
-        echo '<a href="' . $previous->getPermalink() . '">' . $label . '</a>';
-    }*/
+        $url = $prismic->linkResolver->resolveDocument($previous);
+        $label = str_replace('%link', htmlentities($previous->getText('post.title')), $format);
+        echo '<a href="' . $url . '">' . $label . '</a>';
+    }
 }
 
 function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
     $loop = $WPGLOBAL['loop'];
-    // TODO
-/*    $next = $loop->current_post() ? $loop->current_post()->getNext() : null;
+    $next = $prismic->next($loop->current_post());
     if ($next) {
-        $label = str_replace('%link', htmlentities($next->getTitle()), $format);
-        echo '<a href="' . $next->getPermalink() . '">' . $label . '</a>';
-    }*/
+        $url = $prismic->linkResolver->resolveDocument($next);
+        $label = str_replace('%link', htmlentities($next->getText('post.title')), $format);
+        echo '<a href="' . $url . '">' . $label . '</a>';
+    }
 }
 
 function wp_link_pages($args) {

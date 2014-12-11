@@ -17,7 +17,9 @@ class BlogTwigExtension extends Twig_Extension
             new Twig_SimpleFilter('link', array($this, 'linkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('author', array($this, 'authorFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('archivelink', array($this, 'archivelinkFilter'), array('is_safe' => array('html'))),
-            new Twig_SimpleFilter('excerpt', array($this, 'excerptFilter'), array('is_safe' => array('html')))
+            new Twig_SimpleFilter('excerpt', array($this, 'excerptFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('previous_post', array($this, 'previousPostFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('next_post', array($this, 'nextPostFilter'), array('is_safe' => array('html')))
         );
     }
 
@@ -62,6 +64,20 @@ class BlogTwigExtension extends Twig_Extension
                 return $this->linkFilter($elt, $separator);
             }, $input));
         }
+    }
+
+    function previousPostFilter($post) {
+        if ($post) {
+            return $this->prismic->previous($post);
+        }
+        return null;
+    }
+
+    function nextPostFilter($post) {
+        if ($post) {
+            return $this->prismic->next($post);
+        }
+        return null;
     }
 
     function previousPostsLink($label = '« Previous Page') {
