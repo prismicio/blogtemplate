@@ -1,11 +1,8 @@
 <?php
 
-function author($document = null) {
+function author($document) {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    if (!$document) {
-        $document = current_document();
-    }
     if (!$document) return null;
     return $document->getAuthor($prismic);
 }
@@ -85,3 +82,4 @@ function the_author_meta($field, $userID = null)
 {
     echo get_the_author_meta($field, $userID = null);
 }
+

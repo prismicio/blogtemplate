@@ -2,26 +2,45 @@
 
 function is_day() {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->is_day();
+    if (isset($WPGLOBAL['date'])) {
+        $date = $WPGLOBAL['date'];
+        return $date['day'] != null;
+    }
+    return false;
 }
 
 function is_month() {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->is_month();
+    if (isset($WPGLOBAL['date'])) {
+        $date = $WPGLOBAL['date'];
+        return $date['month'] != null && !is_day();
+    }
+    return false;
 }
 
 function is_year() {
-    global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->is_year();
+    return !is_day() && !is_month();
 }
 
 function archive_date() {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->current_archive_date_formatted();
+    if (!isset($WPGLOBAL['date'])) {
+        return null;
+    }
+    $date = $WPGLOBAL['date'];
+    $year = $date['year'];
+    $month = $date['month'];
+    $day = $date['day'];
+    if ($day != null) {
+        $dt = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day);
+        return $dt->format('F jS, Y');
+    } elseif ($month != null) {
+        $dt = DateTime::createFromFormat('!Y-m', $year . '-' . $month);
+        return $dt->format('F Y');
+    } else {
+        return $year;
+    }
+
 }
 
 function archive_link($year, $month = null, $day = null)

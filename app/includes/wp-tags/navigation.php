@@ -8,7 +8,8 @@ function is_home()
 }
 
 function get_previous_posts_link($label = '« Previous Page') {
-    global $WPGLOBAL;
+    return 'TODO';
+    /* global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     $state = $WPGLOBAL['state'];
     if ($state->current_page() == 1) {
@@ -17,7 +18,7 @@ function get_previous_posts_link($label = '« Previous Page') {
     $qs = $app->request()->params();
     $qs['page'] = ($state->current_page() - 1);
     $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
+    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';*/
 }
 
 function previous_posts_link($label = '« Previous Page') {
@@ -25,7 +26,8 @@ function previous_posts_link($label = '« Previous Page') {
 }
 
 function get_next_posts_link($label = 'Next Page »') {
-    global $WPGLOBAL;
+    return 'TODO';
+/*    global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     $state = $WPGLOBAL['state'];
     if ($state->current_page() >= $state->total_pages()) {
@@ -34,7 +36,7 @@ function get_next_posts_link($label = 'Next Page »') {
     $qs = $app->request()->params();
     $qs['page'] = ($state->current_page() + 1);
     $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
+    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';*/
 }
 
 function next_posts_link($label = 'Next Page »') {
@@ -43,8 +45,8 @@ function next_posts_link($label = 'Next Page »') {
 
 function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    $previous = $state->current_document() ? $state->current_document()->getPrevious() : null;
+    $loop = $WPGLOBAL['loop'];
+    $previous = $loop->current_post() ? $loop->current_post()->getPrevious() : null;
     if ($previous) {
         $label = str_replace('%link', htmlentities($previous->getTitle()), $format);
         echo '<a href="' . $previous->getPermalink() . '">' . $label . '</a>';
@@ -53,8 +55,8 @@ function previous_post_link($format = '&laquo; %link', $link = '%title', $in_sam
 
 function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    $next = $state->current_document() ? $state->current_document()->getNext() : null;
+    $loop = $WPGLOBAL['loop'];
+    $next = $loop->current_post() ? $loop->current_post()->getNext() : null;
     if ($next) {
         $label = str_replace('%link', htmlentities($next->getTitle()), $format);
         echo '<a href="' . $next->getPermalink() . '">' . $label . '</a>';
@@ -94,3 +96,14 @@ function wp_nav_menu($args) {
     echo '</ul></' . $p['container'] . '>';
 }
 
+function get_day_link($year, $month, $day)
+{
+    $now = new DateTime('now');
+    if (!$year) $year = $now->format('Y');
+    if (!$month) $month = $now->format('m');
+    if (!$day) $day = $now->format('j');
+    $date = DateTime::createFromFormat('Y-m-d', $year . '-' . $month . '-' . $day);
+    $label = date_format($date, "F, jS Y");
+    $url = archive_link($year, $month, $date->format('d'));
+    return '<a href="' . $url . '">' . $label . '</a>';
+}

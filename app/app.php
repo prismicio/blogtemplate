@@ -6,19 +6,28 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
+function check_404($app, $theme, $doc) {
+    if (!$doc) {
+        $app->response->setStatus(404);
+        $theme->render('404');
+    }
+    return $doc == null;
+}
+
+function current_page($app) {
+    $pageQuery = $app->request()->params('page');
+    return $pageQuery == null ? '1' : $pageQuery;
+}
+
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->current_document_id = $id;
+    $theme = new Theme($app, $prismic);
+    $author = $prismic->get_document($id);
 
-    if ($state->current_document($prismic) == null) {
-        $app->response->setStatus(404);
-        $theme->render('404');
-    } else {
+    if (!check_404($app, $theme, $author)) {
         $theme->render('author', array(
-            'author' => $state->current_document($prismic)
+            'author' => new Author($author, $prismic)
         ));
     }
 });
@@ -26,32 +35,42 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
 // Search
 $app->get('/search', function() use($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $theme->render('search');
+    $theme = new Theme($app, $prismic);
+    $q = $app->request()->params('q');
+    $posts = $prismic->search($q, current_page($app))->getResults();
+    $theme->render('search', array(
+        'posts' => $posts,
+        "search_query" => $q
+    ));
 });
 
 // Category
 $app->get('/category/:id/:slug', function ($id, $slug) use($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->current_category_id = $id;
-    $theme->render('category');
+    $theme = new Theme($app, $prismic);
+    $cat = $prismic->get_document($id);
+    if (!check_404($app, $theme, $cat)) {
+        $theme->render('category', array(
+            'category' => $cat
+        ));
+    }
 });
 
 // Index
 $app->get('/', function() use ($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $theme->render('index');
+    $theme = new Theme($app, $prismic);
+    $posts = $prismic->get_posts(current_page($app))->getResults();
+    $theme->render('index', array(
+        'posts' => $posts
+    ));
 });
 
 // RSS Feed
 $app->get('/feed', function() use ($app) {
     $prismic = new PrismicHelper($app);
     $blogUrl = $app->request()->getUrl();
+    $posts = $prismic->get_posts(current_page($app))->getResults();
     $feed = new Feed();
     $channel = new Channel();
     $channel
@@ -60,12 +79,11 @@ $app->get('/feed', function() use ($app) {
         ->url($blogUrl)
         ->appendTo($feed);
 
-    foreach (posts() as $post) {
-        echo 'Add item: ' . post_title($post);
+    foreach ($posts as $post) {
         $item = new Item();
         $item
-            ->title(post_title($post))
-            ->description(get_html("post.body", $post))
+            ->title($post->getText("post.title"))
+            ->description($post->getHtml("post.body", $prismic->linkResolver))
             ->url($blogUrl . $prismic->$linkResolver->resolveDocument($post))
             ->pubDate($post->getDate("post.date")->asEpoch())
             ->appendTo($channel);
@@ -86,33 +104,44 @@ $app->get('/preview', function() use($app) {
 // Archive
 $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) use($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->set_current_archive($year, $month, $day);
+    $theme = new Theme($app, $prismic);
+    $posts = $prismic->archives(array(
+        'year' => $year,
+        'month' => $month,
+        'day' => $day
+    ), current_page($app));
+    if ($day != null) {
+        $dt = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day);
+        $archive_date = $dt->format('F jS, Y');
+    } elseif ($month != null) {
+        $dt = DateTime::createFromFormat('!Y-m', $year . '-' . $month);
+        $archive_date = $dt->format('F Y');
+    } else {
+        $archive_date = $year;
+    }
     $theme->render('archive', array(
-        'archive_date' => $state->current_archive_date_formatted()
+        'posts' => $posts->getResults(),
+        'date' => array('year' => $year, 'month' => $month, 'day' => $day),
+        'archive_date' => $archive_date
     ));
 });
 
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->current_document_id = $uid;
+    $theme = new Theme($app, $prismic);
 
-    $doc = $state->current_document($prismic);
-    if ($doc->document->getUid() != $uid) {
-        // The user came from a URL with an older uid
-        $app->response->redirect($prismic->linkResolver->resolveDocument($doc->document));
+    $doc = $prismic->get_document($uid);
+    $permalink = $prismic->linkResolver->resolveDocument($doc);
+    if ($app->request()->getPath() != $permalink) {
+        // The user came from a URL with an older uid or date
+        $app->response->redirect($permalink);
+        return;
     }
-    if ($doc instanceof Post) {
+    if (!check_404($app, $theme, $doc)) {
         $theme->render('single', array(
             'post' => $doc
         ));
-    } else {
-        $app->response->setStatus(404);
-        $theme->render('404');
     }
 });
 
@@ -120,21 +149,17 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
 $app->get('/:uid(/:uid2)', function($uid, $uid2 = null) use($app) {
     if ($uid2) $uid = $uid2; // If $uid2 is defined, $uid is the parent
     $prismic = new PrismicHelper($app);
-    $state = new State($app, $prismic);
-    $theme = new Theme($app, $state, $prismic);
-    $state->current_document_id = $uid;
+    $theme = new Theme($app, $prismic);
 
-    $page = $state->current_document($prismic);
-    if ($page->document->getUid() != $uid) {
+    $page = $prismic->get_document($uid);
+    $permalink = $prismic->linkResolver->resolveDocument($page);
+    if ($app->request()->getPath() != $permalink) {
         // The user came from a URL with an older uid
-        $app->response->redirect($prismic->linkResolver->resolveDocument($page->document));
+        $app->response->redirect($permalink);
     }
-    if ($page instanceof Page) {
+    if (!check_404($app, $theme, $page)) {
         $theme->render('page', array(
-            'page' => $page
+            'page' => new Page($page, $prismic)
         ));
-    } else {
-        $app->response->setStatus(404);
-        $theme->render('404');
     }
 });

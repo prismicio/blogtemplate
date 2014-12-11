@@ -89,6 +89,14 @@ abstract class BlogDocument
         }
     }
 
+    public static function fromPrismicDocs(array $documents, PrismicHelper $prismic)
+    {
+        return array_map(
+            function ($d) use($prismic) { return BlogDocument::fromPrismicDoc($d, $prismic); },
+            $documents
+        );
+    }
+
     public static function fromId(PrismicHelper $prismic, $docId)
     {
         return BlogDocument::fromPrismicDoc($prismic->get_document($docId), $prismic);

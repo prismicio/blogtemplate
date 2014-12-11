@@ -85,7 +85,7 @@ function the_date_link($format = "F, jS Y")
     echo '<a href="' . $url . '">' . $label . '</a>';
 }
 
-function get_the_date()
+function get_the_date($format = 'F, jS Y')
 {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
@@ -93,10 +93,10 @@ function get_the_date()
     if (!$date) {
         return null;
     }
-    return date_format($date, 'F, jS Y');
+    return date_format($date, $format);
 }
 
-function get_the_time()
+function get_the_time($format = 'g:iA')
 {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
@@ -104,7 +104,7 @@ function get_the_time()
     if (!$date) {
         return null;
     }
-    return date_format($date, 'g:iA');
+    return date_format($date, $format);
 }
 
 function the_content($more_link_text = '(more...')
@@ -159,26 +159,20 @@ function the_excerpt()
 
 // Other tags
 
-function current_document()
+function single_post()
 {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    $prismic = $WPGLOBAL['prismic'];
-    return $state->current_document($prismic);
-}
-
-function posts() {
-    global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->current_posts()->getResults();
+    if (isset($WPGLOBAL['single_post'])) {
+        return $WPGLOBAL['single_post'];
+    }
+    return null;
 }
 
 function document_url($document)
 {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    $doc = $document ? $document : current_document();
-    return $prismic->linkResolver->resolveDocument($doc);
+    return $prismic->linkResolver->resolveDocument($document);
 }
 
 function link_to_post($post)
@@ -186,12 +180,12 @@ function link_to_post($post)
     return '<a href="' . document_url($post) . '">' . post_title($post) . '</a>';
 }
 
- function single_post_title($prefix = '', $display = true)
+function single_post_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    if (!current_document()) return null;
-    $result = $prefix . current_document()->getTitle();
+    if (!single_post()) return null;
+    $result = $prefix . single_post()->getTitle();
     if ($display) {
         echo htmlentities($result);
     } else {
@@ -210,22 +204,10 @@ function get_html($field, $document = null)
     return null;
 }
 
-function get_date($field, $document = null)
+function get_date($field, $doc)
 {
-    $doc = $document ? $document : current_document();
     if (!$doc) return null;
     if ($doc instanceof Author) return null;
     return $doc->getDate($field);
-}
-
-function post_date_link($document = null)
-{
-    $date = get_date("post.date", $document);
-    if (!$date) {
-        return null;
-    }
-    $label = date_format($date, "F, jS Y");
-    $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
-    return '<a href="' . $url . '">' . $label . '</a>';
 }
 

@@ -8,21 +8,19 @@ class Theme {
     private $name;
     private $state;
 
-    public function __construct(\Slim\Slim $app, State $state, PrismicHelper $prismic)
+    public function __construct(\Slim\Slim $app, PrismicHelper $prismic)
     {
         global $WPGLOBAL;
         $this->app = $app;
         $this->prismic = $prismic;
         $this->name = $app->config('theme');
-        $this->state = $state;
 
         if ($this->isWP()) {
             $WPGLOBAL = array(
                 'theme' => $this,
                 'app' => $this->app,
                 'prismic' => $this->prismic,
-                'loop' => new Loop($this->prismic, $this->state),
-                'state' => $this->state
+                'loop' => new Loop($this->prismic)
             );
             // Wordpress tags
             require_once 'wp-tags/general.php';
@@ -48,9 +46,8 @@ class Theme {
             $this->twig = new Twig_Environment($loader, array(
                 // 'cache' => '/path/to/compilation_cache',
             ));
-            // Twig tags
-            require_once 'tags/general.php';
-            register_tags($this->app, $this->twig, $this->prismic, $this->state);
+            $this->twig->addExtension(new PrismicTwigExtension($this->prismic->linkResolver));
+            $this->twig->addExtension(new BlogTwigExtension($this->app, $this->prismic));
         }
         return $this->twig;
     }
@@ -66,14 +63,26 @@ class Theme {
     public function render($name, $parameters = array()) {
         global $WPGLOBAL;
         if ($this->isWP()) {
+            $loop = $WPGLOBAL['loop'];
+            if (isset($parameters['posts'])) {
+                $loop->setPosts($parameters['posts']);
+            } else if (isset($parameters['post'])) {
+                $loop->setPosts(array($parameters['post']));
+            } else if (isset($parameters['page'])) {
+                $loop->setPosts(array($parameters['page']));
+            }
+            if (isset($parameters['date'])) {
+                $WPGLOBAL['date'] = $parameters['date'];
+            }
+            if (isset($parameters['post'])) {
+                $WPGLOBAL['single_post'] = $parameters['post'];
+            }
             include $this->directory() . '/' . $name . '.php';
         } else {
             echo $this->twig()->render($name . '.html.twig', array_merge(array(
                 "site_title" => $this->app->config('site.title'),
                 "site_description" => $this->app->config('site.description'),
-                "home" => NavMenuItem::home($this->prismic),
-                "posts" => $this->state->current_posts($this->prismic),
-                "search_query" => $this->state->current_query()
+                "home" => NavMenuItem::home($this->prismic)
             ), $parameters));
         }
     }

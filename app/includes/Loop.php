@@ -4,12 +4,15 @@ class Loop {
 
     public $loop_index = -1;
     private $prismic;
-    private $state;
+    private $posts;
 
-    public function __construct(PrismicHelper $prismic, State $state)
+    public function __construct(PrismicHelper $prismic)
     {
         $this->prismic = $prismic;
-        $this->state = $state;
+    }
+
+    public function setPosts($posts) {
+        $this->posts = $posts;
     }
 
     function reset() {
@@ -22,15 +25,14 @@ class Loop {
 
     function has_more() {
         // -1 because we check before incrementing
-        return $this->loop_index < ($this->state->current_response($this->prismic)->getResultsSize() - 1);
+        return $this->loop_index < (count($this->posts) - 1);
     }
 
     function current_post() {
-        $posts = $this->state->current_posts($this->prismic);
-        if ($this->loop_index < 0 || $this->loop_index >= count($posts)) {
+        if ($this->loop_index < 0 || $this->loop_index >= count($this->posts)) {
             return null;
         }
-        return $posts[$this->loop_index];
+        return $this->posts[$this->loop_index];
     }
 
     function current_author() {

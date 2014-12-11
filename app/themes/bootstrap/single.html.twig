@@ -7,8 +7,8 @@
             <a href="{{ post.permalink }}">{{ post.title }}</a>
         </h2>
         <p class="blog-post-meta">
-            {% if post.date is not null %}
-                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.date|date('F, jS Y') }}
+            {% if post.get('post.date') is not null %}
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ post.get('post.date')|archivelink }}
             {% endif %}
             {% if author is not null %}
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ author.permalink }}">{{ author.name }}</a>
@@ -18,7 +18,7 @@
             {% endif %}
         </p>
 
-        {{ post.body|raw }}
+        {{ post.get('post.body')|html }}
     </div>
 
     {{ post.previous|link }}

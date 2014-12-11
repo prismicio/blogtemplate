@@ -48,13 +48,13 @@ class BlogLinkResolver extends LinkResolver
             $year = $date ? $date->asDateTime()->format('Y') : '0';
             $month = $date ? $date->asDateTime()->format('m') : '0';
             $day = $date ? $date->asDateTime()->format('d') : '0';
-            return "/" . $year . '/' . $month . '/' . $day . '/' . $doc->getUid();
+            return "/" . $year . '/' . $month . '/' . $day . '/' . urlencode($doc->getUid());
         }
         if ($doc->getType() == "page") {
             $homeId = $this->prismic->get_api()->bookmark('home');
             $parent = $this->prismic->get_parent($doc->getId());
             if ($parent && $parent->getId() != $homeId) {
-                return "/" . $parent->getUid() . "/" . $doc->getUid();
+                return "/" . $parent->getUid() . "/" . urlencode($doc->getUid());
             }
         }
         return "/" . $doc->getUid();
@@ -118,7 +118,7 @@ class PrismicHelper
         if (count($results) > 0) {
             return $results[0];
         }
-        $results = $this->single($id)->getResults();
+        $results = $this->single($id, "document.id")->getResults();
         if (count($results) > 0) {
             return $results[0];
         }
