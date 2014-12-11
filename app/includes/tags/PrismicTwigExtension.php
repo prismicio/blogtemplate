@@ -30,6 +30,7 @@ class PrismicTwigExtension extends Twig_Extension
 
     public function htmlFilter($input)
     {
+        if (!$input) return null;
         return $input->asHtml($this->linkResolver);
     }
 

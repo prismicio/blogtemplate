@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h2>{{ page.title }}</h2>
+<h2>{{ page.get('page.title')|text }}</h2>
 
 <div id="page-content">
-    {{ page.body|raw }}
+    {{ page.get('page.content')|html }}
 </div>
 
 {% endblock %}

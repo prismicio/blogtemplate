@@ -161,7 +161,7 @@ $app->get('/:uid(/:uid2)', function($uid, $uid2 = null) use($app) {
     }
     if (!check_404($app, $theme, $page)) {
         $theme->render('page', array(
-            'page' => new Page($page, $prismic)
+            'page' => $page
         ));
     }
 });
