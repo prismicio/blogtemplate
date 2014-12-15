@@ -8,17 +8,16 @@ function is_home()
 }
 
 function get_previous_posts_link($label = '« Previous Page') {
-    return 'TODO';
-    /* global $WPGLOBAL;
+    global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    $state = $WPGLOBAL['state'];
-    if ($state->current_page() == 1) {
+    $loop = $WPGLOBAL['loop'];
+    if ($loop->page == 1) {
         return "";
     }
     $qs = $app->request()->params();
-    $qs['page'] = ($state->current_page() - 1);
+    $qs['page'] = ($loop->page - 1);
     $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';*/
+    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
 }
 
 function previous_posts_link($label = '« Previous Page') {
@@ -26,17 +25,16 @@ function previous_posts_link($label = '« Previous Page') {
 }
 
 function get_next_posts_link($label = 'Next Page »') {
-    return 'TODO';
-/*    global $WPGLOBAL;
+    global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    $state = $WPGLOBAL['state'];
-    if ($state->current_page() >= $state->total_pages()) {
+    $loop = $WPGLOBAL['loop'];
+    if ($loop->page >= $loop->totalPages) {
         return "";
     }
     $qs = $app->request()->params();
-    $qs['page'] = ($state->current_page() + 1);
+    $qs['page'] = ($loop->page + 1);
     $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';*/
+    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
 }
 
 function next_posts_link($label = 'Next Page »') {

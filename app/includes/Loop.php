@@ -6,6 +6,9 @@ class Loop {
     private $prismic;
     private $posts;
 
+    public $page = 1;
+    public $totalPages = 1;
+
     public function __construct(PrismicHelper $prismic)
     {
         $this->prismic = $prismic;

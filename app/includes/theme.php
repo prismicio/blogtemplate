@@ -66,6 +66,8 @@ class Theme {
             $loop = $WPGLOBAL['loop'];
             if (isset($parameters['response'])) {
                 $loop->setPosts($parameters['response']->getResults());
+                $loop->page = $parameters['response']->getPage();
+                $loop->totalPages = $parameters['response']->getTotalPages();
             } else if (isset($parameters['post'])) {
                 $loop->setPosts(array($parameters['post']));
             } else if (isset($parameters['page'])) {
