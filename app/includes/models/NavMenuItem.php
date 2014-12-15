@@ -67,7 +67,7 @@ class NavMenuItem
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
                 $doc = $prismic->get_document($link->getId());
                 if (!$label) {
-                    $label = BlogDocument::fromPrismicDoc($doc, $prismic)->getTitle();
+                    $label = "No label";
                 }
                 $children = NavMenuItem::getPageChildren($doc, $prismic);
             }

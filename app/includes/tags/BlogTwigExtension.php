@@ -18,6 +18,8 @@ class BlogTwigExtension extends Twig_Extension
             new Twig_SimpleFilter('author', array($this, 'authorFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('archivelink', array($this, 'archivelinkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('excerpt', array($this, 'excerptFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('previous_posts_link', array($this, 'previousPostsLink'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('next_posts_link', array($this, 'nextPostsLink'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('previous_post', array($this, 'previousPostFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('next_post', array($this, 'nextPostFilter'), array('is_safe' => array('html')))
         );
@@ -26,8 +28,6 @@ class BlogTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction('previous_posts_link', array($this, 'previousPostsLink'), array('is_safe' => array('html'))),
-            new Twig_SimpleFunction('next_posts_link', array($this, 'nextPostsLink'), array('is_safe' => array('html'))),
             new Twig_SimpleFunction('nav_menu', array($this, 'navMenu'), array('is_safe' => array('html'))),
             new Twig_SimpleFunction('search_form', array($this, 'searchForm'), array('is_safe' => array('html'))),
             new Twig_SimpleFunction('calendar', array($this, 'calendar'), array('is_safe' => array('html')))
@@ -80,26 +80,24 @@ class BlogTwigExtension extends Twig_Extension
         return null;
     }
 
-    function previousPostsLink($label = '« Previous Page') {
-        return ''; // TODO
-        /* if ($state->current_page() == 1) {
-                return "";
-            }
-            $qs = $app->request()->params();
-            $qs['page'] = ($state->current_page() - 1);
-            $url = $app->request->getPath() . '?' . http_build_query($qs);
-            return '<a href="' . $url . '">' . htmlentities($label) . '</a>'; */
+    function previousPostsLink($response, $label = '« Previous Page') {
+        if ($response->getPrevPage() == null) {
+            return "";
+        }
+        $qs = $this->app->request()->params();
+        $qs['page'] = ($response->page - 1);
+        $url = $this->app->request->getPath() . '?' . http_build_query($qs);
+        return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
     }
 
-    function nextPostsLink($label = 'Next Page »') {
-        return ''; // TODO
-        /* if ($state->current_page() >= $state->total_pages($prismic)) {
-                return "";
-            }
-            $qs = $app->request()->params();
-            $qs['page'] = ($state->current_page() + 1);
-            $url = $app->request->getPath() . '?' . http_build_query($qs);
-            return '<a href="' . $url . '">' . htmlentities($label) . '</a>';*/
+    function nextPostsLink($response, $label = 'Next Page »') {
+        if ($response->getNextPage() == null) {
+            return "";
+        }
+        $qs = $this->app->request()->params();
+        $qs['page'] = ($response->page + 1);
+        $url = $this->app->request->getPath() . '?' . http_build_query($qs);
+        return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
     }
 
     function navMenu () {
@@ -114,7 +112,7 @@ class BlogTwigExtension extends Twig_Extension
                     $result .= '<li class="blog-nav-item dropdown" >' . $this->linkFilter($page);
                     $result .= '<ul class="dropdown-menu" >';
                     foreach ($page->getChildren() as $subpage) {
-                        $result .= $this->linkFilter($this->app, $subpage);
+                        $result .= $this->linkFilter($subpage);
                     }
                     $result .= '</ul>';
                     $result .= '</li>';

@@ -6,17 +6,23 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
-function check_404($app, $theme, $doc) {
-    if (!$doc) {
-        $app->response->setStatus(404);
-        $theme->render('404');
+if (!function_exists('check_404')) {
+    function check_404($app, $theme, $doc)
+    {
+        if (!$doc) {
+            $app->response->setStatus(404);
+            $theme->render('404');
+        }
+        return $doc == null;
     }
-    return $doc == null;
 }
 
-function current_page($app) {
-    $pageQuery = $app->request()->params('page');
-    return $pageQuery == null ? '1' : $pageQuery;
+if (!function_exists('current_page')) {
+    function current_page($app)
+    {
+        $pageQuery = $app->request()->params('page');
+        return $pageQuery == null ? '1' : $pageQuery;
+    }
 }
 
 // Author
@@ -39,9 +45,9 @@ $app->get('/search', function() use($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
     $q = $app->request()->params('q');
-    $posts = $prismic->search($q, current_page($app))->getResults();
+    $response = $prismic->search($q, current_page($app));
     $theme->render('search', array(
-        'posts' => $posts,
+        'response' => $response,
         "search_query" => $q
     ));
 });
@@ -62,9 +68,9 @@ $app->get('/category/:id/:slug', function ($id, $slug) use($app) {
 $app->get('/', function() use ($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
-    $posts = $prismic->get_posts(current_page($app))->getResults();
+    $response = $prismic->get_posts(current_page($app));
     $theme->render('index', array(
-        'posts' => $posts
+        'response' => $response
     ));
 });
 
@@ -122,7 +128,7 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
         $archive_date = $year;
     }
     $theme->render('archive', array(
-        'posts' => $posts->getResults(),
+        'response' => $posts,
         'date' => array('year' => $year, 'month' => $month, 'day' => $day),
         'archive_date' => $archive_date
     ));

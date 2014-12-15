@@ -115,8 +115,8 @@ function get_footer()
 function get_search_query()
 {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return htmlentities($state->current_query());
+    $app = $WPGLOBAL['app'];
+    return htmlentities($app->request()->params('q'));
 }
 
 function get_search_form($echo = true)

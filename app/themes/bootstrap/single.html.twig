@@ -24,8 +24,8 @@
         {{ post.get('post.body')|html }}
     </div>
 
-    {{ post|previous|link }}
+    {{ post|previous_post|link }}
 
-    {{ post|next|link }}
+    {{ post|next_post|link }}
 
 {% endblock %}

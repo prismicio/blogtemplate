@@ -157,14 +157,18 @@ function get_the_excerpt()
 {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
+    $prismic = $WPGLOBAL['prismic'];
     $doc = $loop->current_post();
     if (!$doc) return null;
     if ($doc instanceof Author) return null;
     if ($doc->getStructuredText('post.shortlede')) {
-        return $doc->getStructuredText('post.shortlede')->asHtml($this->prismic->linkResolver);
+        return $doc->getStructuredText('post.shortlede')->asHtml($prismic->linkResolver);
     }
     // Plain text to avoid open tag at the end
-    $body = $doc->getStructuredText('post.body');
+    $body = $doc->getStructuredText($doc->getType() . '.body');
+    if (!$body) {
+        return "";
+    }
     if (strlen($body->asText()) > 300) {
         return substr($body->asText(), 0, 300) . "...";
     } else {

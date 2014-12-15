@@ -64,12 +64,14 @@ class Theme {
         global $WPGLOBAL;
         if ($this->isWP()) {
             $loop = $WPGLOBAL['loop'];
-            if (isset($parameters['posts'])) {
-                $loop->setPosts($parameters['posts']);
+            if (isset($parameters['response'])) {
+                $loop->setPosts($parameters['response']->getResults());
             } else if (isset($parameters['post'])) {
                 $loop->setPosts(array($parameters['post']));
             } else if (isset($parameters['page'])) {
                 $loop->setPosts(array($parameters['page']));
+            } else if (isset($parameters['author'])) {
+                $loop->setPosts(array($parameters['author']));
             }
             if (isset($parameters['date'])) {
                 $WPGLOBAL['date'] = $parameters['date'];

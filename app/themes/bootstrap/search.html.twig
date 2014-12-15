@@ -4,16 +4,16 @@
 
     Query: {{ search_query }}
 
-    {% for post in posts %}
+    {% for post in response.results %}
         {% include "content.html.twig" %}
     {%  endfor %}
-    {%  if posts is empty %}
+    {%  if response.results is empty %}
         <p>Sorry, no posts matched your criteria.</p>
     {%  endif %}
 
-    {{ previous_posts_link() }}
+    {{ response|previous_posts_link }}
 
-    {{ next_posts_link() }}
+    {{ response|next_posts_link }}
 
 {% endblock %}
 

@@ -20,7 +20,7 @@ class TwigTests extends LocalWebTestCase
 
     public function testPermalink()
     {
-        $this->client->get('/2014/11/27/VHeiWScAACYA7RUF/my-first-blog');
+        $this->client->get('/2014/11/27/first-post');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
@@ -30,7 +30,7 @@ class TwigTests extends LocalWebTestCase
 
     public function testArchive()
     {
-        $this->client->get('/2014/11');
+        $this->client->get('/archive/2014/11');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
