@@ -3,8 +3,7 @@
 function single_cat_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    $category = $state->current_category();
+    $category = $WPGLOBAL['single_post'];
     $result = null;
     if ($category) {
         $result = $prefix . $category->getText('category.name');
@@ -31,8 +30,8 @@ function the_category($separator = '', $parents = '', $post_id = null)
     if ($doc instanceof Author) return null;
     $strings = array();
     foreach ($prismic->document_categories($doc) as $category) {
-        $url = $category->getPermalink();
-        $label = $category->getName();
+        $url = $prismic->linkResolver->resolveDocument($category);
+        $label = $category->getText('category.name');
         array_push($strings, '<a href="' . $url . '">' . $label . '</a>');
     }
     echo join($separator, $strings);

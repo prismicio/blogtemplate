@@ -53,13 +53,15 @@ $app->get('/search', function() use($app) {
 });
 
 // Category
-$app->get('/category/:id/:slug', function ($id, $slug) use($app) {
+$app->get('/category/:uid', function ($id) use($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
     $cat = $prismic->get_document($id);
     if (!check_404($app, $theme, $cat)) {
+        $response = $prismic->category($cat->getId());
         $theme->render('category', array(
-            'category' => $cat
+            'category' => $cat,
+            'response' => $response
         ));
     }
 });

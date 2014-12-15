@@ -78,6 +78,8 @@ class Theme {
             }
             if (isset($parameters['post'])) {
                 $WPGLOBAL['single_post'] = $parameters['post'];
+            } else if (isset($parameters['category'])) {
+                $WPGLOBAL['single_post'] = $parameters['category'];
             }
             include $this->directory() . '/' . $name . '.php';
         } else {

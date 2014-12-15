@@ -16,6 +16,7 @@ class BlogTwigExtension extends Twig_Extension
         return array(
             new Twig_SimpleFilter('link', array($this, 'linkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('author', array($this, 'authorFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('categories', array($this, 'categoriesFilter')),
             new Twig_SimpleFilter('archivelink', array($this, 'archivelinkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('excerpt', array($this, 'excerptFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('previous_posts_link', array($this, 'previousPostsLink'), array('is_safe' => array('html'))),
@@ -45,12 +46,11 @@ class BlogTwigExtension extends Twig_Extension
             if ($input->isExternal()) array_push($classes, 'external');
             return '<a href="' . $input->getPermalink() . '" class="' . join(' ', $classes) . '">' . $input->getTitle() . '</a>';
         }
-        if ($input instanceof BlogDocument) {
-            return '<a href="' . $input->getPermalink() . '">' . $input->getTitle() . '</a>';
-        }
         if ($input instanceof \Prismic\Document) {
             $url = $this->prismic->linkResolver->resolveDocument($input);
-            if ($input->getType() == "author") {
+            if ($input->getType() == "category") {
+                $field = "category.name";
+            } else if ($input->getType() == "author") {
                 $field = "author.full_name";
             } else {
                 $field = $input->getType() . '.title';
@@ -142,6 +142,11 @@ class BlogTwigExtension extends Twig_Extension
             return $results[0];
         }
         return null;
+    }
+
+    public function categoriesFilter($document)
+    {
+        return $this->prismic->document_categories($document);
     }
 
     function archivelinkFilter($date) {

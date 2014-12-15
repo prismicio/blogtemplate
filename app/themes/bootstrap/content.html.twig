@@ -1,5 +1,5 @@
 {% set author = post|author %}
-{% set categories = post.categories %}
+{% set categories = post|categories %}
 
 <div class="blog-post">
     <h2 class="blog-post-title">
@@ -13,7 +13,7 @@
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ author|link }}
         {% endif %}
         {% if categories is not empty %}
-        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link }}
+        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link(", ") }}
         {% endif %}
     </p>
 

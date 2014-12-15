@@ -40,6 +40,9 @@ class BlogLinkResolver extends LinkResolver
         } else if ($name) {
             return '/' . $name;
         }
+        if ($doc->getType() == "category") {
+            return "/category/" . $doc->getUid();
+        }
         if ($doc->getType() == "author") {
             return "/author/" . $doc->getId() . '/' . $doc->getSlug();
         }
@@ -128,14 +131,14 @@ class PrismicHelper
     // Array of Category
     function document_categories($document)
     {
-        $result = array();
-        if (!$document) return $result;
+        if (!$document) return array();
         $group = $document->getGroup('post.categories');
-        if (!$group) return $result;
+        if (!$group) return array();
+        $ids = array();
         foreach ($group->getArray() as $item) {
-            array_push($result, Category::fromId($item['link']->getId(), $this));
+            array_push($ids, $item->getLink('link')->getId());
         }
-        return $result;
+        return $this->from_ids($ids)->getResults();
     }
 
     function get_bookmark_name($documentId)
@@ -146,6 +149,13 @@ class PrismicHelper
             }
         }
         return null;
+    }
+
+    function from_ids(array $documentIds)
+    {
+        return $this->form()
+            ->query(array(Predicates::any("document.id", $documentIds)))
+            ->submit();
     }
 
     function single($documentId, $field = "document.id")

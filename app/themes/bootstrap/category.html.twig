@@ -1,15 +1,18 @@
-<?php get_header() ?>
+{% extends "base.html.twig" %}
 
-Category: <?php single_cat_title() ?>
+{% block content %}
 
-<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <?php get_template_part('content'); ?>
-<?php endwhile; else : ?>
-    <p>Sorry, no posts matched your criteria.</p>
-<?php endif; ?>
+    <h2>Category: {{ category.get('category.name')|text }}</h2>
 
-<?php previous_posts_link() ?>
+    {% for post in response.results %}
+        {% include "content.html.twig" %}
+    {%  endfor %}
+    {%  if response.results is empty %}
+        <p>Sorry, no posts matched your criteria.</p>
+    {%  endif %}
 
-<?php next_posts_link() ?>
+    <?php previous_posts_link() ?>
 
-<?php get_footer() ?>
+    <?php next_posts_link() ?>
+
+{% endblock %}
