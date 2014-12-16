@@ -300,36 +300,28 @@ class PrismicHelper
     }
 
     function previous($document) {
-        $found = false;
-        $page = 1;
-        do {
-            $response = $this->get_posts($page, 100);
-            foreach ($response->getResults() as $post) {
-                if ($found) {
-                    return $post;
-                }
-                if ($post->getId() == $document->getId()) {
-                    $found = true;
-                }
-            }
-        } while($response->getNextPage());
-
+        $posts = $this->form()
+            ->query(Predicates::at("document.type", "post"))
+            ->set("after", $document->getId())
+            ->orderings("[my.post.date]")
+            ->submit()
+            ->getResults();
+        if (count($posts) > 0) {
+            return $posts[0];
+        }
         return null;
     }
 
     function next($document) {
-        $next = null;
-        $page = 1;
-        do {
-            $response = $this->get_posts($page, 100);
-            foreach ($response->getResults() as $post) {
-                if ($post->getId() == $document->getId() && $next) {
-                    return $next;
-                }
-                $next = $post;
-            }
-        } while($response->getNextPage());
-
+        $posts = $this->form()
+            ->query(Predicates::at("document.type", "post"))
+            ->set("after", $document->getId())
+            ->orderings("[my.post.date desc]")
+            ->submit()
+            ->getResults();
+        if (count($posts) > 0) {
+            return $posts[0];
+        }
         return null;
     }
 
