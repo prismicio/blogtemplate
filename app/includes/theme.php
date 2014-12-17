@@ -88,7 +88,7 @@ class Theme {
             echo $this->twig()->render($name . '.html.twig', array_merge(array(
                 "site_title" => $this->app->config('site.title'),
                 "site_description" => $this->app->config('site.description'),
-                "home" => NavMenuItem::home($this->prismic)
+                "home" => $this->prismic->home()
             ), $parameters));
         }
     }

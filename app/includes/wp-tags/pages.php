@@ -4,7 +4,7 @@ function home()
 {
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    return NavMenuItem::home($prismic);
+    return $prismic->home();
 }
 
 function page_link($page, $attrs = array())
@@ -12,12 +12,14 @@ function page_link($page, $attrs = array())
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     $classes = array();
-    if ($page->isActive($app)) array_push($classes, 'active');
-    if ($page->isExternal()) array_push($classes, 'external');
-    return '<a href="' . $page->getPermalink() . '" class="' . join(' ', $classes) . '">' . $page->getTitle() . '</a>';
+    $active = $app->request()->getPath() == $page['url'];
+    if ($active) array_push($classes, 'active');
+    if ($page['external'] == true) array_push($classes, 'external');
+    return '<a href="' . $page['url'] . '" class="' . join(' ', $classes) . '">' . $page['label'] . '</a>';
 }
 
 function get_pages()
 {
-    return home()->getChildren();
+    $home = home();
+    return $home['children'];
 }

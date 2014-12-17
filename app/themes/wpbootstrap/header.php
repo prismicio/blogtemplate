@@ -31,11 +31,11 @@
             <ul>
                 <li class="blog-nav-item"><?= home_link('Home') ?></li>
                 <?php foreach(get_pages() as $page) { ?>
-                    <?php if(count($page->getChildren()) > 0) { ?>
+                    <?php if(count($page['children']) > 0) { ?>
                         <li class="blog-nav-item dropdown">
                             <?= page_link($page) ?>
                             <ul class="dropdown-menu">
-                                <?php foreach($page->getChildren() as $subpage) { ?>
+                                <?php foreach($page['children'] as $subpage) { ?>
                                     <?= page_link($subpage) ?>
                                 <?php } ?>
                             </ul>

@@ -309,5 +309,48 @@ class PrismicHelper
         return null;
     }
 
+    public function home()
+    {
+        $homeId = $this->get_api()->bookmark('home');
+        if (!$homeId) return null;
+        $home = $this->get_document($homeId);
+        if (!$home || $home->getType() != "page") return null;
+
+        return array(
+            'label' => 'Home',
+            'url' => $this->linkResolver->resolveDocument($home),
+            'external' => false,
+            'children' => $this->getPageChildren($home)
+        );
+    }
+
+    private function getPageChildren($page)
+    {
+        $result = array();
+        if (!$page) return $result;
+        $group = $page->getGroup("page.children");
+        if (!$group) return $result;
+        foreach ($group->getArray() as $item) {
+            if (!isset($item['label']) || !isset($item['link'])) continue;
+            $label = $item->getText('label');
+            $link = $item->getLink('link');
+            $children = array();
+            if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
+                $doc = $this->get_document($link->getId());
+                if (!$label) {
+                    $label = "No label";
+                }
+                $children = $this->getPageChildren($doc);
+            }
+            array_push($result, array(
+                'label' => $label,
+                'url' => $link->getUrl($this->linkResolver),
+                'external' => $link instanceof \Prismic\Fragment\Link\WebLink,
+                'children' => $children
+            ));
+        }
+        return $result;
+    }
+
 }
 

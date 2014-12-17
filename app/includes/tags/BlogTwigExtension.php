@@ -40,11 +40,12 @@ class BlogTwigExtension extends Twig_Extension
         if ($input == null) {
             return null;
         }
-        if ($input instanceof NavMenuItem) {
+        if (is_array($input) && isset($input['url'])) {
             $classes = array();
-            if ($input->isActive($this->app)) array_push($classes, 'active');
-            if ($input->isExternal()) array_push($classes, 'external');
-            return '<a href="' . $input->getPermalink() . '" class="' . join(' ', $classes) . '">' . $input->getTitle() . '</a>';
+            $active = $this->app->request()->getPath() == $input['url'];
+            if ($active) array_push($classes, 'active');
+            if ($input['external'] == true) array_push($classes, 'external');
+            return '<a href="' . $input['url'] . '" class="' . join(' ', $classes) . '">' . $input['label'] . '</a>';
         }
         if ($input instanceof \Prismic\Document) {
             $url = $this->prismic->linkResolver->resolveDocument($input);
@@ -101,17 +102,17 @@ class BlogTwigExtension extends Twig_Extension
     }
 
     function navMenu () {
-        $home = NavMenuItem::home($this->prismic);
+        $home = $this->prismic->home();
         $result = "<ul>";
         $result .= "<li class='blog-nav-item'>" . $this->linkFilter($home) . "</li>";
         if ($home) {
-            foreach ($home->getChildren() as $page) {
-                if (count($page->getChildren()) == 0) {
+            foreach ($home['children'] as $page) {
+                if (count($page['children']) == 0) {
                     $result .= '<li class="blog-nav-item" >' . $this->linkFilter($page) . '</li>';
                 } else {
                     $result .= '<li class="blog-nav-item dropdown" >' . $this->linkFilter($page);
                     $result .= '<ul class="dropdown-menu" >';
-                    foreach ($page->getChildren() as $subpage) {
+                    foreach ($page['children'] as $subpage) {
                         $result .= $this->linkFilter($subpage);
                     }
                     $result .= '</ul>';

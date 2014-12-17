@@ -6,6 +6,3 @@ require 'includes/tags/PrismicTwigExtension.php';
 require 'includes/tags/BlogTwigExtension.php';
 require 'includes/theme.php';
 
-require 'includes/models/NavMenuItem.php';
-
-
