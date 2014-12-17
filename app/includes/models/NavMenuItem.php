@@ -48,7 +48,7 @@ class NavMenuItem
         return new NavMenuItem(
             $prismic,
             'Home',
-            new \Prismic\Fragment\Link\DocumentLink($doc->getId(), "page", array(), "home", false),
+            new \Prismic\Fragment\Link\DocumentLink($doc->getId(), null, "page", array(), "home", array(), false),
             NavMenuItem::getPageChildren($doc, $prismic)
         );
     }
