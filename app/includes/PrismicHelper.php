@@ -28,39 +28,21 @@ class BlogLinkResolver extends LinkResolver
         if ($link->getType() == "category") {
             return "/category/" . $link->getId() . '/' . $link->getSlug();
         }
-        return $this->resolveDocument($this->prismic->get_document($link->getId()));
-    }
-
-    public function resolveDocument($doc)
-    {
-        if (!$doc) return null;
-        $name = $this->prismic->get_bookmark_name($doc->getId());
-        if ($name == 'home') {
-            return '/';
-        } else if ($name) {
-            return '/' . $name;
-        }
-        if ($doc->getType() == "category") {
-            return "/category/" . $doc->getUid();
-        }
-        if ($doc->getType() == "author") {
-            return "/author/" . $doc->getId() . '/' . $doc->getSlug();
-        }
-        if ($doc->getType() == "post") {
-            $date = $doc->getDate("post.date");
+        if ($link->getType() == "post") {
+            $date = $link->getDate("post.date");
             $year = $date ? $date->asDateTime()->format('Y') : '0';
             $month = $date ? $date->asDateTime()->format('m') : '0';
             $day = $date ? $date->asDateTime()->format('d') : '0';
-            return "/" . $year . '/' . $month . '/' . $day . '/' . urlencode($doc->getUid());
+            return "/" . $year . '/' . $month . '/' . $day . '/' . urlencode($link->getUid());
         }
-        if ($doc->getType() == "page") {
+        if ($link->getType() == "page") {
             $homeId = $this->prismic->get_api()->bookmark('home');
-            $parent = $this->prismic->get_parent($doc->getId());
+            $parent = $this->prismic->get_parent($link->getId());
             if ($parent && $parent->getId() != $homeId) {
-                return "/" . $parent->getUid() . "/" . urlencode($doc->getUid());
+                return "/" . $parent->getUid() . "/" . urlencode($link->getUid());
             }
         }
-        return "/" . $doc->getUid();
+        return "/" . $link->getUid();
     }
 
 }
@@ -105,7 +87,9 @@ class PrismicHelper
 
     function form()
     {
-        return $this->get_api()->forms()->everything->ref(PrismicHelper::get_ref());
+        return $this->get_api()->forms()->everything
+            ->fetchLinks(array("post.date"))
+            ->ref(PrismicHelper::get_ref());
     }
 
     function get_authors() {
