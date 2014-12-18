@@ -63,6 +63,10 @@ function is_attachment() {
 
 function comments_open() {}
 
+function get_comments_number($post_id = null) {
+    return 0;
+}
+
 function __() {}
 
 function add_action($name) {}
@@ -89,3 +93,11 @@ function dynamic_sidebar() {
 function do_action() {}
 
 function wp_footer() {}
+
+function get_object_taxonomies($object, $output = 'names') {
+    return array();
+}
+
+function has_nav_menu($location) {
+    return false;
+}

@@ -193,6 +193,17 @@ function the_excerpt()
     echo get_the_excerpt();
 }
 
+function get_the_tags($id = null)
+{
+    // Should we implement tags?
+    return array();
+}
+
+function the_tags($before = 'Tags: ', $sep = ',', $after = '')
+{
+    // Should we implement tags?
+}
+
 // Other tags
 
 function single_post()

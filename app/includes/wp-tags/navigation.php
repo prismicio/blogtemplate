@@ -7,6 +7,12 @@ function is_home()
     return $app->request()->getUrl() == '/';
 }
 
+function is_front_page()
+{
+    // TODO: These 2 functions are not exactly the same, although I think in our case they will be
+    return is_home();
+}
+
 function get_previous_posts_link($label = '« Previous Page') {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
@@ -62,6 +68,17 @@ function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_te
         $url = $prismic->linkResolver->resolveDocument($next);
         $label = str_replace('%link', htmlentities($next->getText('post.title')), $format);
         echo '<a href="' . $url . '">' . $label . '</a>';
+    }
+}
+
+function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previous = true, $taxonomy = 'category') {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $loop = $WPGLOBAL['loop'];
+    if ($previous) {
+        return $prismic->previous($loop->current_post());
+    } else {
+        return $prismic->next($loop->current_post());
     }
 }
 

@@ -16,6 +16,7 @@ class Theme {
         $this->name = $app->config('theme');
 
         if ($this->isWP()) {
+            $GLOBALS['pagenow'] = '';
             $WPGLOBAL = array(
                 'theme' => $this,
                 'app' => $this->app,
