@@ -151,22 +151,24 @@ function get_template_part($slug, $name = null)
 function is_search()
 {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->current_query() != null;
+    return isset($WPGLOBAL['search_query']);
 }
 
 function is_single()
 {
     global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->current_document() && $state->current_document()->getType() == "post";
+    return isset($WPGLOBAL['single_post']);
+}
+
+function is_page()
+{
+    global $WPGLOBAL;
+    return isset($WPGLOBAL['page']);
 }
 
 function is_singular()
 {
-    global $WPGLOBAL;
-    $state = $WPGLOBAL['state'];
-    return $state->current_document() != null;
+    return is_single() || is_page() || is_attachment();
 }
 
 // Helpers (shouldn't be used in templates)

@@ -31,6 +31,7 @@ class Theme {
             require_once 'wp-tags/archive.php';
             require_once 'wp-tags/categories.php';
             require_once 'wp-tags/stubs.php';
+            require_once 'wp-tags/WP_Query.php';
             if (file_exists($this->directory() . '/functions.php')) {
                 // Optional helpers that theme developers can provide
                 require_once ($this->directory() . '/functions.php');
@@ -61,7 +62,7 @@ class Theme {
     }
 
     public function render($name, $parameters = array()) {
-        global $WPGLOBAL;
+        global $WPGLOBAL, $wp_query;
         if ($this->isWP()) {
             $loop = $WPGLOBAL['loop'];
             if (isset($parameters['response'])) {
@@ -82,6 +83,12 @@ class Theme {
                 $WPGLOBAL['single_post'] = $parameters['post'];
             } else if (isset($parameters['category'])) {
                 $WPGLOBAL['single_post'] = $parameters['category'];
+            }
+            if (isset($parameters['search_query'])) {
+                $WPGLOBAL['search_query'] = $parameters['search_query'];
+                $wp_query = new WP_Query($parameters['search_query']);
+            } else {
+                $wp_query = new WP_Query('');
             }
             include $this->directory() . '/' . $name . '.php';
         } else {

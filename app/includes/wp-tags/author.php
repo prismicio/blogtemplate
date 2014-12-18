@@ -72,9 +72,10 @@ function get_the_author_meta($field, $userID = null)
     } else {
         $author = $loop->current_author();
     }
+    if ($author == null) return null;
     switch ($field)
     {
-        case 'ID': return $author->document->getId();
+        case 'ID': return $author->getId();
         case 'display_name': return $author->getText('author.full_name')->asText();
         default: return null;
     }

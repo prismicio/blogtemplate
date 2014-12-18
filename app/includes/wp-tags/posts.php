@@ -37,7 +37,7 @@ function the_ID()
 {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
-    echo $loop->current_post()->document->getId();
+    echo $loop->current_post()->getId();
 }
 
 function is_sticky()
@@ -101,6 +101,9 @@ function get_the_date($format = 'F, jS Y')
     $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
+    }
+    if ($date instanceof \Prismic\Fragment\Date) {
+        $date = $date->asDateTime();
     }
     return date_format($date, $format);
 }

@@ -92,6 +92,14 @@ class PrismicHelper
             ->ref(PrismicHelper::get_ref());
     }
 
+    function get_document_author($document) {
+        $link = $document->getLink("document.author");
+        if ($link == null) {
+            return null;
+        }
+        return $this->single($link->getId())->getResults()[0];
+    }
+
     function get_authors() {
         return $this->form()
             ->query(Predicates::at("document.type", "author"))

@@ -84,9 +84,9 @@ function wp_nav_menu($args) {
     echo '<ul' . cls($p['menu_class']) . id($p['menu_id']) . '>';
     echo '<li>' . home_link('Home') . '</li>';
     foreach(get_pages() as $page) {
-        if (count($page->getChildren()) > 0) {
+        if (count($page['children']) > 0) {
             echo '<li>' . page_link($page) . '<ul>';
-            foreach($page->getChildren() as $subpage) {
+            foreach($page['children'] as $subpage) {
                 echo page_link($subpage);
             }
             echo '</ul></li>';
