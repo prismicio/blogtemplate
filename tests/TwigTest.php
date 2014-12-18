@@ -10,12 +10,12 @@ class TwigTests extends LocalWebTestCase
 
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('footer.blog-footer')));
-        $this->assertEquals(1, count($html('div.blog-post')));
+        $this->assertEquals(2, count($html('div.blog-post')));
 
         // The menubar is correct
         $this->assertEquals('active', $html('li.blog-nav-item a', 0)->class);
         $this->assertTrue(strpos($html('li.blog-nav-item', 1)->class, 'dropdown') !== FALSE);
-        $this->assertEquals('external', $html('li.blog-nav-item a', 3)->class);
+        $this->assertEquals('external', $html('li.blog-nav-item a', 4)->class);
     }
 
     public function testPermalink()
