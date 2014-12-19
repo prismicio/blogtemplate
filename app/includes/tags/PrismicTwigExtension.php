@@ -24,7 +24,8 @@ class PrismicTwigExtension extends Twig_Extension
     {
         return array(
             new Twig_SimpleFilter('html', array($this, 'htmlFilter'), array('is_safe' => array('html'))),
-            new Twig_SimpleFilter('text', array($this, 'textFilter'))
+            new Twig_SimpleFilter('text', array($this, 'textFilter')),
+            new Twig_SimpleFilter('tags', array($this, 'tagsFilter'))
         );
     }
 
@@ -37,6 +38,14 @@ class PrismicTwigExtension extends Twig_Extension
     public function textFilter($input)
     {
         return $input->asText();
+    }
+
+    public function tagsFilter($input)
+    {
+        if ($input instanceof \Prismic\Document) {
+            return $input->getTags();
+        }
+        return array();
     }
 
 }

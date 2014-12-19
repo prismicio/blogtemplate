@@ -126,3 +126,4 @@ function get_day_link($year, $month, $day)
     $url = archive_link($year, $month, $date->format('d'));
     return '<a href="' . $url . '">' . $label . '</a>';
 }
+

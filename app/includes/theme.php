@@ -1,5 +1,7 @@
 <?php
 
+define('ABSPATH', dirname(__FILE__) . '../');
+
 class Theme {
 
     private $twig;
@@ -76,6 +78,9 @@ class Theme {
                 $loop->setPosts(array($parameters['page']));
             } else if (isset($parameters['author'])) {
                 $loop->setPosts(array($parameters['author']));
+            }
+            if (isset($parameters['tag'])) {
+                $WPGLOBAL['tag'] = $parameters['tag'];
             }
             if (isset($parameters['date'])) {
                 $WPGLOBAL['date'] = $parameters['date'];

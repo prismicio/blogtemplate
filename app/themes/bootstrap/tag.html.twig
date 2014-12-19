@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <h2>Tag: {{ tag }}</h2>
+
+    {% for post in response.results %}
+        {% include "content.html.twig" %}
+    {%  endfor %}
+    {%  if response.results is empty %}
+        <p>Sorry, no posts matched your criteria.</p>
+    {%  endif %}
+
+    <?php previous_posts_link() ?>
+
+    <?php next_posts_link() ?>
+
+{% endblock %}

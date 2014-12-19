@@ -1,5 +1,6 @@
 {% set author = post|author %}
 {% set categories = post|categories %}
+{% set tags = post|tags %}
 
 <div class="blog-post">
     <h2 class="blog-post-title">
@@ -14,6 +15,9 @@
         {% endif %}
         {% if categories is not empty %}
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> {{ categories|link(", ") }}
+        {% endif %}
+        {% if tags is not empty %}
+        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> {{ tags|tagsLink(", ") }}
         {% endif %}
     </p>
 

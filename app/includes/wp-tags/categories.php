@@ -37,3 +37,13 @@ function the_category($separator = '', $parents = '', $post_id = null)
     echo join($separator, $strings);
 }
 
+function single_tag_title($prefix = '', $display = true)
+{
+    global $WPGLOBAL;
+    $tag = isset($WPGLOBAL['tag']) ? $WPGLOBAL['tag'] : null;
+    if ($display) {
+        echo $tag;
+    } else {
+        return $prefix . $tag;
+    }
+}

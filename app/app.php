@@ -60,12 +60,23 @@ $app->get('/category/:uid', function ($id) use($app) {
     $theme = new Theme($app, $prismic);
     $cat = $prismic->get_document($id);
     if (!check_404($app, $theme, $cat)) {
-        $response = $prismic->category($cat->getId());
+        $response = $prismic->byCategory($cat->getId());
         $theme->render('category', array(
             'category' => $cat,
             'response' => $response
         ));
     }
+});
+
+// Tag
+$app->get('/tag/:tag', function ($tag) use($app) {
+    $prismic = new PrismicHelper($app);
+    $theme = new Theme($app, $prismic);
+    $response = $prismic->byTag($tag);
+    $theme->render('tag', array(
+        'tag' => $tag,
+        'response' => $response
+    ));
 });
 
 // Index

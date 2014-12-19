@@ -193,15 +193,29 @@ function the_excerpt()
     echo get_the_excerpt();
 }
 
-function get_the_tags($id = null)
+function get_the_tags()
 {
-    // Should we implement tags?
-    return array();
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $doc = $loop->current_post();
+    if (!$doc) return array();
+    return $doc->getTags();
 }
 
-function the_tags($before = 'Tags: ', $sep = ',', $after = '')
+function the_tags($before = '', $sep = '', $after = '')
 {
-    // Should we implement tags?
+    echo get_the_tag_list($before, $sep, $after);
+}
+
+function get_the_tag_list($before = '', $sep = '', $after = '') {
+    $tags = get_the_tags();
+    if (count($tags) == 0) return;
+    $result = $before;
+    $result .= join($sep, array_map(function ($tag) use ($sep) {
+        return '<a href="/tag/' . $tag . '">' . $tag . '</a>';
+    }, $tags));
+    $result .= $after;
+    return $result;
 }
 
 // Other tags

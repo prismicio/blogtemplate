@@ -73,8 +73,6 @@ function add_action($name) {}
 
 function add_filter($name) {}
 
-function get_the_tag_list() {}
-
 function edit_post_link() {}
 
 function comments_template() {}
@@ -100,4 +98,20 @@ function get_object_taxonomies($object, $output = 'names') {
 
 function has_nav_menu($location) {
     return false;
+}
+
+function is_admin() {
+    return false;
+}
+
+function get_option($option, $default = false) {
+    return $default;
+}
+
+function _n_noop($singular, $plural, $domain = null) {
+    return array($singular, $plural);
+}
+
+function do_action_ref_array($tag, $args) {
+
 }

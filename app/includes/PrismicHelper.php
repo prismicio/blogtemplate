@@ -26,7 +26,7 @@ class BlogLinkResolver extends LinkResolver
             return "/author/" . $link->getId() . '/' . $link->getSlug();
         }
         if ($link->getType() == "category") {
-            return "/category/" . $link->getId() . '/' . $link->getSlug();
+            return "/category/" . $link->getUid();
         }
         if ($link->getType() == "post") {
             $date = $link->getDate("post.date");
@@ -168,11 +168,22 @@ class PrismicHelper
             ->submit();
     }
 
-    function category($categoryId, $page = 1, $pageSize = null)
+    function byCategory($categoryId, $page = 1, $pageSize = null)
     {
         if (!$pageSize) $pageSize = $this->pageSize();
         return $this->form()
             ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
+    function byTag($tag, $page = 1, $pageSize = null)
+    {
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::any("document.tags", array($tag))))
             ->orderings("[my.post.date desc]")
             ->page($page)
             ->pageSize($pageSize)

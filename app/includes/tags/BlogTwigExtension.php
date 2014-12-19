@@ -15,6 +15,7 @@ class BlogTwigExtension extends Twig_Extension
     {
         return array(
             new Twig_SimpleFilter('link', array($this, 'linkFilter'), array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('tagsLink', array($this, 'tagsLinkFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('author', array($this, 'authorFilter'), array('is_safe' => array('html'))),
             new Twig_SimpleFilter('categories', array($this, 'categoriesFilter')),
             new Twig_SimpleFilter('archivelink', array($this, 'archivelinkFilter'), array('is_safe' => array('html'))),
@@ -35,11 +36,17 @@ class BlogTwigExtension extends Twig_Extension
         );
     }
 
+    public function tagsLinkFilter($input, $separator = '')
+    {
+        if ($input == null) return null;
+        return join($separator, array_map(function ($tag) use ($separator) {
+            return '<a href="/tag/' . $tag . '">' . $tag . '</a>';
+        }, $input));
+    }
+
     public function linkFilter($input, $separator = '')
     {
-        if ($input == null) {
-            return null;
-        }
+        if ($input == null) return null;
         if (is_array($input) && isset($input['url'])) {
             $classes = array();
             $active = $this->app->request()->getPath() == $input['url'];
