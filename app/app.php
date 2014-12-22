@@ -27,6 +27,12 @@ if (!function_exists('current_page')) {
     }
 }
 
+function not_found($app, $theme)
+{
+  $app->response->setStatus(404);
+  $theme->render('404');
+}
+
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     $prismic = new PrismicHelper($app);
@@ -168,21 +174,72 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
     }
 });
 
-// Page
-$app->get('/:uid(/:uid2)', function($uid, $uid2 = null) use($app) {
-    if ($uid2) $uid = $uid2; // If $uid2 is defined, $uid is the parent
+function check_page_path1($path, $prismic)
+{
+  $uid = end($path);
+  $correctAddress = $prismic->page_path($uid);
+  if($path == $correctAddress) {
+    return $uid;
+  }
+}
+
+function redirect_path($path, $prismic)
+{
+  $npath = $prismic->refresh_path($path);
+  if($npath != null)
+  {
+    $npath_uid = end($npath);
+    $newCorrectAddress = $prismic->page_path($npath_uid);
+    if($npath == $newCorrectAddress)
+    {
+      return '/'.implode('/',$newCorrectAddress);
+
+    }
+    if($npath != $newCorrectAddress)
+    {
+      //404
+      return null;
+    }
+  }
+
+  return null;
+}
+
+function check_page_path($path, $prismic, $app)
+{
+  $theme = new Theme($app, $prismic);
+  $page_uid = check_page_path1($path, $prismic);
+
+  if($page_uid == null)
+  {
+    $redirect_url = redirect_path($path, $prismic);
+    if($redirect_url != null)
+    {
+      $app->response->redirect($redirect_url);
+    }
+    if($redirect_url == null)
+    {
+      not_found($app, $theme);
+    }
+  }
+
+  return $page_uid;
+
+}
+
+// Page with subs
+$app->get('/:path+', function($path) use($app) {
+
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
 
-    $page = $prismic->get_page($uid);
-    $permalink = $prismic->linkResolver->resolveDocument($page);
-    if ($app->request()->getPath() != $permalink) {
-        // The user came from a URL with an older uid
-        $app->response->redirect($permalink);
-    }
-    if (!check_404($app, $theme, $page)) {
-        $theme->render('page', array(
-            'page' => $page
-        ));
+    $page_uid = check_page_path($path, $prismic, $app);
+
+    if($page_uid != null)
+    {
+      $page = $prismic->get_page($page_uid);
+      $theme->render('page', array(
+        'page' => $page
+      ));
     }
 });

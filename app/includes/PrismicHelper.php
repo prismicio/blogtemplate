@@ -35,11 +35,16 @@ class BlogLinkResolver extends LinkResolver
             $day = $date ? $date->asDateTime()->format('d') : '0';
             return "/" . $year . '/' . $month . '/' . $day . '/' . urlencode($link->getUid());
         }
+
         if ($link->getType() == "page") {
             $homeId = $this->prismic->get_api()->bookmark('home');
-            $parent = $this->prismic->get_parent($link->getId());
-            if ($parent && $parent->getId() != $homeId) {
-                return "/" . $parent->getUid() . "/" . urlencode($link->getUid());
+            if ($link->getId() != $homeId) {
+                $pieces = $this->prismic->page_path($link->getUid());
+                $pieces_encoded = array_map( function($p)
+                {
+                  return urlencode($p);
+                }, $pieces);
+                return '/' . implode('/', $pieces);
             }
         }
         return "/" . $link->getUid();
@@ -125,11 +130,11 @@ class PrismicHelper
     {
         $results = $this->form()
             ->query(array(
-                Predicates::at("document.uid", $uid),
-                Predicates::at("document.type", $type)
+                Predicates::at("my.".$type.".uid", $uid)
             ))
             ->submit()
             ->getResults();
+
         if (count($results) > 0) {
             return $results[0];
         }
@@ -193,6 +198,7 @@ class PrismicHelper
             ->submit();
     }
 
+
     function byCategory($categoryId, $page = 1, $pageSize = null)
     {
         if (!$pageSize) $pageSize = $this->pageSize();
@@ -202,6 +208,67 @@ class PrismicHelper
             ->page($page)
             ->pageSize($pageSize)
             ->submit();
+    }
+
+    function refresh_path($path)
+    {
+
+      $pages = $this->form()
+          ->query(Predicates::in("my.page.uid", $path))
+          ->submit()
+          ->getResults();
+
+
+
+      $npath = array_map(function($p)
+      {
+        return $p->getUid();
+      }, $pages);
+
+      if(count($path) == count($npath)){
+        return $npath;
+      }
+      return null;
+
+    }
+
+    function page_path($uid)
+    {
+
+      $pages = $this->form()
+          ->query(Predicates::at("document.type", "page"))
+          ->submit()
+          ->getResults();
+
+
+      $parents = array();
+      foreach ($pages as $p) {
+        $cs = $p->getGroup('page.children');
+        if($cs)
+        {
+          foreach($cs->getArray() as $child){
+            $link = $child->getLink('link');
+            $children = array();
+            if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
+                $parent_title = $p->getUid();
+                $parents[$link->getUid()]= $parent_title;
+            }
+
+          }
+        }
+      }
+
+      $p = $uid;
+
+      $path = array($uid);
+      while(array_key_exists($p,$parents))
+      {
+        $nextp = $parents[$p];
+        array_push($path, $nextp);
+        $p = $nextp;
+      }
+      return array_reverse($path);
+
     }
 
     function byTag($tag, $page = 1, $pageSize = null)
@@ -397,4 +464,3 @@ class PrismicHelper
     }
 
 }
-
