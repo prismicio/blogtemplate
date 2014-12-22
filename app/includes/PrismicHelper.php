@@ -106,16 +106,41 @@ class PrismicHelper
             ->submit();
     }
 
-    // Try with uid, fallback to id
-    function get_document($id)
+    function get_category($uid)
     {
-        $results = $this->single($id, "document.uid")->getResults();
+        return $this->by_uid("category", $uid);
+    }
+
+    function get_post($uid)
+    {
+        return $this->by_uid("post", $uid);
+    }
+
+    function get_page($uid)
+    {
+        return $this->by_uid("page", $uid);
+    }
+
+    function by_uid($type, $uid)
+    {
+        $results = $this->form()
+            ->query(array(
+                Predicates::at("document.uid", $uid),
+                Predicates::at("document.type", $type)
+            ))
+            ->submit()
+            ->getResults();
         if (count($results) > 0) {
             return $results[0];
         }
-        $results2 = $this->single($id, "document.id")->getResults();
-        if (count($results2) > 0) {
-            return $results2[0];
+        return null;
+    }
+
+    function get_document($id)
+    {
+        $results = $this->single($id, "document.id")->getResults();
+        if (count($results) > 0) {
+            return $results[0];
         }
         return null;
     }

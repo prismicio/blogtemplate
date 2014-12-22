@@ -55,10 +55,10 @@ $app->get('/search', function() use($app) {
 });
 
 // Category
-$app->get('/category/:uid', function ($id) use($app) {
+$app->get('/category/:uid', function ($uid) use($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
-    $cat = $prismic->get_document($id);
+    $cat = $prismic->get_category($uid);
     if (!check_404($app, $theme, $cat)) {
         $response = $prismic->byCategory($cat->getId());
         $theme->render('category', array(
@@ -154,7 +154,7 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
 
-    $doc = $prismic->get_document($uid);
+    $doc = $prismic->get_post($uid);
     $permalink = $prismic->linkResolver->resolveDocument($doc);
     if ($app->request()->getPath() != $permalink) {
         // The user came from a URL with an older uid or date
@@ -174,7 +174,7 @@ $app->get('/:uid(/:uid2)', function($uid, $uid2 = null) use($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
 
-    $page = $prismic->get_document($uid);
+    $page = $prismic->get_page($uid);
     $permalink = $prismic->linkResolver->resolveDocument($page);
     if ($app->request()->getPath() != $permalink) {
         // The user came from a URL with an older uid
