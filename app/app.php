@@ -83,8 +83,8 @@ $app->get('/feed', function() use ($app) {
     $feed = new Feed();
     $channel = new Channel();
     $channel
-        ->title(SITE_TITLE)
-        ->description(SITE_DESCRIPTION)
+        ->title($app->config('site.title'))
+        ->description($app->config('site.description'))
         ->url($blogUrl)
         ->appendTo($feed);
 
@@ -93,7 +93,7 @@ $app->get('/feed', function() use ($app) {
         $item
             ->title($post->getText("post.title"))
             ->description($post->getHtml("post.body", $prismic->linkResolver))
-            ->url($blogUrl . $prismic->$linkResolver->resolveDocument($post))
+            ->url($blogUrl . $prismic->linkResolver->resolveDocument($post))
             ->pubDate($post->getDate("post.date")->asEpoch())
             ->appendTo($channel);
     }
@@ -105,7 +105,7 @@ $app->get('/feed', function() use ($app) {
 $app->get('/preview', function() use($app) {
     $prismic = new PrismicHelper($app);
     $token = $app->request()->params('token');
-    $url = $prismic->get_api()->previewSession($token, $prismic->$linkResolver, '/');
+    $url = $prismic->get_api()->previewSession($token, $prismic->linkResolver, '/');
     $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
     $app->response->redirect($url, 301);
 });

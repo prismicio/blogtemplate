@@ -89,4 +89,10 @@ class TwigTests extends LocalWebTestCase
         $this->assertEquals(1, count($html('div.blog-post')));
     }
 
+    public function testFeed()
+    {
+        $this->client->get('/feed');
+        $this->assertEquals(200, $this->client->response->status());
+    }
+
 }
