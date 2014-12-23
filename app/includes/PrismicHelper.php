@@ -234,26 +234,26 @@ class PrismicHelper
 
     function page_path($uid)
     {
+      $homeId = $this->get_api()->bookmark('home');
 
       $pages = $this->form()
           ->query(Predicates::at("document.type", "page"))
           ->submit()
           ->getResults();
 
-
       $parents = array();
       foreach ($pages as $p) {
+        if ($p->getId() == $homeId) continue;
         $cs = $p->getGroup('page.children');
-        if($cs)
+        if ($cs)
         {
-          foreach($cs->getArray() as $child){
+          foreach($cs->getArray() as $child)
+          {
             $link = $child->getLink('link');
-            $children = array();
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
                 $parent_title = $p->getUid();
                 $parents[$link->getUid()]= $parent_title;
             }
-
           }
         }
       }
@@ -261,7 +261,7 @@ class PrismicHelper
       $p = $uid;
 
       $path = array($uid);
-      while(array_key_exists($p,$parents))
+      while(array_key_exists($p, $parents))
       {
         $nextp = $parents[$p];
         array_push($path, $nextp);
