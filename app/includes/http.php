@@ -1,14 +1,5 @@
 <?php
 
-function check_404($app, $theme, $doc)
-{
-    if (!$doc) {
-        $app->response->setStatus(404);
-        $theme->render('404');
-    }
-    return $doc == null;
-}
-
 function current_page($app)
 {
     $pageQuery = $app->request()->params('page');

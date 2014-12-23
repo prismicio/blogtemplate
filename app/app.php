@@ -15,13 +15,15 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     $theme = new Theme($app, $prismic);
     $author = $prismic->get_document($id);
 
-    if (!check_404($app, $theme, $author)) {
-        $posts = $prismic->byAuthor($id)->getResults();
-        $theme->render('author', array(
-            'author' => $author,
-            'posts' => $posts
-        ));
+    if ($author == null) {
+        not_found($app, $theme);
+        return;
     }
+    $posts = $prismic->byAuthor($id)->getResults();
+    $theme->render('author', array(
+        'author' => $author,
+        'posts' => $posts
+    ));
 });
 
 // Search
@@ -41,13 +43,15 @@ $app->get('/category/:uid', function ($uid) use($app) {
     $prismic = new PrismicHelper($app);
     $theme = new Theme($app, $prismic);
     $cat = $prismic->get_category($uid);
-    if (!check_404($app, $theme, $cat)) {
-        $response = $prismic->byCategory($cat->getId());
-        $theme->render('category', array(
-            'category' => $cat,
-            'response' => $response
-        ));
+    if ($cat == null) {
+        not_found($app, $theme);
+        return;
     }
+    $response = $prismic->byCategory($cat->getId());
+    $theme->render('category', array(
+        'category' => $cat,
+        'response' => $response
+    ));
 });
 
 // Tag
@@ -137,17 +141,19 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
     $theme = new Theme($app, $prismic);
 
     $doc = $prismic->get_post($uid);
+    if ($doc == null) {
+        not_found($app, $theme);
+        return;
+    }
     $permalink = $prismic->linkResolver->resolveDocument($doc);
     if ($app->request()->getPath() != $permalink) {
         // The user came from a URL with an older uid or date
         $app->response->redirect($permalink);
         return;
     }
-    if (!check_404($app, $theme, $doc)) {
-        $theme->render('single', array(
-            'post' => $doc
-        ));
-    }
+    $theme->render('single', array(
+        'post' => $doc
+    ));
 });
 
 // Page with subs
