@@ -4,11 +4,9 @@ define('ABSPATH', dirname(__FILE__) . '../');
 
 class Theme {
 
-    private $twig;
     private $app;
     private $prismic;
     private $name;
-    private $state;
 
     public function __construct(\Slim\Slim $app, PrismicHelper $prismic)
     {
@@ -17,43 +15,18 @@ class Theme {
         $this->prismic = $prismic;
         $this->name = $app->config('theme');
 
-        if ($this->isWP()) {
-            $GLOBALS['pagenow'] = '';
-            $WPGLOBAL = array(
-                'theme' => $this,
-                'app' => $this->app,
-                'prismic' => $this->prismic,
-                'loop' => new Loop($this->prismic)
-            );
-            // Wordpress tags
-            require_once 'wp-tags/general.php';
-            require_once 'wp-tags/navigation.php';
-            require_once 'wp-tags/posts.php';
-            require_once 'wp-tags/pages.php';
-            require_once 'wp-tags/author.php';
-            require_once 'wp-tags/archive.php';
-            require_once 'wp-tags/categories.php';
-            require_once 'wp-tags/stubs.php';
-            require_once 'wp-tags/WP_Query.php';
-            if (file_exists($this->directory() . '/functions.php')) {
-                // Optional helpers that theme developers can provide
-                require_once ($this->directory() . '/functions.php');
-            }
-        }
-    }
+        $GLOBALS['pagenow'] = '';
+        $WPGLOBAL = array(
+            'theme' => $this,
+            'app' => $this->app,
+            'prismic' => $this->prismic,
+            'loop' => new Loop($this->prismic)
+        );
 
-    public function twig() {
-        if (!$this->twig) {
-            Twig_Autoloader::register();
-
-            $loader = new Twig_Loader_Filesystem($this->directory());
-            $this->twig = new Twig_Environment($loader, array(
-                // 'cache' => '/path/to/compilation_cache',
-            ));
-            $this->twig->addExtension(new PrismicTwigExtension($this->prismic->linkResolver));
-            $this->twig->addExtension(new BlogTwigExtension($this->app, $this->prismic));
+        if (file_exists($this->directory() . '/functions.php')) {
+            // Optional helpers that theme developers can provide
+            require_once ($this->directory() . '/functions.php');
         }
-        return $this->twig;
     }
 
     public function directory() {
@@ -66,48 +39,36 @@ class Theme {
 
     public function render($name, $parameters = array()) {
         global $WPGLOBAL, $wp_query;
-        if ($this->isWP()) {
-            $loop = $WPGLOBAL['loop'];
-            if (isset($parameters['response'])) {
-                $loop->setPosts($parameters['response']->getResults());
-                $loop->page = $parameters['response']->getPage();
-                $loop->totalPages = $parameters['response']->getTotalPages();
-            } else if (isset($parameters['post'])) {
-                $loop->setPosts(array($parameters['post']));
-            } else if (isset($parameters['page'])) {
-                $loop->setPosts(array($parameters['page']));
-            } else if (isset($parameters['author'])) {
-                $loop->setPosts(array($parameters['author']));
-            }
-            if (isset($parameters['tag'])) {
-                $WPGLOBAL['tag'] = $parameters['tag'];
-            }
-            if (isset($parameters['date'])) {
-                $WPGLOBAL['date'] = $parameters['date'];
-            }
-            if (isset($parameters['post'])) {
-                $WPGLOBAL['single_post'] = $parameters['post'];
-            } else if (isset($parameters['category'])) {
-                $WPGLOBAL['single_post'] = $parameters['category'];
-            }
-            if (isset($parameters['search_query'])) {
-                $WPGLOBAL['search_query'] = $parameters['search_query'];
-                $wp_query = new WP_Query($parameters['search_query']);
-            } else {
-                $wp_query = new WP_Query('');
-            }
-            include $this->directory() . '/' . $name . '.php';
-        } else {
-            echo $this->twig()->render($name . '.html.twig', array_merge(array(
-                "site_title" => $this->app->config('site.title'),
-                "site_description" => $this->app->config('site.description'),
-                "home" => $this->prismic->home()
-            ), $parameters));
+        $loop = $WPGLOBAL['loop'];
+        if (isset($parameters['response'])) {
+            $loop->setPosts($parameters['response']->getResults());
+            $loop->page = $parameters['response']->getPage();
+            $loop->totalPages = $parameters['response']->getTotalPages();
+        } else if (isset($parameters['post'])) {
+            $loop->setPosts(array($parameters['post']));
+        } else if (isset($parameters['page'])) {
+            $loop->setPosts(array($parameters['page']));
+        } else if (isset($parameters['author'])) {
+            $loop->setPosts(array($parameters['author']));
         }
-    }
-
-    private function isWP() {
-        return file_exists($this->directory() . '/index.php');
+        if (isset($parameters['tag'])) {
+            $WPGLOBAL['tag'] = $parameters['tag'];
+        }
+        if (isset($parameters['date'])) {
+            $WPGLOBAL['date'] = $parameters['date'];
+        }
+        if (isset($parameters['post'])) {
+            $WPGLOBAL['single_post'] = $parameters['post'];
+        } else if (isset($parameters['category'])) {
+            $WPGLOBAL['single_post'] = $parameters['category'];
+        }
+        if (isset($parameters['search_query'])) {
+            $WPGLOBAL['search_query'] = $parameters['search_query'];
+            $wp_query = new WP_Query($parameters['search_query']);
+        } else {
+            $wp_query = new WP_Query('');
+        }
+        include $this->directory() . '/' . $name . '.php';
     }
 
 }

@@ -8,59 +8,59 @@ function current_page($app)
 
 function not_found($app, $theme)
 {
-  $app->response->setStatus(404);
-  $theme->render('404');
+    $app->response->setStatus(404);
+    $theme->render('404');
 }
 
 function check_page_path1($path, $prismic)
 {
-  $uid = end($path);
-  $correctAddress = $prismic->page_path($uid);
-  if($path == $correctAddress) {
-    return $uid;
-  }
+    $uid = end($path);
+    $correctAddress = $prismic->page_path($uid);
+    if($path == $correctAddress) {
+      return $uid;
+    }
 }
 
 function redirect_path($path, $prismic)
 {
-  $npath = $prismic->refresh_path($path);
-  if($npath != null)
-  {
-    $npath_uid = end($npath);
-    $newCorrectAddress = $prismic->page_path($npath_uid);
-    if($npath == $newCorrectAddress)
+    $npath = $prismic->refresh_path($path);
+    if($npath != null)
     {
-      return '/'.implode('/',$newCorrectAddress);
+        $npath_uid = end($npath);
+        $newCorrectAddress = $prismic->page_path($npath_uid);
+        if($npath == $newCorrectAddress)
+        {
+            return '/'.implode('/',$newCorrectAddress);
 
+        }
+        if($npath != $newCorrectAddress)
+        {
+            //404
+            return null;
+        }
     }
-    if($npath != $newCorrectAddress)
-    {
-      //404
-      return null;
-    }
-  }
 
-  return null;
+    return null;
 }
 
 function check_page_path($path, $prismic, $app)
 {
-  $theme = new Theme($app, $prismic);
-  $page_uid = check_page_path1($path, $prismic);
+    $theme = new Theme($app, $prismic);
+    $page_uid = check_page_path1($path, $prismic);
 
-  if($page_uid == null)
-  {
-    $redirect_url = redirect_path($path, $prismic);
-    if($redirect_url != null)
+    if($page_uid == null)
     {
-      $app->response->redirect($redirect_url);
+        $redirect_url = redirect_path($path, $prismic);
+        if($redirect_url != null)
+        {
+            $app->response->redirect($redirect_url);
+        }
+        if($redirect_url == null)
+        {
+            not_found($app, $theme);
+        }
     }
-    if($redirect_url == null)
-    {
-      not_found($app, $theme);
-    }
-  }
 
-  return $page_uid;
+    return $page_uid;
 
 }

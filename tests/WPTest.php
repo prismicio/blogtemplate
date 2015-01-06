@@ -5,7 +5,7 @@ class WPTest extends LocalWebTestCase
 
     public function getConfig() {
         return array_merge(parent::getConfig(), array(
-            'theme'          => 'wpbootstrap'
+            'theme'          => 'bootstrap'
         ));
     }
 
