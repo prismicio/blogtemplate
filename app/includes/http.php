@@ -1,15 +1,25 @@
 <?php
 
+function theme_dir($app)
+{
+    return __DIR__ . '/../themes/' . $app->config('theme');
+}
+
+function render($app, $page)
+{
+    include theme_dir($app) . '/' . $page . '.php';
+}
+
 function current_page($app)
 {
     $pageQuery = $app->request()->params('page');
     return $pageQuery == null ? '1' : $pageQuery;
 }
 
-function not_found($app, $theme)
+function not_found($app)
 {
     $app->response->setStatus(404);
-    $theme->render('404');
+    render($app, '404');
 }
 
 function check_page_path1($path, $prismic)

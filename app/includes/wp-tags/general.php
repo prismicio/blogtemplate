@@ -89,8 +89,8 @@ function home_link($label, $attrs = array())
 function get_sidebar()
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    $theme->render('sidebar');
+    $app = $WPGLOBAL['app'];
+    render($app, 'sidebar');
 }
 
 function is_active_sidebar()
@@ -101,15 +101,15 @@ function is_active_sidebar()
 function get_header()
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    $theme->render('header');
+    $app = $WPGLOBAL['app'];
+    render($app, 'header');
 }
 
 function get_footer()
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    $theme->render('footer');
+    $app = $WPGLOBAL['app'];
+    render($app, 'footer');
 }
 
 function get_search_query()
@@ -140,11 +140,11 @@ function get_calendar() {
 function get_template_part($slug, $name = null)
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
+    $app = $WPGLOBAL['app'];
     if ($name) {
-        $theme->render($slug . '-' . $name);
+        render($app, $slug . '-' . $name);
     } else {
-        $theme->render($slug);
+        render($app, $slug);
     }
 }
 

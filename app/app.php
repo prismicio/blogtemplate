@@ -8,71 +8,92 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
-
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
     $author = $prismic->get_document($id);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
 
     if ($author == null) {
-        not_found($app, $theme);
+        not_found($app);
         return;
     }
-    $posts = $prismic->byAuthor($id)->getResults();
-    $theme->render('author', array(
-        'author' => $author,
-        'posts' => $posts
-    ));
+    $loop->setResponse($prismic->byAuthor($id));
+
+    render($app, 'author');
 });
 
 // Search
 $app->get('/search', function() use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+
     $q = $app->request()->params('q');
-    $response = $prismic->search($q, current_page($app));
-    $theme->render('search', array(
-        'response' => $response,
-        "search_query" => $q
-    ));
+    $loop->setResponse($prismic->search($q, current_page($app)));
+    render($app, 'search');
 });
 
 // Category
 $app->get('/category/:uid', function ($uid) use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+
     $cat = $prismic->get_category($uid);
+    $WPGLOBAL['single_post'] = $cat;
     if ($cat == null) {
-        not_found($app, $theme);
+        not_found($app);
         return;
     }
-    $response = $prismic->byCategory($cat->getId());
-    $theme->render('category', array(
-        'category' => $cat,
-        'response' => $response
-    ));
+    $loop->setResponse($prismic->byCategory($cat->getId()));
+    render($app, 'category');
 });
 
 // Tag
 $app->get('/tag/:tag', function ($tag) use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
-    $response = $prismic->byTag($tag);
-    $theme->render('tag', array(
-        'tag' => $tag,
-        'response' => $response
-    ));
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+
+    $loop->setResponse($prismic->byTag($tag));
+    render($app, 'tag');
 });
 
 // Index
 $app->get('/', function() use ($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
-    $response = $prismic->get_posts(current_page($app));
-    $theme->render('index', array(
-        'response' => $response
-    ));
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+
+    $loop->setResponse($prismic->get_posts(current_page($app)));
+    render($app, 'index');
 });
 
 // RSS Feed
@@ -112,13 +133,20 @@ $app->get('/preview', function() use($app) {
 
 // Archive
 $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
-    $posts = $prismic->archives(array(
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+
+    $loop->setResponse($prismic->archives(array(
         'year' => $year,
         'month' => $month,
         'day' => $day
-    ), current_page($app));
+    ), current_page($app)));
     if ($day != null) {
         $dt = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day);
         $archive_date = $dt->format('F jS, Y');
@@ -128,21 +156,24 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
     } else {
         $archive_date = $year;
     }
-    $theme->render('archive', array(
-        'response' => $posts,
-        'date' => array('year' => $year, 'month' => $month, 'day' => $day),
-        'archive_date' => $archive_date
-    ));
+    $WPGLOBAL['date'] = array('year' => $year, 'month' => $month, 'day' => $day);
+    render($app, 'archive');
 });
 
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
 
     $doc = $prismic->get_post($uid);
     if ($doc == null) {
-        not_found($app, $theme);
+        not_found($app);
         return;
     }
     $permalink = $prismic->linkResolver->resolveDocument($doc);
@@ -151,24 +182,28 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         $app->response->redirect($permalink);
         return;
     }
-    $theme->render('single', array(
-        'post' => $doc
-    ));
+    $loop->setPosts(array($doc));
+    $WPGLOBAL['single_post'] = $doc;
+    render($app, 'single');
 });
 
 // Page with subs
 $app->get('/:path+', function($path) use($app) {
-
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $theme = new Theme($app, $prismic);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
 
     $page_uid = check_page_path($path, $prismic, $app);
 
     if($page_uid != null)
     {
       $page = $prismic->get_page($page_uid);
-      $theme->render('page', array(
-        'page' => $page
-      ));
+      $loop->setPosts(array($page));
+      render($app, 'page');
     }
 });

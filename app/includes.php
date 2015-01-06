@@ -2,7 +2,6 @@
 
 require 'includes/PrismicHelper.php';
 require 'includes/Loop.php';
-require 'includes/theme.php';
 require 'includes/http.php';
 
 // Wordpress tags

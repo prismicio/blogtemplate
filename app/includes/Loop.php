@@ -14,6 +14,12 @@ class Loop {
         $this->prismic = $prismic;
     }
 
+    public function setResponse($response) {
+        $this->setPosts($response->getResults());
+        $this->page = $response->getPage();
+        $this->totalPages = $response->getTotalPages();
+    }
+
     public function setPosts($posts) {
         $this->posts = $posts;
     }
