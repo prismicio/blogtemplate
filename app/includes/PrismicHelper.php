@@ -59,11 +59,12 @@ class PrismicHelper
     public $linkResolver;
 
     private $FETCH_LINKS = array(
-        "post.date",
-        "author.full_name",
-        "author.first_name",
-        "author.surname",
-        "author.company"
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
     );
 
     public function __construct($app) {
@@ -148,19 +149,6 @@ class PrismicHelper
             return $results[0];
         }
         return null;
-    }
-
-    // Array of Category
-    function document_categories($document)
-    {
-        if (!$document) return array();
-        $group = $document->getGroup('post.categories');
-        if (!$group) return array();
-        $ids = array();
-        foreach ($group->getArray() as $item) {
-            array_push($ids, $item->getLink('link')->getId());
-        }
-        return $this->from_ids($ids)->getResults();
     }
 
     function get_bookmark_name($documentId)

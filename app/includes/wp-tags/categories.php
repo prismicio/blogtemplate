@@ -26,11 +26,14 @@ function the_category($separator = '', $parents = '', $post_id = null)
     $prismic = $WPGLOBAL['prismic'];
     $loop = $WPGLOBAL['loop'];
     $doc = $post_id ? $prismic->get_document($post_id) : $loop->current_post();
-    if (!$doc) return null;
-    if ($doc instanceof Author) return null;
+    if (!$doc) return;
+    if ($doc instanceof Author) return;
     $strings = array();
-    foreach ($prismic->document_categories($doc) as $category) {
-        $url = $prismic->linkResolver->resolveDocument($category);
+    $categories = $doc->getGroup('post.categories');
+    if (!$categories) return;
+    foreach ($doc->getGroup('post.categories')->getArray() as $item) {
+        $category = $item->getLink('link');
+        $url = $prismic->linkResolver->resolve($category);
         $label = $category->getText('category.name');
         array_push($strings, '<a href="' . $url . '">' . $label . '</a>');
     }
