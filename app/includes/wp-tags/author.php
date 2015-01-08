@@ -39,11 +39,11 @@ function get_the_author_link() {
     $auth = null;
     if ($post->getType() == 'author') {
         $auth = $post;
-    } else if ($post->getLink('post.author') != null) {
-        $auth = $prismic->get_document($post->getLink('post.author')->getId());
+    } else {
+        $auth = $post->getLink($post->getType() . '.author');
     }
     if (!$auth) return null;
-    $author_link = $prismic->linkResolver->resolveDocument($auth);
+    $author_link = $prismic->linkResolver->resolve($auth);
     return '<a href = "' . $author_link . '">' . $auth->getText('author.full_name') . '</a>';
 }
 

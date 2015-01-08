@@ -58,6 +58,14 @@ class PrismicHelper
     private $app;
     public $linkResolver;
 
+    private $FETCH_LINKS = array(
+        "post.date",
+        "author.full_name",
+        "author.first_name",
+        "author.surname",
+        "author.company"
+    );
+
     public function __construct($app) {
         $this->app = $app;
         $this->linkResolver = new BlogLinkResolver($this);
@@ -93,16 +101,8 @@ class PrismicHelper
     function form()
     {
         return $this->get_api()->forms()->everything
-            ->fetchLinks(array("post.date"))
+            ->fetchLinks($this->FETCH_LINKS)
             ->ref(PrismicHelper::get_ref());
-    }
-
-    function get_document_author($document) {
-        $link = $document->getLink("document.author");
-        if ($link == null) {
-            return null;
-        }
-        return $this->single($link->getId())->getResults()[0];
     }
 
     function get_authors() {
