@@ -86,6 +86,24 @@ class WPTest extends LocalWebTestCase
         $this->assertEquals(1, count($html('div.blog-post')));
     }
 
+    public function testPage()
+    {
+        $this->client->get('/about12');
+        $this->assertEquals(200, $this->client->response->status());
+        $html = str_get_dom($this->client->response->body());
+        $this->assertEquals(1, count($html('footer.blog-footer')));
+        $this->assertEquals("About", trim($html('h2', 0)->getPlainText()));
+    }
+
+    public function testSubPage()
+    {
+        $this->client->get('/about12/contact-us');
+        $this->assertEquals(200, $this->client->response->status());
+        $html = str_get_dom($this->client->response->body());
+        $this->assertEquals(1, count($html('footer.blog-footer')));
+        $this->assertEquals("Contact us", trim($html('h2', 0)->getPlainText()));
+    }
+
     public function testTag()
     {
         $this->client->get('/tag/sample');

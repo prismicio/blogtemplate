@@ -200,7 +200,7 @@ $app->get('/:path+', function($path) use($app) {
 
     $page_uid = check_page_path($path, $prismic, $app);
 
-    if($page_uid != null)
+    if ($page_uid != null)
     {
       $page = $prismic->get_page($page_uid);
       $loop->setPosts(array($page));

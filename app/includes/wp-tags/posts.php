@@ -65,11 +65,7 @@ function the_title()
     $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
     if ($doc) {
-        if ($doc->getType() == 'page') {
-            echo htmlentities($doc->getText('page.name'));
-        } else {
-            echo htmlentities($doc->getText($doc->getType() . '.title'));
-        }
+        echo htmlentities($doc->getText($doc->getType() . '.title'));
     }
 }
 
@@ -129,11 +125,7 @@ function the_content($more_link_text = '(more...')
     $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
     if (!$doc) return null;
-    if ($doc->getType() == 'page') {
-        $body = $doc->getStructuredText('page.content');
-    } else {
-        $body = $doc->getStructuredText('post.body');
-    }
+    $body = $doc->getStructuredText($doc->getType() . '.body');
     if ($body) {
         echo $body->asHtml($prismic->linkResolver);
     }

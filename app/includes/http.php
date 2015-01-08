@@ -45,7 +45,7 @@ function redirect_path($path, $prismic)
         }
         if($npath != $newCorrectAddress)
         {
-            //404
+            // 404
             return null;
         }
     }
@@ -55,7 +55,6 @@ function redirect_path($path, $prismic)
 
 function check_page_path($path, $prismic, $app)
 {
-    $theme = new Theme($app, $prismic);
     $page_uid = check_page_path1($path, $prismic);
 
     if($page_uid == null)
@@ -67,7 +66,7 @@ function check_page_path($path, $prismic, $app)
         }
         if($redirect_url == null)
         {
-            not_found($app, $theme);
+            not_found($app);
         }
     }
 
