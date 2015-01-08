@@ -1,5 +1,9 @@
 <?php
 
+use Prismic\Api;
+use Prismic\LinkResolver;
+use Prismic\Predicates;
+
 date_default_timezone_set("UTC");
 
 require_once __DIR__ . '/includes.php';
@@ -24,7 +28,29 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
         not_found($app);
         return;
     }
-    $loop->setResponse($prismic->byAuthor($id));
+
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
+    $posts = $prismic->form()
+        ->query(
+          array(
+            Predicates::at("document.type", 'post'),
+            Predicates::at("my.post.author", $id)
+            ))
+        ->fetchLinks($fetch)
+        ->orderings("[my.post.date desc]")
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->submit();
+
+    $loop->setResponse($posts);
 
     render($app, 'author');
 });
@@ -40,8 +66,30 @@ $app->get('/search', function() use($app) {
         'loop' => $loop
     );
 
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
     $q = $app->request()->params('q');
-    $loop->setResponse($prismic->search($q, current_page($app)));
+
+    $posts = $prismic->form()
+        ->query(
+          array(
+            Predicates::at("document.type", 'post'),
+            Predicates::fulltext("document", $q)
+            ))
+        ->fetchLinks($fetch)
+        ->orderings("[my.post.date desc]")
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->submit();
+
+    $loop->setResponse($posts);
     render($app, 'search');
 });
 
@@ -56,13 +104,35 @@ $app->get('/category/:uid', function ($uid) use($app) {
         'loop' => $loop
     );
 
-    $cat = $prismic->get_category($uid);
+    $cat = $prismic->by_uid("category", $uid);
     $WPGLOBAL['single_post'] = $cat;
     if ($cat == null) {
         not_found($app);
         return;
     }
-    $loop->setResponse($prismic->byCategory($cat->getId()));
+
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
+    $posts = $prismic->form()
+        ->query(
+          array(
+            Predicates::at("document.type", 'post'),
+            Predicates::any("my.post.categories.link", array($cat->getId()))
+            ))
+        ->fetchLinks($fetch)
+        ->orderings("[my.post.date desc]")
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->submit();
+
+    $loop->setResponse($posts);
     render($app, 'category');
 });
 
@@ -76,8 +146,28 @@ $app->get('/tag/:tag', function ($tag) use($app) {
         'prismic' => $prismic,
         'loop' => $loop
     );
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
+    $posts = $prismic->form()
+        ->query(
+          array(
+            Predicates::at("document.type", 'post'),
+            Predicates::any("document.tags", array($tag))
+            ))
+        ->fetchLinks($fetch)
+        ->orderings("[my.post.date desc]")
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->submit();
 
-    $loop->setResponse($prismic->byTag($tag));
+    $loop->setResponse($posts);
     render($app, 'tag');
 });
 
@@ -91,8 +181,23 @@ $app->get('/', function() use ($app) {
         'prismic' => $prismic,
         'loop' => $loop
     );
-
-    $loop->setResponse($prismic->get_posts(current_page($app)));
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
+    $posts = $prismic->form()
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->query(Predicates::at("document.type", 'post'))
+        ->fetchLinks($fetch)
+        ->orderings("[my.post.date desc]")
+        ->submit();
+    $loop->setResponse($posts);
     render($app, 'index');
 });
 
@@ -170,8 +275,15 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         'prismic' => $prismic,
         'loop' => $loop
     );
-
-    $doc = $prismic->get_post($uid);
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $doc = $prismic->by_uid('post', $uid, $fetch);
     if ($doc == null) {
         not_found($app);
         return;
@@ -202,7 +314,15 @@ $app->get('/:path+', function($path) use($app) {
 
     if ($page_uid != null)
     {
-      $page = $prismic->get_page($page_uid);
+      $fetch = array(
+          'post.date',
+          'category.name',
+          'author.full_name',
+          'author.first_name',
+          'author.surname',
+          'author.company'
+      );
+      $page = $prismic->by_uid('page', $page_uid, $fetch);
       $loop->setPosts(array($page));
       render($app, 'page');
     }

@@ -74,7 +74,7 @@ class PrismicHelper
 
     private $api = null;
 
-    private function pageSize()
+    public function pageSize()
     {
         return $this->app->config('page_size');
     }
@@ -102,7 +102,6 @@ class PrismicHelper
     function form()
     {
         return $this->get_api()->forms()->everything
-            ->fetchLinks($this->FETCH_LINKS)
             ->ref(PrismicHelper::get_ref());
     }
 
@@ -111,6 +110,7 @@ class PrismicHelper
             ->query(Predicates::at("document.type", "author"))
             ->submit();
     }
+    /*
 
     function get_category($uid)
     {
@@ -127,9 +127,68 @@ class PrismicHelper
         return $this->by_uid("page", $uid);
     }
 
-    function by_uid($type, $uid)
+    function get_posts($page, $pageSize = null)
     {
-        $results = $this->form()
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->page($page)
+            ->pageSize($pageSize)
+            ->query(Predicates::at("document.type", "post"))
+            ->orderings("[my.post.date desc]")
+            ->submit();
+    }
+
+    function byTag($tag, $page = 1, $pageSize = null)
+    {
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::any("document.tags", array($tag))))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
+    function byCategory($categoryId, $page = 1, $pageSize = null)
+    {
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
+    function byAuthor($authorDocId, $page = 1, $pageSize = null)
+    {
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.author", $authorDocId)))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
+    function search($q, $page = 1, $pageSize = null)
+    {
+        if (!$pageSize) $pageSize = $this->pageSize();
+        return $this->form()
+            ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
+            ->orderings("[my.post.date desc]")
+            ->page($page)
+            ->pageSize($pageSize)
+            ->submit();
+    }
+
+    */
+
+    function by_uid($type, $uid, $fetch = array())
+    {
+        $results =
+          $this->form()
+            ->fetchLinks($fetch)
             ->query(array(
                 Predicates::at("my.".$type.".uid", $uid)
             ))
@@ -172,29 +231,6 @@ class PrismicHelper
     {
         return $this->form()
             ->query(array(Predicates::at($field, $documentId)))
-            ->submit();
-    }
-
-    function search($q, $page = 1, $pageSize = null)
-    {
-        if (!$pageSize) $pageSize = $this->pageSize();
-        return $this->form()
-            ->query(array(Predicates::at("document.type", "post"), Predicates::fulltext("document", $q)))
-            ->orderings("[my.post.date desc]")
-            ->page($page)
-            ->pageSize($pageSize)
-            ->submit();
-    }
-
-
-    function byCategory($categoryId, $page = 1, $pageSize = null)
-    {
-        if (!$pageSize) $pageSize = $this->pageSize();
-        return $this->form()
-            ->query(array(Predicates::at("document.type", "post"), Predicates::any("my.post.categories.link", array($categoryId))))
-            ->orderings("[my.post.date desc]")
-            ->page($page)
-            ->pageSize($pageSize)
             ->submit();
     }
 
@@ -259,28 +295,6 @@ class PrismicHelper
 
     }
 
-    function byTag($tag, $page = 1, $pageSize = null)
-    {
-        if (!$pageSize) $pageSize = $this->pageSize();
-        return $this->form()
-            ->query(array(Predicates::at("document.type", "post"), Predicates::any("document.tags", array($tag))))
-            ->orderings("[my.post.date desc]")
-            ->page($page)
-            ->pageSize($pageSize)
-            ->submit();
-    }
-
-    function byAuthor($authorDocId, $page = 1, $pageSize = null)
-    {
-        if (!$pageSize) $pageSize = $this->pageSize();
-        return $this->form()
-            ->query(array(Predicates::at("document.type", "post"), Predicates::at("my.post.author", $authorDocId)))
-            ->orderings("[my.post.date desc]")
-            ->page($page)
-            ->pageSize($pageSize)
-            ->submit();
-    }
-
     function archives($date, $page = 1, $pageSize = null)
     {
         if (!$pageSize) $pageSize = $this->pageSize();
@@ -324,17 +338,6 @@ class PrismicHelper
             ->orderings("[my.page.priority desc]")
             ->submit()
             ->getResults();
-    }
-
-    function get_posts($page, $pageSize = null)
-    {
-        if (!$pageSize) $pageSize = $this->pageSize();
-        return $this->form()
-            ->page($page)
-            ->pageSize($pageSize)
-            ->query(Predicates::at("document.type", "post"))
-            ->orderings("[my.post.date desc]")
-            ->submit();
     }
 
     function archive_link($year, $month = null, $day = null)
