@@ -314,15 +314,7 @@ $app->get('/:path+', function($path) use($app) {
 
     if ($page_uid != null)
     {
-      $fetch = array(
-          'post.date',
-          'category.name',
-          'author.full_name',
-          'author.first_name',
-          'author.surname',
-          'author.company'
-      );
-      $page = $prismic->by_uid('page', $page_uid, $fetch);
+      $page = $prismic->by_uid('page', $page_uid);
       $loop->setPosts(array($page));
       render($app, 'page');
     }
