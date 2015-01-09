@@ -39,13 +39,9 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     );
     $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
-        ->query(
-          array(
-            Predicates::at("document.type", 'post'),
-            Predicates::at("my.post.author", $id)
-            ))
+        ->query(Predicates::at("document.type", 'post'), Predicates::at("my.post.author", $id))
         ->fetchLinks($fetch)
-        ->orderings("[my.post.date desc]")
+        ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
@@ -78,13 +74,9 @@ $app->get('/search', function() use($app) {
     $q = $app->request()->params('q');
 
     $posts = $prismic->form()
-        ->query(
-          array(
-            Predicates::at("document.type", 'post'),
-            Predicates::fulltext("document", $q)
-            ))
+        ->query(Predicates::at("document.type", 'post'), Predicates::fulltext("document", $q))
         ->fetchLinks($fetch)
-        ->orderings("[my.post.date desc]")
+        ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
@@ -122,12 +114,10 @@ $app->get('/category/:uid', function ($uid) use($app) {
     $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
         ->query(
-          array(
             Predicates::at("document.type", 'post'),
-            Predicates::any("my.post.categories.link", array($cat->getId()))
-            ))
+            Predicates::any("my.post.categories.link", array($cat->getId())))
         ->fetchLinks($fetch)
-        ->orderings("[my.post.date desc]")
+        ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
@@ -156,13 +146,9 @@ $app->get('/tag/:tag', function ($tag) use($app) {
     );
     $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
-        ->query(
-          array(
-            Predicates::at("document.type", 'post'),
-            Predicates::any("document.tags", array($tag))
-            ))
+        ->query(Predicates::at("document.type", 'post'), Predicates::any("document.tags", array($tag)))
         ->fetchLinks($fetch)
-        ->orderings("[my.post.date desc]")
+        ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
@@ -195,7 +181,7 @@ $app->get('/', function() use ($app) {
         ->pageSize($pageSize)
         ->query(Predicates::at("document.type", 'post'))
         ->fetchLinks($fetch)
-        ->orderings("[my.post.date desc]")
+        ->orderings("my.post.date desc")
         ->submit();
     $loop->setResponse($posts);
     render($app, 'index');

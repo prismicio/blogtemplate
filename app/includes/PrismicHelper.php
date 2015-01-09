@@ -368,7 +368,12 @@ class PrismicHelper
         $calendar = array();
         $page = 1;
         do {
-            $posts = $this->get_posts($page, 100);
+            $posts = $this->form()
+                ->page($page)
+                ->pageSize(100)
+                ->query(Predicates::at("document.type", "post"))
+                ->orderings("my.post.date desc")
+                ->submit();
             foreach ($posts->getResults() as $post) {
                 if (!$post->getDate("post.date")) continue;
                 $date = $post->getDate("post.date")->asDateTime();
