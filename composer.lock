@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fbedf4127a6efbad42fe37dea8e67742",
+    "hash": "29b1b6fdcc6fc15feb224f905a9b2c1b",
     "packages": [
         {
             "name": "guzzle/guzzle",
@@ -100,16 +100,16 @@
         },
         {
             "name": "prismic/php-sdk",
-            "version": "1.1.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prismicio/php-kit.git",
-                "reference": "3ac96165ceb5698aba9373ce9f7265e4afaf921e"
+                "reference": "18d86a71a2f340136cd36ca30bf7e88af2a35155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/3ac96165ceb5698aba9373ce9f7265e4afaf921e",
-                "reference": "3ac96165ceb5698aba9373ce9f7265e4afaf921e",
+                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/18d86a71a2f340136cd36ca30bf7e88af2a35155",
+                "reference": "18d86a71a2f340136cd36ca30bf7e88af2a35155",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
                 "Apache 2 license"
             ],
             "description": "PHP development kit for prismic.io",
-            "time": "2015-01-09 12:50:32"
+            "time": "2015-01-14 16:11:08"
         },
         {
             "name": "slim/slim",
