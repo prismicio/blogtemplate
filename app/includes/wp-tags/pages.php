@@ -23,3 +23,9 @@ function get_pages()
     $home = home();
     return $home['children'];
 }
+
+function is_page_template($template = null)
+{
+    // TODO
+    return false;
+}

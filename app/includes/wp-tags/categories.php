@@ -50,3 +50,13 @@ function single_tag_title($prefix = '', $display = true)
         return $prefix . $tag;
     }
 }
+
+function category_description($category_id = null)
+{
+    // TODO
+}
+
+function tag_description($tag_id = null)
+{
+    // TODO
+}

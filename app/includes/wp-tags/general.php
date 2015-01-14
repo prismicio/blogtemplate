@@ -9,7 +9,8 @@
 
 function get_bloginfo($show = 'name')
 {
-    global $app;
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
     switch ($show) {
         case 'atom_url':
         case 'rdf_url':

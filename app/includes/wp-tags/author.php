@@ -1,12 +1,5 @@
 <?php
 
-function author($document) {
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!$document) return null;
-    return $document->getAuthor($prismic);
-}
-
 function the_author()
 {
     echo get_the_author();
@@ -53,9 +46,18 @@ function the_author_link() {
 }
 
 function author_image() {
-    $auth = author();
-    if (!$auth) return null;
-    $photo = $auth->getImage('author.photo');
+    echo get_author_image();
+}
+
+function get_author_image() {
+    global $WPGLOBAL;
+    $loop = $WPGLOBAL['loop'];
+    $post = $loop->current_post();
+    $author = $post->getLink($post->getType() . '.author');
+    if (!$author) {
+        return null;
+    }
+    $photo = $author->getImage('author.photo');
     if ($photo) {
         return $photo->asHtml();
     } else {
@@ -68,11 +70,14 @@ function get_the_author_meta($field, $userID = null)
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
     $prismic = $WPGLOBAL['prismic'];
+    $author = null;
     if ($userID) {
         $author = $prismic->get_document($userID);
     } else {
         $post = $loop->current_post();
-        $author = $post->getLink($post->getType() . '.author');
+        if ($post != null) {
+            $author = $post->getLink($post->getType() . '.author');
+        }
     }
     if ($author == null) return null;
     switch ($field)

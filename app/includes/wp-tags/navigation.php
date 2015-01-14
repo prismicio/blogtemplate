@@ -94,8 +94,10 @@ function wp_nav_menu($args) {
         'container_class' => null,
         'container_id' => null
     ), $args);
-    function cls($c) { return $c ? ' class="' . $c . '"' : ''; }
-    function id($id) { return $id ? ' id="' . $id . '"' : ''; }
+    if (!function_exists('cls')) {
+        function cls($c) { return $c ? ' class="' . $c . '"' : ''; }
+        function id($id) { return $id ? ' id="' . $id . '"' : ''; }
+    }
 
     echo '<' . $p['container'] . cls($p['container_class']) . id($p['container_id']) . '>';
     echo '<ul' . cls($p['menu_class']) . id($p['menu_id']) . '>';
