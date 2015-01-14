@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This is the main file of the application, including routing and controllers.
+ *
+ * $app is a Slim application instance, see the framework documentation for more details:
+ * http://docs.slimframework.com/
+ */
+
 use Prismic\Api;
 use Prismic\LinkResolver;
 use Prismic\Predicates;
@@ -11,6 +18,36 @@ require_once __DIR__ . '/includes.php';
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
+
+// Index
+$app->get('/', function() use ($app) {
+    global $WPGLOBAL;
+    $prismic = new PrismicHelper($app);
+    $loop = new Loop($prismic);
+    $WPGLOBAL = array(
+        'app' => $app,
+        'prismic' => $prismic,
+        'loop' => $loop
+    );
+    $fetch = array(
+        'post.date',
+        'category.name',
+        'author.full_name',
+        'author.first_name',
+        'author.surname',
+        'author.company'
+    );
+    $pageSize = $prismic->pageSize();
+    $posts = $prismic->form()
+        ->page(current_page($app))
+        ->pageSize($pageSize)
+        ->query(Predicates::at("document.type", 'post'))
+        ->fetchLinks($fetch)
+        ->orderings("my.post.date desc")
+        ->submit();
+    $loop->setResponse($posts);
+    render($app, 'index');
+});
 
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
@@ -51,7 +88,7 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     render($app, 'author');
 });
 
-// Search
+// Search results
 $app->get('/search', function() use($app) {
     global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
@@ -157,71 +194,6 @@ $app->get('/tag/:tag', function ($tag) use($app) {
     render($app, 'tag');
 });
 
-// Index
-$app->get('/', function() use ($app) {
-    global $WPGLOBAL;
-    $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
-    $WPGLOBAL = array(
-        'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
-    );
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
-    $pageSize = $prismic->pageSize();
-    $posts = $prismic->form()
-        ->page(current_page($app))
-        ->pageSize($pageSize)
-        ->query(Predicates::at("document.type", 'post'))
-        ->fetchLinks($fetch)
-        ->orderings("my.post.date desc")
-        ->submit();
-    $loop->setResponse($posts);
-    render($app, 'index');
-});
-
-// RSS Feed
-$app->get('/feed', function() use ($app) {
-    $prismic = new PrismicHelper($app);
-    $blogUrl = $app->request()->getUrl();
-    $posts = $prismic->get_posts(current_page($app))->getResults();
-    $feed = new Feed();
-    $channel = new Channel();
-    $channel
-        ->title($app->config('site.title'))
-        ->description($app->config('site.description'))
-        ->url($blogUrl)
-        ->appendTo($feed);
-
-    foreach ($posts as $post) {
-        $item = new Item();
-        $item
-            ->title($post->getText("post.title"))
-            ->description($post->getHtml("post.body", $prismic->linkResolver))
-            ->url($blogUrl . $prismic->linkResolver->resolveDocument($post))
-            ->pubDate($post->getDate("post.date")->asEpoch())
-            ->appendTo($channel);
-    }
-
-    echo $feed;
-});
-
-// Previews
-$app->get('/preview', function() use($app) {
-    $prismic = new PrismicHelper($app);
-    $token = $app->request()->params('token');
-    $url = $prismic->get_api()->previewSession($token, $prismic->linkResolver, '/');
-    $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
-    $app->response->redirect($url, 301);
-});
-
 // Archive
 $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) use($app) {
     global $WPGLOBAL;
@@ -249,6 +221,42 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
     }
     $WPGLOBAL['date'] = array('year' => $year, 'month' => $month, 'day' => $day);
     render($app, 'archive');
+});
+
+// Previews
+$app->get('/preview', function() use($app) {
+    $prismic = new PrismicHelper($app);
+    $token = $app->request()->params('token');
+    $url = $prismic->get_api()->previewSession($token, $prismic->linkResolver, '/');
+    $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
+    $app->response->redirect($url, 301);
+});
+
+// RSS Feed,
+// using the Suin RSS Writer library
+$app->get('/feed', function() use ($app) {
+    $prismic = new PrismicHelper($app);
+    $blogUrl = $app->request()->getUrl();
+    $posts = $prismic->get_posts(current_page($app))->getResults();
+    $feed = new Feed();
+    $channel = new Channel();
+    $channel
+        ->title($app->config('site.title'))
+        ->description($app->config('site.description'))
+        ->url($blogUrl)
+        ->appendTo($feed);
+
+    foreach ($posts as $post) {
+        $item = new Item();
+        $item
+            ->title($post->getText("post.title"))
+            ->description($post->getHtml("post.body", $prismic->linkResolver))
+            ->url($blogUrl . $prismic->linkResolver->resolveDocument($post))
+            ->pubDate($post->getDate("post.date")->asEpoch())
+            ->appendTo($channel);
+    }
+
+    echo $feed;
 });
 
 // Post
@@ -285,7 +293,7 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
     render($app, 'single');
 });
 
-// Page with subs
+// Page
 $app->get('/:path+', function($path) use($app) {
     global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
@@ -305,3 +313,4 @@ $app->get('/:path+', function($path) use($app) {
       render($app, 'page');
     }
 });
+
