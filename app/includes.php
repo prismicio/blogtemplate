@@ -14,3 +14,4 @@ require_once 'includes/wp-tags/archive.php';
 require_once 'includes/wp-tags/categories.php';
 require_once 'includes/wp-tags/stubs.php';
 require_once 'includes/wp-tags/WP_Query.php';
+

@@ -15,9 +15,10 @@ function the_author()
 function get_the_author() {
     global $WPGLOBAL;
     $loop = $WPGLOBAL['loop'];
-    $auth = $loop->current_author();
-    if (!$auth) return null;
-    return htmlentities($auth->getName());
+    $post = $loop->current_post();
+    $author = $post->getLink($post->getType() . '.author');
+    if (!$author) return null;
+    return htmlentities($author->getText('author.full_name'));
 }
 
 function get_author_posts_url($author_id, $author_nicename = '')
@@ -70,7 +71,8 @@ function get_the_author_meta($field, $userID = null)
     if ($userID) {
         $author = $prismic->get_document($userID);
     } else {
-        $author = $loop->current_author();
+        $post = $loop->current_post();
+        $author = $post->getLink($post->getType() . '.author');
     }
     if ($author == null) return null;
     switch ($field)

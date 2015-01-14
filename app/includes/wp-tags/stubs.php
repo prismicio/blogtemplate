@@ -10,9 +10,7 @@ $GLOBALS['wp_version'] = '10.0';
 function language_attributes() {}
 
 function wp_head() {
-    global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    echo '<link rel="stylesheet" href="' . $theme->directory_url() . '/style.css">';
+    echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/style.css">';
 }
 
 function body_class() {}

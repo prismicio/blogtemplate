@@ -44,10 +44,4 @@ class Loop {
         return $this->posts[$this->loop_index];
     }
 
-    function current_author() {
-        if ($this->current_post()) {
-            return $this->prismic->get_document_author($this->current_post());
-        } else return null;
-    }
-
 }

@@ -53,15 +53,15 @@ function wp_title()
 function get_template_directory_uri()
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    return $theme->directory_url();
+    $app = $WPGLOBAL['app'];
+    return '/app/themes/' . $app->config('theme');
 }
 
 function get_template_directory()
 {
     global $WPGLOBAL;
-    $theme = $WPGLOBAL['theme'];
-    return $theme->directory();
+    $app = $WPGLOBAL['app'];
+    return __DIR__ . '/../../themes/' . $app->config('theme');
 }
 
 function site_description()

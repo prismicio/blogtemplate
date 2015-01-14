@@ -7,7 +7,9 @@ function theme_dir($app)
 
 function render($app, $page)
 {
-    include theme_dir($app) . '/' . $page . '.php';
+    // Optional helpers that theme developers can provide
+    include_once (theme_dir($app) . '/functions.php');
+    require theme_dir($app) . '/' . $page . '.php';
 }
 
 function current_page($app)
