@@ -14,20 +14,19 @@
 
 function have_posts()
 {
-    global $WPGLOBAL;
-    return $WPGLOBAL['loop']->has_more();
+    global $loop;
+    return $loop->has_more();
 }
 
 function the_post()
 {
-    global $WPGLOBAL;
-    $WPGLOBAL['loop']->increment();
+    global $loop;
+    $loop->increment();
 }
 
 function rewind_posts()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $loop->reset();
 }
 
@@ -35,8 +34,7 @@ function rewind_posts()
 
 function the_ID()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     echo $loop->current_post()->getId();
 }
 
@@ -52,17 +50,15 @@ function the_permalink()
 
 function get_permalink($id = null, $leavename = false)
 {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
-    $loop = $WPGLOBAL['loop'];
     $post = $id ? $prismic->get_document($id) : $loop->current_post();
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
 function the_title()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $doc = $loop->current_post();
     if ($doc) {
         echo htmlentities($doc->getText($doc->getType() . '.title'));
@@ -76,8 +72,7 @@ function the_title_attribute()
 
 function the_date_link($format = "F, jS Y")
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
@@ -92,8 +87,7 @@ function the_date_link($format = "F, jS Y")
 
 function get_the_date($format = 'F, jS Y')
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
@@ -106,8 +100,7 @@ function get_the_date($format = 'F, jS Y')
 
 function get_the_time($format = 'g:iA')
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $date = get_date("post.date", $loop->current_post());
     if (!$date) {
         return null;
@@ -120,9 +113,8 @@ function get_the_time($format = 'g:iA')
 
 function the_content($more_link_text = '(more...')
 {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
-    $loop = $WPGLOBAL['loop'];
     $doc = $loop->current_post();
     if (!$doc) return null;
     $body = $doc->getStructuredText($doc->getType() . '.body');
@@ -150,8 +142,7 @@ function has_post_format($format = array(), $post = null)
 
 function get_the_excerpt()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $doc = $loop->current_post();
     if (!$doc) return null;
@@ -173,8 +164,7 @@ function get_the_excerpt()
 
 function get_post_type()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $doc = $loop->current_post();
     if (!$doc) return null;
     return $doc->getType();
@@ -187,8 +177,7 @@ function the_excerpt()
 
 function get_the_tags()
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $loop;
     $doc = $loop->current_post();
     if (!$doc) return array();
     return $doc->getTags();

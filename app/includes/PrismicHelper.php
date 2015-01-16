@@ -44,7 +44,7 @@ class BlogLinkResolver extends LinkResolver
                 {
                   return urlencode($p);
                 }, $pieces);
-                return '/' . implode('/', $pieces);
+                return '/' . implode('/', $pieces_encoded);
             }
         }
         return "/" . $link->getUid();
@@ -57,15 +57,6 @@ class PrismicHelper
 
     private $app;
     public $linkResolver;
-
-    private $FETCH_LINKS = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
 
     public function __construct($app) {
         $this->app = $app;

@@ -21,13 +21,12 @@ use Suin\RSSWriter\Item;
 
 // Index
 $app->get('/', function() use ($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
     $fetch = array(
         'post.date',
@@ -51,14 +50,13 @@ $app->get('/', function() use ($app) {
 
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $author = $prismic->get_document($id);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
 
     if ($author == null) {
@@ -90,13 +88,12 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
 
 // Search results
 $app->get('/search', function() use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
 
     $fetch = array(
@@ -124,13 +121,12 @@ $app->get('/search', function() use($app) {
 
 // Category
 $app->get('/category/:uid', function ($uid) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
 
     $cat = $prismic->by_uid("category", $uid);
@@ -165,13 +161,12 @@ $app->get('/category/:uid', function ($uid) use($app) {
 
 // Tag
 $app->get('/tag/:tag', function ($tag) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
     $fetch = array(
         'post.date',
@@ -196,13 +191,12 @@ $app->get('/tag/:tag', function ($tag) use($app) {
 
 // Archive
 $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day = null) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
 
     $loop->setResponse($prismic->archives(array(
@@ -261,13 +255,12 @@ $app->get('/feed', function() use ($app) {
 
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
     $fetch = array(
         'post.date',
@@ -295,13 +288,12 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
 
 // Page
 $app->get('/:path+', function($path) use($app) {
-    global $WPGLOBAL;
+    global $WPGLOBAL, $loop;
     $prismic = new PrismicHelper($app);
     $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
-        'prismic' => $prismic,
-        'loop' => $loop
+        'prismic' => $prismic
     );
 
     $page_uid = check_page_path($path, $prismic, $app);

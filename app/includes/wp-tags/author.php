@@ -6,8 +6,7 @@ function the_author()
 }
 
 function get_the_author() {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $WPGLOBAL, $loop;
     $post = $loop->current_post();
     $author = $post->getLink($post->getType() . '.author');
     if (!$author) return null;
@@ -25,8 +24,7 @@ function get_author_posts_url($author_id, $author_nicename = '')
 }
 
 function get_the_author_link() {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $post = $loop->current_post();
     if (!$post) return null;
@@ -50,8 +48,7 @@ function author_image() {
 }
 
 function get_author_image() {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $WPGLOBAL, $loop;
     $post = $loop->current_post();
     $author = $post->getLink($post->getType() . '.author');
     if (!$author) {
@@ -67,8 +64,7 @@ function get_author_image() {
 
 function get_the_author_meta($field, $userID = null)
 {
-    global $WPGLOBAL;
-    $loop = $WPGLOBAL['loop'];
+    global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $author = null;
     if ($userID) {
