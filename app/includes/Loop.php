@@ -3,15 +3,13 @@
 class Loop {
 
     public $loop_index = -1;
-    private $prismic;
     private $posts;
 
     public $page = 1;
     public $totalPages = 1;
 
-    public function __construct(PrismicHelper $prismic)
+    public function __construct()
     {
-        $this->prismic = $prismic;
     }
 
     public function setResponse($response) {

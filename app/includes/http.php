@@ -16,6 +16,32 @@ function render($app, $page)
     require theme_dir($app) . '/' . $page . '.php';
 }
 
+function render_posts($app, $posts, $page)
+{
+    global $wp_query, $loop;
+    $loop = new Loop();
+    $loop->setPosts($posts);
+    $wp_query = new WP_Query();
+    // Optional helpers that theme developers can provide
+    try {
+        include_once(theme_dir($app) . '/functions.php');
+    } catch(Exception $ex) {}
+    require theme_dir($app) . '/' . $page . '.php';
+}
+
+function render_response($app, $response, $page)
+{
+    global $wp_query, $loop;
+    $loop = new Loop();
+    $loop->setResponse($response);
+    $wp_query = new WP_Query();
+    // Optional helpers that theme developers can provide
+    try {
+        include_once(theme_dir($app) . '/functions.php');
+    } catch(Exception $ex) {}
+    require theme_dir($app) . '/' . $page . '.php';
+}
+
 function current_page($app)
 {
     $pageQuery = $app->request()->params('page');

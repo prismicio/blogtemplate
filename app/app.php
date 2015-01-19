@@ -21,9 +21,9 @@ use Suin\RSSWriter\Item;
 
 // Index
 $app->get('/', function() use ($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -44,16 +44,16 @@ $app->get('/', function() use ($app) {
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->submit();
-    $loop->setResponse($posts);
-    render($app, 'index');
+
+    render_response($app, $posts, 'index');
 });
 
 // Author
 $app->get('/author/:id/:slug', function($id, $slug) use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
     $author = $prismic->get_document($id);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -74,23 +74,22 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app) {
     );
     $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
-        ->query(Predicates::at("document.type", 'post'), Predicates::at("my.post.author", $id))
+        ->query(
+          Predicates::at("document.type", 'post'),
+          Predicates::at("my.post.author", $id))
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
 
-    $loop->setResponse($posts);
-
-    render($app, 'author');
+    render_response($app, $posts, 'author');
 });
 
 // Search results
 $app->get('/search', function() use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -108,22 +107,23 @@ $app->get('/search', function() use($app) {
     $q = $app->request()->params('q');
 
     $posts = $prismic->form()
-        ->query(Predicates::at("document.type", 'post'), Predicates::fulltext("document", $q))
+        ->query(
+          Predicates::at("document.type", 'post'),
+          Predicates::fulltext("document", $q))
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
 
-    $loop->setResponse($posts);
-    render($app, 'search');
+    render_response($app, $posts, 'search');
 });
 
 // Category
 $app->get('/category/:uid', function ($uid) use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -155,15 +155,14 @@ $app->get('/category/:uid', function ($uid) use($app) {
         ->pageSize($pageSize)
         ->submit();
 
-    $loop->setResponse($posts);
-    render($app, 'category');
+    render_response($app, $posts, 'category');
 });
 
 // Tag
 $app->get('/tag/:tag', function ($tag) use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -178,15 +177,16 @@ $app->get('/tag/:tag', function ($tag) use($app) {
     );
     $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
-        ->query(Predicates::at("document.type", 'post'), Predicates::any("document.tags", array($tag)))
+        ->query(
+          Predicates::at("document.type", 'post'),
+          Predicates::any("document.tags", array($tag)))
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->pageSize($pageSize)
         ->submit();
 
-    $loop->setResponse($posts);
-    render($app, 'tag');
+    render_response($app, $posts, 'tag');
 });
 
 // Archive
@@ -255,9 +255,9 @@ $app->get('/feed', function() use ($app) {
 
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -281,16 +281,15 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         $app->response->redirect($permalink);
         return;
     }
-    $loop->setPosts(array($doc));
     $WPGLOBAL['single_post'] = $doc;
-    render($app, 'single');
+    render_posts($app, array($doc), 'single');
 });
 
 // Page
 $app->get('/:path+', function($path) use($app) {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = new PrismicHelper($app);
-    $loop = new Loop($prismic);
+
     $WPGLOBAL = array(
         'app' => $app,
         'prismic' => $prismic
@@ -301,8 +300,7 @@ $app->get('/:path+', function($path) use($app) {
     if ($page_uid != null)
     {
       $page = $prismic->by_uid('page', $page_uid);
-      $loop->setPosts(array($page));
-      render($app, 'page');
+
+      render_posts($app, array($page), 'page');
     }
 });
-
