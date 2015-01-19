@@ -1,0 +1,76 @@
+.image-left {
+    display: block;
+    float: left;
+    width: 66%;
+    padding-right: 20px;
+}
+
+.image-full-column {
+    display: block;
+    float: left;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.image-left > img, .image-full-column > img {
+    width: 100%;
+    height: auto;
+}
+
+.image-left + p .image-label, .image-left + p.image-label,
+.image-full-column + p .image-label, .image-full-column + p.image-label {
+    display: block;
+    position: absolute;
+    width: 100px;
+    left: -100px;
+    color: #CCC;
+    border-right: solid #CCC 4px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    text-align: right;
+    font-style: italic;
+    font-size: 11px;
+}
+
+.image-overflow-left {
+    display: block;
+    float: left;
+    width: 80%;
+    padding-right: 20px;
+    margin-left: -50px;
+}
+
+.image-overflow-left > img, .image-overflow-both > img {
+    right: -50px;
+    width: 100%;
+    height: auto;
+}
+
+.image-overflow-left + p .image-label, .image-overflow-left + p.image-label {
+    display: block;
+    float: left;
+    width: 80%;
+    padding-right: 20px;
+    margin-left: -50px;
+    font-style: italic;
+    font-size: 11px;
+    text-align: center;
+    color: #CCC;
+}
+
+.image-overflow-both {
+    display: block;
+    float: left;
+    width: 130%;
+    padding-right: 20px;
+    margin-left: -15%;
+}
+
+.image-overflow-both + p .image-label, .image-overflow-both + p.image-label {
+    display: block;
+    width: 100%;
+    font-style: italic;
+    font-size: 11px;
+    text-align: center;
+    color: #CCC;
+}
