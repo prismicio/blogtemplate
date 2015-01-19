@@ -1,3 +1,5 @@
+/* Images */
+
 .image-left {
     display: block;
     float: left;
@@ -62,7 +64,6 @@
     display: block;
     float: left;
     width: 130%;
-    padding-right: 20px;
     margin-left: -15%;
 }
 
@@ -73,4 +74,25 @@
     font-size: 11px;
     text-align: center;
     color: #CCC;
+}
+
+/* Blockquotes and citations */
+
+.block-quotation {
+    width: 130%;
+    margin-left: -15%;
+    font-size: 18px;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+.block-quotation:before { content: "« " }
+
+.block-quotation:after { content: " »" }
+
+.block-citation {
+    font-style: italic;
+    border-left: solid #CCC 4px;
+    padding-left: 10px;
+    margin-left: -14px;
 }
