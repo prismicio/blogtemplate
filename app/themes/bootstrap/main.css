@@ -3,7 +3,7 @@
  */
 
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: 'PT Serif', serif;
   color: #555;
 }
 
@@ -14,11 +14,24 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
+  font-family: 'Lato', sans-serif;
   color: #333;
 }
 
+h1, .h1,
+h2, .h2 {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+h2, .h2 {
+  font-size: 35px;
+  font-weight: 700;
+}
+
+h3, .h3 {
+  font-size: 30px;
+}
 
 /*
  * Override Bootstrap's default container.
@@ -122,8 +135,6 @@ h6, .h6 {
 .blog-title {
   margin-top: 36px;
   margin-bottom: 0;
-  font-size: 40px;
-  font-weight: normal;
 }
 .blog-description {
   font-size: 18px;

@@ -18,10 +18,11 @@ function render($app, $page)
 
 function render_single($app, $post, $page)
 {
-    global $wp_query, $loop;
+    global $WPGLOBAL, $wp_query, $loop;
     $loop = new Loop();
     $loop->setPosts(array($post));
     $wp_query = new WP_Query();
+    $WPGLOBAL['single_post'] = $post;
     // Optional helpers that theme developers can provide
     try {
         include_once(theme_dir($app) . '/functions.php');

@@ -212,7 +212,6 @@ $app->get('/feed', function() use ($app, $prismic) {
 
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app, $prismic) {
-    global $WPGLOBAL;
     $fetch = array(
         'post.date',
         'category.name',
@@ -232,7 +231,6 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         $app->response->redirect($permalink);
         return;
     }
-    $WPGLOBAL['single_post'] = $doc;
     render_single($app, $doc, 'single');
 });
 
