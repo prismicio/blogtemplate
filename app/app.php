@@ -282,7 +282,7 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         return;
     }
     $WPGLOBAL['single_post'] = $doc;
-    render_posts($app, array($doc), 'single');
+    render_single($app, $doc, 'single');
 });
 
 // Page
@@ -301,6 +301,6 @@ $app->get('/:path+', function($path) use($app) {
     {
       $page = $prismic->by_uid('page', $page_uid);
 
-      render_posts($app, array($page), 'page');
+      render_single($app, $page, 'page');
     }
 });

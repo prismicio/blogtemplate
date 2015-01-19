@@ -16,11 +16,11 @@ function render($app, $page)
     require theme_dir($app) . '/' . $page . '.php';
 }
 
-function render_posts($app, $posts, $page)
+function render_single($app, $post, $page)
 {
     global $wp_query, $loop;
     $loop = new Loop();
-    $loop->setPosts($posts);
+    $loop->setPosts(array($post));
     $wp_query = new WP_Query();
     // Optional helpers that theme developers can provide
     try {
