@@ -5,6 +5,9 @@
  *
  * $app is a Slim application instance, see the framework documentation for more details:
  * http://docs.slimframework.com/
+ *
+ * The order of the routes matter, as it will define the priority of routes. For that reason we
+ * need to keep the more "generic" routes, such as the pages route, at the end of the file.
  */
 
 use Prismic\Api;
@@ -29,10 +32,8 @@ $app->get('/', function() use ($app, $prismic) {
         'author.surname',
         'author.company'
     );
-    $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
         ->page(current_page($app))
-        ->pageSize($pageSize)
         ->query(Predicates::at("document.type", 'post'))
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
@@ -58,7 +59,6 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic, $prismic
         'author.surname',
         'author.company'
     );
-    $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
         ->query(
           Predicates::at("document.type", 'post'),
@@ -66,7 +66,6 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic, $prismic
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
-        ->pageSize($pageSize)
         ->submit();
 
     render_response($app, $posts, 'author');
@@ -82,7 +81,6 @@ $app->get('/search', function() use($app, $prismic) {
         'author.surname',
         'author.company'
     );
-    $pageSize = $prismic->pageSize();
     $q = $app->request()->params('q');
 
     $posts = $prismic->form()
@@ -92,7 +90,6 @@ $app->get('/search', function() use($app, $prismic) {
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
-        ->pageSize($pageSize)
         ->submit();
 
     render_response($app, $posts, 'search');
@@ -116,7 +113,6 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
         'author.surname',
         'author.company'
     );
-    $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
         ->query(
             Predicates::at("document.type", 'post'),
@@ -124,7 +120,6 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
-        ->pageSize($pageSize)
         ->submit();
 
     render_response($app, $posts, 'category');
@@ -140,7 +135,6 @@ $app->get('/tag/:tag', function ($tag) use($app, $prismic) {
         'author.surname',
         'author.company'
     );
-    $pageSize = $prismic->pageSize();
     $posts = $prismic->form()
         ->query(
           Predicates::at("document.type", 'post'),
@@ -148,7 +142,6 @@ $app->get('/tag/:tag', function ($tag) use($app, $prismic) {
         ->fetchLinks($fetch)
         ->orderings("my.post.date desc")
         ->page(current_page($app))
-        ->pageSize($pageSize)
         ->submit();
 
     render_response($app, $posts, 'tag');

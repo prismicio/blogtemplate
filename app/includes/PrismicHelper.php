@@ -90,9 +90,11 @@ class PrismicHelper
         }
     }
 
-    function form()
+    function form($pageSize = null)
     {
+        if (!$pageSize) $pageSize = $this->pageSize();
         return $this->get_api()->forms()->everything
+            ->pageSize($pageSize)
             ->ref(PrismicHelper::get_ref());
     }
 
@@ -213,9 +215,8 @@ class PrismicHelper
 
     }
 
-    function archives($date, $page = 1, $pageSize = null)
+    function archives($date, $page = 1)
     {
-        if (!$pageSize) $pageSize = $this->pageSize();
         if (!$date['month']) {
             $lowerBound = DateTime::createFromFormat('Y-m-d', ($date['year'] - 1) . '-12-31');
             $upperBound = DateTime::createFromFormat('Y-m-d', ($date['year'] + 1) . '-01-01');
@@ -237,7 +238,6 @@ class PrismicHelper
             ))
             ->orderings("[my.post.date desc]")
             ->page($page)
-            ->pageSize($pageSize)
             ->submit();
     }
 
@@ -286,9 +286,8 @@ class PrismicHelper
         $calendar = array();
         $page = 1;
         do {
-            $posts = $this->form()
+            $posts = $this->form(100)
                 ->page($page)
-                ->pageSize(100)
                 ->query(Predicates::at("document.type", "post"))
                 ->orderings("my.post.date desc")
                 ->submit();
