@@ -1,6 +1,7 @@
 <?php
 
 require_once 'vendor/autoload.php';
+require_once 'app/includes/PrismicHelper.php';
 
 // config.php is not present by default, so we show a message explaining to create one
 if (file_exists('config.php')) {
@@ -23,8 +24,13 @@ $app = new \Slim\Slim(
       'page_size'      => PAGE_SIZE,
     )
 );
+$prismic = new PrismicHelper($app);
 
-
+global $WPGLOBAL;
+$WPGLOBAL = array(
+    'app' => $app,
+    'prismic' => $prismic
+);
 
 require_once __DIR__ . '/app/app.php';
 

@@ -14,7 +14,7 @@ use There4\Slim\Test\WebTestCase;
 define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
 require_once PROJECT_ROOT . '/vendor/autoload.php';
-
+require_once PROJECT_ROOT . '/app/includes/PrismicHelper.php';
 
 class LocalWebTestCase extends WebTestCase {
 
@@ -31,6 +31,13 @@ class LocalWebTestCase extends WebTestCase {
 
     public function getSlimInstance() {
         $app = new \Slim\Slim($this->getConfig());
+        $prismic = new PrismicHelper($app);
+
+        global $WPGLOBAL;
+        $WPGLOBAL = array(
+            'app' => $app,
+            'prismic' => $prismic
+        );
 
         // Include our core application file
         require PROJECT_ROOT . '/app/app.php';
