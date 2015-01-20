@@ -24,7 +24,7 @@
 
 </head>
 
-<body>
+<body class="<?= is_front_page() ? 'front-page' : '' ?>">
 
 <div class="blog-masthead">
     <nav class="blog-nav">
@@ -52,12 +52,14 @@
         </ul>
     </nav>
 
+    <?php if (is_front_page()) { ?>
     <div class="container">
         <div class="blog-header">
             <h1 class="blog-title"><?= site_title() ?></h1>
             <p class="lead blog-description"><?= site_description() ?></p>
         </div>
     </div>
+    <?php } ?>
 
 </div>
 

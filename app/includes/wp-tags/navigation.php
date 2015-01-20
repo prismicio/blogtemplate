@@ -4,7 +4,7 @@ function is_home()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    return $app->request()->getUrl() == '/';
+    return $app->request()->getResourceUri() == '/';
 }
 
 function is_front_page()

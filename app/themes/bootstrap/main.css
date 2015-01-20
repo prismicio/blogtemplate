@@ -52,6 +52,9 @@ h3, .h3 {
 .blog-masthead {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
+}
+
+.front-page .blog-masthead {
   background: url(/app/themes/bootstrap/home.jpg) no-repeat center center;
   background-size: cover;
   height: 350px;
@@ -67,11 +70,15 @@ h3, .h3 {
   position: relative;
 }
 .blog-nav-item a, .dropdown-menu > li > a {
-  color: white;
-  text-shadow: black 3px 3px;
   display: inline-block;
   padding: 10px;
 }
+
+.front-page .blog-nav-item a, .front-page .dropdown-menu > li > a {
+  color: white;
+  text-shadow: black 3px 3px;
+}
+
 .dropdown-menu > li > a:hover {
 }
 .dropdown-menu {
