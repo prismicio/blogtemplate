@@ -91,7 +91,7 @@ function get_sidebar()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    render($app, 'sidebar');
+    render1($app, 'sidebar');
 }
 
 function is_active_sidebar()
@@ -103,14 +103,14 @@ function get_header()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    render($app, 'header');
+    render1($app, 'header');
 }
 
 function get_footer()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    render($app, 'footer');
+    render1($app, 'footer');
 }
 
 function get_search_query()
@@ -143,9 +143,9 @@ function get_template_part($slug, $name = null)
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     if ($name) {
-        render($app, $slug . '-' . $name);
+        render1($app, $slug . '-' . $name);
     } else {
-        render($app, $slug);
+        render1($app, $slug);
     }
 }
 
@@ -184,4 +184,3 @@ function _make_link($url, $label, $attrs)
     $result .= ('>' . $label . '</a>');
     return $result;
 }
-

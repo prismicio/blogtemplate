@@ -5,7 +5,7 @@ function theme_dir($app)
     return __DIR__ . '/../themes/' . $app->config('theme');
 }
 
-function render($app, $page)
+function render1($app, $page)
 {
     global $wp_query;
     $wp_query = new WP_Query();
@@ -16,7 +16,7 @@ function render($app, $page)
     require theme_dir($app) . '/' . $page . '.php';
 }
 
-function render1($app, $data, $page)
+function render($app, $page, $data)
 {
     global $wp_query, $loop, $WPGLOBAL;
     $loop = new Loop();
