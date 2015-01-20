@@ -39,7 +39,7 @@ $app->get('/', function() use ($app, $prismic) {
         ->orderings("my.post.date desc")
         ->submit();
 
-    render_response($app, $posts, 'index');
+    render1($app, array('posts' => $posts), 'index');
 });
 
 // Author
@@ -68,7 +68,7 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic, $prismic
         ->page(current_page($app))
         ->submit();
 
-    render_response($app, $posts, 'author');
+    render1($app, array('posts' => $posts, 'author' => $author), 'author');
 });
 
 // Search results
@@ -92,14 +92,14 @@ $app->get('/search', function() use($app, $prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render_response($app, $posts, 'search');
+    render1($app, array('posts' => $posts), 'search');
 });
 
 // Category
 $app->get('/category/:uid', function ($uid) use($app, $prismic) {
-    global $WPGLOBAL;
+
     $cat = $prismic->by_uid("category", $uid);
-    $WPGLOBAL['single_post'] = $cat;
+
     if ($cat == null) {
         not_found($app);
         return;
@@ -122,7 +122,11 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render_response($app, $posts, 'category');
+    $data = array(
+      'category' => $cat,
+      'posts' => $posts
+    );
+    render1($app, $data, 'category');
 });
 
 // Tag
@@ -144,7 +148,7 @@ $app->get('/tag/:tag', function ($tag) use($app, $prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render_response($app, $posts, 'tag');
+    render1($app, array('posts' => $posts), 'tag');
 });
 
 // Archive
@@ -166,7 +170,7 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
         $archive_date = $year;
     }
     $WPGLOBAL['date'] = array('year' => $year, 'month' => $month, 'day' => $day);
-    render_response($app, $posts, 'archive');
+    render1($app, array('posts' => $posts), 'archive');
 });
 
 // Previews

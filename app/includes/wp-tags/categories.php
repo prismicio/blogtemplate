@@ -3,7 +3,7 @@
 function single_cat_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;
-    $category = $WPGLOBAL['single_post'];
+    $category = $WPGLOBAL['category'];
     $result = null;
     if ($category) {
         $result = $prefix . $category->getText('category.name');

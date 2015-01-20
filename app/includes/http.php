@@ -16,6 +16,30 @@ function render($app, $page)
     require theme_dir($app) . '/' . $page . '.php';
 }
 
+function render1($app, $data, $page)
+{
+    global $wp_query, $loop, $WPGLOBAL;
+    $loop = new Loop();
+
+    foreach($data as $key => $value)
+    {
+      if($key == 'posts'){
+        $loop->setResponse($value);
+      }
+      if($key != 'posts'){
+        $WPGLOBAL[$key] = $value;
+      }
+
+    }
+
+    $wp_query = new WP_Query();
+    // Optional helpers that theme developers can provide
+    try {
+        include_once(theme_dir($app) . '/functions.php');
+    } catch(Exception $ex) {}
+    require theme_dir($app) . '/' . $page . '.php';
+}
+
 function render_single($app, $post, $page)
 {
     global $WPGLOBAL, $wp_query, $loop;
