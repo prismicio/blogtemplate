@@ -27,42 +27,40 @@
 <body>
 
 <div class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <div class="navbar-form navbar-right">
-                <?php get_search_form() ?>
-            </div>
-            <ul>
-                <li class="blog-nav-item"><?= home_link('Home') ?></li>
-                <?php foreach(get_pages() as $page) { ?>
-                    <?php if(count($page['children']) > 0) { ?>
-                        <li class="blog-nav-item dropdown">
-                            <?= page_link($page) ?>
-                            <ul class="dropdown-menu">
-                                <?php foreach($page['children'] as $subpage) { ?>
-                                    <?= page_link($subpage) ?>
-                                <?php } ?>
-                            </ul>
-                        </li>
-                    <?php } else { ?>
-                        <li class="blog-nav-item">
-                            <?= page_link($page) ?>
-                        </li>
-                    <?php } ?>
+    <nav class="blog-nav">
+        <div class="navbar-form navbar-right">
+            <?php get_search_form() ?>
+        </div>
+        <ul>
+            <li class="blog-nav-item"><?= home_link('Home') ?></li>
+            <?php foreach(get_pages() as $page) { ?>
+                <?php if(count($page['children']) > 0) { ?>
+                    <li class="blog-nav-item dropdown">
+                        <?= page_link($page) ?>
+                        <ul class="dropdown-menu">
+                            <?php foreach($page['children'] as $subpage) { ?>
+                                <?= page_link($subpage) ?>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                    <li class="blog-nav-item">
+                        <?= page_link($page) ?>
+                    </li>
                 <?php } ?>
-            </ul>
-        </nav>
+            <?php } ?>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="blog-header">
+            <h1 class="blog-title"><?= site_title() ?></h1>
+            <p class="lead blog-description"><?= site_description() ?></p>
+        </div>
     </div>
+
 </div>
 
 <div class="container">
 
-    <div class="blog-header">
-        <h1 class="blog-title"><?= site_title() ?></h1>
-        <p class="lead blog-description"><?= site_description() ?></p>
-    </div>
-
-    <div class="row">
-
-        <div class="col-sm-8 blog-main">
-
+    <div class="blog-main">
