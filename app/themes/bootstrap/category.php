@@ -8,7 +8,7 @@
 
 <div class="container blog-main">
 
-Category: <?php single_cat_title() ?>
+<?= category_description() ?>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <?php get_template_part('content'); ?>
