@@ -5,14 +5,10 @@ function theme_dir($app)
     return __DIR__ . '/../themes/' . $app->config('theme');
 }
 
-function render1($app, $page)
+function render_include($app, $page)
 {
     global $wp_query;
     $wp_query = new WP_Query();
-    // Optional helpers that theme developers can provide
-    try {
-        include_once(theme_dir($app) . '/functions.php');
-    } catch(Exception $ex) {}
     require theme_dir($app) . '/' . $page . '.php';
 }
 
