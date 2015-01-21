@@ -60,10 +60,14 @@ h3, .h3 {
   height: 350px;
 }
 
+.blog-nav {
+  padding-right: 10px;
+}
+
 /* Nav links */
 .blog-nav ul {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 .blog-nav-item {
   display: inline-block;

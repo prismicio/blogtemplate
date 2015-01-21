@@ -122,7 +122,7 @@ function get_search_query()
 
 function get_search_form($echo = true)
 {
-    $html = '<form method = "get" action = "search" >
+    $html = '<form method = "get" action = "/search" >
                 <input type = "text" placeholder = "Search..." name = "q" >
             </form >';
     if ($echo) {
