@@ -26,6 +26,9 @@ function render($app, $page, $data)
       if($key == 'posts'){
         $loop->setResponse($value);
       }
+      if($key == 'single_post'){
+        $loop->setPosts(array($value));
+      }
       if($key != 'posts'){
         $WPGLOBAL[$key] = $value;
       }

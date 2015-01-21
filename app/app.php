@@ -43,10 +43,10 @@ $app->get('/', function() use ($app, $prismic) {
 });
 
 // Author
-$app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic, $prismic, $prismic, $prismic) {
+$app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic) {
     $author = $prismic->get_document($id);
 
-    if ($author == null) {
+    if (!$author) {
         not_found($app);
         return;
     }
@@ -100,7 +100,7 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
 
     $cat = $prismic->by_uid("category", $uid);
 
-    if ($cat == null) {
+    if (!$cat) {
         not_found($app);
         return;
     }
@@ -160,10 +160,10 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
         'month' => $month,
         'day' => $day
     ), current_page($app));
-    if ($day != null) {
+    if ($day) {
         $dt = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day);
         $archive_date = $dt->format('F jS, Y');
-    } elseif ($month != null) {
+    } elseif ($month) {
         $dt = DateTime::createFromFormat('!Y-m', $year . '-' . $month);
         $archive_date = $dt->format('F Y');
     } else {
@@ -196,8 +196,7 @@ $app->get('/feed', function() use ($app, $prismic) {
 
     foreach ($posts as $post) {
         $item = new Item();
-        $item
-            ->title($post->getText("post.title"))
+        $item->title($post->getText("post.title"))
             ->description($post->getHtml("post.body", $prismic->linkResolver))
             ->url($blogUrl . $prismic->linkResolver->resolveDocument($post))
             ->pubDate($post->getDate("post.date")->asEpoch())
@@ -218,7 +217,7 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         'author.company'
     );
     $doc = $prismic->by_uid('post', $uid, $fetch);
-    if ($doc == null) {
+    if (!$doc) {
         not_found($app);
         return;
     }
@@ -228,17 +227,16 @@ $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($ap
         $app->response->redirect($permalink);
         return;
     }
-    render_single($app, $doc, 'single');
+    render($app, 'single', array('single_post' => $doc));
 });
 
 // Page
 $app->get('/:path+', function($path) use($app, $prismic) {
     $page_uid = check_page_path($path, $prismic, $app);
 
-    if ($page_uid != null)
-    {
+    if ($page_uid) {
       $page = $prismic->by_uid('page', $page_uid);
 
-      render_single($app, $page, 'page');
+      render($app, 'page', array('single_post' => $page));
     }
 });
