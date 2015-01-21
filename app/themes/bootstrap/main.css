@@ -52,7 +52,7 @@ h3, .h3 {
 .blog-header {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  background: url(/app/themes/bootstrap/home.jpg) no-repeat center center;
+  background: #130e49 url(/app/themes/bootstrap/home.jpg) no-repeat center center;
   background-size: cover;
   height: 350px;
 }
