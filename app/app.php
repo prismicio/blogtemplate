@@ -122,11 +122,7 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
         ->page(current_page($app))
         ->submit();
 
-    $data = array(
-      'category' => $cat,
-      'posts' => $posts
-    );
-    render($app, 'category', $data);
+    render($app, 'category', array('category' => $cat, 'posts' => $posts));
 });
 
 // Tag
