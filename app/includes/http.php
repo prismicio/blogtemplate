@@ -7,8 +7,6 @@ function theme_dir($app)
 
 function render_include($app, $page)
 {
-    global $wp_query;
-    $wp_query = new WP_Query();
     require theme_dir($app) . '/' . $page . '.php';
 }
 
