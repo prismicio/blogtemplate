@@ -16,7 +16,7 @@ function render1($app, $page)
     require theme_dir($app) . '/' . $page . '.php';
 }
 
-function render($app, $page, $data)
+function render($app, $page, $data = array())
 {
     global $wp_query, $loop, $WPGLOBAL;
     $loop = new Loop();
