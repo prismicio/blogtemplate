@@ -15,6 +15,31 @@ function single_cat_title($prefix = '', $display = true)
     }
 }
 
+function single_cat_illustration_url()
+{
+    global $WPGLOBAL;
+    $category = $WPGLOBAL['category'];
+    if ($category && $category->getImage('category.illustration')) {
+        return $category->getImage('category.illustration')->getView("main")->getUrl();
+    }
+}
+
+function single_cat_illustration($display = true)
+{
+    global $WPGLOBAL;
+    $category = $WPGLOBAL['category'];
+    $prismic = $WPGLOBAL['prismic'];
+    $result = null;
+    if ($category && $category->getImage('category.illustration')) {
+        $result = $category->getImage('category.illustration')->asHtml($prismic->linkResolver);
+    }
+    if ($display) {
+        echo $result;
+    } else {
+        return $result;
+    }
+}
+
 function the_category($separator = '',$parents='', $post_id = null)
 {
     echo get_the_category_list($separator, $parents, $post_id);
