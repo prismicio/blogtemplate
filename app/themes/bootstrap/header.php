@@ -26,43 +26,29 @@
 
 <body class="<?= is_front_page() ? 'front-page' : '' ?>">
 
-<div class="blog-masthead">
     <nav class="blog-nav">
-        <div class="navbar-form navbar-right">
-            <?php get_search_form() ?>
-        </div>
-        <ul>
-            <li class="blog-nav-item"><?= home_link('Home') ?></li>
-            <?php foreach(get_pages() as $page) { ?>
-                <?php if(count($page['children']) > 0) { ?>
-                    <li class="blog-nav-item dropdown">
-                        <?= page_link($page) ?>
-                        <ul class="dropdown-menu">
-                            <?php foreach($page['children'] as $subpage) { ?>
-                                <?= page_link($subpage) ?>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                <?php } else { ?>
-                    <li class="blog-nav-item">
-                        <?= page_link($page) ?>
-                    </li>
-                <?php } ?>
+        <li class="blog-nav-item"><?= home_link('Home') ?></li>
+        <?php foreach(get_pages() as $page) { ?>
+            <?php if(count($page['children']) > 0) { ?>
+                <li class="blog-nav-item dropdown">
+                    <?= page_link($page) ?>
+                    <ul class="dropdown-menu">
+                        <?php foreach($page['children'] as $subpage) { ?>
+                            <?= page_link($subpage) ?>
+                        <?php } ?>
+                    </ul>
+                </li>
+            <?php } else { ?>
+                <li class="blog-nav-item">
+                    <?= page_link($page) ?>
+                </li>
             <?php } ?>
+        <?php } ?>
         </ul>
     </nav>
 
-    <?php if (is_front_page()) { ?>
-    <div class="container">
-        <div class="blog-header">
-            <h1 class="blog-title"><?= site_title() ?></h1>
-            <p class="lead blog-description"><?= site_description() ?></p>
-        </div>
+    <div class="navbar-form searchbar">
+        <?php get_search_form() ?>
     </div>
-    <?php } ?>
 
-</div>
 
-<div class="container">
-
-    <div class="blog-main">

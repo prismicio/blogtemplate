@@ -33,7 +33,7 @@ class WPTest extends LocalWebTestCase
 
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('footer.blog-footer')));
-        $this->assertEquals(1, count($html('div.blog-header')));
+        $this->assertEquals(1, count($html('h2.blog-post-title')));
     }
 
     public function testArchive()

@@ -49,12 +49,9 @@ h3, .h3 {
  * Masthead for nav
  */
 
-.blog-masthead {
+.blog-header {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-}
-
-.front-page .blog-masthead {
   background: url(/app/themes/bootstrap/home.jpg) no-repeat center center;
   background-size: cover;
   height: 350px;
@@ -62,6 +59,11 @@ h3, .h3 {
 
 .blog-nav {
   padding-right: 10px;
+  float: left;
+}
+
+.searchbar {
+  float: right;
 }
 
 /* Nav links */

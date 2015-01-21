@@ -1,6 +1,3 @@
-</div><!-- /.blog-main -->
-
-</div><!-- /.container -->
 
 <footer class="blog-footer">
     <p>
