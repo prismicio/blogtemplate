@@ -76,6 +76,24 @@
     color: #CCC;
 }
 
+.image-full-width {
+    display: block;
+    float: left;
+    width: 100vw;
+    margin-left: 50%;
+}
+
+.image-full-width > img, .image-full-width > img {
+    width: 100vw;
+    margin-left: -50vw;
+    height: auto;
+}
+
+.image-full-width + p .image-label, .image-full-width + p.image-label {
+    margin-left: -50vw;
+    left: 0;
+}
+
 /* Blockquotes and citations */
 
 .block-quotation {

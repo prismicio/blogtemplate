@@ -9,9 +9,13 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/app/static/common.css">
-    <link rel="stylesheet" href="/app/themes/bootstrap/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Blog Template -->
+    <link rel="stylesheet" href="/app/static/common.css">
+
+    <!-- Current theme -->
+    <link rel="stylesheet" href="/app/themes/bootstrap/main.css">
 
     <!-- Google Font -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
