@@ -225,6 +225,27 @@ h3, .h3 {
 }
 
 /*
+ * Author page
+ */
+
+.blog-author-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.author-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+/*
  * Footer
  */
 

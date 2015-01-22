@@ -3,6 +3,9 @@
 function single_cat_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;
+    if (!array_key_exists('category', $WPGLOBAL)) {
+        return null;
+    }
     $category = $WPGLOBAL['category'];
     $result = null;
     if ($category) {
@@ -18,10 +21,13 @@ function single_cat_title($prefix = '', $display = true)
 function single_cat_illustration_url()
 {
     global $WPGLOBAL;
-    $category = $WPGLOBAL['category'];
-    if ($category && $category->getImage('category.illustration')) {
-        return $category->getImage('category.illustration')->getView("main")->getUrl();
+    if (array_key_exists('category', $WPGLOBAL)) {
+        $category = $WPGLOBAL['category'];
+        if ($category && $category->getImage('category.illustration')) {
+            return $category->getImage('category.illustration')->getView("main")->getUrl();
+        }
     }
+    return null;
 }
 
 function single_cat_illustration($display = true)

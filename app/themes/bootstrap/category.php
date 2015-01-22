@@ -1,12 +1,14 @@
 <?php get_header() ?>
 
-    <div class="blog-header" style="background-image: url(<?= single_cat_illustration_url() ?>)">
+<div class="blog-header" style="background-image: url(<?= single_cat_illustration_url() ?>)">
     <div class="container">
         <h1 class="blog-title"><?= single_cat_title() ?></h1>
     </div>
-    </div>
+</div>
 
-<div class="container blog-main">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 blog-main">
 
 <?= category_description() ?>
 
@@ -20,6 +22,8 @@
 
 <?php next_posts_link() ?>
 
+        </div>
+    </div>
 </div>
 
 <?php get_footer() ?>

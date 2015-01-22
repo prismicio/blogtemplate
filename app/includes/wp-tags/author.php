@@ -48,7 +48,7 @@ function author_image() {
 }
 
 function get_author_image() {
-    global $WPGLOBAL, $loop;
+    global $loop;
     $post = $loop->current_post();
     $author = $post->getLink($post->getType() . '.author');
     if (!$author) {
@@ -57,6 +57,43 @@ function get_author_image() {
     $photo = $author->getImage('author.photo');
     if ($photo) {
         return $photo->asHtml();
+    } else {
+        return null;
+    }
+}
+
+function single_author_name() {
+    global $WPGLOBAL;
+    if (!array_key_exists('author', $WPGLOBAL)) {
+        return null;
+    }
+    $author = $WPGLOBAL['author'];
+    return $author->getText('author.full_name');
+}
+
+function single_author_image() {
+    global $WPGLOBAL;
+    if (!array_key_exists('author', $WPGLOBAL)) {
+        return null;
+    }
+    $author = $WPGLOBAL['author'];
+    $photo = $author->getImage('author.photo');
+    if ($photo) {
+        return $photo->asHtml();
+    } else {
+        return null;
+    }
+}
+
+function single_author_image_url() {
+    global $WPGLOBAL;
+    if (!array_key_exists('author', $WPGLOBAL)) {
+        return null;
+    }
+    $author = $WPGLOBAL['author'];
+    $photo = $author->getImage('author.photo');
+    if ($photo) {
+        return $photo->getView("main")->getUrl();
     } else {
         return null;
     }
