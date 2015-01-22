@@ -15,9 +15,10 @@ class BlogLinkResolver extends LinkResolver
 
     public function resolve($link)
     {
-        $name = $this->prismic->get_bookmark_name($link->getId());
-        if ($name == 'home') {
-            return '/';
+        foreach($this->prismic->get_api()->bookmarks() as $name => $id) {
+            if ($link->getId() == $id && $name == 'home') {
+                return '/';
+            }
         }
         if ($link->isBroken()) {
             return null;
@@ -98,12 +99,6 @@ class PrismicHelper
             ->ref(PrismicHelper::get_ref());
     }
 
-    function get_authors() {
-        return $this->form()
-            ->query(Predicates::at("document.type", "author"))
-            ->submit();
-    }
-
     function by_uid($type, $uid, $fetch = array())
     {
         $results =
@@ -130,16 +125,6 @@ class PrismicHelper
         return null;
     }
 
-    function get_bookmark_name($documentId)
-    {
-        foreach($this->get_api()->bookmarks() as $name => $id) {
-            if ($documentId == $id) {
-                return $name;
-            }
-        }
-        return null;
-    }
-
     function from_ids(array $documentIds)
     {
         return $this->form()
@@ -161,8 +146,6 @@ class PrismicHelper
           ->query(Predicates::in("my.page.uid", $path))
           ->submit()
           ->getResults();
-
-
 
       $npath = array_map(function($p)
       {
