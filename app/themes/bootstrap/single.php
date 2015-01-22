@@ -1,6 +1,8 @@
 <?php get_header() ?>
 
-<div class="container blog-main">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 blog-main">
 
 <?php while ( have_posts() ) : the_post(); ?>
 
@@ -23,6 +25,8 @@ $post_day   = get_the_time('d');
 
 <?php endwhile; ?>
 
+        </div>
+    </div>
 </div>
 
 <?php get_footer() ?>
