@@ -140,7 +140,7 @@ $app->get('/tag/:tag', function ($tag) use($app, $prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render($app, 'tag', array('posts' => $posts));
+    render($app, 'tag', array('posts' => $posts, 'tag' => $tag));
 });
 
 // Archive
