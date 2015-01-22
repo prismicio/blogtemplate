@@ -4,70 +4,59 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "29b1b6fdcc6fc15feb224f905a9b2c1b",
+    "hash": "e6d3462defc15adb388a48fc68b8a2e4",
     "packages": [
         {
-            "name": "guzzle/guzzle",
-            "version": "v3.9.2",
+            "name": "egeloen/http-adapter",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "54991459675c1a2924122afbb0e5609ade581155"
+                "url": "https://github.com/egeloen/ivory-http-adapter.git",
+                "reference": "83e1c993839560f841f78f6774148c0d04bdea3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/54991459675c1a2924122afbb0e5609ade581155",
-                "reference": "54991459675c1a2924122afbb0e5609ade581155",
+                "url": "https://api.github.com/repos/egeloen/ivory-http-adapter/zipball/83e1c993839560f841f78f6774148c0d04bdea3e",
+                "reference": "83e1c993839560f841f78f6774148c0d04bdea3e",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
                 "php": ">=5.3.3",
+                "psr/http-message": "~0.5.0",
                 "symfony/event-dispatcher": "~2.1"
             },
-            "replace": {
-                "guzzle/batch": "self.version",
-                "guzzle/cache": "self.version",
-                "guzzle/common": "self.version",
-                "guzzle/http": "self.version",
-                "guzzle/inflection": "self.version",
-                "guzzle/iterator": "self.version",
-                "guzzle/log": "self.version",
-                "guzzle/parser": "self.version",
-                "guzzle/plugin": "self.version",
-                "guzzle/plugin-async": "self.version",
-                "guzzle/plugin-backoff": "self.version",
-                "guzzle/plugin-cache": "self.version",
-                "guzzle/plugin-cookie": "self.version",
-                "guzzle/plugin-curlauth": "self.version",
-                "guzzle/plugin-error-response": "self.version",
-                "guzzle/plugin-history": "self.version",
-                "guzzle/plugin-log": "self.version",
-                "guzzle/plugin-md5": "self.version",
-                "guzzle/plugin-mock": "self.version",
-                "guzzle/plugin-oauth": "self.version",
-                "guzzle/service": "self.version",
-                "guzzle/stream": "self.version"
-            },
             "require-dev": {
-                "doctrine/cache": "~1.3",
-                "monolog/monolog": "~1.0",
-                "phpunit/phpunit": "3.7.*",
+                "ext-curl": "*",
+                "guzzle/guzzle": "~3.9,>=3.9.2",
+                "guzzlehttp/guzzle": "~4.1,>=4.1.4|~5.0",
+                "kriswallsmith/buzz": "~0.13",
+                "nategood/httpful": "~0.2,>=0.2.17",
+                "phpunit/phpunit": "~4.0",
+                "phpunit/phpunit-mock-objects": "dev-matcher-verify as 2.3.x-dev",
                 "psr/log": "~1.0",
-                "symfony/class-loader": "~2.1",
-                "zendframework/zend-cache": "2.*,<2.3",
-                "zendframework/zend-log": "2.*,<2.3"
+                "satooshi/php-coveralls": "~0.6",
+                "zendframework/zendframework": "dev-http-curl-adapter",
+                "zendframework/zendframework1": "~1.12,>=1.12.9"
+            },
+            "suggest": {
+                "ext-curl": "Allows you to use the cURL adapter",
+                "guzzle/guzzle": "Allows you to use the Guzzle 3 adapter",
+                "guzzlehttp/guzzle": "Allows you to use the Guzzle 4 adapter",
+                "kriswallsmith/buzz": "Allows you to use the Buzz adapter",
+                "nategood/httpful": "Allows you to use the httpful adapter",
+                "psr/log": "Allows you to use the logger event subscriber",
+                "zendframework/zend-http": "Allows you to use the Zend 2 adapter",
+                "zendframework/zendframework1": "Allows you to use the Zend 1 adapter"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.9-dev"
+                    "dev-master": "0.5-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Guzzle": "src/",
-                    "Guzzle\\Tests": "tests/"
+                "psr-4": {
+                    "Ivory\\HttpAdapter\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -76,46 +65,35 @@
             ],
             "authors": [
                 {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Guzzle Community",
-                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
                 }
             ],
-            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
-            "homepage": "http://guzzlephp.org/",
+            "description": "Issue HTTP request for PHP 5.3+.",
             "keywords": [
-                "client",
-                "curl",
-                "framework",
                 "http",
-                "http client",
-                "rest",
-                "web service"
+                "request"
             ],
-            "time": "2014-08-11 04:32:36"
+            "time": "2014-11-05 01:16:54"
         },
         {
             "name": "prismic/php-sdk",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prismicio/php-kit.git",
-                "reference": "18d86a71a2f340136cd36ca30bf7e88af2a35155"
+                "reference": "f57c1ef6ca7e780c9d84f07593677fc03d8b155c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/18d86a71a2f340136cd36ca30bf7e88af2a35155",
-                "reference": "18d86a71a2f340136cd36ca30bf7e88af2a35155",
+                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/f57c1ef6ca7e780c9d84f07593677fc03d8b155c",
+                "reference": "f57c1ef6ca7e780c9d84f07593677fc03d8b155c",
                 "shasum": ""
             },
             "require": {
+                "egeloen/http-adapter": "~0.1",
                 "ext-curl": "*",
                 "ext-json": "*",
-                "guzzle/guzzle": ">=3.9.1",
                 "php": ">=5.3.3"
             },
             "require-dev": {
@@ -139,7 +117,53 @@
                 "Apache 2 license"
             ],
             "description": "PHP development kit for prismic.io",
-            "time": "2015-01-14 16:11:08"
+            "time": "2015-01-22 10:07:49"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "18619eee10ecf266bafe048e5a2922fa20938498"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/18619eee10ecf266bafe048e5a2922fa20938498",
+                "reference": "18619eee10ecf266bafe048e5a2922fa20938498",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2014-11-04 14:03:01"
         },
         {
             "name": "slim/slim",
@@ -546,16 +570,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876"
+                "reference": "db32c18eba00b121c145575fcbcd4d4d24e6db74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/f8d5d08c56de5cfd592b3340424a81733259a876",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/db32c18eba00b121c145575fcbcd4d4d24e6db74",
+                "reference": "db32c18eba00b121c145575fcbcd4d4d24e6db74",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +592,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -591,20 +615,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-08-31 06:12:13"
+            "time": "2015-01-17 09:51:32"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.4.1",
+            "version": "4.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6a5e49a86ce5e33b8d0657abe145057fc513543a"
+                "reference": "e90575c2bb86290d57a262862dab1da125431576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6a5e49a86ce5e33b8d0657abe145057fc513543a",
-                "reference": "6a5e49a86ce5e33b8d0657abe145057fc513543a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e90575c2bb86290d57a262862dab1da125431576",
+                "reference": "e90575c2bb86290d57a262862dab1da125431576",
                 "shasum": ""
             },
             "require": {
@@ -662,7 +686,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-12-28 07:57:05"
+            "time": "2015-01-17 11:24:41"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

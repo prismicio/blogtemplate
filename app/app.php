@@ -24,18 +24,18 @@ use Suin\RSSWriter\Item;
 
 // Index
 $app->get('/', function() use ($app, $prismic) {
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
+
     $posts = $prismic->form()
         ->page(current_page($app))
         ->query(Predicates::at("document.type", 'post'))
-        ->fetchLinks($fetch)
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
         ->orderings("my.post.date desc")
         ->submit();
 
@@ -51,19 +51,18 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic) {
         return;
     }
 
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
     $posts = $prismic->form()
         ->query(
-          Predicates::at("document.type", 'post'),
-          Predicates::at("my.post.author", $id))
-        ->fetchLinks($fetch)
+            Predicates::at("document.type", 'post'),
+            Predicates::at("my.post.author", $id))
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->submit();
@@ -73,21 +72,20 @@ $app->get('/author/:id/:slug', function($id, $slug) use($app, $prismic) {
 
 // Search results
 $app->get('/search', function() use($app, $prismic) {
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
     $q = $app->request()->params('q');
 
     $posts = $prismic->form()
         ->query(
-          Predicates::at("document.type", 'post'),
-          Predicates::fulltext("document", $q))
-        ->fetchLinks($fetch)
+            Predicates::at("document.type", 'post'),
+            Predicates::fulltext("document", $q))
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->submit();
@@ -105,19 +103,18 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
         return;
     }
 
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
     $posts = $prismic->form()
         ->query(
             Predicates::at("document.type", 'post'),
             Predicates::any("my.post.categories.link", array($cat->getId())))
-        ->fetchLinks($fetch)
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->submit();
@@ -127,19 +124,18 @@ $app->get('/category/:uid', function ($uid) use($app, $prismic) {
 
 // Tag
 $app->get('/tag/:tag', function ($tag) use($app, $prismic) {
-    $fetch = array(
-        'post.date',
-        'category.name',
-        'author.full_name',
-        'author.first_name',
-        'author.surname',
-        'author.company'
-    );
     $posts = $prismic->form()
         ->query(
-          Predicates::at("document.type", 'post'),
-          Predicates::any("document.tags", array($tag)))
-        ->fetchLinks($fetch)
+            Predicates::at("document.type", 'post'),
+            Predicates::any("document.tags", array($tag)))
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
         ->orderings("my.post.date desc")
         ->page(current_page($app))
         ->submit();
@@ -156,17 +152,9 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
         'month' => $month,
         'day' => $day
     ), current_page($app));
-    if ($day) {
-        $dt = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day);
-        $archive_date = $dt->format('F jS, Y');
-    } elseif ($month) {
-        $dt = DateTime::createFromFormat('!Y-m', $year . '-' . $month);
-        $archive_date = $dt->format('F Y');
-    } else {
-        $archive_date = $year;
-    }
-    $WPGLOBAL['date'] = array('year' => $year, 'month' => $month, 'day' => $day);
-    render($app, 'archive', array('posts' => $posts));
+    $date = array('year' => $year, 'month' => $month, 'day' => $day);
+
+    render($app, 'archive', array('posts' => $posts, 'date' => $date));
 });
 
 // Previews
