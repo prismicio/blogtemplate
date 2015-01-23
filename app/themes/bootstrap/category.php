@@ -1,6 +1,8 @@
 <?php get_header() ?>
 
-<div class="blog-header" style="background-image: url(<?= single_cat_illustration_url() ?>)">
+<div class="blog-header" style="
+    <?php if (single_cat_illustration_url()) { ?>background-image: url(<?= single_cat_illustration_url() ?>)<?php } ?>
+    ">
     <div class="container">
         <h1 class="blog-title"><?= single_cat_title() ?></h1>
     </div>

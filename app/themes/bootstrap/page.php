@@ -1,16 +1,25 @@
 <?php get_header() ?>
 
-<div class="container blog-main">
-
 <?php while ( have_posts() ) : the_post(); ?>
 
-    <h2><?php the_title() ?></h2>
-    <div id="page-content">
-        <?php the_content() ?>
+<div class="blog-header">
+    <div class="container">
+        <h1 class="blog-title"><?= the_title() ?></h1>
     </div>
-
-<?php endwhile; // end of the loop. ?>
-
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 blog-main">
+
+            <div id="page-content">
+                <?php the_content() ?>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<?php endwhile; // end of the loop. ?>
 
 <?php get_footer() ?>

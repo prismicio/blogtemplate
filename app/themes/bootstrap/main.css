@@ -52,9 +52,14 @@ h3, .h3 {
 .blog-header {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  background: #130e49 url(/app/themes/bootstrap/home.jpg) no-repeat center center;
+  background: url(/app/static/placeholder.png) no-repeat center center;
   background-size: cover;
   height: 350px;
+}
+
+.blog-header.home {
+  background-image: url(/app/themes/bootstrap/home.jpg);
+
 }
 
 .blog-nav {
@@ -148,7 +153,7 @@ h3, .h3 {
 }
 .blog-title {
   color: white;
-  text-shadow: black 3px 3px;
+  text-shadow: black 0 0 5px;
   margin-top: 36px;
   margin-bottom: 0;
 }
@@ -241,13 +246,14 @@ h3, .h3 {
  */
 
 .blog-author-header {
+  padding-top: 60px;
   text-align: center;
   margin-bottom: 40px;
 }
 
 .author-image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50px;
   background-size: cover;
   margin-left: auto;
@@ -260,6 +266,7 @@ h3, .h3 {
 }
 
 .author-bio {
+  color: white;
   margin-top: 20px;
   line-height: 1.8em;
   padding-left: 120px;
@@ -288,7 +295,7 @@ h3, .h3 {
   content: '';
 }
 .author-sites li a {
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
