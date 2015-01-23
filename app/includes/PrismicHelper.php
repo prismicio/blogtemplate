@@ -253,17 +253,6 @@ class PrismicHelper
         return $url;
     }
 
-    function get_parent($pageId)
-    {
-        $results = $this->form()
-            ->query(Predicates::any("my.page.children.link", array($pageId)))
-            ->submit()->getResults();
-        if (count($results) > 0) {
-            return $results[0];
-        }
-        return null;
-    }
-
     function get_calendar()
     {
         $calendar = array();
