@@ -71,6 +71,31 @@ function single_author_name() {
     return $author->getText('author.full_name');
 }
 
+function single_author_bio() {
+    global $WPGLOBAL;
+    if (!array_key_exists('author', $WPGLOBAL)) {
+        return null;
+    }
+    $author = $WPGLOBAL['author'];
+    return $author->getStructuredText('author.bio')->asText();
+}
+
+function single_author_links() {
+    global $WPGLOBAL;
+    if (!array_key_exists('author', $WPGLOBAL)) {
+        return null;
+    }
+    $author = $WPGLOBAL['author'];
+    $sites = $author->getGroup('author.sites');
+    if ($sites == null) return null;
+    $result =  '<ul>';
+    foreach ($sites->getArray() as $site) {
+        $result .= '<li><a href="' . $site['link']->getUrl() . '">' . $site['label']->asText() . '</a></li>';
+    }
+    $result .= '</ul>';
+    return $result;
+}
+
 function single_author_image() {
     global $WPGLOBAL;
     if (!array_key_exists('author', $WPGLOBAL)) {
@@ -117,6 +142,7 @@ function get_the_author_meta($field, $userID = null)
     {
         case 'ID': return $author->getId();
         case 'display_name': return $author->getText('author.full_name')->asText();
+        case 'bio': return $author->getText('author.bio')->asText();
         default: return null;
     }
 }

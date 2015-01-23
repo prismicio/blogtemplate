@@ -246,15 +246,50 @@ h3, .h3 {
 }
 
 .author-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
   background-size: cover;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.author-name-title {
+  margin-top: 20px;
+  font-size: 36px;
+}
+
+.author-bio {
+  margin-top: 20px;
+  line-height: 1.8em;
+  padding-left: 120px;
+  padding-right: 120px;
+}
+
+.author-sites {
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.author-sites ul {
+  padding: 0;
+}
+
+.author-sites li {
+  display: inline;
+  padding-right: 10px;
+}
+
+.author-sites li:before {
+  content: '-';
+  padding-right: 10px;
+}
+.author-sites li:first-child:before {
+  content: '';
+}
+.author-sites li a {
+  color: black;
+  font-weight: bold;
 }
 
 /*
