@@ -123,15 +123,39 @@ function the_content($more_link_text = '(more...')
     }
 }
 
-function the_post_thumbnail()
+function the_post_thumbnail($size = 'main', $attr = array())
 {
-    // TODO
+    global $WPGLOBAL, $loop;
+    $doc = $loop->current_post();
+    if ($size == 'full') {
+        $size = 'main';
+    }
+    if (!$doc) return null;
+    $image = $doc->getImage($doc->getType() . '.image');
+    if ($image) {
+        echo $image->getView($size)->asHtml();
+    }
+}
+
+function post_thumbnail_url($size = 'main')
+{
+    global $WPGLOBAL, $loop;
+    $doc = $loop->current_post();
+    if ($size == 'full') {
+        $size = 'main';
+    }
+    if (!$doc) return null;
+    $image = $doc->getImage($doc->getType() . '.image');
+    if ($image) {
+        return $image->getView($size)->getUrl();
+    }
 }
 
 function has_post_thumbnail()
 {
-    // TODO
-    return false;
+    global $WPGLOBAL, $loop;
+    $doc = $loop->current_post();
+    return ($doc != null && $doc->getImage($doc->getType() . '.image') != null);
 }
 
 function has_post_format($format = array(), $post = null)

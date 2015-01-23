@@ -223,6 +223,9 @@ h3, .h3 {
 .blog-post-meta span:first-child {
   margin-left: 0;
 }
+.post-thumbnail {
+  float: right;
+}
 
 /*
  * Author page

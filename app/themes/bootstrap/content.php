@@ -10,5 +10,8 @@
         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <?php the_tags('', ', ') ?>
     </p>
 
+    <div class="post-thumbnail">
+        <?php the_post_thumbnail('medium') ?>
+    </div>
     <?php the_excerpt() ?>
 </div>
