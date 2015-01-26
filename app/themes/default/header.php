@@ -17,32 +17,11 @@
 <body class="<?= is_front_page() ? 'front-page' : '' ?>">
 
     <div id="right-panel">
-        <ul>
-            <li>
-                <?php get_search_form() ?>
-            </li>
-            <li class="blog-nav-item"><?= home_link('Home') ?></li>
-            <?php foreach(get_pages() as $page) { ?>
-                <?php if(count($page['children']) > 0) { ?>
-                    <li class="blog-nav-item">
-                        <?= page_link($page) ?>
-                        <ul>
-                            <?php foreach($page['children'] as $subpage) { ?>
-                                <?= page_link($subpage) ?>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                <?php } else { ?>
-                    <li class="blog-nav-item">
-                        <?= page_link($page) ?>
-                    </li>
-                <?php } ?>
-            <?php } ?>
-        </ul>
+        <?php get_sidebar() ?>
     </div>
 
-<div id="main">
-    <a id="menu-hamburger" href="#right-panel">
-        <i class="fa fa-bars"></i>
-    </a>
+    <div id="main">
+        <a id="menu-hamburger" href="#right-panel">
+            <i class="fa fa-bars"></i>
+        </a>
 

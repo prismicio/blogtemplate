@@ -1,22 +1,23 @@
-<div class="sidebar-module sidebar-module-inset">
-    <h4>About</h4>
-    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+<div class="search">
+    <div class="search-icon">
+        <i class="fa fa-search"></i>
+    </div>
+    <?php get_search_form() ?>
 </div>
 
-<div class="sidebar-module">
-    <h4>Archives</h4>
-    <ol class="list-unstyled">
-        <?php foreach(get_calendar() as $entry) { ?>
-        <li><a href="<?= $entry['link'] ?>"><?= $entry['label'] ?></a></li>
-        <?php } ?>
-    </ol>
+<div class="sidebar-section">
+    <h3 class="blog-nav-item"><?= home_link('Home') ?></h3>
 </div>
-<div class="sidebar-module">
-    <h4>Elsewhere</h4>
-    <ol class="list-unstyled">
-        <li><a href="#">GitHub</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Facebook</a></li>
-    </ol>
-</div>
+
+<?php foreach(get_pages() as $page) { ?>
+    <div class="sidebar-section">
+        <h3><?= page_link($page) ?></h3>
+        <ul>
+            <?php foreach($page['children'] as $subpage) { ?>
+                <li><?= page_link($subpage) ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php } ?>
+
 
