@@ -83,20 +83,20 @@ class T12Test extends LocalWebTestCase
 
     public function testPage()
     {
-        $this->client->get('/about12');
+        $this->client->get('/starter');
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals("About", trim($html('h1.entry-title', 0)->getPlainText()));
+        $this->assertEquals("Starter Project", trim($html('h1.entry-title', 0)->getPlainText()));
     }
 
     public function testSubPage()
     {
-        $this->client->get('/about12/contact-us');
+        $this->client->get('/starter/pages');
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals("Contact us", trim($html('h1.entry-title', 0)->getPlainText()));
+        $this->assertEquals("Pages", trim($html('h1.entry-title', 0)->getPlainText()));
     }
 
     public function testTag()
