@@ -9,7 +9,7 @@ define('ACCESS_TOKEN', null);
 /**
  * The theme corresponds to a subfolder of ./app/themes/
  */
-define('PI_THEME', 'bootstrap');
+define('PI_THEME', 'default');
 
 /**
  * Page size: applies for any page containing multiple posts: index, archive, search...
