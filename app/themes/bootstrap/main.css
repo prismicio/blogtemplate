@@ -2,6 +2,16 @@
  * Globals
  */
 
+* { padding: 0; margin: 0; }
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 body {
   font-family: 'PT Serif', serif;
   color: #555;
@@ -33,15 +43,11 @@ h3, .h3 {
   font-size: 30px;
 }
 
-/*
- * Override Bootstrap's default container.
- */
-
-@media (min-width: 768px) {
-  .container {
-    width: 700px;
-    padding: 26px;
-  }
+.container {
+  width: 700px;
+  padding: 26px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 
@@ -71,76 +77,24 @@ h3, .h3 {
   float: right;
 }
 
-/* Nav links */
-.blog-nav ul {
-  margin: 0;
-  padding: 0;
-}
-.blog-nav-item {
-  display: inline-block;
-  position: relative;
-}
-.blog-nav-item a, .dropdown-menu > li > a {
-  display: inline-block;
-  padding: 10px;
+/*
+ * Sidebar menu
+ */
+
+#right-panel {
+  display: none;
+  width: 220px;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+  box-shadow: inset 0 0 5px 5px #222;
 }
 
-.front-page .blog-nav-item a, .front-page .dropdown-menu > li > a {
+#menu-hamburger {
+  float: right;
   color: white;
-  text-shadow: black 3px 3px;
-}
-
-.dropdown-menu > li > a:hover {
-}
-.dropdown-menu {
-  background-color: transparent;
-  border-radius: 0;
-  border: 0;
-  box-shadow: none;
-}
-.blog-nav-item a:hover,
-.blog-nav-item a:focus {
-  text-decoration: none;
-}
-
-/* Active state gets a caret at the bottom */
-.blog-nav .active {
-}
-.blog-nav .active:after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -5px;
-  vertical-align: middle;
-  content: " ";
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid;
-  border-left: 5px solid transparent;
-}
-.blog-nav .external:before {
-  content: '\e135';
-  float: left;
-  display:inline-block;
-  font-family:'Glyphicons Halflings';
-  font-style:normal;
-  font-weight:400;
-  line-height:1;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  padding: 3px;
-}
-
-.blog-nav .navbar-form {
-  margin-top: 6px;
-}
-
-.blog-nav .dropdown:hover ul.dropdown-menu {
-  display: block;
-}
-.blog-nav .dropdown {
-  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
 }
 
 /*
@@ -298,6 +252,7 @@ h3, .h3 {
   color: white;
   font-weight: bold;
 }
+
 
 /*
  * Footer
