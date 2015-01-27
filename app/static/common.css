@@ -7,6 +7,11 @@
     padding-right: 20px;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 p .image-label, p.image-label {
     display: block;
     width: 100%;
@@ -16,71 +21,67 @@ p .image-label, p.image-label {
     color: #CCC;
 }
 
-.image-full-column {
-    display: block;
-    float: left;
-    width: 100%;
-    padding-right: 20px;
-}
+@media (min-width: 768px) {
 
-.image-left > img, .image-full-column > img {
-    width: 100%;
-    height: auto;
-}
+    .image-full-column {
+        display: block;
+        float: left;
+        width: 100%;
+        padding-right: 20px;
+    }
 
-.image-left + p .image-label, .image-left + p.image-label,
-.image-full-column + p .image-label, .image-full-column + p.image-label {
-    position: absolute;
-    width: 100px;
-    left: -130px;
-    border-right: solid #CCC 4px;
-    padding-right: 10px;
-    padding-bottom: 30px;
-    text-align: right;
-}
+    .image-left + p .image-label, .image-left + p.image-label,
+    .image-full-column + p .image-label, .image-full-column + p.image-label {
+        position: absolute;
+        width: 100px;
+        left: -130px;
+        border-right: solid #CCC 4px;
+        padding-right: 10px;
+        padding-bottom: 30px;
+        text-align: right;
+    }
 
-.image-overflow-left {
-    display: block;
-    float: left;
-    width: 80%;
-    padding-right: 20px;
-    margin-left: -50px;
-}
+    .image-overflow-left {
+        display: block;
+        float: left;
+        width: 80%;
+        padding-right: 20px;
+        margin-left: -50px;
+    }
 
-.image-overflow-left > img, .image-overflow-both > img {
-    right: -50px;
-    width: 100%;
-    height: auto;
-}
+    .image-overflow-left > img, .image-overflow-both > img {
+        right: -50px;
+        width: 100%;
+        height: auto;
+    }
 
-.image-overflow-left + p .image-label, .image-overflow-left + p.image-label {
-    float: left;
-    width: 80%;
-    padding-right: 20px;
-    margin-left: -50px;
-}
+    .image-overflow-left + p .image-label, .image-overflow-left + p.image-label {
+        float: left;
+        width: 80%;
+        padding-right: 20px;
+        margin-left: -50px;
+    }
 
-.image-overflow-both {
-    display: block;
-    float: left;
-    width: 130%;
-    margin-left: -15%;
-}
+    .image-overflow-both {
+        display: block;
+        float: left;
+        width: 130%;
+        margin-left: -15%;
+    }
 
-.image-full-width {
-    display: block;
-    float: left;
-    width: 100vw;
-    margin-left: 50%;
-}
+    .image-full-width {
+        display: block;
+        float: left;
+        width: 100vw;
+        margin-left: 50%;
+    }
 
-.image-full-width > img, .image-full-width > img {
-    width: 100vw;
-    margin-left: -50vw;
-    height: auto;
-}
+    .image-full-width > img, .image-full-width > img {
+        width: 100vw;
+        margin-left: -50vw;
+        height: auto;
+    }
 
-.image-full-width + p .image-label, .image-full-width + p.image-label {
 }
 
 /* Blockquotes and citations */

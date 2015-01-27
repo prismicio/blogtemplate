@@ -44,7 +44,7 @@ h3, .h3 {
 }
 
 .container {
-  width: 700px;
+  max-width: 700px;
   padding: 26px;
   margin-right: auto;
   margin-left: auto;
@@ -95,8 +95,7 @@ h3, .h3 {
 @media (max-width: 767px) {
 
   .blog-header {
-    background: black;
-    background-size: cover;
+    background: black none !important;
     padding: 5px;
     height: 40px;
     border-bottom: 1px solid #444;
