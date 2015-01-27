@@ -9,8 +9,7 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 blog-main">
+    <div class="blog-main">
 
 
 <?php
@@ -20,8 +19,8 @@ $post_day   = get_the_time('d');
 ?>
 
 <p class="blog-post-meta">
-    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?= get_day_link($post_year, $post_month, $post_day) ?>,
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= the_author_link() ?></p>
+    <span class="fa fa-calendar" aria-hidden="true"></span> <?= get_day_link($post_year, $post_month, $post_day) ?>,
+    <span class="fa fa-calendar" aria-hidden="true"></span> <?= the_author_link() ?></p>
 
     <?php the_content() ?>
 
@@ -32,7 +31,6 @@ $post_day   = get_the_time('d');
 <?php endwhile; ?>
 
         </div>
-    </div>
 </div>
 
 <?php get_footer() ?>

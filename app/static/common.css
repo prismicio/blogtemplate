@@ -7,6 +7,15 @@
     padding-right: 20px;
 }
 
+p .image-label, p.image-label {
+    display: block;
+    width: 100%;
+    font-style: italic;
+    font-size: 11px;
+    text-align: center;
+    color: #CCC;
+}
+
 .image-full-column {
     display: block;
     float: left;
@@ -21,17 +30,13 @@
 
 .image-left + p .image-label, .image-left + p.image-label,
 .image-full-column + p .image-label, .image-full-column + p.image-label {
-    display: block;
     position: absolute;
     width: 100px;
-    left: -100px;
-    color: #CCC;
+    left: -130px;
     border-right: solid #CCC 4px;
     padding-right: 10px;
     padding-bottom: 30px;
     text-align: right;
-    font-style: italic;
-    font-size: 11px;
 }
 
 .image-overflow-left {
@@ -49,15 +54,10 @@
 }
 
 .image-overflow-left + p .image-label, .image-overflow-left + p.image-label {
-    display: block;
     float: left;
     width: 80%;
     padding-right: 20px;
     margin-left: -50px;
-    font-style: italic;
-    font-size: 11px;
-    text-align: center;
-    color: #CCC;
 }
 
 .image-overflow-both {
@@ -65,16 +65,6 @@
     float: left;
     width: 130%;
     margin-left: -15%;
-}
-
-.image-overflow-both + p .image-label, .image-overflow-both + p.image-label,
-.image-full-width + p .image-label, .image-full-width + p.image-label {
-    display: block;
-    width: 100%;
-    font-style: italic;
-    font-size: 11px;
-    text-align: center;
-    color: #CCC;
 }
 
 .image-full-width {
