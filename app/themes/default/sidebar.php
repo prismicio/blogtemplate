@@ -20,4 +20,12 @@
     </div>
 <?php } ?>
 
+<div class="sidebar-section">
+    <h3>Archives</h3>
+    <ul>
+        <?php foreach(get_calendar() as $entry) { ?>
+            <li><a href="<?= $entry['link'] ?>"><?= $entry['label'] ?></a></li>
+        <?php } ?>
+    </ul>
+</div>
 
