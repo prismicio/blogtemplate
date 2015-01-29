@@ -151,8 +151,11 @@ function get_template_part($slug, $name = null)
 
 function is_search()
 {
+
     global $WPGLOBAL;
-    return isset($WPGLOBAL['search_query']);
+    $app = $WPGLOBAL['app'];
+    echo 'look for ' . $app->request()->params('q');
+    return $app->request()->params('q') != null;
 }
 
 function is_single()

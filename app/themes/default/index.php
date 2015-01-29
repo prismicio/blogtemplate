@@ -1,13 +1,10 @@
 <?php get_header() ?>
-    <?php if (is_front_page()) { ?>
     <div class="blog-header home">
     <div class="container">
         <h1 class="blog-title"><?= site_title() ?></h1>
         <p class="lead blog-description"><?= site_description() ?></p>
     </div>
     </div>
-    <?php } ?>
-
 
 <div class="container blog-main">
 
