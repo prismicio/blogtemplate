@@ -10,15 +10,10 @@ similar to existing CMS like Wordpress:
 
 Deploying from the zip (not available yet):
 
-* Unzip on your server, in an Apache virtual host
+* Unzip locally or on your server
+* Make sure APC is enabled. For MAMP: in Preferences->PHP->Cache, select APC
 * Edit `config.php` to point to your repository (should be a clone of http://blogtemplate.prismic.io/)
 * That's it!
-
-To deploy it from the source:
-
-* Install composer
-* Edit `app/config.php`
-* Run `composer install` to get the dependencies
 
 Running locally:
 
