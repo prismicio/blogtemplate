@@ -21,8 +21,9 @@ class WPTest extends LocalWebTestCase
         $this->assertEquals(2, count($html('div.blog-post')));
 
         // The sidebar is correct
-        $first = $html('.sidebar-section h3 a', 0);
-        $last = $html('.sidebar-section h3 a', 3);
+        $h3links = $html('.sidebar-section h3 a');
+        $first = $h3links[0];
+        $last = $h3links[3];
         $this->assertEquals('active', $first->class);
         $this->assertEquals('external', $last->class);
     }
