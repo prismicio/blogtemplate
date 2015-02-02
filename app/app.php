@@ -219,8 +219,12 @@ $app->get('/:path+', function($path) use($app, $prismic) {
     $page_uid = check_page_path($path, $prismic, $app);
 
     if ($page_uid) {
-      $page = $prismic->by_uid('page', $page_uid);
+        $page = $prismic->by_uid('page', $page_uid);
+        if (!$page) {
+            not_found($app);
+            return;
+        }
 
-      render($app, 'page', array('single_post' => $page));
+        render($app, 'page', array('single_post' => $page));
     }
 });
