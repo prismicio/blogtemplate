@@ -1,4 +1,6 @@
 ### Prismic.io Blog Engine
+[![alt text](https://travis-ci.org/prismicio/blogtemplate.png?branch=master "Travis build")](https://travis-ci.org/prismicio/blogtemplate)
+
 
 This application is a "batteries included", ready to use blog engine. It is designed with document types
 similar to existing CMS like Wordpress:
@@ -8,16 +10,16 @@ similar to existing CMS like Wordpress:
 
 #### Getting started
 
-Deploying from the zip (not available yet):
-
+* Download the [latest release](https://github.com/prismicio/blogtemplate/releases)
 * Unzip locally or on your server
-* Make sure APC is enabled. For MAMP: in Preferences->PHP->Cache, select APC
 * Edit `config.php` to point to your repository (should be a clone of http://blogtemplate.prismic.io/)
 * That's it!
 
 Running locally:
 
 * `php -S localhost:8000`
+
+*Note: for the best performances, it is strongly recommended to enable APC to activate the cache.*
 
 #### Writing a theme
 
