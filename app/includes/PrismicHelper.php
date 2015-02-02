@@ -267,7 +267,8 @@ class PrismicHelper
                 if (!$post->getDate("post.date")) continue;
                 $date = $post->getDate("post.date")->asDateTime();
                 $key = $date->format("F Y");
-                if ($key != end($calendar)['label']) {
+                $last = end($calendar);
+                if ($key != $last['label']) {
                     array_push($calendar, array(
                         'label' => $key,
                         'link' => $this->archive_link($date->format('Y'), $date->format('m'))
