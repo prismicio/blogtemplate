@@ -21,8 +21,10 @@ class WPTest extends LocalWebTestCase
         $this->assertEquals(2, count($html('div.blog-post')));
 
         // The sidebar is correct
-        $this->assertEquals('active', $html('.sidebar-section h3 a', 0)->class);
-        $this->assertEquals('external', $html('.sidebar-section h3 a', 3)->class);
+        $first = $html('.sidebar-section h3 a', 0);
+        $last = $html('.sidebar-section h3 a', 3);
+        $this->assertEquals('active', $first->class);
+        $this->assertEquals('external', $last->class);
     }
 
     public function testPermalink()
