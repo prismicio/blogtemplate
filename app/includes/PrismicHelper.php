@@ -284,6 +284,7 @@ class PrismicHelper
         $posts = $this->form()
             ->query(Predicates::at("document.type", "post"))
             ->set("after", $document->getId())
+            ->pageSize(1)
             ->orderings("[my.post.date]")
             ->submit()
             ->getResults();
@@ -297,6 +298,7 @@ class PrismicHelper
         $posts = $this->form()
             ->query(Predicates::at("document.type", "post"))
             ->set("after", $document->getId())
+            ->pageSize(1)
             ->orderings("[my.post.date desc]")
             ->submit()
             ->getResults();
