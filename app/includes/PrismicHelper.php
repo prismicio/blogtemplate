@@ -96,7 +96,7 @@ class PrismicHelper
         if (!$pageSize) $pageSize = $this->pageSize();
         return $this->get_api()->forms()->everything
             ->pageSize($pageSize)
-            ->ref(PrismicHelper::get_ref());
+            ->ref($this->get_ref());
     }
 
     function by_uid($type, $uid, $fetch = array())

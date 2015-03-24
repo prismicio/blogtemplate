@@ -9,7 +9,7 @@
 </div>
 
 <div class="container">
-    <div class="blog-main">
+    <div class="blog-main" <?= wio_post_attributes() ?>>
 
 
 <?php

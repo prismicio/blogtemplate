@@ -56,6 +56,15 @@ function get_permalink($id = null, $leavename = false)
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
+function wio_post_attributes()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $doc = $loop->current_post();
+    if(!$doc) return null;
+    echo 'data-wio-id="'. $doc->getId() .'" data-wio-ref="'. $prismic->get_ref() .'"';
+}
+
 function the_title()
 {
     global $loop;
