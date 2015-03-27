@@ -21,7 +21,11 @@ function page_link($page, $attrs = array())
 function get_pages()
 {
     $home = home();
-    return $home['children'];
+    if (array_key_exists('children', $home)) {
+        return $home['children'];
+    } else {
+        return array();
+    }
 }
 
 function is_page_template($template = null)

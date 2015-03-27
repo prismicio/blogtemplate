@@ -18,6 +18,7 @@ $app = new \Slim\Slim(
       'debug'          => DEBUG,
       'mode'           => MODE,
       'prismic.url'    => PRISMIC_URL,
+      'prismic.token'  => PRISMIC_TOKEN,
       'theme'          => PI_THEME,
       'site.title'     => SITE_TITLE,
       'site.description' => SITE_DESCRIPTION,

@@ -4,7 +4,7 @@
  * Change this for the URL of your repository
  */
 define('PRISMIC_URL', 'https://blogtemplate.prismic.io/api');
-define('ACCESS_TOKEN', null);
+define('PRISMIC_TOKEN', null);
 
 /**
  * The theme corresponds to a subfolder of ./app/themes/
