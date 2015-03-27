@@ -74,9 +74,9 @@ class PrismicHelper
     function get_api()
     {
         $url = $this->app->config('prismic.url');
-        $access_token = $this->app->config('prismic.access_token');
+        $token = $this->app->config('prismic.token');
         if ($this->api == null) {
-            $this->api = Api::get($url, $access_token);
+            $this->api = Api::get($url, $token);
         }
         return $this->api;
     }
@@ -311,9 +311,9 @@ class PrismicHelper
     public function home()
     {
         $homeId = $this->get_api()->bookmark('home');
-        if (!$homeId) return null;
+        if (!$homeId) return array();
         $home = $this->get_document($homeId);
-        if (!$home || $home->getType() != "page") return null;
+        if (!$home || $home->getType() != "page") return array();
 
         return array(
             'label' => 'Home',
