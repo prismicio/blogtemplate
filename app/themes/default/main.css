@@ -6,15 +6,17 @@
 
 a {
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.8) 75%);
+  color: #444;
+  text-decoration: none;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  background-position: 0 23px;
 }
 
 body {
   font-family: 'PT Serif', serif;
-  color: #555;
+  color: #444;
 }
 
 h1, .h1,
@@ -25,18 +27,18 @@ h5, .h5,
 h6, .h6 {
   margin-top: 0;
   font-family: 'Lato', sans-serif;
-  color: #333;
+  color: #444;
 }
 
 h1, .h1,
 h2, .h2 {
   font-size: 60px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 h2, .h2 {
   font-size: 35px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 h3, .h3 {
@@ -50,21 +52,31 @@ h3, .h3 {
   margin-left: auto;
 }
 
-
 /*
  * Masthead for nav
  */
 
 .blog-header {
+  position: relative;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   background: url(/app/static/placeholder.png) no-repeat center center;
   background-size: cover;
-  height: 350px;
+  height: 440px;
 }
 
 .blog-header.home {
   background-image: url(/app/themes/default/home.jpg);
+}
+
+.blog-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .blog-nav {
@@ -76,16 +88,15 @@ h3, .h3 {
  * Blog name and description
  */
 
-.blog-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
 .blog-title {
-  color: white;
-  text-shadow: black 0 0 5px;
-  margin-top: 36px;
-  margin-bottom: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  color: #FFF;
 }
+
+
 .blog-description {
   font-family: 'Lato', sans-serif;
   font-size: 22px;
@@ -99,7 +110,6 @@ h3, .h3 {
     padding: 5px;
     height: 40px;
     border-bottom: 1px solid #444;
-    box-shadow: 0 4px 2px -2px #444;
   }
 
   .blog-header .container {
@@ -116,7 +126,6 @@ h3, .h3 {
     padding: 10px;
     font-weight: normal;
     font-size: 18px;
-    text-shadow: none;
   }
 
   .blog-description {
@@ -137,6 +146,8 @@ h3, .h3 {
 }
 
 #menu-hamburger {
+  position: relative;
+  z-index: 1;
   float: right;
   color: white;
   padding: 10px 20px;
@@ -195,6 +206,12 @@ h3, .h3 {
   color: #4e4e4e;
 }
 
+@media (min-width: 768px) {
+  .blog-main {
+    margin-top: 40px;
+  }
+}
+
 /*
  * Main column and sidebar layout
  */
@@ -204,8 +221,6 @@ h3, .h3 {
   line-height: 1.5;
   position: relative;
 }
-
-
 
 /* Pagination */
 .pager {
@@ -330,4 +345,13 @@ h3, .h3 {
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+}
+
+ /*
+  * Prismic
+  */
+
+.blog-main .wio-link {
+    position: absolute;
+    right: 0px;
 }

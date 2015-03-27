@@ -1,97 +1,130 @@
-/* Images */
+* {
+  -webkit-font-smoothing: antialiased;
+}
 
-.image-left {
-    display: block;
-    float: left;
-    width: 66%;
-    padding-right: 20px;
+p {
+  margin: 20px 0;
+}
+
+#main {
+  overflow: hidden;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
-p .image-label, p.image-label {
-    display: block;
-    width: 100%;
-    font-style: italic;
-    font-size: 11px;
-    text-align: center;
-    color: #CCC;
+.image-full-width + .image-label, .image-full-column + .image-label, .image-overflow-both + .image-label {
+  width: 100%;
+}
+
+.block-img {
+  margin-bottom: 0;
+}
+
+.image-label {
+  display: block;
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+  color: #B2B2B2;
+  margin: 0;
 }
 
 @media (min-width: 768px) {
 
-    .image-full-column {
-        display: block;
-        float: left;
-        width: 100%;
-        padding-right: 20px;
-    }
+  .image-left {
+    display: block;
+    float: left;
+    width: 66%;
+    padding-right: 40px;
+    margin-top: 0;
+  }
 
-    .image-left + p .image-label, .image-left + p.image-label,
-    .image-full-column + p .image-label, .image-full-column + p.image-label {
-        position: absolute;
-        width: 100px;
-        left: -130px;
-        border-right: solid #CCC 4px;
-        padding-right: 10px;
-        padding-bottom: 30px;
-        text-align: right;
-    }
+  .image-left, .image-left + .image-label {
+    margin-bottom: 20px;
+  }
 
-    .image-overflow-left {
-        display: block;
-        float: left;
-        width: 80%;
-        padding-right: 20px;
-        margin-left: -50px;
-    }
+  .image-full-column {
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 40px 0;
+  }
 
-    .image-overflow-left > img, .image-overflow-both > img {
-        right: -50px;
-        width: 100%;
-        height: auto;
-    }
+  .image-full-column + .image-label {
+    margin-top: 40px;
+  }
 
-    .image-overflow-left + p .image-label, .image-overflow-left + p.image-label {
-        float: left;
-        width: 80%;
-        padding-right: 20px;
-        margin-left: -50px;
-    }
+  .image-overflow-both, .image-full-width {
+    margin-top: 40px;
+  }
 
-    .image-overflow-both {
-        display: block;
-        float: left;
-        width: 130%;
-        margin-left: -15%;
-    }
+  .image-full-width + .image-label, .image-overflow-both + .image-label {
+    margin-bottom: 40px;
+  }
 
-    .image-full-width {
-        display: block;
-        float: left;
-        width: 100vw;
-        margin-left: 50%;
-    }
+  .image-left + .image-label, .image-full-column + .image-label {
+    position: absolute;
+    width: 100px;
+    left: -110px;
+    border-right: solid #B2B2B2 7px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    text-align: right;
+  }
 
-    .image-full-width > img, .image-full-width > img {
-        width: 100vw;
-        margin-left: -50vw;
-        height: auto;
-    }
+  .image-overflow-left {
+    display: block;
+    float: left;
+    width: 70%;
+    padding-right: 40px;
+    margin-left: -50px;
+  }
 
-}
+  .image-overflow-left > img, .image-overflow-both > img {
+    right: -50px;
+    width: 100%;
+    height: auto;
+  }
 
-/* Blockquotes and citations */
+  .image-overflow-left + .image-label {
+    width: 70%;
+    margin-bottom: 20px;
+    float: left;
+    padding-right: 40px;
+    margin-left: -50px;
+  }
 
-.block-quotation {
+  .image-overflow-both {
+    display: block;
     width: 130%;
     margin-left: -15%;
-    font-size: 18px;
-    font-style: italic;
+  }
+
+  .image-full-width, .image-full-width {
+    width: 100vw;
+    transform: translate(-50%);
+    margin-left: 50%;
+  }
+
+  .block-quotation {
+    width: 130%;
+    margin: 40px -15%;
+    font-size: 30px;
     padding: 20px 0;
+  }
+
+  .block-citation {
+    margin: 20px 0;
+  }
+}
+
+.block-quotation {
+  display: inline-block;
+  font-style: italic;
+  font-size: 24px;
 }
 
 .block-quotation:before { content: "« " }
@@ -99,8 +132,8 @@ p .image-label, p.image-label {
 .block-quotation:after { content: " »" }
 
 .block-citation {
-    font-style: italic;
-    border-left: solid #CCC 4px;
-    padding-left: 10px;
-    margin-left: -14px;
+  display: inline-block;
+  font-style: italic;
+  border-left: solid #B4B4B4 4px;
+  padding-left: 10px;
 }
