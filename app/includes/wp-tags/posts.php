@@ -292,7 +292,8 @@ function single_post_date($format = "F, jS Y")
     }
 }
 
-function single_post_author() {
+function single_post_author()
+{
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $post = $loop->current_post();
@@ -300,6 +301,36 @@ function single_post_author() {
     $author = $post->getLink($post->getType() . '.author');
     if (!$author) return null;
     echo '<span class="author">' . $author->getText('author.full_name') . '</span>';
+}
+
+function single_prev_post_link()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['single_prev_post'])) {
+        $post = $WPGLOBAL['single_prev_post'];
+        $title = $post->getText($post->getType() . '.title');
+        $url = document_url($post);
+        echo '<a href="'. $url .'" class="previous">
+                <i class="fa fa-arrow-left"></i>
+                <span class="label">Previous article</span>
+                <p class="title">'. $title .'</p>
+              </a>';
+    }
+}
+
+function single_next_post_link()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['single_next_post'])) {
+        $post = $WPGLOBAL['single_next_post'];
+        $title = $post->getText($post->getType() . '.title');
+        $url = document_url($post);
+        echo '<a href="'. $url .'" class="next">
+                <span class="label">Next article</span>
+                <i class="fa fa-arrow-right"></i>
+                <p class="title">'. $title .'</p>
+              </a>';
+    }
 }
 
 function get_html($field, $document = null)

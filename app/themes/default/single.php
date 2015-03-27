@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="blog-main container" <?= wio_post_attributes() ?>>
+<div class="blog-main single container" <?= wio_post_attributes() ?>>
 
     <?php the_content() ?>
 
@@ -23,4 +23,16 @@
 
 <?php endwhile; ?>
 
-<?php get_footer() ?>
+<footer class="blog-footer single">
+    <?php single_prev_post_link() ?>
+    <?php single_next_post_link() ?>
+</footer>
+
+<!-- Prismic toolbar -->
+<script src="//wroom.xxx/prismic.min.js"></script>
+
+<!-- Hamburger menu -->
+<script src="/app/static/jquery.panelslider.js"></script>
+<script type="text/javascript">
+  $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
+</script>

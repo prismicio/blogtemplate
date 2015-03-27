@@ -116,6 +116,32 @@ class PrismicHelper
         return null;
     }
 
+    function get_prev_post($id)
+    {
+        $results =
+            $this->form()
+                 ->query(Predicates::at("document.type", 'post'))
+                 ->set("after", $id)
+                 ->pageSize(1)
+                 ->orderings("[my.post.date desc, document.id desc]")
+                 ->submit()
+                 ->getResults();
+        return $results[0];
+    }
+
+    function get_next_post($id)
+    {
+        $results =
+            $this->form()
+                 ->query(Predicates::at("document.type", 'post'))
+                 ->set("after", $id)
+                 ->pageSize(1)
+                 ->orderings("[my.post.date, document.id]")
+                 ->submit()
+                 ->getResults();
+        return $results[0];
+    }
+
     function get_document($id)
     {
         $results = $this->single($id, "document.id")->getResults();
