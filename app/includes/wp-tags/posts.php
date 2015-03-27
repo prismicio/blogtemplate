@@ -268,6 +268,40 @@ function single_post_title($prefix = '', $display = true)
     }
 }
 
+function single_post_shortlede()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $doc = $loop->current_post();
+    if (!$doc) return null;
+    if ($doc instanceof Author) return null;
+    if ($doc->getStructuredText('post.shortlede')) {
+        echo '<p class="shortlede">' . $doc->getStructuredText('post.shortlede')->asText() . '</p>';
+    }
+}
+
+function single_post_date($format = "F, jS Y")
+{
+    global $loop;
+    $date = get_date("post.date", $loop->current_post());
+    if ($date) {
+        if ($date instanceof \Prismic\Fragment\Date) {
+            $date = $date->asDateTime();
+        }
+        echo '<p class="date">' . date_format($date, $format) . '</p>';
+    }
+}
+
+function single_post_author() {
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $post = $loop->current_post();
+    if (!$post) return null;
+    $author = $post->getLink($post->getType() . '.author');
+    if (!$author) return null;
+    echo '<span class="author">' . $author->getText('author.full_name') . '</span>';
+}
+
 function get_html($field, $document = null)
 {
     global $WPGLOBAL;

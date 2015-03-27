@@ -3,16 +3,15 @@
 <?php while ( have_posts() ) : the_post(); ?>
 
 <div class="blog-header" style="background-image: url(<?= post_thumbnail_url() ?>)">
-    <h1 class="blog-title"><?= single_post_title() ?></h1>
+    <div class="wrapper">
+       <?php single_post_date() ?>
+       <h1 class="blog-title"><?= single_post_title() ?></h1>
+       <?php single_post_shortlede() ?>
+       <?php single_post_author() ?>
+    </div>
 </div>
 
 <div class="blog-main container" <?= wio_post_attributes() ?>>
-
-<?php
-$post_year  = get_the_time('Y');
-$post_month = get_the_time('m');
-$post_day   = get_the_time('d');
-?>
 
     <?php the_content() ?>
 

@@ -4,6 +4,11 @@
 
 * { padding: 0; margin: 0; }
 
+body {
+  font-family: 'PT Serif', serif;
+  color: #444;
+}
+
 a {
   text-decoration: none;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.8) 75%);
@@ -12,11 +17,6 @@ a {
   background-repeat: repeat-x;
   background-size: 2px 2px;
   background-position: 0 23px;
-}
-
-body {
-  font-family: 'PT Serif', serif;
-  color: #444;
 }
 
 h1, .h1,
@@ -88,14 +88,25 @@ h3, .h3 {
  * Blog name and description
  */
 
-.blog-title {
+.blog-header .wrapper {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
+}
+
+.blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
   color: #FFF;
 }
 
+.blog-header .author {
+  position: absolute;
+  right: 0;
+}
+
+.blog-header .shortlede {
+  font-size: 30px;
+}
 
 .blog-description {
   font-family: 'Lato', sans-serif;
@@ -104,6 +115,10 @@ h3, .h3 {
 }
 
 @media (max-width: 767px) {
+
+  .blog-header .date, .blog-header .shortlede, .blog-header .author {
+    display: none;
+  }
 
   .blog-header {
     background: black none !important;
@@ -206,20 +221,34 @@ h3, .h3 {
   color: #4e4e4e;
 }
 
+/*
+ * Main column and sidebar layout
+ */
+
 @media (min-width: 768px) {
   .blog-main {
     margin-top: 40px;
   }
-}
 
-/*
- * Main column and sidebar layout
- */
+  .blog-header h1 {
+    margin: 40px 0 20px 0;
+  }
+}
 
 .blog-main {
   font-size: 20px;
   line-height: 1.5;
   position: relative;
+}
+
+.blog-main a {
+  text-decoration: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.8) 75%);
+  color: #444;
+  text-decoration: none;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  background-position: 0 23px;
 }
 
 /* Pagination */
