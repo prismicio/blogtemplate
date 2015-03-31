@@ -12,6 +12,11 @@
 
     <script src="/app/static/modernizr.js"></script>
     <script src="/app/static/jquery-1.11.2.min.js"></script>
+    <script type="application/javascript">
+      window.Prismic = {
+          endpoint: '<?= prismic_endpoint() ?>'
+      };
+    </script>
 </head>
 
 <body class="<?= is_front_page() ? 'front-page' : '' ?>">
