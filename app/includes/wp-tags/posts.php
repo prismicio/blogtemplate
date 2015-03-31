@@ -128,7 +128,15 @@ function the_content($more_link_text = '(more...')
     if (!$doc) return null;
     $body = $doc->getStructuredText($doc->getType() . '.body');
     if ($body) {
-        echo $body->asHtml($prismic->linkResolver);
+        $paragraphIndex = 0;
+        $htmlSerializer = function($element, $content) use (&$paragraphIndex) {
+            if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
+                $paragraphIndex += 1;
+                return '<p data-section-id="'. $paragraphIndex .'" class="commentable-section">' . $content . '<p>';
+            }
+            return null;
+        };
+        echo $body->asHtml($prismic->linkResolver, $htmlSerializer);
     }
 }
 

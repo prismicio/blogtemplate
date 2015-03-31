@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="blog-main single container" <?= single_wio_attributes() ?>>
+<div id="commentable-area" class="blog-main single container commentable-container" <?= single_wio_attributes() ?>>
 
     <?php the_content() ?>
 
@@ -40,5 +40,22 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
+
+    (function() {
+      var SideComments = require('side-comments');
+      var author = {
+        id: 1,
+        avatarUrl: "http://aroc.github.io/side-comments-demo/public/images/user.png",
+        name: "You"
+      };
+      sideComments = new SideComments('#commentable-area', author);
+      sideComments.on('commentPosted', function( comment ) {
+        comment.id = parseInt(Math.random() * (100000 - 1) + 1);
+        sideComments.insertComment(comment);
+      });
+      sideComments.on('commentDeleted', function( comment ) {
+        sideComments.removeComment(comment.sectionId, comment.id);
+      });
+    })();
   });
 </script>
