@@ -61,7 +61,8 @@ function current_experiment_id()
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
     $api = $prismic->get_api();
-    return $api->getExperiments()->getCurrent()->getGoogleId();
+    $currentExperiment = $api->getExperiments()->getCurrent();
+    return $currentExperiment ? $currentExperiment->getGoogleId() : NULL;
 }
 
 function the_title()
