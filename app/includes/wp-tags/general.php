@@ -39,6 +39,13 @@ function site_title()
     return $app->config('site.title');
 }
 
+function prismic_endpoint()
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    return $app->config('prismic.url');
+}
+
 function home_url($path = '', $scheme = null)
 {
     global $WPGLOBAL;

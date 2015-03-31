@@ -29,10 +29,14 @@
 </footer>
 
 <!-- Prismic toolbar -->
+<script src="//www.google-analytics.com/cx/api.js?experiment=<?=current_experiment_id()?>"></script>
 <script src="//wroom.xxx/prismic.min.js"></script>
+<script>prismic.startExperiment("<?=current_experiment_id()?>", cxApi);</script>
 
 <!-- Hamburger menu -->
 <script src="/app/static/jquery.panelslider.js"></script>
 <script type="text/javascript">
-  $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
+  $(document).ready(function() {
+    $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
+  });
 </script>

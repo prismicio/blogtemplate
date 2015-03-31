@@ -83,8 +83,14 @@ class PrismicHelper
 
     function get_ref()
     {
+        $api = $this->get_api();
+        $experimentCookie = $this->app->request()->cookies[Prismic\EXPERIMENTS_COOKIE];
         $previewCookie = $this->app->request()->cookies[Prismic\PREVIEW_COOKIE];
-        if ($previewCookie != null) {
+        if($experimentCookie) {
+            $experiments = $api->getExperiments();
+            $experimentCookie = str_replace(" ", "%20", $experimentCookie);
+            return $experiments->refFromCookie($experimentCookie);
+        } else if ($previewCookie != null) {
             return $previewCookie;
         } else {
             return $this->get_api()->master();

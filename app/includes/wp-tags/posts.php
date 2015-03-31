@@ -56,13 +56,12 @@ function get_permalink($id = null, $leavename = false)
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
-function wio_post_attributes()
+function current_experiment_id()
 {
-    global $WPGLOBAL, $loop;
+    global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
-    $doc = $loop->current_post();
-    if(!$doc) return null;
-    echo 'data-wio-id="'. $doc->getId() .'" data-wio-ref="'. $prismic->get_ref() .'"';
+    $api = $prismic->get_api();
+    return $api->getExperiments()->getCurrent()->getGoogleId();
 }
 
 function the_title()
@@ -233,6 +232,15 @@ function get_the_tag_list($before = '', $sep = '', $after = '') {
 }
 
 // Other tags
+
+function single_wio_attributes()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $doc = $loop->current_post();
+    if(!$doc) return null;
+    echo 'data-wio-id="'. $doc->getId() .'" data-wio-ref="'. $prismic->get_ref() .'"';
+}
 
 function single_post()
 {
