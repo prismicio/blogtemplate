@@ -56,6 +56,13 @@ function get_permalink($id = null, $leavename = false)
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
+function is_previewing()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    return $prismic->is_previewing();
+}
+
 function current_experiment_id()
 {
     global $WPGLOBAL;
@@ -237,10 +244,9 @@ function get_the_tag_list($before = '', $sep = '', $after = '') {
 function single_wio_attributes()
 {
     global $WPGLOBAL, $loop;
-    $prismic = $WPGLOBAL['prismic'];
     $doc = $loop->current_post();
     if(!$doc) return null;
-    echo 'data-wio-id="'. $doc->getId() .'" data-wio-ref="'. $prismic->get_ref() .'"';
+    echo 'data-wio-id="'. $doc->getId() . '"';
 }
 
 function single_post()
