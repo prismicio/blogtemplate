@@ -132,7 +132,9 @@ class PrismicHelper
                  ->orderings("[my.post.date desc, document.id desc]")
                  ->submit()
                  ->getResults();
-        return $results[0];
+        if (count($results) > 0) {
+            return $results[0];
+        }
     }
 
     function get_next_post($id)
@@ -145,7 +147,9 @@ class PrismicHelper
                  ->orderings("[my.post.date, document.id]")
                  ->submit()
                  ->getResults();
-        return $results[0];
+        if (count($results) > 0) {
+            return $results[0];
+        }
     }
 
     function get_document($id)
