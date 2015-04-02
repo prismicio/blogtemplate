@@ -12,7 +12,7 @@ similar to existing CMS like Wordpress:
 
 * Download the [latest release](https://github.com/prismicio/blogtemplate/releases)
 * Unzip locally or on your server
-* Edit `config.php` to point to your repository (should be a clone of http://blogtemplate.prismic.io/)
+* Edit `config.php` to point `PRISMIC_URL` to your repository (should be a clone of http://blogtemplate.prismic.io/), and adjust `PRISMIC_TOKEN`.
 * That's it!
 
 Running locally:
@@ -21,12 +21,17 @@ Running locally:
 
 *Note: for the best performances, it is strongly recommended to enable APC to activate the cache.*
 
+#### Selecting a theme
+
+This blog template comes with 4 standard themes, inspired from Wordpress themes: `default`, `twentytwelve`, `twentythirteen` and `twentyfourteen`.
+
+The theme can be switched from the default one to another provided theme, by setting `PI_THEME` in `config.php` to the name of choosen one.
+
 #### Writing a theme
 
-The theme API is designed to be as close as possible as the Wordpress theme API. Themes are located in the `themes`
-directory.
+The theme API is designed to be as close as possible as the Wordpress theme API. Themes are located in the `themes` directory.
 
-The following files must be present:
+The following files must be present in each theme directory:
 
 * index.php
 * page.php
@@ -35,6 +40,10 @@ The following files must be present:
 * author.php
 * category.php (only if you use categories)
 * tag.php (only if you use tags)
+
+> You can copy the `default` theme directory to a `custom` directory, to write your theme by customizing the default one.
+
+As for the provided themes, the name of your custom theme is to be set as `PI_THEME` to switch it on.
 
 #### Customizing the blog engine
 
