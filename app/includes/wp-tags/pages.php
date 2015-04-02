@@ -18,6 +18,18 @@ function page_link($page, $attrs = array())
     return '<a href="' . $page['url'] . '" class="' . join(' ', $classes) . '">' . $page['label'] . '</a>';
 }
 
+function page_content()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $doc = $loop->current_post();
+    if (!$doc) return null;
+    $body = $doc->get($doc->getType() . '.body');
+    if ($body) {
+        echo $body->asHtml($prismic->linkResolver);
+    }
+}
+
 function get_pages()
 {
     $home = home();

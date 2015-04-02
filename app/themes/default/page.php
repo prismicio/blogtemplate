@@ -13,7 +13,7 @@
         <div class="col-sm-12 blog-main">
 
             <div id="page-content">
-                <?php the_content() ?>
+                <?php page_content() ?>
             </div>
 
 
