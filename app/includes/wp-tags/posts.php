@@ -128,6 +128,14 @@ function the_content($more_link_text = '(more...')
     if (!$doc) return null;
     $body = $doc->getStructuredText($doc->getType() . '.body');
     if ($body) {
+        $htmlSerializer = function($element, $content) {
+            if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
+                $threadIdentifer = hash('md5', $content);
+                return '<p data-disqium-thread-id="'. $threadIdentifer .'" class="commentable-section">' . $content . '<p>';
+            }
+            return null;
+        };
+        echo $body->asHtml($prismic->linkResolver, $htmlSerializer);
         echo $body->asHtml($prismic->linkResolver);
     }
 }

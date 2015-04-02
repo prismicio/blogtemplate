@@ -12,6 +12,11 @@
 
     <script src="/app/static/modernizr.js"></script>
     <script src="/app/static/jquery-1.11.2.min.js"></script>
+
+    <!-- disqus integration -->
+    <link rel="stylesheet" href="/app/static/disqium/disqium.css">
+    <script src="/app/static/disqium/disqium.js">
+
     <script type="application/javascript">
       window.Prismic = {
           endpoint: '<?= prismic_endpoint() ?>'
