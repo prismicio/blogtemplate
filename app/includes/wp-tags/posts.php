@@ -56,13 +56,6 @@ function get_permalink($id = null, $leavename = false)
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
 }
 
-function is_previewing()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    return $prismic->is_previewing();
-}
-
 function current_experiment_id()
 {
     global $WPGLOBAL;

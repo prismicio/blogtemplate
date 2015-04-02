@@ -81,11 +81,6 @@ class PrismicHelper
         return $this->api;
     }
 
-    function is_previewing()
-    {
-        return isset($this->app->request()->cookies[Prismic\PREVIEW_COOKIE]);
-    }
-
     function get_ref()
     {
         $api = $this->get_api();
