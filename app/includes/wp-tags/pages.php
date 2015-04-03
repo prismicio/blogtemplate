@@ -24,7 +24,7 @@ function page_content()
     $prismic = $WPGLOBAL['prismic'];
     $doc = $loop->current_post();
     if (!$doc) return null;
-    $body = $doc->get($doc->getType() . '.body');
+    $body = $doc->getSliceZone($doc->getType() . '.body');
     if ($body) {
         echo $body->asHtml($prismic->linkResolver);
     }
