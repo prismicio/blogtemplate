@@ -424,6 +424,33 @@ h3, .h3 {
   margin: 4px 0 0 0;
 }
 
+/*
+ * Slices
+ */
+
+.slice.full-featured {
+	padding: 0;
+	margin: 50px 0;
+	overflow: hidden;
+}
+
+.slice.full-featured > .group-doc {
+	float: left;
+	padding: 1em;
+  margin: 0;
+	width: calc((100% / 3) - 2em);
+  text-align: center;
+}
+
+.slice.full-featured section[data-field="illustration"] img {
+    max-height: 120px;
+    width: auto;
+}
+
+.slice.full-featured section[data-field="title"] h3 {
+    font-size: 16px;
+}
+
  /*
   * Prismic
   */
