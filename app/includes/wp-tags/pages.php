@@ -18,6 +18,24 @@ function page_link($page, $attrs = array())
     return '<a href="' . $page['url'] . '" class="' . join(' ', $classes) . '">' . $page['label'] . '</a>';
 }
 
+function slice_content($slice, $linkResolver)
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    $sliceFile  = theme_dir($app)
+                . '/slices/'
+                . $slice->getSliceType();
+    $sliceLabelFile = $sliceFile . "-" . $slice->getLabel() . '.php';
+    $sliceFile = $sliceFile . '.php';
+    if (file_exists($sliceLabelFile)) {
+        include($sliceLabelFile);
+    } else if (file_exists($sliceFile)) {
+        include($sliceLabelFile);
+    } else {
+        echo $slice->asHtml($linkResolver);
+    }
+}
+
 function page_content()
 {
     global $WPGLOBAL, $loop;
@@ -26,7 +44,9 @@ function page_content()
     if (!$doc) return null;
     $body = $doc->getSliceZone($doc->getType() . '.body');
     if ($body) {
-        echo $body->asHtml($prismic->linkResolver);
+        foreach ($body->getSlices() as $slice) {
+            slice_content($slice, $prismic->linkResolver);
+        }
     }
 }
 
