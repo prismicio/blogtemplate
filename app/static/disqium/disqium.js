@@ -39,7 +39,7 @@ function Disqium(scope, disqus) {
                         title: title,
                         identifier: identifier
                     };
-                    var url = 'http://wroom.dev/starterkit/disqus/threads/create';
+                    var url = '/disqus/threads/create';
                     return $.ajax({ url: url, type: 'POST', data: thread });
                 },
                 details: function(identifier) {

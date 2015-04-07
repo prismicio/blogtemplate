@@ -190,6 +190,64 @@ $app->get('/feed', function() use ($app, $prismic) {
     echo $feed;
 });
 
+$app->post('/disqus/threads/create', function() use ($app) {
+    $title = $_POST['title'];
+    $identifier = $_POST['identifier'];
+    $httpClient = \Prismic\Api::defaultHttpAdapter();
+
+    if($app->config('disqus.forum')) { // OVERWRITTEN DISQUS CONFIGURATION
+
+        $data = array(
+            "api_key" => $app->config('disqus.apikey'),
+            "api_secret" => $app->config('disqus.apisecret'),
+            "access_token" => $app->config('disqus.accesstoken'),
+            "forum" => $app->config('disqus.forum'),
+            "title" => $title,
+            "identifier" => $identifier
+        );
+
+        $app->response->headers->set('Content-Type', 'application/json');
+
+        try {
+            $response = $httpClient->post('https://disqus.com/api/3.0/threads/create.json', array(), $data);
+            $json = json_decode($response->getBody());
+            $app->response->setStatus($response->getStatusCode());
+            $body = array(
+                'code' => $json->code,
+                'id' => $json->response->id
+            );
+            $app->response->setBody(json_encode($body));
+        } catch (\Ivory\HttpAdapter\HttpAdapterException $e) {
+            $json = json_decode($e->getResponse()->getBody());
+            $app->response->setStatus($e->getResponse()->getStatusCode());
+            $app->response->setBody(array('code' => $json->code));
+        }
+
+    } else { // DEFAULT DISQUS CONFIGURATION
+
+        $data = array(
+            'title' => $title,
+            'identifier' => $identifier
+        );
+
+        $app->response->headers->set('Content-Type', 'application/json');
+
+        try {
+            $response = $httpClient->post('http://wroom.dev/starterkit/disqus/threads/create', array(), $data);
+            $app->response->setStatus($response->getStatusCode());
+            $json = json_decode($response->getBody());
+            $body = array(
+                'code' => $json->code,
+                'id' => $json->id
+            );
+            $app->response->setBody(json_encode($body));
+        } catch (\Ivory\HttpAdapter\HttpAdapterException $e) {
+            $app->response->setStatus($e->getResponse()->getStatusCode());
+            $app->response->setBody($e->getResponse()->getBody());
+        }
+    }
+});
+
 // Post
 $app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app, $prismic) {
     $fetch = array(

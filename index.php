@@ -23,6 +23,10 @@ $app = new \Slim\Slim(
       'site.title'     => SITE_TITLE,
       'site.description' => SITE_DESCRIPTION,
       'page_size'      => PAGE_SIZE,
+      'disqus.forum'  => DISQUS_FORUM,
+      'disqus.apikey'  => DISQUS_API_KEY,
+      'disqus.apisecret'  => DISQUS_API_SECRET,
+      'disqus.accesstoken'  => DISQUS_API_ACCESSTOKEN
     )
 );
 $prismic = new PrismicHelper($app);
