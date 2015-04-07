@@ -428,13 +428,14 @@ h3, .h3 {
  * Slices
  */
 
-.slice.full-featured {
+.slice.full-featured, .slice.mini {
 	padding: 0;
 	margin: 50px 0;
 	overflow: hidden;
 }
 
-.slice.full-featured > .group-doc {
+.slice.full-featured > .group-doc,
+.slice.mini > .group-doc {
 	float: left;
 	padding: 1em;
   margin: 0;
@@ -442,12 +443,14 @@ h3, .h3 {
   text-align: center;
 }
 
-.slice.full-featured section[data-field="illustration"] img {
+.slice.full-featured section[data-field="illustration"] img,
+.slice.mini section[data-field="illustration"] img {
     max-height: 120px;
     width: auto;
 }
 
-.slice.full-featured section[data-field="title"] h3 {
+.slice.full-featured section[data-field="title"] h3,
+.slice.mini section[data-field="title"] h3 {
     font-size: 16px;
 }
 
