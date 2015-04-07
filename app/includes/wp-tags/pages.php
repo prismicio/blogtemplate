@@ -30,7 +30,7 @@ function slice_content($slice, $linkResolver)
     if (file_exists($sliceLabelFile)) {
         include($sliceLabelFile);
     } else if (file_exists($sliceFile)) {
-        include($sliceLabelFile);
+        include($sliceFile);
     } else {
         echo $slice->asHtml($linkResolver);
     }

@@ -451,6 +451,19 @@ h3, .h3 {
     font-size: 16px;
 }
 
+.slides {
+} 
+
+.slides, .slides h2 {
+    color: white;
+}
+
+.slides .slide {
+    background-size: cover;
+    min-height: 500px;
+    padding: 10px 20px;
+}
+
  /*
   * Prismic
   */
