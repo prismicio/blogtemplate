@@ -131,7 +131,7 @@ function the_content($more_link_text = '(more...')
         $htmlSerializer = function($element, $content) use (&$doc) {
             if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
                 $threadIdentifer = hash('md5', $doc->getId() . '#' . $content);
-                return '<p data-disqium-thread-id="'. $threadIdentifer .'" class="commentable-section">' . $content . '<p>';
+                return '<p data-disqium-thread-id="'. $threadIdentifer .'">' . $content . '<p>';
             }
             return null;
         };

@@ -127,7 +127,7 @@ function Disqium(scope, disqus) {
     var renderPost = function(post) {
         var author = post.author;
         return '<li class="disqium-post">\
-                  <div class="header">\
+                  <div>\
                     <span class="disqium-post-author">'+ author.name +'</span>\
                     <span class="disqium-post-createdat">'+ formatPostDate(new Date(post.createdAt)) +'</span>\
                   </div>\
@@ -141,9 +141,14 @@ function Disqium(scope, disqus) {
             var identifier = $el.data('disqium-thread-id');
             var $button = $('<button class="disqium-toggle-thread">X</button>');
             var $form = $('<form name="disqium-new-post">\
-                            <label for="message">Post:</label>\
-                            <input type="text" name="post" />\
-                            <input type="submit" value="Post"/>\
+                            <div>\
+                              <span class="disqium-post-author">anonymous</span>\
+                            </div>\
+                            <textarea rows="1" placeholder="Leave a note" name="disqium-new-post-text"></textarea>\
+                            <div class="disqium-new-post-buttons">\
+                              <button type="submit" class="disqium-new-post-save">Save</button>\
+                              <button class="disqium-new-post-cancel">Cancel</button>\
+                            </div>\
                            </form>');
             var $posts = (function() {
                 var thread = threads[identifier];
@@ -161,48 +166,115 @@ function Disqium(scope, disqus) {
             $el.append($wrapper);
         });
 
-        $scope.find('[data-disqium-thread-id] .disqium-toggle-thread').click(function() {
+        $scope.find('[data-disqium-thread-id] .disqium-toggle-thread').click(function(e) {
+            e.stopPropagation();
             var $button = $(this);
-            $button.addClass('locked');
+            $button.toggleClass('locked');
             var $form = $button.siblings('[name=disqium-new-post]');
             $form.closest('.disqium-wrapper').toggleClass('fade-in');
         });
 
-        $scope.find('[data-disqium-thread-id] form[name=disqium-new-post]').submit(function(e) {
+        function onSubmit(e, $form) {
             e.preventDefault();
-            var $form = $(this);
-            var text = $form.find('input[name=post]').val();
-            var $paragraph = $form.closest('[data-disqium-thread-id]');
-            var identifier = $paragraph.data('disqium-thread-id');
-            var author = 'anonymous';
-            var createPost = function(threadId, text) {
-                return DisqusAPI.posts.create(author, 'anonymous@prismic.io', text, threadId).then(function() {
-                    var $discussion = $form.siblings('.disqium-discussion');
-                    $discussion.append(renderPost({
-                        author: {
-                            name: author
-                        },
-                        raw_message: text,
-                        createdAt: formatPostDate(new Date())
-                    }));
-                });
-            };
-            DisqusAPI.threads.details(identifier).then(function(response) {
-                var threadId = response.response.id;
-                return createPost(threadId, text);
-            }).fail(function() {
-                var title = $paragraph.text().substring(0, 100);
-                return DisqusAPI.threads.create(title, identifier).then(function(response) {
-                    var threadId = response.id;
+            e.stopPropagation();
+            var $textarea = $form.find('[name=disqium-new-post-text]');
+            var text = $textarea.val();
+            $textarea.attr('disabled', 'disabled');
+            if(text) {
+                var $paragraph = $form.closest('[data-disqium-thread-id]');
+                var identifier = $paragraph.data('disqium-thread-id');
+                var author = 'anonymous';
+                var createPost = function(threadId, text) {
+                    return DisqusAPI.posts.create(author, 'anonymous@prismic.io', text, threadId).then(function() {
+                        var $discussion = $form.siblings('.disqium-discussion');
+                        $discussion.append(renderPost({
+                            author: {
+                                name: author
+                            },
+                            raw_message: text,
+                            createdAt: formatPostDate(new Date())
+                        }));
+                    });
+                };
+                DisqusAPI.threads.details(identifier).then(function(response) {
+                    var threadId = response.response.id;
                     return createPost(threadId, text);
+                }).fail(function() {
+                    var title = $paragraph.text().substring(0, 100);
+                    return DisqusAPI.threads.create(title, identifier).then(function(response) {
+                        var threadId = response.id;
+                        return createPost(threadId, text);
+                    });
+                }).always(function() {
+                    $textarea.removeAttr('disabled');
+                    $textarea.val('');
                 });
-            });
+            }
+        }
+
+        $scope.find('[data-disqium-thread-id] form[name=disqium-new-post]').submit(function(e) {
+            var $form = $(this);
+            onSubmit(e, $form);
         });
 
-        $scope.find('[data-disqium-thread-id]').hover(function() {
+        $scope.find('[data-disqium-thread-id] form[name=disqium-new-post] .disqium-new-post-save').click(function(e) {
+            var $form = $(this).closest('form[name=disqium-new-post]');
+            onSubmit(e, $form);
+        });
+
+        $scope.find('[data-disqium-thread-id] form[name=disqium-new-post] .disqium-new-post-cancel').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $button = $(this);
+            var $wrapper = $button.closest('.disqium-wrapper');
+            var $toggle = $wrapper.find('.disqium-toggle-thread');
+            var $textarea = $wrapper.find('[name=disqium-new-post-text]');
+            $textarea.val('');
+            $toggle.removeClass('fade-in');
+            $toggle.click();
+        });
+
+        $scope.find('[data-disqium-thread-id]').on('mouseenter', function() {
+            var $button = $(this).find('.disqium-toggle-thread');
+            if($scope.find('.disqium-toggle-thread.locked').length === 0) {
+                $button.addClass('fade-in');
+            }
+        });
+
+        $scope.find('[data-disqium-thread-id]').on('mouseleave', function() {
             var $button = $(this).find('.disqium-toggle-thread');
             if(!$button.is('.locked')) {
-                $button.toggleClass('fade-in');
+                $button.removeClass('fade-in');
+            }
+        });
+
+        $scope.find('[data-disqium-thread-id] .disqium-wrapper').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $scope.find('[data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post-text]').on('change cut paste drop keydown', function() {
+            var textarea = this;
+            window.setTimeout(function() {
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight + 0) + 'px';
+            }, 0);
+        });
+
+        $scope.find('[data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post-text]').on('keydown', function(e) {
+            e = e || event;
+            if(e.keyCode === 13) {
+                var $form = $(this).parent('form[name=disqium-new-post]');
+                onSubmit(e, $form);
+            }
+            return true;
+        });
+
+        $(document.body).click(function() {
+            var $toggle = $scope.find('.disqium-toggle-thread.locked');
+            if($toggle.length) {
+                $toggle.click();
+                $toggle.removeClass('fade-in');
             }
         });
     });
