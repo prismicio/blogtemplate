@@ -65,6 +65,10 @@ h3, .h3 {
   height: 440px;
 }
 
+.blog-header.single {
+  height: 100vh;
+}
+
 .blog-header.home {
   background-image: url(/app/themes/default/home.jpg);
 }
@@ -99,12 +103,15 @@ h3, .h3 {
   color: #FFF;
 }
 
-.blog-header .author {
-  position: absolute;
-  right: 0;
+.blog-header.single .date {
+  display: inline-block;
 }
 
-.blog-header .shortlede {
+.blog-header.single .author {
+  margin-left: 20px;
+}
+
+.blog-header.single .shortlede {
   font-size: 30px;
 }
 
@@ -116,7 +123,7 @@ h3, .h3 {
 
 @media (max-width: 767px) {
 
-  .blog-header .date, .blog-header .shortlede, .blog-header .author {
+  .blog-header.single .date, .blog-header.single .shortlede, .blog-header.single .author {
     display: none;
   }
 
@@ -235,7 +242,7 @@ h3, .h3 {
   }
 
   .blog-header h1 {
-    margin: 40px 0 20px 0;
+    margin: 20px 0;
   }
 
   .blog-footer.single a {
@@ -399,10 +406,11 @@ h3, .h3 {
 
 .blog-footer.single {
   position: fixed;
-  bottom: 0;
+  bottom: -64px;
   overflow: hidden;
   width: 100%;
   background-color: #FFF;
+
 }
 
 .blog-footer.single .previous {
@@ -473,7 +481,7 @@ h3, .h3 {
 }
 
 .slides {
-} 
+}
 
 .slides, .slides h2 {
     color: white;

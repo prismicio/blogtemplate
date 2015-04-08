@@ -2,20 +2,20 @@
   -webkit-font-smoothing: antialiased;
 }
 
-p {
-  margin: 20px 0;
-}
-
 #main {
   overflow: hidden;
 }
 
-img {
+.blog-main p {
+  margin: 20px 0;
+}
+
+.blog-main img {
   width: 100%;
   height: auto;
 }
 
-.image-full-width + .image-label, .image-full-column + .image-label, .image-overflow-both + .image-label {
+.blog-main .image-full-width + .image-label, .blog-main .image-full-column + .image-label, .blog-main .image-overflow-both + .image-label {
   width: 100%;
 }
 
@@ -23,7 +23,7 @@ img {
   margin-bottom: 0;
 }
 
-.image-label {
+.blog-main .image-label {
   display: block;
   text-align: center;
   font-style: italic;
@@ -34,7 +34,7 @@ img {
 
 @media (min-width: 768px) {
 
-  .image-left {
+  .blog-main .image-left {
     display: block;
     float: left;
     width: 66%;
@@ -42,30 +42,30 @@ img {
     margin-top: 0;
   }
 
-  .image-left, .image-left + .image-label {
+  .blog-main .image-left, .blog-main .image-left + .image-label {
     margin-bottom: 20px;
   }
 
-  .image-full-column {
+  .blog-main .image-full-column {
     display: block;
     float: left;
     width: 100%;
     margin: 40px 0;
   }
 
-  .image-full-column + .image-label {
+  .blog-main .image-full-column + .image-label {
     margin-top: 40px;
   }
 
-  .image-overflow-both, .image-full-width {
+  .blog-main .image-overflow-both, .blog-main .image-full-width {
     margin-top: 40px;
   }
 
-  .image-full-width + .image-label, .image-overflow-both + .image-label {
+  .blog-main .image-full-width + .image-label, .blog-main .image-overflow-both + .image-label {
     margin-bottom: 40px;
   }
 
-  .image-left + .image-label, .image-full-column + .image-label {
+  .blog-main .image-left + .image-label, .blog-main .image-full-column + .image-label {
     position: absolute;
     width: 100px;
     left: -110px;
@@ -75,7 +75,7 @@ img {
     text-align: right;
   }
 
-  .image-overflow-left {
+  .blog-main .image-overflow-left {
     display: block;
     float: left;
     width: 70%;
@@ -83,13 +83,13 @@ img {
     margin-left: -50px;
   }
 
-  .image-overflow-left > img, .image-overflow-both > img {
+  .blog-main .image-overflow-left > img, .blog-main .image-overflow-both > img {
     right: -50px;
     width: 100%;
     height: auto;
   }
 
-  .image-overflow-left + .image-label {
+  .blog-main.image-overflow-left + .image-label {
     width: 70%;
     margin-bottom: 20px;
     float: left;
@@ -97,41 +97,41 @@ img {
     margin-left: -50px;
   }
 
-  .image-overflow-both {
+  .blog-main .image-overflow-both {
     display: block;
     width: 130%;
     margin-left: -15%;
   }
 
-  .image-full-width, .image-full-width {
+  .blog-main .image-full-width, .blog-main .image-full-width {
     width: 100vw;
     transform: translate(-50%);
     margin-left: 50%;
   }
 
-  .block-quotation {
+  .blog-main .block-quotation {
     width: 130%;
     margin: 40px -15%;
     font-size: 30px;
     padding: 20px 0;
   }
 
-  .block-citation {
+  .blog-main .block-citation {
     margin: 20px 0;
   }
 }
 
-.block-quotation {
+.blog-main .block-quotation {
   display: inline-block;
   font-style: italic;
   font-size: 24px;
 }
 
-.block-quotation:before { content: "« " }
+.blog-main .block-quotation:before { content: "« " }
 
-.block-quotation:after { content: " »" }
+.blog-main .block-quotation:after { content: " »" }
 
-.block-citation {
+.blog-main .block-citation {
   display: inline-block;
   font-style: italic;
   border-left: solid #B4B4B4 4px;
