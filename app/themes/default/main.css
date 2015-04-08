@@ -498,7 +498,7 @@ h3, .h3 {
 .slides {
 }
 
-.slides, .slides h2 {
+.slides, .slides h2, .slide-arrows a {
     color: white;
 }
 
@@ -506,6 +506,26 @@ h3, .h3 {
     background-size: cover;
     min-height: 500px;
     padding: 10px 20px;
+    position: relative;
+    display: none;
+}
+
+.slides .slide.active {
+    display: block;
+}
+
+.slide-arrows {
+    position: absolute;
+    top: 250px;
+    width: 660px;
+}
+
+.slide-arrows .arrow-prev {
+    float: left;
+}
+
+.slide-arrows .arrow-next {
+    float: right;
 }
 
  /*
