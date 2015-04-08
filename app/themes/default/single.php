@@ -42,3 +42,56 @@
     $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
   });
 </script>
+
+<!-- Handle footer -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    var viewportHeight =  Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var latestKnownScrollY = 0;
+    var previousScrollY = 0;
+    var ticking = false;
+    var $footer = $('.blog-footer');
+    var lastTransition = Date.now();
+
+    function update() {
+      var previousY = previousScrollY;
+      var y = latestKnownScrollY;
+      var scrollDown = y > previousY;
+      var maxScrollHeight = document.body.scrollHeight - viewportHeight;
+      var percent = (y * 100) / maxScrollHeight;
+      var timeSinceLastTransition = (Date.now() - lastTransition) / 1000;
+
+      if(timeSinceLastTransition > 0.6) {
+        if((percent >= 80 && scrollDown) || (percent >= 6 && !scrollDown)) {
+          $footer.addClass('fade-in');
+        } else {
+          $footer.removeClass('fade-in');
+        }
+        lastTransition = Date.now();
+      }
+
+      ticking = false;
+    }
+
+    function requestTick() {
+      if(!ticking) {
+        requestAnimationFrame(update);
+      }
+      ticking = true;
+    }
+
+    function onScroll() {
+      previousScrollY = latestKnownScrollY;
+      latestKnownScrollY = window.scrollY;
+      requestTick();
+    }
+
+    if(document.body.scrollHeight >= (viewportHeight * 2)) {
+      window.addEventListener('scroll', onScroll, false);
+      onScroll();
+    } else {
+      $footer.addClass('fade-in');
+    }
+
+  });
+</script>

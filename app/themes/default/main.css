@@ -242,7 +242,7 @@ h3, .h3 {
   }
 
   .blog-header h1 {
-    margin: 20px 0;
+    margin: 10px 0;
   }
 
   .blog-footer.single a {
@@ -410,7 +410,22 @@ h3, .h3 {
   overflow: hidden;
   width: 100%;
   background-color: #FFF;
+  opacity: 0;
+}
 
+.blog-footer.single.fade-in {
+  opacity: 1;
+  -webkit-transform: translate3d(0, -64px, 0);
+  -moz-transform: translate3d(0, -64px, 0);
+  transform: translate3d(0, -64px, 0);
+  -webkit-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  -moz-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  -o-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  -webkit-transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  -moz-transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  -o-transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
+  transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
 }
 
 .blog-footer.single .previous {
