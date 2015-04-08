@@ -91,7 +91,7 @@ function the_date_link($format = "F, jS Y")
     }
     $label = date_format($date, $format);
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
-    echo '<a href="' . $url . '">' . $label . '</a>';
+    echo '<a class="created-at" href="' . $url . '">' . $label . '</a>';
 }
 
 function get_the_date($format = 'F, jS Y')
