@@ -22,6 +22,8 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
+use Mailgun\Mailgun;
+
 // Index
 $app->get('/', function () use ($app, $prismic) {
 
@@ -341,6 +343,49 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
     $ctx['theme'] = $theme;
 
     render($app, 'single', $ctx);
+});
+
+// Contact
+$app->get('/contact', function() use ($app, $prismic) {
+    $mc = mailgun_config();
+    render($app, 'contact', ($mc) ? $mc : array());
+});
+
+$app->post('/contact', function() use ($app) {
+  $resp = $app->response;
+  $resp->headers->set('Content-Type', 'application/json');
+  $mc = mailgun_config();
+
+  if (!$mc) {
+      $resp->setBody(json_encode(array("error" => "Missing configuration")));
+      return;
+  }
+
+  $token = $app->request->post('token');
+
+  if ($token != sha1($mc['mailgunDomain'])) {
+      $resp->setBody(json_encode(array("error" => "Unauthorized contact token")));
+      return;
+  }
+
+  $message = array(
+    'from' => $app->request->post('sender'),
+    'to' => $mc['recipient'],
+    'subject' => $app->request->post('subject'),
+    'text' => $app->request->post('message'));
+    
+  $mailgun = new Mailgun($mc['mailgunApiKey']);
+
+  try {
+      $res = $mailgun->sendMessage($mc['mailgunDomain'], $message);
+      $data = ($res->http_response_code == 200)
+        ? array("success" => $res->http_response_body->message)
+        : array("error" => $res->http_response_body->message);
+        
+      $resp->setBody(json_encode($data));
+  } catch (Exception $e) {
+      $resp->setBody(json_encode(array("error" => $e->getMessage())));
+  }
 });
 
 // Page
