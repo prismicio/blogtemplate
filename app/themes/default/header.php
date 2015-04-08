@@ -12,6 +12,7 @@
 
     <script src="/app/static/modernizr.js"></script>
     <script src="/app/static/jquery-1.11.2.min.js"></script>
+    <script src="/app/themes/default/slices/slides.js"></script>
 
     <!-- disqus integration -->
     <link rel="stylesheet" href="/app/static/disqium/disqium.css">
