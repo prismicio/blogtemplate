@@ -148,7 +148,7 @@ h3, .h3 {
   }
 
   .blog-footer.single a {
-    padding: 10px;
+    padding: 20px;
   }
 }
 
@@ -296,12 +296,15 @@ h3, .h3 {
   font-size: 28px;
 }
 .blog-post-title a, .blog-post-meta a {
-  color: #333;
+  color: #444;
+  font-family: 'Lato', sans-serif;
 }
 .blog-post-meta {
   font-size: 16px;
-  margin-bottom: 20px;
-  color: #999;
+  margin: 6px 0;
+}
+.blog-post-meta .created-at {
+  color: #B2B2B2;
 }
 .blog-post-meta span {
   margin-left: 15px;
@@ -386,7 +389,7 @@ h3, .h3 {
  */
 
 .blog-footer {
-  border-top: 1px solid #B4B4B4;
+  box-shadow: 0 -1px 1px rgba(0,0,0,0.1);
   color: #444;
 }
 
@@ -406,6 +409,11 @@ h3, .h3 {
   float: left;
 }
 
+.blog-footer.single i.fa {
+  font-size: 12px;
+  vertical-align: 2px;
+}
+
 .blog-footer.single .next {
   float: right;
   text-align: right;
@@ -414,6 +422,19 @@ h3, .h3 {
 .blog-footer.single a {
   display: inline-block;
   max-width: 46vw;
+}
+
+.blog-footer.single .previous .label {
+  margin-left: 4px;
+}
+
+.blog-footer.single .next .label {
+  margin-right: 4px;
+}
+
+.blog-footer.single a .label {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
 }
 
 .blog-footer.single a .label, .blog-footer.single a i {

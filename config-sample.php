@@ -7,6 +7,14 @@ define('PRISMIC_URL', 'https://blogtemplate.prismic.io/api');
 define('PRISMIC_TOKEN', null);
 
 /**
+ * Disqus integration
+ */
+define('DISQUS_FORUM', null);
+define('DISQUS_API_KEY', null);
+define('DISQUS_API_SECRET', null);
+define('DISQUS_API_ACCESSTOKEN', null);
+
+/**
  * The theme corresponds to a subfolder of ./app/themes/
  */
 define('PI_THEME', 'default');

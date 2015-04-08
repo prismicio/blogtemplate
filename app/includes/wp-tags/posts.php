@@ -91,7 +91,7 @@ function the_date_link($format = "F, jS Y")
     }
     $label = date_format($date, $format);
     $url = archive_link($date->format('Y'), $date->format('m'), $date->format('d'));
-    echo '<a href="' . $url . '">' . $label . '</a>';
+    echo '<a class="created-at" href="' . $url . '">' . $label . '</a>';
 }
 
 function get_the_date($format = 'F, jS Y')
@@ -128,6 +128,14 @@ function the_content($more_link_text = '(more...')
     if (!$doc) return null;
     $body = $doc->getStructuredText($doc->getType() . '.body');
     if ($body) {
+        $htmlSerializer = function($element, $content) use (&$doc) {
+            if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
+                $threadIdentifer = hash('md5', $doc->getId() . '#' . $content);
+                return '<p data-disqium-thread-id="'. $threadIdentifer .'">' . $content . '<p>';
+            }
+            return null;
+        };
+        echo $body->asHtml($prismic->linkResolver, $htmlSerializer);
         echo $body->asHtml($prismic->linkResolver);
     }
 }
