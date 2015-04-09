@@ -230,7 +230,7 @@ function get_the_tag_list($before = '', $sep = '', $after = '') {
         return '<a href="/tag/' . $tag . '">' . $tag . '</a>';
     }, $tags));
     $result .= $after;
-    return $result;
+    return '<span class="tags">' . $result . '</span>';
 }
 
 // Other tags
@@ -320,7 +320,6 @@ function single_prev_post_link()
         $title = $post->getText($post->getType() . '.title');
         $url = document_url($post);
         echo '<a href="'. $url .'" class="previous">
-                <i class="fa fa-arrow-left"></i>
                 <span class="label">Previous article</span>
                 <p class="title">'. $title .'</p>
               </a>';
@@ -336,7 +335,6 @@ function single_next_post_link()
         $url = document_url($post);
         echo '<a href="'. $url .'" class="next">
                 <span class="label">Next article</span>
-                <i class="fa fa-arrow-right"></i>
                 <p class="title">'. $title .'</p>
               </a>';
     }

@@ -36,7 +36,7 @@ function get_the_author_link() {
     }
     if (!$auth) return null;
     $author_link = $prismic->linkResolver->resolve($auth);
-    return '<a href = "' . $author_link . '">' . $auth->getText('author.full_name') . '</a>';
+    return '<a class="author" href = "' . $author_link . '">' . $auth->getText('author.full_name') . '</a>';
 }
 
 function the_author_link() {

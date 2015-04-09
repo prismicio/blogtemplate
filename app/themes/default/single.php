@@ -25,6 +25,7 @@
 
 <footer class="blog-footer single">
     <?php single_prev_post_link() ?>
+    <a class="menu" href="/">Home</a>
     <?php single_next_post_link() ?>
 </footer>
 

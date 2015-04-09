@@ -5,9 +5,9 @@
     </h2>
     <p class="blog-post-meta">
         <?= the_date_link() ?>
-        <span class="fa fa-user" aria-hidden="true"></span> <?= the_author_link() ?>
-        <span class="fa fa-folder-open" aria-hidden="true"></span> <?php the_category(', ') ?>
-        <span class="fa fa-tags" aria-hidden="true"></span> <?php the_tags('', ', ') ?>
+        <?= the_author_link() ?>
+        <?php the_category(', ') ?>
+        <?php the_tags('', ', ') ?>
     </p>
 
     <?php the_excerpt() ?>

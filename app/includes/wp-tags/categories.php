@@ -63,11 +63,13 @@ function get_the_category_list($separator = '', $parents = '', $post_id = null)
     if (!$categories) return null;
     foreach ($doc->getGroup('post.categories')->getArray() as $item) {
         $category = $item->getLink('link');
-        $url = $prismic->linkResolver->resolve($category);
-        $label = $category->getText('category.name');
-        array_push($strings, '<a href="' . $url . '">' . $label . '</a>');
+        if($category) {
+            $url = $prismic->linkResolver->resolve($category);
+            $label = $category->getText('category.name');
+            array_push($strings, '<a class="category" href="' . $url . '">' . $label . '</a>');
+        }
     }
-    return join($separator, $strings);
+    return '<span class="categories">' . join($separator, $strings) . '</span>';
 }
 
 function single_tag_title($prefix = '', $display = true)
