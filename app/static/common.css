@@ -2,10 +2,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-#main {
-  overflow: hidden;
-}
-
 .blog-main p {
   margin: 20px 0;
 }

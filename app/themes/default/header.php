@@ -31,7 +31,5 @@
     </div>
 
     <div id="main">
-        <a id="menu-hamburger" href="#right-panel">
-            <i class="fa fa-bars"></i>
-        </a>
+        <a id="menu-hamburger" href="#right-panel"></a>
 

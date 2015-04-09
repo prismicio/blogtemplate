@@ -63,6 +63,10 @@ h3, .h3 {
   margin-left: auto;
 }
 
+#main {
+  overflow: hidden;
+}
+
 /*
  * Masthead for nav
  */
@@ -129,6 +133,10 @@ h3, .h3 {
 }
 
 @media (max-width: 767px) {
+
+  #menu-hamburger::before {
+    font-size: 18px;
+  }
 
   .blog-header.single .date, .blog-header.single .shortlede, .blog-header.single .author {
     display: none;
@@ -207,6 +215,11 @@ h3, .h3 {
   font-size: 24px;
 }
 
+#menu-hamburger::before {
+  font-family: 'StarterKit';
+  content: '\e006';
+}
+
 /*
  * Sidebar content
  */
@@ -264,6 +277,11 @@ h3, .h3 {
  */
 
 @media (min-width: 768px) {
+
+  #menu-hamburger::before {
+    font-size: 24px;
+  }
+
   .blog-main {
     margin-top: 40px;
   }
@@ -621,7 +639,7 @@ h3, .h3 {
   left: 0px;
   height: 50px;
   width: 50px;
-  background: url(arrow.svg); 
+  background: url(arrow.svg);
   background-size: 100%;
   transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -635,7 +653,7 @@ h3, .h3 {
   right: 0px;
   height: 50px;
   width: 50px;
-  background: url(arrow.svg); 
+  background: url(arrow.svg);
   background-size: 100%;
 }
 
