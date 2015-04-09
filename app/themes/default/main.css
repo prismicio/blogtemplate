@@ -563,10 +563,15 @@ h3, .h3 {
  * Slices
  */
 
+.slice {
+  max-width: 700px;
+  padding: 26px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .slice[data-slicetype="featured-items"] {
-  padding: 0;
-  margin: 50px 0;
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .slice[data-slicetype="featured-items"] > .group-doc {
@@ -605,7 +610,7 @@ h3, .h3 {
 .slide-arrows {
   position: absolute;
   top: 250px;
-  width: 660px;
+  width: calc(100% - 40px);
 }
 
 .slide-arrows .arrow-prev {
