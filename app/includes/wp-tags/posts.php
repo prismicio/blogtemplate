@@ -131,12 +131,13 @@ function the_content($more_link_text = '(more...')
         $htmlSerializer = function($element, $content) use (&$doc) {
             if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
                 $threadIdentifer = hash('md5', $doc->getId() . '#' . $content);
-                return '<p data-disqium-thread-id="'. $threadIdentifer .'">' . $content . '<p>';
+                $label = $element->getLabel();
+                $class = !is_null($label) ? 'class="' . $label . '"' : '';
+                return '<p ' . $class . 'data-disqium-thread-id="'. $threadIdentifer .'">' . $content . '<p>';
             }
-            return null;
+            return null;//$element->asHtml($prismic->linkResolver);
         };
         echo $body->asHtml($prismic->linkResolver, $htmlSerializer);
-        echo $body->asHtml($prismic->linkResolver);
     }
 }
 

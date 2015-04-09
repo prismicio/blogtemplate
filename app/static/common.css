@@ -44,7 +44,6 @@
 
   .blog-main .image-full-column {
     display: block;
-    float: left;
     width: 100%;
     margin: 40px 0;
   }
@@ -99,7 +98,7 @@
     margin-left: -15%;
   }
 
-  .blog-main .image-full-width, .blog-main .image-full-width {
+  .blog-main .image-full-width {
     width: 100vw;
     transform: translate(-50%);
     margin-left: 50%;
