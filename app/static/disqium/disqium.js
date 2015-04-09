@@ -139,19 +139,18 @@ function Disqium(scope, disqus) {
         $scope.find('[data-disqium-thread-id]').each(function(index , el) {
             var $el = $(el);
             var identifier = $el.data('disqium-thread-id');
-            var $button = $('<button class="disqium-toggle-thread">X</button>');
+            var thread = threads[identifier];
+            var count = thread ? thread.posts.length : '+';
+            var $button = $('<button class="disqium-toggle-thread ' + (count == '+' ? 'empty' : '') +'">'+ count +'</button>');
             var $form = $('<form name="disqium-new-post">\
-                            <div>\
-                              <span class="disqium-post-author">anonymous</span>\
-                            </div>\
-                            <textarea rows="1" placeholder="Leave a note" name="disqium-new-post-text"></textarea>\
+                            <input type="text" name="disqium-new-post-name" placeholder="Name" />\
+                            <input type="email" name="disqium-new-post-email" placeholder="Email" />\
+                            <textarea placeholder="Leave a note" name="disqium-new-post-text"></textarea>\
                             <div class="disqium-new-post-buttons">\
                               <button type="submit" class="disqium-new-post-save">Save</button>\
-                              <button class="disqium-new-post-cancel">Cancel</button>\
                             </div>\
                            </form>');
             var $posts = (function() {
-                var thread = threads[identifier];
                 if(thread) {
                     return thread.posts.reduce(function(acc, post) {
                         return acc + renderPost(post);
@@ -172,42 +171,73 @@ function Disqium(scope, disqus) {
             $button.toggleClass('locked');
             var $form = $button.siblings('[name=disqium-new-post]');
             $form.closest('.disqium-wrapper').toggleClass('fade-in');
+            var profile = getProfile();
+            if(profile.name) $form.find('[name=disqium-new-post-name]').val(profile.name);
+            if(profile.email) $form.find('[name=disqium-new-post-email]').val(profile.email);
         });
+
+        function saveProfile(name, email) {
+            window.localStorage.setItem('disqium-name', name);
+            window.localStorage.setItem('disqium-email', email);
+        }
+
+        function getProfile() {
+            return {
+                name: window.localStorage.getItem('disqium-name'),
+                email: window.localStorage.getItem('disqium-email')
+            };
+        }
 
         function onSubmit(e, $form) {
             e.preventDefault();
             e.stopPropagation();
             var $textarea = $form.find('[name=disqium-new-post-text]');
             var text = $textarea.val();
-            $textarea.attr('disabled', 'disabled');
-            if(text) {
+            var $name = $form.find('[name=disqium-new-post-name]');
+            var name = $name.val();
+            var $email = $form.find('[name=disqium-new-post-email]');
+            var email = $email.val();
+            var $submit = $form.find('.disqium-new-post-save');
+            if(!$form.is('.locked') && text && name && email) {
+                saveProfile(name, email);
+                $form.addClass('locked');
+                $textarea.attr('disabled', 'disabled');
+                $name.attr('disabled', 'disabled');
+                $email.attr('disabled', 'disabled');
+                $submit.attr('disabled', 'disabled');
                 var $paragraph = $form.closest('[data-disqium-thread-id]');
                 var identifier = $paragraph.data('disqium-thread-id');
-                var author = 'anonymous';
                 var createPost = function(threadId, text) {
-                    return DisqusAPI.posts.create(author, 'anonymous@prismic.io', text, threadId).then(function() {
+                    return DisqusAPI.posts.create(name, email, text, threadId).then(function() {
                         var $discussion = $form.siblings('.disqium-discussion');
                         $discussion.append(renderPost({
                             author: {
-                                name: author
+                                name: name
                             },
                             raw_message: text,
                             createdAt: formatPostDate(new Date())
                         }));
                     });
                 };
+                function resetForm() {
+                    $textarea.val('');
+                    $textarea.removeAttr('disabled');
+                    $name.removeAttr('disabled');
+                    $email.removeAttr('disabled');
+                    $submit.removeAttr('disabled');
+                    $form.removeClass('locked');
+                }
                 DisqusAPI.threads.details(identifier).then(function(response) {
                     var threadId = response.response.id;
-                    return createPost(threadId, text);
-                }).fail(function() {
-                    var title = $paragraph.text().substring(0, 100);
-                    return DisqusAPI.threads.create(title, identifier).then(function(response) {
+                    return createPost(threadId, text).always(resetForm);
+                }).fail(function(response) {
+                    if(response.responseJSON.code === 2) {
+                      var title = $paragraph.text().substring(0, 100);
+                      return DisqusAPI.threads.create(title, identifier).then(function(response) {
                         var threadId = response.id;
-                        return createPost(threadId, text);
-                    });
-                }).always(function() {
-                    $textarea.removeAttr('disabled');
-                    $textarea.val('');
+                          return createPost(threadId, text);
+                      }).always(resetForm);
+                    }
                 });
             }
         }
@@ -220,18 +250,6 @@ function Disqium(scope, disqus) {
         $scope.find('[data-disqium-thread-id] form[name=disqium-new-post] .disqium-new-post-save').click(function(e) {
             var $form = $(this).closest('form[name=disqium-new-post]');
             onSubmit(e, $form);
-        });
-
-        $scope.find('[data-disqium-thread-id] form[name=disqium-new-post] .disqium-new-post-cancel').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $button = $(this);
-            var $wrapper = $button.closest('.disqium-wrapper');
-            var $toggle = $wrapper.find('.disqium-toggle-thread');
-            var $textarea = $wrapper.find('[name=disqium-new-post-text]');
-            $textarea.val('');
-            $toggle.removeClass('fade-in');
-            $toggle.click();
         });
 
         $scope.find('[data-disqium-thread-id]').on('mouseenter', function() {
@@ -257,7 +275,7 @@ function Disqium(scope, disqus) {
             var textarea = this;
             window.setTimeout(function() {
                 textarea.style.height = 'auto';
-                textarea.style.height = (textarea.scrollHeight + 0) + 'px';
+              textarea.style.height = (textarea.scrollHeight + 14) + 'px';
             }, 0);
         });
 
