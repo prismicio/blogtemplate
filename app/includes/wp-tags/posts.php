@@ -236,7 +236,7 @@ function get_the_tag_list($before = '', $sep = '', $after = '') {
 
 // Other tags
 
-function single_wio_attributes()
+function wio_attributes()
 {
     global $WPGLOBAL, $loop;
     $doc = $loop->current_post();

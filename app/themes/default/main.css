@@ -667,7 +667,20 @@ h3, .h3 {
  * Prismic
  */
 
-.blog-main .wio-link {
+.wio-link {
   position: absolute;
+}
+
+.blog-main.single .wio-link {
+  right: 12px;
+  top: 0;
+}
+
+.front-page .blog-post {
+  position: relative;
+}
+
+.front-page .blog-post .wio-link {
   right: 0px;
+  top: 10px;
 }

@@ -14,14 +14,20 @@
     <script src="/app/themes/default/slices/slides.js"></script>
 
     <!-- disqus integration -->
-    <link rel="stylesheet" href="/app/static/disqium/disqium.css">
-    <script src="/app/static/disqium/disqium.js">
+    <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
+    <script src="/app/static/disqium/disqium.js"></script>
 
+    <!-- Prismic toolbar -->
     <script type="application/javascript">
-      window.Prismic = {
+      window.prismic = {
           endpoint: '<?= prismic_endpoint() ?>'
       };
     </script>
+    <script src="//www.google-analytics.com/cx/api.js?experiment=<?=current_experiment_id()?>"></script>
+    <script src="//static.cdn.prismic.io/prismic.min.js"></script>
+    <?php if(current_experiment_id()) { ?>
+      <script>prismic.startExperiment("<?=current_experiment_id()?>", cxApi);</script>
+    <?php }?>
 </head>
 
 <body class="<?= is_front_page() ? 'front-page' : '' ?>">

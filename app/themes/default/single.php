@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="blog-main single container" <?= single_wio_attributes() ?>>
+<div class="blog-main single container" <?= wio_attributes() ?>>
 
     <?php the_content() ?>
 
@@ -28,13 +28,6 @@
     <a class="menu" href="/">Home</a>
     <?php single_next_post_link() ?>
 </footer>
-
-<!-- Prismic toolbar -->
-<script src="//www.google-analytics.com/cx/api.js?experiment=<?=current_experiment_id()?>"></script>
-<script src="//static.cdn.prismic.io/prismic.min.js"></script>
-<?php if(current_experiment_id()) { ?>
-<script>prismic.startExperiment("<?=current_experiment_id()?>", cxApi);</script>
-<?php }?>
 
 <!-- Hamburger menu -->
 <script src="/app/static/jquery.panelslider.js"></script>
