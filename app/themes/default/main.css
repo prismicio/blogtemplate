@@ -617,13 +617,38 @@ h3, .h3 {
   font-size: 16px;
 }
 
+.full-featured {
+  font-family: 'Lato', sans-serif;
+}
+
+.full-featured h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
+.full-featured p {
+  line-height: 22px;
+  font-size: 14px;
+  margin: 15px 0 20px 0;
+}
+
+.full-featured .illustration {
+  display: block;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  background-size: cover;
+}
+
 .slides, .slides h2, .slide-arrows a {
   color: white;
 }
 
 .slides .slide {
   background-size: cover;
-  min-height: 500px;
+  height: calc(100vh - 20px); 
   padding: 10px 20px;
   position: relative;
   display: none;
@@ -643,7 +668,7 @@ h3, .h3 {
 .slide .arrow-prev {
   position: absolute;
   display: block;
-  top: calc(50% + -25px);
+  top: calc(50% - 25px);
   left: 0px;
   height: 50px;
   width: 50px;
@@ -657,7 +682,7 @@ h3, .h3 {
 .slide .arrow-next {
   position: absolute;
   display: block;
-  top: calc(50% + -25px);
+  top: calc(50% - 25px);
   right: 0px;
   height: 50px;
   width: 50px;
@@ -666,7 +691,7 @@ h3, .h3 {
 }
 
 .slide-container {
-    margin: 150px 52px;
+    margin: 200px 52px;
 }
 
 /*
