@@ -596,44 +596,32 @@ h3, .h3 {
   margin-left: auto;
 }
 
-.slice[data-slicetype="featured-items"] {
+.slice-featured {
   overflow: hidden;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
 }
 
-.slice[data-slicetype="featured-items"] > .group-doc {
+.slice-featured > .group-doc {
   float: left;
   padding: 1em;
   margin: 0;
   width: calc((100% / 3) - 2em);
-  text-align: center;
 }
 
-.slice[data-slicetype="featured-items"] section[data-field="illustration"] img {
-  max-height: 120px;
-  width: auto;
-}
-
-.slice[data-slicetype="featured-items"] section[data-field="title"] h3 {
-  font-size: 16px;
-}
-
-.full-featured {
-  font-family: 'Lato', sans-serif;
-}
-
-.full-featured h3 {
+.slice-featured h3 {
   font-size: 16px;
   font-weight: bold;
   margin: 16px 0;
 }
 
-.full-featured p {
+.slice-featured p {
   line-height: 22px;
   font-size: 14px;
   margin: 15px 0 20px 0;
 }
 
-.full-featured .illustration {
+.slice-featured .illustration {
   display: block;
   border-radius: 50%;
   width: 120px;
@@ -641,6 +629,20 @@ h3, .h3 {
   margin: 0 auto;
   background-size: cover;
 }
+
+.slice-featured.mini {
+  text-align: left;
+}
+
+.slice-featured.mini .illustration {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+}
+
+/*
+ * Slides
+ */
 
 .slides, .slides h2, .slide-arrows a {
   color: white;
