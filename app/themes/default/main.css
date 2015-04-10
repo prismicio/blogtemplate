@@ -134,6 +134,11 @@ h3, .h3 {
 
 @media (max-width: 767px) {
 
+  #menu-hamburger {
+    padding: 15px 20px;
+    font-size: 18px;
+  }
+
   .blog-header.single .date, .blog-header.single .shortlede, .blog-header.single .author {
     display: none;
   }
@@ -197,7 +202,7 @@ h3, .h3 {
 #right-panel {
   display: none;
   width: 220px;
-  padding: 30px;
+  padding: 26px 30px;
   background-color: #181818;
   color: #fff;
 }
@@ -207,8 +212,6 @@ h3, .h3 {
   z-index: 1;
   float: right;
   color: white;
-  padding: 10px 20px;
-  font-size: 24px;
 }
 
 #menu-hamburger::before {
@@ -229,7 +232,7 @@ h3, .h3 {
 
 .search {
   border: solid 1px #4e4e4e;
-  padding: 10px 20px;
+  padding: 6px 20px;
   background: #181818;
   border-radius: 20px;
 }
@@ -274,8 +277,13 @@ h3, .h3 {
 
 @media (min-width: 768px) {
 
+  #menu-hamburger {
+    padding: 30px;
+    font-size: 22px;
+  }
+
   #menu-hamburger::before {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .blog-main {
@@ -321,6 +329,10 @@ h3, .h3 {
 
   .blog-footer .next .label::after {
     margin-left: 15px;
+  }
+
+  .slice {
+    max-width: 700px;
   }
 }
 
@@ -377,7 +389,7 @@ h3, .h3 {
 
 .blog-post-meta {
   font-size: 16px;
-  margin: 6px 0;
+  margin: 4px 0;
 }
 
 .blog-post-meta .tags::before, .blog-post-meta .categories::before, .blog-post-meta .author::before {
@@ -503,13 +515,6 @@ h3, .h3 {
   width: 100%;
   background-color: #FFF;
   opacity: 0;
-}
-
-.blog-footer.single.fade-in {
-  opacity: 1;
-  -webkit-transform: translate3d(0, -64px, 0);
-  -moz-transform: translate3d(0, -64px, 0);
-  transform: translate3d(0, -64px, 0);
   -webkit-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
   -moz-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
   -o-transition: all 500ms cubic-bezier(0.025, 0.970, 0.395, 1.000);
@@ -518,6 +523,13 @@ h3, .h3 {
   -moz-transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
   -o-transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
   transition-timing-function: cubic-bezier(0.025, 0.970, 0.395, 1.000);
+}
+
+.blog-footer.single.fade-in {
+  opacity: 1;
+  -webkit-transform: translate3d(0, -64px, 0);
+  -moz-transform: translate3d(0, -64px, 0);
+  transform: translate3d(0, -64px, 0);
 }
 
 .blog-footer.single {
@@ -584,14 +596,8 @@ h3, .h3 {
   margin-left: auto;
 }
 
-@media (max-width: 768px) {
-.slice {
-  max-width: 700px;
-}
-}
-
 .slice[data-slicetype="featured-items"] {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .slice[data-slicetype="featured-items"] > .group-doc {

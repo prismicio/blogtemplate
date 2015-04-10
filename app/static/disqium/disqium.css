@@ -20,7 +20,7 @@
 }
 
 [data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post] {
-    padding: 10px 30px 10px 16px;
+    padding: 10px 15px;
     display: none;
     background: rgb(246, 246, 246);
 }
@@ -28,7 +28,7 @@
 [data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post] input, [data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post] [name=disqium-new-post-text] {
     font-size: 12px;
     border: none;
-    margin: 10px 0;
+    margin: 4px 0;
     padding: 4px;
     outline: none;
     box-sizing: border-box;
@@ -96,12 +96,8 @@
 }
 
 [data-disqium-thread-id] .disqium-wrapper .disqium-discussion .disqium-post {
-    border-top: 1px solid #B4B4B4;
+    border-top: 1px solid rgb(246, 246, 246);
     padding: 10px 0;
-}
-
-[data-disqium-thread-id] .disqium-wrapper .disqium-discussion .disqium-post-text {
-    margin-top: 10px;
 }
 
 [data-disqium-thread-id] .disqium-wrapper .disqium-post-author {
@@ -111,9 +107,9 @@
 
 [data-disqium-thread-id] .disqium-wrapper .disqium-discussion .disqium-post-createdat {
     color: #B4B4B4;
-    font-size: 14px;
+    font-size: 10px;
     text-align: right;
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 [data-disqium-thread-id] .disqium-wrapper.fade-in .disqium-discussion {

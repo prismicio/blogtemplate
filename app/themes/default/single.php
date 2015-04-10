@@ -54,8 +54,7 @@
       var maxScrollHeight = document.body.scrollHeight - viewportHeight;
       var percent = (y * 100) / maxScrollHeight;
       var timeSinceLastTransition = (Date.now() - lastTransition) / 1000;
-
-      if(timeSinceLastTransition > 0.6) {
+      if(timeSinceLastTransition > 0.6 || y == 0 || y == window.scrollY) {
         if((percent >= 80 && scrollDown) || (percent >= 6 && !scrollDown)) {
           $footer.addClass('fade-in');
         } else {
