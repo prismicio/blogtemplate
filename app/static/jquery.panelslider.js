@@ -2,8 +2,17 @@
  * jQuery Panel Slider plugin v0.1.1
  * https://github.com/eduardomb/jquery-panelslider
 */
+
+/*
+ * This library is slightly modified by prismic team in order to have 2 different behaviors according to if
+ * we are in mobile context or not.
+ *
+*/
+
 (function($) {
   'use strict';
+
+  var viewportWidth =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
   var $body = $('body'),
       _sliding = false;
@@ -25,7 +34,6 @@
       'z-index': 999999
     });
     panel.data(options);
-
     switch (options.side) {
       case 'left':
         panel.css({
@@ -42,7 +50,8 @@
           left: 'auto',
           right: '-' + panelWidth + 'px'
         });
-        bodyAnimation['margin-left'] = '-=' + panelWidth;
+
+        if(viewportWidth <= 767) bodyAnimation['margin-left'] = '-=' + panelWidth;
         bodyAnimation['margin-right'] = '+=' + panelWidth;
         panelAnimation.right = '+=' + panelWidth;
         break;
@@ -101,7 +110,7 @@
         break;
 
       case 'right':
-        bodyAnimation['margin-left'] = '+=' + panelWidth;
+        if(viewportWidth <= 767) bodyAnimation['margin-left'] = '+=' + panelWidth;
         bodyAnimation['margin-right'] = '-=' + panelWidth;
         panelAnimation.right = '-=' + panelWidth;
         break;
