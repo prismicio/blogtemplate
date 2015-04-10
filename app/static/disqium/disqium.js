@@ -170,7 +170,17 @@ function Disqium(scope, disqus) {
             var $button = $(this);
             $button.toggleClass('locked');
             var $form = $button.siblings('[name=disqium-new-post]');
-            $form.closest('.disqium-wrapper').toggleClass('fade-in');
+            var $wrapper = $form.closest('.disqium-wrapper');
+            $wrapper.toggleClass('fade-in');
+            var $p = $wrapper.parent('[data-disqium-thread-id]');
+            var hash = $p.attr('data-disqium-thread-id');
+            var $othersWrapper = $scope.find('[data-disqium-thread-id]:not([data-disqium-thread-id='+ hash +']) .disqium-wrapper');
+            if($button.is('.locked')) {
+                $button.addClass('fade-in');
+                $othersWrapper.addClass('hide-you');
+            } else {
+                $othersWrapper.removeClass('hide-you');
+            }
             var profile = getProfile();
             if(profile.name) $form.find('[name=disqium-new-post-name]').val(profile.name);
             if(profile.email) $form.find('[name=disqium-new-post-email]').val(profile.email);
