@@ -132,10 +132,13 @@ function the_content($more_link_text = '(more...')
             if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
                 $threadIdentifer = hash('md5', $doc->getId() . '#' . $content);
                 $label = $element->getLabel();
+                if($label == 'image-label') {
+                    return null;
+                }
                 $class = !is_null($label) ? 'class="' . $label . '"' : '';
                 return '<p ' . $class . 'data-disqium-thread-id="'. $threadIdentifer .'">' . $content . '<p>';
             }
-            return null;//$element->asHtml($prismic->linkResolver);
+            return null;
         };
         echo $body->asHtml($prismic->linkResolver, $htmlSerializer);
     }
