@@ -205,6 +205,7 @@ function Disqium(scope, disqus) {
                 $name.attr('disabled', 'disabled');
                 $email.attr('disabled', 'disabled');
                 $submit.attr('disabled', 'disabled');
+                $submit.text('Saving...');
                 var $paragraph = $form.closest('[data-disqium-thread-id]');
                 var identifier = $paragraph.data('disqium-thread-id');
                 var createPost = function(threadId, text) {
@@ -225,6 +226,7 @@ function Disqium(scope, disqus) {
                     $name.removeAttr('disabled');
                     $email.removeAttr('disabled');
                     $submit.removeAttr('disabled');
+                    $submit.text('Save');
                     $form.removeClass('locked');
                 }
                 DisqusAPI.threads.details(identifier).then(function(response) {
