@@ -17,6 +17,7 @@
 }
 
 [data-disqium-thread-id] .disqium-wrapper {
+    font-style: normal;
     position: absolute;
     font-size: 14px;
     font-family: 'Lato', sans-serif;
@@ -64,6 +65,10 @@
     padding: 10px 15px;
     display: none;
     background: rgb(246, 246, 246);
+}
+
+[data-disqium-thread-id] .disqium-wrapper .disqium-new-post-save[disabled] {
+    background: rgba(78, 78, 78, 0.71) !important;
 }
 
 [data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post] input, [data-disqium-thread-id] .disqium-wrapper [name=disqium-new-post] [name=disqium-new-post-text] {

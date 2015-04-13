@@ -155,7 +155,7 @@ function Disqium(scope, disqus) {
                 }
             })();
             var $panel = $('<div class="disqium-panel"></div>');
-            var $discussion = $('<ul class="disqium-discussion">' + $posts + '</<ul>');
+            var $discussion = $('<ul class="disqium-discussion">' + $posts + '</ul>');
             var $wrapper = $('<div class="disqium-wrapper"></div>');
             $panel.append($discussion).append($form);
             $wrapper.append($button).append($panel);
