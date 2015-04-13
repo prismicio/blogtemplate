@@ -1,3 +1,15 @@
+.disqium-container {
+    transition: transform 0.2s;
+    -webkit-transition: transform 0.2s;
+    -moz-transition: transform 0.2s;
+}
+
+.disqium-container.shift {
+    -webkit-transform: translate3d(-240px, 0, 0);
+    -moz-transform: translate3d(-240px, 0, 0);
+    transform: translate3d(-240px, 0, 0);
+}
+
 [data-disqium-thread-id] {
     position: relative;
     box-sizing: border-box;
@@ -12,6 +24,21 @@
     z-index: 2;
     top: 0;
     text-align: left;
+}
+
+[data-disqium-thread-id] .disqium-panel {
+    position: absolute;
+    left: 100px;
+    width: 100%;
+    transition: transform 0.2s;
+    -webkit-transition: transform 0.2s;
+    -moz-transition: transform 0.2s;
+}
+
+[data-disqium-thread-id] .disqium-wrapper.fade-in .disqium-panel {
+    -webkit-transform: translate3d(-70px, 0, 0);
+    -moz-transform: translate3d(-70px, 0, 0);
+    transform: translate3d(-70px,0, 0);
 }
 
 [data-disqium-thread-id] .disqium-wrapper.hide-you {

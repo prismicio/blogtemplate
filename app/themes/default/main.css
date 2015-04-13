@@ -337,6 +337,7 @@ h3, .h3 {
 }
 
 .blog-main {
+  text-align: justify;
   font-size: 20px;
   line-height: 1.5;
   position: relative;
@@ -664,7 +665,7 @@ h3, .h3 {
 
 .slides .slide {
   background-size: cover;
-  height: calc(100vh - 20px); 
+  height: calc(100vh - 20px);
   padding: 10px 20px;
   position: relative;
   display: none;

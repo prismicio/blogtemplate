@@ -8,6 +8,8 @@ $(document).ready(function() {
 function Disqium(scope, disqus) {
     var $scope = $(scope);
 
+    $scope.addClass('disqium-container');
+
     var DisqusAPI = (function() {
         var endpoint = 'https://disqus.com/api/3.0';
         return {
@@ -159,9 +161,11 @@ function Disqium(scope, disqus) {
                     return '';
                 }
             })();
+            var $panel = $('<div class="disqium-panel"></div>');
             var $discussion = $('<ul class="disqium-discussion">' + $posts + '</<ul>');
             var $wrapper = $('<div class="disqium-wrapper"></div>');
-            $wrapper.append($button).append($discussion).append($form);
+            $panel.append($discussion).append($form);
+            $wrapper.append($button).append($panel);
             $el.append($wrapper);
         });
 
@@ -169,17 +173,19 @@ function Disqium(scope, disqus) {
             e.stopPropagation();
             var $button = $(this);
             $button.toggleClass('locked');
-            var $form = $button.siblings('[name=disqium-new-post]');
-            var $wrapper = $form.closest('.disqium-wrapper');
+            var $wrapper = $button.parent('.disqium-wrapper');
             $wrapper.toggleClass('fade-in');
-            var $p = $wrapper.parent('[data-disqium-thread-id]');
+            var $form = $wrapper.find('[name=disqium-new-post]');
+            var $p = $wrapper.closest('[data-disqium-thread-id]');
             var hash = $p.attr('data-disqium-thread-id');
             var $othersWrapper = $scope.find('[data-disqium-thread-id]:not([data-disqium-thread-id='+ hash +']) .disqium-wrapper');
             if($button.is('.locked')) {
                 $button.addClass('fade-in');
                 $othersWrapper.addClass('hide-you');
+                $scope.addClass('shift');
             } else {
                 $othersWrapper.removeClass('hide-you');
+                $scope.removeClass('shift');
             }
             var profile = getProfile();
             if(profile.name) $form.find('[name=disqium-new-post-name]').val(profile.name);
