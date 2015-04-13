@@ -46,6 +46,13 @@ function prismic_endpoint()
     return $app->config('prismic.url');
 }
 
+function disqus_forum()
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    return $app->config('disqus.forum');
+}
+
 function home_url($path = '', $scheme = null)
 {
     global $WPGLOBAL;

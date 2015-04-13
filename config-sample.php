@@ -9,7 +9,7 @@ define('PRISMIC_TOKEN', null);
 /**
  * Disqus integration
  */
-define('DISQUS_FORUM', null);
+define('DISQUS_FORUM', 'prismic-blogtemplate');
 define('DISQUS_API_KEY', null);
 define('DISQUS_API_SECRET', null);
 define('DISQUS_API_ACCESSTOKEN', null);

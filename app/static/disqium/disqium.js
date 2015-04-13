@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    Disqium('.blog-main.single', {
-        apiKey: 'E8Uh5l5fHZ6gD8U3KycjAIAk46f68Zw7C6eW8WSjZvCLXebZ7p0r1yrYDrLilk2F',
-        forum: 'prismic-blogtemplate'
-    });
-});
-
 function Disqium(scope, disqus) {
     var $scope = $(scope);
 
