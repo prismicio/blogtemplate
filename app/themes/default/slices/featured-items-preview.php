@@ -2,8 +2,8 @@
 
 <div class="list-pane">
 <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
-    <div class="group-doc">
     <?php $illustration = $groupDoc->get('illustration') ?>
+    <div class="group-doc" data-illustration="<?= $illustration->getMain()->getUrl() ?>">
     <?php $readMore = $groupDoc->get('read-more'); ?>
         <?php if (!is_null($illustration) && !is_null($illustration->getView('icon'))) { ?>
             <div class='illustration' style='background-image: url("<?= $illustration->getView('icon')->getUrl() ?>")'></div>
@@ -20,7 +20,7 @@
 </div>
 
 <div class="preview-pane">
-    <img src="https://d13yacurqjgara.cloudfront.net/users/14501/screenshots/1758086/preview.png" width="100%">
+    <img src="" width="100%">
 </div>
 
 </div>

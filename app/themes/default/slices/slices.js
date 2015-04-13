@@ -1,5 +1,9 @@
 $(function(){
 
+    "use strict";
+    
+    // Slides
+    
     function goToPreviousSlide(e) {
         var $slide = $(this).parents('.slide');
         var $slides = $slide.parents('.slides');
@@ -28,4 +32,16 @@ $(function(){
     $('.slides .slide a.arrow-prev').on('click', goToPreviousSlide);
     $('.slides .slide a.arrow-next').on('click', goToNextSlide);
 
+    // Preview
+
+    function selectPreviewDoc() {
+        var $previewPane = $(this).parents('.slice').find('.preview-pane');
+        var imageUrl = $(this).data('illustration');
+        $previewPane.find('img').attr('src', imageUrl);
+    }
+    
+    $('.slice.preview .group-doc').on('click', selectPreviewDoc);
+    $('.slice.preview .group-doc').first().map(selectPreviewDoc);
+    
+    
 });

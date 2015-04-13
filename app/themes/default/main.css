@@ -653,6 +653,7 @@ h3, .h3 {
   padding: 30px 0 30px 100px;
   position: relative;
   border-bottom: 1px solid #D6D6D6;
+  cursor: pointer;
 }
 
 .slice-featured.preview .group-doc h3 {

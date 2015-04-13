@@ -11,7 +11,7 @@
 
     <script src="/app/static/modernizr.js"></script>
     <script src="/app/static/jquery-1.11.2.min.js"></script>
-    <script src="/app/themes/default/slices/slides.js"></script>
+    <script src="/app/themes/default/slices/slices.js"></script>
 
     <!-- disqus integration -->
     <?php if(disqus_forum()) { ?>
