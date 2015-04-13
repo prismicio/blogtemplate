@@ -643,8 +643,24 @@ h3, .h3 {
 
 .slice-featured.preview .list-pane,
 .slice-featured.preview .preview-pane {
-  width: 50%;
+  text-align: left;
+  width: calc(50% - 2em);
   float: left;
+  padding: 1em;
+}
+
+.slice-featured.preview .group-doc {
+  padding: 30px 0 30px 100px;
+  position: relative;
+  border-bottom: 1px solid #D6D6D6;
+}
+
+.slice-featured.preview .group-doc h3 {
+  margin: 0 0 10px 0;
+}
+
+.slice-featured.preview .group-doc:last-child {
+  border-bottom: none;
 }
 
 .slice-featured.preview .illustration {
@@ -652,7 +668,8 @@ h3, .h3 {
   height: 60px;
   border-radius: 6px;
   margin: 0;
-  float: left;
+  position: absolute;
+  left: 1em;
 }
 
 /*
