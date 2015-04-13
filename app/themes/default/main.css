@@ -640,6 +640,20 @@ h3, .h3 {
   margin: 0;
 }
 
+.slice-featured.preview .list-pane,
+.slice-featured.preview .preview-pane {
+  width: 50%;
+  float: left;
+}
+
+.slice-featured.preview .illustration {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  margin: 0;
+  float: left;
+}
+
 /*
  * Slides
  */
