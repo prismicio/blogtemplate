@@ -233,7 +233,7 @@ $app->post('/disqus/threads/create', function() use ($app) {
         $app->response->headers->set('Content-Type', 'application/json');
 
         try {
-            $response = $httpClient->post('http://wroom.dev/starterkit/disqus/threads/create', array(), $data);
+            $response = $httpClient->post('https://prismic.io/starterkit/disqus/threads/create', array(), $data);
             $app->response->setStatus($response->getStatusCode());
             $json = json_decode($response->getBody());
             $body = array(
