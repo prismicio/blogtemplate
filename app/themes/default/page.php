@@ -27,11 +27,11 @@
         <a id="menu-hamburger" href="#right-panel"></a>
 
 
-<?php while ( have_posts() ) : the_post(); ?>
+        <?php while ( have_posts() ) : the_post(); ?>
 
-    <div id="page-content">
-        <?php page_content() ?>
-    </div>
+        <div id="page-content">
+            <?php page_content() ?>
+        </div>
 
 
 <?php endwhile; // end of the loop. ?>
