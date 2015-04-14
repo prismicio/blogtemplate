@@ -171,10 +171,6 @@ h3, .h3 {
   #menu-hamburger::before {
     font-size: 22px;
   }
-
-  .slice {
-    max-width: 700px;
-  }
 }
 
 /*
