@@ -316,7 +316,8 @@ class PrismicHelper
         return $calendar;
     }
 
-    function previous($document) {
+    function previous($document)
+    {
         $posts = $this->form()
             ->query(Predicates::at("document.type", "post"))
             ->set("after", $document->getId())
@@ -330,7 +331,8 @@ class PrismicHelper
         return null;
     }
 
-    function next($document) {
+    function next($document)
+    {
         $posts = $this->form()
             ->query(Predicates::at("document.type", "post"))
             ->set("after", $document->getId())
