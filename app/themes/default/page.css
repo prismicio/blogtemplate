@@ -1,5 +1,4 @@
 body {
-  background: #fff;
   font-family: 'Lato', sans-serif;
   color: #4A4A4A;
   font-size: 12px;
@@ -32,6 +31,7 @@ h2 {
 }
 
 h3 {
+  margin: 16px 0;
   font-size: 16px;
 }
 
@@ -144,19 +144,6 @@ li p {
 }
 
 /*
-  Featured list
-*/
-.featuredItems-roundImg {
-
-  background-size: cover;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin: 0 auto;
-
-}
-
-/*
  * Slices
  */
 
@@ -201,15 +188,7 @@ li p {
   background-size: cover;
 }
 
-.slice-featured.mini {
-  text-align: left;
-}
-
-.slice-featured.mini .illustration {
-  width: 60px;
-  height: 60px;
-  margin: 0;
-}
+/* Featured item preview */
 
 .featuredPreview .group-doc {
   min-height: 120px;
@@ -226,6 +205,15 @@ li p {
   width: 60px;
   height: 60px;
   border-radius: 6px;
+}
+
+/* Featured item mini */
+
+.featuredMini .illustration {
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 
 /*
