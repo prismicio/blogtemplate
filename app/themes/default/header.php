@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
     <link rel="stylesheet" href="/app/themes/default/blog.css">
-    <link rel="stylesheet" href="/app/themes/default/page.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

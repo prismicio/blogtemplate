@@ -35,11 +35,11 @@ $(function(){
     // Preview
 
     function selectPreviewDoc() {
-        var $previewPane = $(this).parents('.featuredPreview').find('.preview-pane');
+        var $previewPane = $(this).parents('.featured-preview').find('.preview-pane');
         var imageUrl = $(this).data('illustration');
         $previewPane.find('img').attr('src', imageUrl);
     }
 
-    $('.featuredPreview .group-doc').on('click', selectPreviewDoc);
-    $('.featuredPreview .group-doc').first().map(selectPreviewDoc);
+    $('.featured-preview .group-doc').on('click', selectPreviewDoc);
+    $('.featured-preview .group-doc').first().map(selectPreviewDoc);
 });

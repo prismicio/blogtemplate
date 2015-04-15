@@ -1,4 +1,4 @@
-<div class="row-centered-separate featuredItems">
+<div class="row-centered-separate featured-items">
 
   <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
 
@@ -12,7 +12,7 @@
 
     <div class="col-3 center">
 
-      <div class="featuredItems-roundImg" style='background-image: url("<?= $illustration->getView('icon')->getUrl() ?>")'></div>
+      <div class="illustration featuredItems-roundImg" style='background-image: url("<?= $illustration->getView('icon')->getUrl() ?>")'></div>
 
       <h3><?= $groupDoc->get('title')->asHtml() ?></h3>
 

@@ -1,4 +1,4 @@
-<div class="row-centered-separate featuredPreview">
+<div class="row-centered-separate featured-preview">
 
   <div class="col-2 list-pane">
 
@@ -10,8 +10,6 @@
 
       <li class="group-doc" data-illustration="<?= $illustration->getMain()->getUrl() ?>">
 
-      <?php $readMore = $groupDoc->get('read-more'); ?>
-
       <?php if (!is_null($illustration) && !is_null($illustration->getView('icon'))) { ?>
 
         <div class="illustration" style="background-image: url('<?= $illustration->getView('icon')->getUrl() ?>')"></div>
@@ -21,14 +19,6 @@
       <?= $groupDoc->get('title')->asHtml() ?>
 
       <?= $groupDoc->get('summary')->asHtml() ?>
-
-      <?php if ($readMore) {
-
-        $url = $linkResolver->resolve($readMore);
-        $title = $readMore->get('title');
-        echo '<a href="' . $url . '">' . $title . '</a>';
-
-      } ?>
 
     </li>
 
