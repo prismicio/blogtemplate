@@ -2,31 +2,33 @@
 
 <?php $index = 0; ?>
 
-<?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
+<?php foreach($slice->getValue()->getArray() as $item) { ?>
 
 <?php $odd = ($index % 2 != 0) ?>
 
-<div class="<?= $odd ? "alternate" : "" ?>">
+<div class="<?= $odd ? "alternate" : ""; ?>">
 
 <div class="row-centered alternated-highlights">
 
-  <?php $illustrationUrl = $groupDoc->get('illustration')->getMain()->getUrl(); ?>
+  <?php $illustrationUrl = $item->get('illustration')->getMain()->getUrl(); ?>
 
   <?php if(!$odd): ?>
+
     <div class="col-2 center">
 
       <img src="<?= $illustrationUrl ?>" />
 
     </div>
+
   <?php endif ?>
 
   <div class="col-2">
 
-     <h2><?= $groupDoc->get('title')->asText(); ?></h2>
+     <h2><?= $item->get('title')->asText(); ?></h2>
 
-     <?= $groupDoc->get('summary')->asHtml(); ?>
+     <?= $item->get('summary')->asHtml(); ?>
 
-     <?php $readMore = $groupDoc->get('read-more'); ?>
+     <?php $readMore = $item->get('read-more'); ?>
 
      <?php if ($readMore): ?>
 
@@ -39,11 +41,13 @@
   </div>
 
   <?php if($odd): ?>
+
     <div class="col-2 center">
 
       <img src="<?= $illustrationUrl ?>" />
 
     </div>
+
   <?php endif ?>
 
 </div>

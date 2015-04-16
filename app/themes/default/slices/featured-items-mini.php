@@ -1,16 +1,16 @@
 <div class="row-centered-separate featured-mini">
 
-  <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
+  <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
   <div class="col-3">
 
-    <?php $illustration = $groupDoc->get('illustration') ?>
+    <?php $illustration = $item->get('illustration'); ?>
 
-    <div class="illustration featuredItems-roundImg" style="background-image: url('<?= $illustration->getView('icon')->getUrl() ?>')"></div>
+    <div class="illustration round-image" style="background-image: url('<?= $illustration->getView('icon')->getUrl(); ?>')"></div>
 
-    <?= $groupDoc->get('title')->asHtml() ?>
+    <h3><?= $item->get('title')->asText(); ?></h3>
 
-    <?= $groupDoc->get('summary')->asHtml() ?>
+    <?= $item->get('summary')->asHtml(); ?>
 
   </div>
 

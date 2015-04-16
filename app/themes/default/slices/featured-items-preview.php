@@ -4,21 +4,21 @@
 
     <ul>
 
-    <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
+    <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-      <?php $illustration = $groupDoc->get('illustration') ?>
+      <?php $illustration = $item->get('illustration'); ?>
 
-      <li class="group-doc" data-illustration="<?= $illustration->getMain()->getUrl() ?>">
+      <li data-illustration="<?= $illustration->getMain()->getUrl(); ?>">
 
-      <?php if (!is_null($illustration) && !is_null($illustration->getView('icon'))) { ?>
+      <?php if (!is_null($illustration) && !is_null($illustration->getView('icon'))): ?>
 
         <div class="illustration" style="background-image: url('<?= $illustration->getView('icon')->getUrl() ?>')"></div>
 
-      <?php } ?>
+      <?php endif ?>
 
-      <?= $groupDoc->get('title')->asHtml() ?>
+      <h3><?= $item->get('title')->asText(); ?></h3>
 
-      <?= $groupDoc->get('summary')->asHtml() ?>
+      <?= $item->get('summary')->asHtml(); ?>
 
     </li>
 

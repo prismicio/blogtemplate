@@ -149,7 +149,7 @@ li p {
   padding: 0px 0 20px 0;
 }
 
-.featuredItems-roundImg {
+.round-image {
   background-size: cover;
   border-radius: 50%;
 }
@@ -205,7 +205,7 @@ li p {
   border-bottom: none;
 }
 
-.featured-preview .group-doc {
+.featured-preview li {
   min-height: 120px;
   border-bottom: 1px solid #D6D6D6;
   position: relative;
@@ -213,7 +213,7 @@ li p {
   cursor: pointer;
 }
 
-.featured-preview .group-doc .illustration {
+.featured-preview .illustration {
   position: absolute;
   left: 1em;
   background-size: cover;

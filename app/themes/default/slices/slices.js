@@ -81,8 +81,8 @@ $(function(){
       $previewPane.find('img').attr('src', imageUrl);
     }
 
-    $('.featured-preview .group-doc').on('click', select);
-    $('.featured-preview .group-doc').first().map(select);
+    $('.featured-preview [data-illustration]').on('click', select);
+    $('.featured-preview [data-illustration]').first().map(select);
 
   })();
 

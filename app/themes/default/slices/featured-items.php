@@ -1,24 +1,26 @@
 <div class="row-centered-separate featured-items">
 
-  <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
+  <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $groupDoc->get('illustration') ?>
-
-    <?php $readMore = $groupDoc->get('read-more'); ?>
-
-    <?php $url = "";/*$linkResolver->resolve($readMore);*/ ?>
-
-    <?php $title = "";/*$readMore->get('title');*/ ?>
+    <?php $illustration = $item->get('illustration'); ?>
 
     <div class="col-3 center">
 
-      <div class="illustration featuredItems-roundImg" style='background-image: url("<?= $illustration->getView('icon')->getUrl() ?>")'></div>
+      <div class="illustration round-image" style="background-image: url(<?= $illustration->getView("icon")->getUrl(); ?>)"></div>
 
-      <h3><?= $groupDoc->get('title')->asHtml() ?></h3>
+      <h3><?= $item->get('title')->asText(); ?></h3>
 
-      <p><?= $groupDoc->get('summary')->asHtml() ?></p>
+      <p><?= $item->get('summary')->asHtml(); ?></p>
 
-      <a href="#" class="button">Learn more</a>
+      <?php $readMore = $item->get('read-more'); ?>
+
+      <?php if ($readMore): ?>
+
+      <?php $url = $linkResolver->resolve($readMore); ?>
+
+      <a class="button" href="<?= $url ?>">READ MORE</a>
+
+      <?php endif ?>
 
     </div>
 

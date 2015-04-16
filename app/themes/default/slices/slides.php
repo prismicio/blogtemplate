@@ -3,19 +3,19 @@
     <a href="#" class="arrow-prev">&nbsp;</a>
 
 
-<?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
+<?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $groupDoc->get('illustration')->getMain(); ?>
+    <?php $illustration = $item->get('illustration')->getMain(); ?>
 
-    <?php $readMore = $groupDoc->get('read-more'); ?>
+    <?php $readMore = $item->get('read-more'); ?>
 
     <div class="slide" style="background-image: url(<?= $illustration->getUrl(); ?>)">
 
         <div class="slide-container">
 
-            <?= $groupDoc->get('title')->asHtml() ?>
+            <h1><?= $item->get('title')->asText(); ?></h1>
 
-            <?= $groupDoc->get('summary')->asHtml() ?>
+            <?= $item->get('summary')->asHtml(); ?>
 
             <?php if ($readMore): ?>
 
