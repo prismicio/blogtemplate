@@ -86,7 +86,11 @@ h3, .h3 {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
@@ -408,8 +412,10 @@ h3, .h3 {
 
 .blog-footer.single.fade-in {
   opacity: 1;
-  -webkit-transform: translate3d(0, -64px, 0);
   -moz-transform: translate3d(0, -64px, 0);
+  -ms-transform: translate3d(0, -64px, 0);
+  -o-transform: translate3d(0, -64px, 0);
+  -webkit-transform: translate3d(0, -64px, 0);
   transform: translate3d(0, -64px, 0);
 }
 
@@ -423,6 +429,10 @@ h3, .h3 {
   font-size: 0;
   position: absolute;
   top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   left: 50%;
 }
@@ -564,6 +574,10 @@ h3, .h3 {
 
   .blog-main.single .image-full-width {
     width: 100vw;
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    -o-transform: translate(-50%);
+    -webkit-transform: translate(-50%);
     transform: translate(-50%);
     margin-left: 50%;
   }

@@ -307,6 +307,10 @@ li p {
 }
 
 .slides .slide {
+  -moz-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  -o-transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
   background-size: cover;
   padding: 10px 20px;
@@ -339,9 +343,11 @@ li p {
   left: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  transform: translateY(-50%) rotate(180deg);
-  -ms-transform: translateY(-50%) rotate(180deg);
-  -webkit-transform: translateY(-50%) rotate(180deg);
+  -moz-transform: translatey(-50%) rotate(180deg);
+  -ms-transform: translatey(-50%) rotate(180deg);
+  -o-transform: translatey(-50%) rotate(180deg);
+  -webkit-transform: translatey(-50%) rotate(180deg);
+  transform: translatey(-50%) rotate(180deg);
 }
 
 .slides .arrow-next {
@@ -352,7 +358,11 @@ li p {
 
 .slide-container {
   position: absolute;
-  transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
