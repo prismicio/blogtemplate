@@ -1,4 +1,4 @@
-<div class="slides">
+<div class="slides row-separate">
 
     <a href="#" class="arrow-prev">&nbsp;</a>
 
