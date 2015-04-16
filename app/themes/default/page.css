@@ -1,3 +1,7 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Lato', sans-serif;
   color: #4A4A4A;
@@ -294,16 +298,21 @@ li p {
  * Slides
  */
 
+.slides {
+  height: 100vh;
+}
+
 .slides, .slides h2, .slide-arrows a {
   color: white;
 }
 
 .slides .slide {
+  transform: translate3d(100%, 0, 0);
   background-size: cover;
-  height: calc(100vh - 20px);
   padding: 10px 20px;
-  position: relative;
-  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .slides .slide h2 {
@@ -314,34 +323,36 @@ li p {
 }
 
 .slides .slide.active {
-    display: block;
+  display: block;
 }
 
-.slide .arrow-prev {
+.slides .arrow-prev, .slides .arrow-next {
   position: absolute;
   display: block;
-  top: calc(50% - 25px);
-  left: 0px;
+  z-index: 1;
+  top: 50%;
   height: 50px;
   width: 50px;
+}
+
+.slides .arrow-prev {
+  left: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
+  -ms-transform: translateY(-50%) rotate(180deg);
+  -webkit-transform: translateY(-50%) rotate(180deg);
 }
 
-.slide .arrow-next {
-  position: absolute;
-  display: block;
-  top: calc(50% - 25px);
+.slides .arrow-next {
   right: 0px;
-  height: 50px;
-  width: 50px;
   background: url(arrow.svg);
   background-size: 100%;
 }
 
 .slide-container {
-    margin: 200px 52px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
 }

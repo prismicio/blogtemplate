@@ -1,45 +1,89 @@
 $(function(){
 
-    "use strict";
+  "use strict";
 
-    // Slides
+  (function Slider() {
 
-    function goToPreviousSlide(e) {
-        var $slide = $(this).parents('.slide');
-        var $slides = $slide.parents('.slides');
-        var $prev = $slide.prev();
-        if (!$prev[0]) {
-            $prev = $slides.find('.slide').last();
+    var duration = 400;
+
+    function previous(e) {
+      e.preventDefault();
+
+      var $slides = $(this).parent('.slides');
+
+      if(!$slides.is('.moving')) {
+
+        var $current = $slides.find('.slide.active');
+        var $prev = $current.prev('.slide');
+
+        if (!$prev.length) {
+          $prev = $slides.find('.slide:last');
         }
-        $slide.removeClass('active');
+
+        $slides.addClass('moving');
+
+        Zanimo($prev[0], 'transform', 'translate3d(-100%, 0, 0)', 0).then(function() {
+          Zanimo($current[0], 'transform', 'translate3d(100%, 0, 0)', duration);
+          Zanimo($prev[0], 'transform', 'translate3d(0, 0, 0)', duration).fin(function() {
+            $slides.removeClass('moving');
+          });
+        });
+
+        $current.removeClass('active');
         $prev.addClass('active');
-        e.preventDefault();
+
+      }
     }
 
-    function goToNextSlide(e) {
-        var $slide = $(this).parents('.slide');
-        var $slides = $slide.parents('.slides');
-        var $next = $slide.next();
-        if (!$next[0]) {
-            $next = $slides.find('.slide').first();
+    function next(e) {
+      e.preventDefault();
+
+      var $slides = $(this).parent('.slides');
+
+      if(!$slides.is('.moving')) {
+
+        var $current = $slides.find('.slide.active');
+        var $next = $current.next('.slide');
+
+        if (!$next.length) {
+          $next = $slides.find('.slide:first');
         }
-        $slide.removeClass('active');
+
+        $slides.addClass('moving');
+
+        Zanimo($next[0], 'transform', 'translate3d(100%, 0, 0)', 0).then(function() {
+          Zanimo($current[0], 'transform', 'translate3d(-100%, 0, 0)', duration);
+          Zanimo($next[0], 'transform', 'translate3d(0, 0, 0)', duration).fin(function() {
+            $slides.removeClass('moving');
+          });
+        });
+
+        $current.removeClass('active');
         $next.addClass('active');
-        e.preventDefault();
+
+      }
     }
 
-    $('.slides .slide:first-child').addClass('active');
-    $('.slides .slide a.arrow-prev').on('click', goToPreviousSlide);
-    $('.slides .slide a.arrow-next').on('click', goToNextSlide);
+    var $init = $('.slides .slide:first');
+    $init.addClass('active');
+    Zanimo($init[0], 'transform', 'translate3d(0, 0, 0)', 0);
 
-    // Preview
+    $('.slides .arrow-prev').on('click', previous);
+    $('.slides .arrow-next').on('click', next);
 
-    function selectPreviewDoc() {
-        var $previewPane = $(this).parents('.featured-preview').find('.preview-pane');
-        var imageUrl = $(this).data('illustration');
-        $previewPane.find('img').attr('src', imageUrl);
+  })();
+
+  (function FeaturedItemPreview() {
+
+    function select() {
+      var $previewPane = $(this).parents('.featured-preview').find('.preview-pane');
+      var imageUrl = $(this).data('illustration');
+      $previewPane.find('img').attr('src', imageUrl);
     }
 
-    $('.featured-preview .group-doc').on('click', selectPreviewDoc);
-    $('.featured-preview .group-doc').first().map(selectPreviewDoc);
+    $('.featured-preview .group-doc').on('click', select);
+    $('.featured-preview .group-doc').first().map(select);
+
+  })();
+
 });

@@ -1,5 +1,7 @@
 </div>
 
+<script src="/app/static/Zanimo.js"></script>
+
 <!-- Hamburger menu -->
 <script src="/app/static/jquery.panelslider.js"></script>
 <script type="text/javascript">

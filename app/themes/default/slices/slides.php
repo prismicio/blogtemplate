@@ -1,5 +1,8 @@
 <div class="slides">
 
+    <a href="#" class="arrow-prev">&nbsp;</a>
+
+
 <?php foreach($slice->getValue()->getArray() as $groupDoc) { ?>
 
     <?php $illustration = $groupDoc->get('illustration')->getMain(); ?>
@@ -7,8 +10,6 @@
     <?php $readMore = $groupDoc->get('read-more'); ?>
 
     <div class="slide" style="background-image: url(<?= $illustration->getUrl(); ?>)">
-
-        <a href="#" class="arrow-prev">&nbsp;</a>
 
         <div class="slide-container">
 
@@ -27,10 +28,10 @@
 
         </div>
 
-        <a href="#" class="arrow-next">&nbsp;</a>
-
     </div>
 
 <?php } ?>
+
+    <a href="#" class="arrow-next">&nbsp;</a>
 
 </div>
