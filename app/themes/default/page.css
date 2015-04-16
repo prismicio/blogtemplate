@@ -300,6 +300,7 @@ li p {
 
 .slides {
   height: 100vh;
+  position: relative;
 }
 
 .slides, .slides h2, .slide-arrows a {
