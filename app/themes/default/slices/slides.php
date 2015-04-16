@@ -17,14 +17,13 @@
 
             <?= $groupDoc->get('summary')->asHtml() ?>
 
-            <?php if ($readMore) {
+            <?php if ($readMore): ?>
 
-                $url = $linkResolver->resolve($readMore);
+            <?php $url = $linkResolver->resolve($readMore); ?>
 
-                $title = $readMore->get('title');
+            <a class="button" href="<?= $url ?>">READ MORE</a>
 
-                echo '<a href="' . $url . '">' . $title . '</a>';
-            } ?>
+            <?php endif ?>
 
         </div>
 

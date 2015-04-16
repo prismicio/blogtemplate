@@ -86,6 +86,7 @@ li p {
 }
 
 .alternate {
+  padding: 1em;
   background: #F0F0F0;
 }
 
@@ -321,6 +322,10 @@ li p {
   font-weight: 300;
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+.slides .button {
+  color: #FFF;
 }
 
 .slides .slide.active {
