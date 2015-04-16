@@ -77,9 +77,15 @@ $(function(){
 
     function select() {
       var $previewPane = $(this).parents('.featured-preview').find('.preview-pane');
-      var imageUrl = $(this).data('illustration');
-      $previewPane.find('img').attr('src', imageUrl);
+      var url = $(this).data('illustration');
+      $previewPane.find('img').attr('src', url);
     }
+
+    $('.featured-preview [data-illustration]:not(:first-child)').each(function() {
+      var url = $(this).data('illustration');
+      var image = new Image();
+      image.src = url;
+    });
 
     $('.featured-preview [data-illustration]').on('click', select);
     $('.featured-preview [data-illustration]').first().map(select);
