@@ -61,23 +61,11 @@ function check_page_path1($path, $prismic)
 function redirect_path($path, $prismic)
 {
     $npath = $prismic->refresh_path($path);
-    if($npath != null)
-    {
-        $npath_uid = end($npath);
-        $newCorrectAddress = $prismic->page_path($npath_uid);
-        if($npath == $newCorrectAddress)
-        {
-            return '/'.implode('/',$newCorrectAddress);
+    if ($npath == null) return null;
 
-        }
-        if($npath != $newCorrectAddress)
-        {
-            // 404
-            return null;
-        }
-    }
-
-    return null;
+    $npath_uid = end($npath);
+    $newCorrectAddress = $prismic->page_path($npath_uid);
+    return '/'.implode('/',$newCorrectAddress);
 }
 
 function check_page_path($path, $prismic, $app)
