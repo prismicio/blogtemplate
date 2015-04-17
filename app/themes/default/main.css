@@ -141,11 +141,11 @@ a {
   top: 0;
 }
 
-.front-page .blog-post {
+.blog-post {
   position: relative;
 }
 
-.front-page .blog-post .wio-link {
+.blog-post .wio-link {
   right: 0px;
   top: 10px;
 }
