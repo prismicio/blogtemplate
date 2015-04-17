@@ -34,7 +34,7 @@ class BlogLinkResolver extends LinkResolver
             $year = $date ? $date->asDateTime()->format('Y') : '0';
             $month = $date ? $date->asDateTime()->format('m') : '0';
             $day = $date ? $date->asDateTime()->format('d') : '0';
-            return "/" . $year . '/' . $month . '/' . $day . '/' . urlencode($link->getUid());
+            return "/blog/" . $year . '/' . $month . '/' . $day . '/' . urlencode($link->getUid());
         }
 
         if ($link->getType() == "page") {

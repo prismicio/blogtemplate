@@ -25,21 +25,21 @@ use Suin\RSSWriter\Item;
 // Index
 $app->get('/', function() use ($app, $prismic) {
 
-    $posts = $prismic->form()
-        ->page(current_page($app))
-        ->query(Predicates::at("document.type", 'post'))
-        ->fetchLinks(
-            'post.date',
-            'category.name',
-            'author.full_name',
-            'author.first_name',
-            'author.surname',
-            'author.company'
-        )
-        ->orderings("my.post.date desc")
-        ->submit();
+    $homeId = $prismic->get_api()->bookmark('home');
 
-    render($app, 'index', array('posts' => $posts));
+    if (!$homeId) {
+        not_found($app);
+        return;
+    }
+
+    $home = $prismic->get_document($homeId);
+
+    if (!$home || $home->getType() != "page") {
+        not_found($app);
+        return;
+    }
+
+    render($app, 'page', array('single_post' => $home));
 });
 
 // Author
@@ -248,8 +248,28 @@ $app->post('/disqus/threads/create', function() use ($app) {
     }
 });
 
+// Blog home
+$app->get('/blog', function() use ($app, $prismic) {
+
+    $posts = $prismic->form()
+        ->page(current_page($app))
+        ->query(Predicates::at("document.type", 'post'))
+        ->fetchLinks(
+            'post.date',
+            'category.name',
+            'author.full_name',
+            'author.first_name',
+            'author.surname',
+            'author.company'
+        )
+        ->orderings("my.post.date desc")
+        ->submit();
+
+    render($app, 'index', array('posts' => $posts));
+});
+
 // Post
-$app->get('/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app, $prismic) {
+$app->get('/blog/:year/:month/:day/:uid', function($year, $month, $day, $uid) use($app, $prismic) {
     $fetch = array(
         'post.date',
         'category.name',

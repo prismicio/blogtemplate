@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  color: #4A4A4A;
+  font-family: 'PT Serif', serif;
+  color: #9698B9;
   font-size: 12px;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -22,6 +22,14 @@ li, ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+h1, h2, h3 {
+  font-family: 'Lucida Grande', sans-serif;
+}
+
+h2, h3 {
+  color: #0C0E57;
 }
 
 h1 {
@@ -86,7 +94,6 @@ li p {
 }
 
 .alternate {
-  padding: 1em;
   background: #F0F0F0;
 }
 
@@ -167,7 +174,7 @@ li p {
 
 .slice-featured {
   overflow: hidden;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
   text-align: center;
 }
 
@@ -250,6 +257,10 @@ li p {
 
 /* Alternated highlights full */
 
+.alternated-items .alternate {
+  padding: 1em;
+}
+
 .alternated-highlights-full img {
   display: block;
   width: 100%;
@@ -320,7 +331,7 @@ li p {
 .slides .slide h2 {
   font-size: 52px;
   font-weight: 300;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -356,6 +367,11 @@ li p {
   right: 0px;
   background: url(arrow.svg);
   background-size: 100%;
+  -moz-transform: translatey(-50%);
+  -ms-transform: translatey(-50%);
+  -o-transform: translatey(-50%);
+  -webkit-transform: translatey(-50%);
+  transform: translatey(-50%);
 }
 
 .slide-container {

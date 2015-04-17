@@ -2,11 +2,11 @@
 
 body {
   font-family: 'PT Serif', serif;
-  color: #444;
+  color: #5D5F86;
 }
 
 a {
-  color: #444;
+  color: #5D5F86;
   text-decoration: none;
   background-repeat: repeat-x;
   background-size: 2px 2px;
@@ -20,8 +20,8 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: 'Lato', sans-serif;
-  color: #444;
+  font-family: 'Lucida Grande', sans-serif;
+  color: #2F3163;
 }
 
 h1, .h1,
@@ -52,7 +52,7 @@ h3, .h3 {
 
 .blog-header {
   position: relative;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
   font-weight: 400;
   background: url(/app/static/placeholder.png) no-repeat center center;
   background-size: cover;
@@ -110,7 +110,7 @@ h3, .h3 {
 }
 
 .blog-description {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
   font-size: 22px;
   color: rgba(255, 255, 255, 0.60);
 }
@@ -126,7 +126,7 @@ h3, .h3 {
     background: #272727 none !important;
     padding: 5px;
     height: 40px;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #2F3163;
   }
 
   .blog-header .container {
@@ -235,7 +235,6 @@ h3, .h3 {
 .blog-main.single a {
   text-decoration: none;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.8) 75%);
-  color: #444;
   text-decoration: none;
   background-repeat: repeat-x;
   background-size: 2px 2px;
@@ -269,8 +268,15 @@ h3, .h3 {
 }
 
 .blog-post-title a, .blog-post-meta a {
-  color: #444;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
+}
+
+.blog-post-meta a {
+  color: #9494AF;
+}
+
+.blog-post-title a {
+  color: #2F3163;
 }
 
 .blog-post-meta {
@@ -299,10 +305,6 @@ h3, .h3 {
 .blog-post-meta .author::before {
   font-family: 'StarterKit';
   content: '\e005';
-}
-
-.blog-post-meta .created-at {
-  color: #B2B2B2;
 }
 
 .blog-post-meta span:first-child {
@@ -386,7 +388,7 @@ h3, .h3 {
 
 .blog-footer {
   box-shadow: 0 -1px 1px rgba(0,0,0,0.1);
-  color: #444;
+  color: #2F3163;
 }
 
 .blog-footer p:last-child {
@@ -465,7 +467,7 @@ h3, .h3 {
 }
 
 .blog-footer.single a .label {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lucida Grande', sans-serif;
 }
 
 .blog-footer.single a .label, .blog-footer.single a i {
@@ -498,7 +500,7 @@ h3, .h3 {
   text-align: center;
   font-style: italic;
   font-size: 14px;
-  color: #B2B2B2;
+  color: #9494AF;
   margin: 0;
 }
 
@@ -538,7 +540,7 @@ h3, .h3 {
     position: absolute;
     width: 100px;
     left: -110px;
-    border-right: solid #B2B2B2 7px;
+    border-right: solid #9494AF 7px;
     padding-right: 10px;
     padding-bottom: 30px;
     text-align: right;

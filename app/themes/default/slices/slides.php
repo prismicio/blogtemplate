@@ -1,7 +1,8 @@
 <div class="slides row-separate">
 
+<?php if(count($slice->getValue()->getArray()) > 1): ?>
     <a href="#" class="arrow-prev">&nbsp;</a>
-
+<?php endif ?>
 
 <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
@@ -31,6 +32,8 @@
 
 <?php } ?>
 
+<?php if(count($slice->getValue()->getArray()) > 1): ?>
     <a href="#" class="arrow-next">&nbsp;</a>
+<?php endif ?>
 
 </div>
