@@ -25,7 +25,6 @@
     <div id="main">
         <a id="menu-hamburger" href="#right-panel"></a>
 
-
         <?php while ( have_posts() ) : the_post(); ?>
 
         <div id="page-content">

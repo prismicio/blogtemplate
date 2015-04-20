@@ -14,7 +14,7 @@
 
         <div class="slide-container">
 
-            <h1><?= $item->get('title')->asText(); ?></h1>
+            <?= $item->get('title')->asHtml(); ?>
 
             <?= $item->get('summary')->asHtml(); ?>
 

@@ -87,6 +87,7 @@ $(function(){
       image.src = url;
     });
 
+    $('.featured-preview [data-illustration]').on('mouseenter', select);
     $('.featured-preview [data-illustration]').on('click', select);
     $('.featured-preview [data-illustration]').first().map(select);
 
