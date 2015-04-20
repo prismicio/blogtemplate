@@ -268,6 +268,42 @@ function link_to_post($post)
     return '<a href="' . document_url($post) . '">' . post_title($post) . '</a>';
 }
 
+function blog_home()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['homeblog'])) {
+        return $WPGLOBAL['homeblog'];
+    }
+    return null;
+}
+
+function blog_home_title()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) return "";
+    return blog_home()->getText('homeblog.headline');
+}
+
+function blog_home_description()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) return "";
+    return blog_home()->getText('homeblog.description');
+}
+
+function blog_home_image_url()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) return "";
+    $image = blog_home()->getImage('homeblog.image');
+    if($image) {
+        return $image->getMain()->getUrl();
+    }
+}
+
 function single_post_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;

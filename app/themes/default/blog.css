@@ -54,7 +54,6 @@ h3, .h3 {
   position: relative;
   font-family: 'Lucida Grande', sans-serif;
   font-weight: 400;
-  background: url(/app/static/placeholder.png) no-repeat center center;
   background-size: cover;
   height: 440px;
 }

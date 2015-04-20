@@ -251,6 +251,15 @@ $app->post('/disqus/threads/create', function() use ($app) {
 // Blog home
 $app->get('/blog', function() use ($app, $prismic) {
 
+    $homeblogId = $prismic->get_api()->bookmark('homeblog');
+
+    if (!$homeblogId) {
+        not_found($app);
+        return;
+    }
+
+    $homeblog = $prismic->get_document($homeblogId);
+
     $posts = $prismic->form()
         ->page(current_page($app))
         ->query(Predicates::at("document.type", 'post'))
@@ -265,7 +274,7 @@ $app->get('/blog', function() use ($app, $prismic) {
         ->orderings("my.post.date desc")
         ->submit();
 
-    render($app, 'index', array('posts' => $posts));
+    render($app, 'homeblog', array('homeblog' => $homeblog, 'posts' => $posts));
 });
 
 // Post
