@@ -39,7 +39,13 @@ class BlogLinkResolver extends LinkResolver
 
         if ($link->getType() == "page") {
             $homeId = $this->prismic->get_api()->bookmark('home');
-            if ($link->getId() != $homeId) {
+            $homeblogId = $this->prismic->get_api()->bookmark('homeblog');
+            if ($link->getId() == $homeblogId) {
+                return "/blog";
+            }
+            if ($link->getId() == $homeId) {
+                return "/";
+            } else {
                 $pieces = $this->prismic->page_path($link->getUid());
                 $pieces_encoded = array_map( function($p)
                 {
@@ -48,7 +54,6 @@ class BlogLinkResolver extends LinkResolver
                 return '/' . implode('/', $pieces_encoded);
             }
         }
-        return "/" . $link->getUid();
     }
 
 }

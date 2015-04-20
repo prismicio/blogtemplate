@@ -1,22 +1,18 @@
 <div class="row-centered-separate faq">
 
-  <?php $index = 0; ?>
+  <?php $opentag = false; ?>
 
-  <?php foreach($slice->getValue()->getArray() as $item) { ?>
+  <?php $items = $slice->getValue()->getArray(); ?>
 
-    <?php if($index % 3 == 0): ?>
+  <?php foreach($items as $item) { ?>
 
-      <?= $index != 0 ? "</div>" : "" ?>
+    <div class="col-2">
 
-      <div class="col-2">
+      <h3><?= $item->get('question')->asText(); ?></h3>
 
-    <?php endif ?>
+      <?= $item->get('answer')->asHtml(); ?>
 
-    <h3><?= $item->get('question')->asText(); ?></h3>
-
-    <?= $item->get('answer')->asHtml(); ?>
-
-    <?php $index++; ?>
+    </div>
 
   <?php } ?>
 

@@ -65,8 +65,8 @@ p {
 }
 
 .button {
-  color: rgba(0,0,0,1);
-  font-weight: 700;
+  font-family: 'Lucida Grande', sans-serif;
+  color: #0C0E57;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid #D8D8D8;
@@ -80,8 +80,7 @@ p {
 
 .button:hover {
   border: 1px solid rgba(0,0,0,1);
-  background: #4A4A4A;
-  background: rgba(0,0,0,1);
+  background: #0C0E57;
   color: #fff;
 }
 
@@ -210,16 +209,14 @@ li p {
   background: #F3F3F9;
 }
 
-.featured-preview li:last-child {
-  border-bottom: none;
-}
-
 .featured-preview li {
   min-height: 120px;
-  border-bottom: 1px solid #D6D6D6;
   position: relative;
   padding: 30px 0 30px 100px;
-  cursor: pointer;
+}
+
+.featured-preview li:hover {
+  background: #FFF;
 }
 
 .featured-preview .illustration {
