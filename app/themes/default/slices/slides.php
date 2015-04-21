@@ -6,17 +6,21 @@
 
 <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $item->get('illustration')->getMain(); ?>
+    <?php $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null; ?>
 
     <?php $readMore = $item->get('read-more'); ?>
 
-    <div class="slide" style="background-image: url(<?= $illustration->getUrl(); ?>)">
+    <?php if ($illustration) { ?>
+
+        <div class="slide" style="background-image: url(<?= $illustration->getUrl(); ?>)">
+
+    <?php } ?>
 
         <div class="slide-container">
 
-            <?= $item->get('title')->asHtml(); ?>
+            <?= $item->get('title') ? $item->get('title')->asHtml() : ''; ?>
 
-            <?= $item->get('summary')->asHtml(); ?>
+            <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
             <?php if ($readMore): ?>
 
