@@ -20,7 +20,7 @@
     font-style: normal;
     position: absolute;
     font-size: 14px;
-    font-family: 'Lucida Grande', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding-left: 20px;
     z-index: 2;
     top: 0;
@@ -117,7 +117,7 @@
 
 [data-disqium-thread-id] .disqium-wrapper .disqium-toggle-thread {
     position: absolute;
-    font-family: 'Lucida Grande', sans-serif;
+    font-family: 'Lato', sans-serif;
     opacity: 0;
     outline: none;
     border: none;
