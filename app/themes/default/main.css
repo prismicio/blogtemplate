@@ -43,9 +43,10 @@ a {
 }
 
 #menu-hamburger {
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
   z-index: 1;
-  float: right;
   color: white;
   text-shadow: 0 0 2px black;
 }
@@ -135,12 +136,12 @@ a {
 
 .wio-link {
   position: absolute;
-  display: none;
+  display: block;
 }
 
 .page .wio-link {
   width: 36px !important;
-  top: 70px;
+  top: 80px;
   right: 28px;
   z-index: 1;
   border-radius: 50%;
