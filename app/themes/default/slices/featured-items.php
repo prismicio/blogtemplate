@@ -2,7 +2,7 @@
 
   <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null; ?>
+    <?php $illustration = $item->get('illustration'); ?>
 
     <div class="col-3 center">
 
