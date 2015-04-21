@@ -160,7 +160,10 @@ class PrismicHelper
 
     function get_document($id)
     {
-        $results = $this->single($id, "document.id")->getResults();
+        $results = $this->form()
+            ->query(array(Predicates::at("document.id", $id)))
+            ->submit()
+            ->getResults();
         if (count($results) > 0) {
             return $results[0];
         }
@@ -171,13 +174,6 @@ class PrismicHelper
     {
         return $this->form()
             ->query(array(Predicates::any("document.id", $documentIds)))
-            ->submit();
-    }
-
-    function single($documentId, $field = "document.id")
-    {
-        return $this->form()
-            ->query(array(Predicates::at($field, $documentId)))
             ->submit();
     }
 
