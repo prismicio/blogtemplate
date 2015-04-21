@@ -4,7 +4,7 @@ use Prismic\Api;
 use Prismic\LinkResolver;
 use Prismic\Predicates;
 
-class BlogLinkResolver extends LinkResolver
+class StarterKitLinkResolver extends LinkResolver
 {
     private $prismic;
 
@@ -66,7 +66,7 @@ class PrismicHelper
 
     public function __construct($app) {
         $this->app = $app;
-        $this->linkResolver = new BlogLinkResolver($this);
+        $this->linkResolver = new StarterKitLinkResolver($this);
     }
 
     private $api = null;

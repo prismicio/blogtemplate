@@ -2,6 +2,10 @@ $(function(){
 
   "use strict";
 
+  $('.button.home').click(function(e) {
+    e.preventDefault();
+  });
+
   (function Slider() {
 
     var duration = 400;
