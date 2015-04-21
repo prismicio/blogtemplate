@@ -32,7 +32,7 @@
 
 </head>
 
-<body class="<?= is_front_page() ? 'front-page' : '' ?>">
+<body>
 
     <div id="right-panel">
         <?php get_sidebar() ?>

@@ -242,7 +242,8 @@ function get_the_tag_list($before = '', $sep = '', $after = '') {
 function wio_attributes()
 {
     global $WPGLOBAL, $loop;
-    $doc = $loop->current_post();
+    $page = single_post();
+    $doc = $page ? $page : $loop->current_post();
     if(!$doc) return null;
     echo 'data-wio-id="'. $doc->getId() . '"';
 }

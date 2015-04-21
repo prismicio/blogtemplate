@@ -16,13 +16,13 @@
 
 </head>
 
-<body class="<?= is_front_page() ? 'front-page' : '' ?>">
+<body>
 
     <div id="right-panel">
         <?php get_sidebar() ?>
     </div>
 
-    <div id="main">
+    <div id="main" <?= wio_attributes(); ?>>
         <a id="menu-hamburger" href="#right-panel"></a>
 
         <?php while ( have_posts() ) : the_post(); ?>

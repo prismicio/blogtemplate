@@ -30,10 +30,10 @@
 
 </head>
 
-<body class="<?= is_front_page() ? 'front-page' : '' ?>">
+<body>
 
     <div id="right-panel">
-        <?php get_sidebar() ?>
+        <?php get_sidebar(); ?>
     </div>
 
     <div id="main">
@@ -44,16 +44,16 @@
 
 <div class="blog-header single" style="background-image: url(<?= post_thumbnail_url() ?>)">
     <div class="wrapper">
-       <?php single_post_date() ?>
-       <?php single_post_author() ?>
-       <h1 class="blog-title"><?= single_post_title() ?></h1>
-       <?php single_post_shortlede() ?>
+       <?php single_post_date(); ?>
+       <?php single_post_author(); ?>
+       <h1 class="blog-title"><?= single_post_title(); ?></h1>
+       <?php single_post_shortlede(); ?>
     </div>
 </div>
 
-<div class="blog-main single container" <?= wio_attributes() ?>>
+<div class="blog-main single container" <?= wio_attributes(); ?>>
 
-    <?php the_content() ?>
+    <?php the_content(); ?>
 
 </div>
 
