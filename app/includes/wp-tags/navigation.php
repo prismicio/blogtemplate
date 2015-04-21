@@ -48,7 +48,7 @@ function next_posts_link($label = 'Next Page »') {
 function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
-    $previous = $prismic->previous($loop->current_post());
+    $previous = $prismic->get_prev_post($loop->current_post()->getId());
     if ($previous) {
         $url = $prismic->linkResolver->resolveDocument($previous);
         $label = str_replace('%link', htmlentities($previous->getText('post.title')), $format);
@@ -59,7 +59,7 @@ function previous_post_link($format = '&laquo; %link', $link = '%title', $in_sam
 function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
-    $next = $prismic->next($loop->current_post());
+    $next = $prismic->get_next_post($loop->current_post()->getId());
     if ($next) {
         $url = $prismic->linkResolver->resolveDocument($next);
         $label = str_replace('%link', htmlentities($next->getText('post.title')), $format);
@@ -71,9 +71,9 @@ function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previou
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     if ($previous) {
-        return $prismic->previous($loop->current_post());
+        return $prismic->get_prev_post($loop->current_post()->getId());
     } else {
-        return $prismic->next($loop->current_post());
+        return $prismic->get_next_post($loop->current_post()->getId());
     }
 }
 

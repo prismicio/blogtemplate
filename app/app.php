@@ -95,7 +95,6 @@ $app->get('/search', function() use($app, $prismic) {
 
 // Category
 $app->get('/category/:uid', function ($uid) use($app, $prismic) {
-
     $cat = $prismic->by_uid("category", $uid);
 
     if (!$cat) {

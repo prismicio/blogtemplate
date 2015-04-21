@@ -321,36 +321,6 @@ class PrismicHelper
         return $calendar;
     }
 
-    function previous($document)
-    {
-        $posts = $this->form()
-            ->query(Predicates::at("document.type", "post"))
-            ->set("after", $document->getId())
-            ->pageSize(1)
-            ->orderings("[my.post.date]")
-            ->submit()
-            ->getResults();
-        if (count($posts) > 0) {
-            return $posts[0];
-        }
-        return null;
-    }
-
-    function next($document)
-    {
-        $posts = $this->form()
-            ->query(Predicates::at("document.type", "post"))
-            ->set("after", $document->getId())
-            ->pageSize(1)
-            ->orderings("[my.post.date desc]")
-            ->submit()
-            ->getResults();
-        if (count($posts) > 0) {
-            return $posts[0];
-        }
-        return null;
-    }
-
     public function home()
     {
         $homeId = $this->get_api()->bookmark('home');
