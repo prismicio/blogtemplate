@@ -47,6 +47,7 @@ a {
   z-index: 1;
   float: right;
   color: white;
+  text-shadow: 0 0 2px black;
 }
 
 #menu-hamburger::before {
