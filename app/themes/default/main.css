@@ -28,6 +28,16 @@ a {
     padding: 15px 20px;
     font-size: 18px;
   }
+
+  .page .wio-link {
+    width: 30px !important;
+    top: 60px;
+    right: 18px;
+  }
+
+  .page .wio-link img {
+    width: 18px;
+  }
 }
 
 /*
@@ -128,6 +138,16 @@ a {
   #menu-hamburger::before {
     font-size: 22px;
   }
+
+  .page .wio-link {
+    width: 36px !important;
+    top: 80px;
+    right: 28px;
+  }
+
+  .page .wio-link img {
+    width: 24px;
+  }
 }
 
 /*
@@ -137,19 +157,16 @@ a {
 .wio-link {
   position: absolute;
   display: block;
+  box-shadow: 0 0 2px black;
 }
 
 .page .wio-link {
-  width: 36px !important;
-  top: 80px;
-  right: 28px;
   z-index: 1;
   border-radius: 50%;
   background: #FFF !important;
 }
 
 .page .wio-link img {
-  width: 24px;
   padding: 6px;
 }
 

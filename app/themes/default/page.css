@@ -2,6 +2,11 @@ html {
   overflow-x: hidden;
 }
 
+#main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 img {
   display: block;
 }
@@ -101,29 +106,67 @@ li p {
   text-align: center;
 }
 
-.col-1, .col-2, .col-3, .col-4 {
-  float: left;
-  padding: 1em;
+@media (min-width: 768px) {
+
+  .col-1, .col-2, .col-3, .col-4 {
+    float: left;
+    padding: 1em 0;
+  }
+
+  .col-1 {
+    width: 100%;
+  }
+
+  .col-2 {
+    width: 50%;
+  }
+
+  .col-3 {
+    width: calc((100% / 3) - (1em - 1em / 3));
+  }
+
+  .col-4 {
+    width: calc((100% / 4) - (1em - 1em / 4));
+  }
+
+  .col-3 + .col-3,.col-4 + .col-4 {
+    margin-left: 1em;
+  }
+
+  .alternated-highlights-full .col-text {
+    width: 60%;
+  }
+
+  .alternated-highlights-full .col-illustration {
+    width: 40%;
+  }
+
+  .alternated-highlights-full .col-text, .alternated-highlights-full .col-illustration {
+    float: left;
+  }
 }
 
-.col-1 {
-  width: 100%;
-}
+@media (max-width: 767px) {
 
-.col-2 {
-  width: 50%;
-}
+  .featured-mini {
+    text-align: center;
+  }
 
-.col-3 {
-  width: calc((100% / 3) - (1em - 1em / 3));
-}
+  .featured-mini .illustration {
+    margin: auto;
+  }
 
-.col-4 {
-  width: calc((100% / 4) - (1em - 1em / 4));
-}
+  .featured-items .col-3 {
+    margin: 40px;
+  }
 
-.col-3 + .col-3,.col-4 + .col-4 {
-  margin-left: 1em;
+  .section-header {
+    text-align: center;
+  }
+
+  .faq {
+    text-align: center;
+  }
 }
 
 .row {
@@ -298,18 +341,6 @@ li p {
 .alternated-highlights-full .illustration {
   height: 100%;
   background-size: cover;
-}
-
-.alternated-highlights-full .col-text {
-  width: 60%;
-}
-
-.alternated-highlights-full .col-illustration {
-  width: 40%;
-}
-
-.alternated-highlights-full .col-text, .alternated-highlights-full .col-illustration {
-  float: left;
 }
 
 /* featured items simple */
