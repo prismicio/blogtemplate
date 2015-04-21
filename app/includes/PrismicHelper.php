@@ -342,13 +342,25 @@ class PrismicHelper
         if (!$page) return $result;
         $group = $page->getGroup("page.children");
         if (!$group) return $result;
+        $children_ids = array();
+        foreach ($group->getArray() as $item) {
+            if (!isset($item['label']) || !isset($item['link'])) continue;
+            $link = $item->getLink('link');
+            if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
+                array_push($children_ids, $link->getId());
+            }
+        }
+        $children_by_id = array();
+        foreach ($this->from_ids($children_ids)->getResults() as $page) {
+            $children_by_id[$page->getId()] = $page;
+        }
         foreach ($group->getArray() as $item) {
             if (!isset($item['label']) || !isset($item['link'])) continue;
             $label = $item->getText('label');
             $link = $item->getLink('link');
             $children = array();
             if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
-                $doc = $this->get_document($link->getId());
+                $doc = $children_by_id[$link->getId()];
                 if (!$label) {
                     $label = "No label";
                 }
