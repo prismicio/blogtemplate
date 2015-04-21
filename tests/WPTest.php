@@ -9,9 +9,9 @@ class WPTest extends LocalWebTestCase
         ));
     }
 
-    public function testHome()
+    public function testBlogHome()
     {
-        $this->client->get('/');
+        $this->client->get('/blog');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
@@ -20,16 +20,16 @@ class WPTest extends LocalWebTestCase
         $this->assertEquals(2, count($html('div.blog-post')));
 
         // The sidebar is correct
-        $h3links = $html('.sidebar-section h3 a');
-        $first = $h3links[0];
-        $this->assertEquals('active', $first->class);
+        // $h3links = $html('.sidebar-section h3 a');
+        // $first = $h3links[0];
+        // $this->assertEquals('active', $first->class);
         // $last = $h3links[3];
         // $this->assertEquals('external', $last->class);
     }
 
     public function testPermalink()
     {
-        $this->client->get('/2014/11/27/first-post');
+        $this->client->get('/blog/2014/11/27/first-post');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
@@ -86,8 +86,7 @@ class WPTest extends LocalWebTestCase
         $this->client->get('/sample-page');
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
-        $this->assertEquals(2, count($html('h1')));
-        $this->assertEquals("Sample Website Starter Page", trim($html('h1', 0)->getPlainText()));
+        $this->assertEquals("Sample Website Starter Page", trim($html('h2', 0)->getPlainText()));
     }
 
     public function testTag()

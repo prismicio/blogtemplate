@@ -34,7 +34,12 @@ function render($app, $page, $data = array())
     try {
         include_once(theme_dir($app) . '/functions.php');
     } catch(Exception $ex) {}
-    require theme_dir($app) . '/' . $page . '.php';
+    $file_path = theme_dir($app) . '/' . $page . '.php';
+    if (file_exists($file_path)) {
+        require($file_path);
+    } else {
+        render($app, '404');
+    }
 }
 
 function current_page($app)

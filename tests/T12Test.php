@@ -9,21 +9,17 @@ class T12Test extends LocalWebTestCase
         ));
     }
 
-    public function testHome()
+    public function testBlogHome()
     {
         $this->client->get('/');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
-
-        // No errors, one blog post
-        $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals(2, count($html('article')));
     }
 
     public function testPermalink()
     {
-        $this->client->get('/2014/11/27/first-post');
+        $this->client->get('/blog/2014/11/27/first-post');
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
