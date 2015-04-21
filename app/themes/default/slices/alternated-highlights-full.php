@@ -1,4 +1,4 @@
-<div class="row-separate">
+<div class="row-separate alternated-items">
 
 <?php $index = 0; ?>
 
@@ -16,23 +16,28 @@
 
     <div class="col-illustration">
 
-      <img src="<?= $illustrationUrl ?>" />
+      <div class="illustration" style="background-image: url(<?= $illustrationUrl; ?>)"></div>
 
     </div>
 
   <?php endif ?>
 
   <div class="col-text">
-     <h2><?= $item->get('title')->asText(); ?></h2>
 
-     <?= $item->get('summary')->asHtml(); ?>
+     <div class="text-wrapper">
+
+       <h2><?= $item->get('title')->asText(); ?></h2>
+
+       <?= $item->get('summary')->asHtml(); ?>
+
+     </div>
   </div>
 
   <?php if($odd): ?>
 
     <div class="col-illustration">
 
-      <img src="<?= $illustrationUrl ?>" />
+      <div class="illustration" style="background-image: url(<?= $illustrationUrl; ?>)"></div>
 
     </div>
 

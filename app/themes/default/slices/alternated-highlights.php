@@ -6,17 +6,17 @@
 
 <?php $odd = ($index % 2 != 0) ?>
 
+<?php $illustration = $item->get('illustration')->getMain(); ?>
+
 <div class="<?= $odd ? "alternate" : ""; ?>">
 
 <div class="row-centered alternated-highlights">
 
-  <?php $illustrationUrl = $item->get('illustration')->getMain()->getUrl(); ?>
-
   <?php if(!$odd): ?>
 
-    <div class="col-2 center">
+    <div class="col-2">
 
-      <img src="<?= $illustrationUrl ?>" />
+      <div class="illustration" style="background-image: url(<?= $illustration->getUrl(); ?>)"></div>
 
     </div>
 
@@ -24,27 +24,31 @@
 
   <div class="col-2">
 
-     <h2><?= $item->get('title')->asText(); ?></h2>
+     <div class="text-wrapper">
 
-     <?= $item->get('summary')->asHtml(); ?>
+       <h2><?= $item->get('title')->asText(); ?></h2>
 
-     <?php $readMore = $item->get('read-more'); ?>
+       <?= $item->get('summary')->asHtml(); ?>
 
-     <?php if ($readMore): ?>
+       <?php $readMore = $item->get('read-more'); ?>
 
-     <?php $url = $linkResolver->resolve($readMore); ?>
+       <?php if ($readMore): ?>
 
-     <a class="button" href="<?= $url ?>">READ MORE</a>
+       <?php $url = $linkResolver->resolve($readMore); ?>
 
-     <?php endif ?>
+       <a class="button" href="<?= $url ?>">READ MORE</a>
+
+       <?php endif ?>
+
+     </div>
 
   </div>
 
   <?php if($odd): ?>
 
-    <div class="col-2 center">
+    <div class="col-2">
 
-      <img src="<?= $illustrationUrl ?>" />
+      <div class="illustration" style="background-image: url(<?= $illustration->getUrl(); ?>)"></div>
 
     </div>
 
