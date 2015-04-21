@@ -8,9 +8,9 @@
 
     <div class="col-2">
 
-      <h3><?= $item->get('question')->asText(); ?></h3>
+      <h3><?= $item->get('question') ? $item->get('question')->asText() : 'Empty'; ?></h3>
 
-      <?= $item->get('answer')->asHtml(); ?>
+      <?= $item->get('answer') ? $item->get('answer')->asHtml() : ''; ?>
 
     </div>
 

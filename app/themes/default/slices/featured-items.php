@@ -2,15 +2,19 @@
 
   <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $item->get('illustration'); ?>
+    <?php $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null; ?>
 
     <div class="col-3 center">
 
-      <div class="illustration round-image" style="background-image: url(<?= $illustration->getView("icon")->getUrl(); ?>)"></div>
+      <?php if ($illustration) { ?>
 
-      <h3><?= $item->get('title')->asText(); ?></h3>
+        <div class="illustration round-image" style="background-image: url(<?= $illustration->getView("icon")->getUrl(); ?>)"></div>
 
-      <p><?= $item->get('summary')->asHtml(); ?></p>
+      <?php } ?>
+
+      <?= $item->get('title') ? $item->get('title')->asHtml() : ''; ?>
+
+      <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
       <?php $readMore = $item->get('read-more'); ?>
 
