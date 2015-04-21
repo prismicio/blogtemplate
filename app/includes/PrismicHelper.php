@@ -37,12 +37,13 @@ class StarterKitLinkResolver extends LinkResolver
             return "/blog/" . $year . '/' . $month . '/' . $day . '/' . urlencode($link->getUid());
         }
 
+        $homeblogId = $this->prismic->get_api()->bookmark('homeblog');
+        if ($link->getType() == "homeblog" && $link->getId() == $homeblogId) {
+            return "/blog";
+        }
+
         if ($link->getType() == "page") {
             $homeId = $this->prismic->get_api()->bookmark('home');
-            $homeblogId = $this->prismic->get_api()->bookmark('homeblog');
-            if ($link->getId() == $homeblogId) {
-                return "/blog";
-            }
             if ($link->getId() == $homeId) {
                 return "/";
             } else {

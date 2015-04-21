@@ -79,7 +79,7 @@ p {
 }
 
 .button:hover {
-  border: 1px solid rgba(0,0,0,1);
+  border: 1px solid #0C0E57;
   background: #0C0E57;
   color: #fff;
 }
@@ -374,6 +374,11 @@ li p {
   -o-transform: translatey(-50%);
   -webkit-transform: translatey(-50%);
   transform: translatey(-50%);
+}
+
+.slides .button:not(.home):hover {
+  background: #FFF;
+  color: #0C0E57;
 }
 
 .slides p {
