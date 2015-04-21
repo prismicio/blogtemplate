@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body class="page">
 
     <div id="right-panel">
         <?php get_sidebar() ?>

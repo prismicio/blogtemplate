@@ -138,6 +138,20 @@ a {
   display: none;
 }
 
+.page .wio-link {
+  width: 36px !important;
+  top: 70px;
+  right: 28px;
+  z-index: 1;
+  border-radius: 50%;
+  background: #FFF !important;
+}
+
+.page .wio-link img {
+  width: 24px;
+  padding: 6px;
+}
+
 [data-wio-id]:hover .wio-link {
   display: block;
 }
