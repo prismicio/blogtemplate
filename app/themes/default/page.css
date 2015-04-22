@@ -398,6 +398,7 @@ li p {
   position: absolute;
   height: 100%;
   width: 100%;
+  background-color: #201145;
 }
 
 .slides .slide h2 {
