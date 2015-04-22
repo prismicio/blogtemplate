@@ -110,7 +110,6 @@ li p {
 
   .col-1, .col-2, .col-3, .col-4 {
     float: left;
-    padding: 1em 0;
   }
 
   .col-1 {
@@ -251,7 +250,15 @@ li p {
 .featured-preview li {
   min-height: 120px;
   position: relative;
-  padding: 30px 0 30px 100px;
+  padding: 30px 1em 30px 100px;
+}
+
+.featured-preview li:first-child:hover {
+  border-top: 1px solid #F3F3F9;
+}
+
+.featured-preview li:last-child:hover {
+  border-top: 1px solid #F3F3F9;
 }
 
 .featured-preview li:hover {
