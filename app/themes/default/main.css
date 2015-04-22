@@ -159,6 +159,10 @@ a {
   display: none;
 }
 
+.page .wio-link {
+  display: block;
+}
+
 .page .wio-link:hover {
   transform: scale(1.1);
 }

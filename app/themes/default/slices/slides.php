@@ -26,7 +26,9 @@
 
             <?php $url = $linkResolver->resolve($readMore); ?>
 
-            <a class="button <?= is_home() ? 'home' : '';?>" href="<?= $url ?>">READ MORE</a>
+            <a class="button <?= is_home() ? 'home' : '';?>" href="<?= $url ?>">
+              <?= is_home() ? 'download' : 'learn more' ?>
+            </a>
 
             <?php endif ?>
 

@@ -108,6 +108,11 @@ li p {
 
 @media (min-width: 768px) {
 
+  .button.home {
+    padding: 27px 105px;
+    margin-top: 44px;
+  }
+
   .col-1, .col-2, .col-3, .col-4 {
     float: left;
   }
@@ -146,6 +151,11 @@ li p {
 }
 
 @media (max-width: 767px) {
+
+  .button.home {
+    padding: 20px;
+    width: 100%;
+  }
 
   .featured-mini {
     text-align: center;
@@ -464,12 +474,10 @@ li p {
   border: none;
   text-transform: uppercase;
   font-size: 17px;
-  padding: 27px 105px;
   border-radius: 60px;
   -moz-box-shadow: 0 3px #412F8D;
   -webkit-box-shadow: 0 3px #412F8D;
   box-shadow: 0px 3px #412F8D;
-  margin-top: 44px;
   cursor: pointer;
   outline: none;
 }

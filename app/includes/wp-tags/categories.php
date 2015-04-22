@@ -86,14 +86,27 @@ function single_tag_title($prefix = '', $display = true)
 function category_description($uid = null)
 {
     global $WPGLOBAL;
+
     $prismic = $WPGLOBAL['prismic'];
-    if ($uid != null) {
+
+    if ($uid != null)
+    {
         $category = $prismic->by_uid("category", $uid);
-    } else {
+    } else
+    {
         $category = $WPGLOBAL['category'];
     }
-    if ($category && $category->getStructuredText('category.description')) {
-        return $category->getStructuredText('category.description')->asHtml($prismic->linkResolver);
+
+    $description = $category->getStructuredText('category.description');
+
+    if ($category && $description)
+    {
+        $htmlSerializer = function($element, $content) {
+            if ($element instanceof \Prismic\Fragment\Block\ParagraphBlock) {
+                return '<p class="category-description">' . $content . '<p>';
+            }
+        };
+        return $description->asHtml($prismic->linkResolver, $htmlSerializer);
     }
 }
 

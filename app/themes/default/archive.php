@@ -1,9 +1,14 @@
 <?php get_header() ?>
-    <div class="blog-header home">
-    <div class="container">
-        <h1 class="blog-title">Archives for <?= archive_date() ?></h1>
-    </div>
-    </div>
+
+<div class="blog-header archive">
+
+  <div class="wrapper">
+
+    <h1 class="blog-title">Archives for <?= archive_date() ?></h1>
+
+  </div>
+
+</div>
 
 <div class="container blog-main">
 
