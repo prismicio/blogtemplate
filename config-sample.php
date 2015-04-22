@@ -27,7 +27,7 @@ define('PAGE_SIZE', 10);
 /**
  * Your site metadata
  */
-define('SITE_TITLE', 'New Prismic.io Blog');
+define('SITE_TITLE', 'prismic.io Website Starter');
 define('SITE_DESCRIPTION', 'This is a sample theme using Bootstrap');
 define('ADMIN_EMAIL', '');
 

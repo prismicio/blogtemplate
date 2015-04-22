@@ -55,11 +55,13 @@ h3, .h3 {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   background-size: cover;
-  height: 440px;
+  min-height: 60vh;
+  background: url(/app/themes/default/blank.png);
+  background-size: cover;
 }
 
-.blog-header.home {
-  background-image: url(/app/themes/default/home.jpg);
+.blog-header.author {
+  text-align: center;
 }
 
 .blog-header.single::before {
@@ -117,12 +119,17 @@ h3, .h3 {
 
 @media (max-width: 767px) {
 
+  .author-image {
+    width: 80px;
+    height: 80px;
+  }
+
   .blog-header.single .date, .blog-header.single .shortlede, .blog-header.single .author {
     display: none;
   }
 
   .blog-header {
-    background: #272727 none !important;
+    background: #201145 none;
     padding: 5px;
     height: 40px;
     border-bottom: 1px solid #2F3163;
@@ -175,12 +182,25 @@ h3, .h3 {
 
 @media (min-width: 768px) {
 
-  .blog-main {
-    margin-top: 40px;
+  .blog-header .container {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 
-  .blog-header.single, .blog-header.home {
-    height: 100vh;
+  .author-image {
+    width: 143px;
+    height: 143px;
+  }
+
+  .blog-main {
+    margin-top: 40px;
   }
 
   .blog-header h1 {
@@ -203,19 +223,19 @@ h3, .h3 {
     padding: 20px;
   }
 
-  .blog-footer .menu {
+  .blog-footer.single .menu {
     padding: 18px;
   }
 
-  .blog-footer .label {
+  .blog-footer.single .label {
     font-size: 14px;
   }
 
-  .blog-footer .previous .label::before {
+  .blog-footer.single .previous .label::before {
     margin-right: 15px;
   }
 
-  .blog-footer .next .label::after {
+  .blog-footer.single .next .label::after {
     margin-left: 15px;
   }
 }
@@ -327,37 +347,28 @@ h3, .h3 {
  * Author page
  */
 
-.blog-author-header {
-  padding-top: 60px;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
 .author-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50px;
+  border-radius: 50%;
   background-size: cover;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
-.author-name-title {
+.author-name {
   margin-top: 20px;
-  font-size: 36px;
+  font-size: 60px;
 }
 
 .author-bio {
+  font-size: 20px;
   color: white;
-  margin-top: 20px;
   line-height: 1.8em;
-  padding-left: 120px;
-  padding-right: 120px;
+  width: 60%;
+  margin: 20px auto 0 auto;
 }
 
 .author-sites {
   margin-top: 15px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .author-sites ul {

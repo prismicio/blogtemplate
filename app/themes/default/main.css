@@ -156,8 +156,7 @@ a {
 
 .wio-link {
   position: absolute;
-  display: inline-block;
-  box-shadow: 0 0 2px black;
+  display: none;
 }
 
 .page .wio-link:hover {
@@ -169,6 +168,7 @@ a {
   z-index: 1;
   border-radius: 50%;
   background: #FFF !important;
+  box-shadow: 0 0 2px black;
 }
 
 .page .wio-link img {
