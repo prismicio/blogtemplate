@@ -1,6 +1,5 @@
 vendor/
 .idea/
-config.php
 build/
 dist/
 blogtemplate-latest.zip
