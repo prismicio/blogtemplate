@@ -42,8 +42,7 @@ h3, .h3 {
 .container {
   max-width: 700px;
   padding: 26px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: auto;
 }
 
 #main {
@@ -54,10 +53,20 @@ h3, .h3 {
   position: relative;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  background-size: cover;
-  min-height: 60vh;
   background: url(/app/themes/default/blank.png);
   background-size: cover;
+}
+
+.blog-header.single, .blog-header.home {
+  height: 100vh;
+}
+
+.blog-header.author {
+  height: 60vh;
+}
+
+.blog-header.tag, .blog-header.category {
+  height: 50vh;
 }
 
 .blog-header.author {
@@ -329,19 +338,6 @@ h3, .h3 {
 .blog-post-meta span:first-child {
   margin-left: 0;
 }
-
-.post-thumbnail {
-  float: right;
-  width: 160px;
-  height: 140px;
-  overflow: hidden;
-  margin-left: 10px;
-}
-
-.post-thumbnail img {
-  margin-left: -80px;
-}
-
 
 /*
  * Author page

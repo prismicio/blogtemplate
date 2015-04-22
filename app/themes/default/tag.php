@@ -1,6 +1,6 @@
 <?php get_header() ?>
 
-<div class="blog-header">
+<div class="blog-header tag">
     <div class="container">
         <h1 class="blog-title">tag: <?= single_tag_title() ?></h1>
     </div>
