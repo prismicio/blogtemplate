@@ -6,11 +6,11 @@
 
     <?php $illustration = $item->get('illustration'); ?>
 
-    <div class="illustration round-image" style="background-image: url('<?= $illustration->getView('icon')->getUrl(); ?>')"></div>
+    <div class="illustration round-image" <?= $illustration ? 'style="background-image: url('.$illustration->getView("icon")->getUrl().')"' : '' ?>></div>
 
-    <h3><?= $item->get('title')->asText(); ?></h3>
+    <h3><?= $item->get('title') ? $item->get('title')->asText() : ''; ?></h3>
 
-    <?= $item->get('summary')->asHtml(); ?>
+    <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
   </div>
 

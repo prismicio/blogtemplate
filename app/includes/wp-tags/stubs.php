@@ -4,18 +4,24 @@
 $GLOBALS['wp_version'] = '10.0';
 
 /**
- * Stubs for compatibility with wordpress
+ * Stubs for compatibility with wordpress.
  */
-
-function language_attributes() {}
-
-function wp_head() {
-    echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/style.css">';
+function language_attributes()
+{
 }
 
-function body_class() {}
+function wp_head()
+{
+    echo '<link rel="stylesheet" href="'.get_template_directory_uri().'/style.css">';
+}
 
-function post_class() {}
+function body_class()
+{
+}
+
+function post_class()
+{
+}
 
 function esc_url($url)
 {
@@ -32,10 +38,10 @@ function _e($input)
     return $input;
 }
 
-function _x($text, $context, $domain = 'default') {
+function _x($text, $context, $domain = 'default')
+{
     return $text;
 }
-
 
 function esc_attr_e($input)
 {
@@ -47,69 +53,100 @@ function esc_html($input)
     return $input;
 }
 
-function get_header_image() {}
+function get_header_image()
+{
+}
 
-function get_post_format() {}
+function get_post_format()
+{
+}
 
-function post_password_required() {
+function post_password_required()
+{
     return false;
 }
 
-function is_attachment() {
+function is_attachment()
+{
     return false;
 }
 
-function comments_open() {}
+function comments_open()
+{
+}
 
-function get_comments_number($post_id = null) {
+function get_comments_number($post_id = null)
+{
     return 0;
 }
 
-function __() {}
+function __()
+{
+}
 
-function add_action($name) {}
+function add_action($name)
+{
+}
 
-function add_filter($name) {}
+function add_filter($name)
+{
+}
 
-function edit_post_link() {}
+function edit_post_link()
+{
+}
 
-function comments_template() {}
+function comments_template()
+{
+}
 
-function get_post_format_strings() {
+function get_post_format_strings()
+{
     return array();
 }
 
-function get_post_format_string() {
-    return null;
+function get_post_format_string()
+{
+    return;
 }
 
-function dynamic_sidebar() {
+function dynamic_sidebar()
+{
 }
 
-function do_action() {}
+function do_action()
+{
+}
 
-function wp_footer() {}
+function wp_footer()
+{
+}
 
-function get_object_taxonomies($object, $output = 'names') {
+function get_object_taxonomies($object, $output = 'names')
+{
     return array();
 }
 
-function has_nav_menu($location) {
+function has_nav_menu($location)
+{
     return false;
 }
 
-function is_admin() {
+function is_admin()
+{
     return false;
 }
 
-function get_option($option, $default = false) {
+function get_option($option, $default = false)
+{
     return $default;
 }
 
-function _n_noop($singular, $plural, $domain = null) {
+function _n_noop($singular, $plural, $domain = null)
+{
     return array($singular, $plural);
 }
 
-function do_action_ref_array($tag, $args) {
-
+function do_action_ref_array($tag, $args)
+{
 }

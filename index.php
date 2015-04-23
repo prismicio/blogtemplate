@@ -11,7 +11,7 @@ if (file_exists('config.php')) {
     exit();
 }
 
-$composer = json_decode(file_get_contents(__DIR__ . '/composer.json'));
+$composer = json_decode(file_get_contents(__DIR__.'/composer.json'));
 $app = new \Slim\Slim(
     array(
       'version'        => $composer->version,
@@ -26,7 +26,7 @@ $app = new \Slim\Slim(
       'disqus.forum'  => DISQUS_FORUM,
       'disqus.apikey'  => DISQUS_API_KEY,
       'disqus.apisecret'  => DISQUS_API_SECRET,
-      'disqus.accesstoken'  => DISQUS_API_ACCESSTOKEN
+      'disqus.accesstoken'  => DISQUS_API_ACCESSTOKEN,
     )
 );
 $prismic = new PrismicHelper($app);
@@ -34,10 +34,9 @@ $prismic = new PrismicHelper($app);
 global $WPGLOBAL;
 $WPGLOBAL = array(
     'app' => $app,
-    'prismic' => $prismic
+    'prismic' => $prismic,
 );
 
-require_once __DIR__ . '/app/app.php';
+require_once __DIR__.'/app/app.php';
 
 $app->run();
-
