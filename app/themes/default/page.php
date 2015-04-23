@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title><?= single_post_title() ?> <?= site_title() ?></title>
+    <link rel="icon" type="image/png" href="/app/static/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
