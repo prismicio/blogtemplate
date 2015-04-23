@@ -36,6 +36,7 @@ function site_title()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return $app->config('site.title');
 }
 
@@ -43,6 +44,7 @@ function prismic_endpoint()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return $app->config('prismic.url');
 }
 
@@ -50,6 +52,7 @@ function disqus_forum()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return $app->config('disqus.forum');
 }
 
@@ -57,7 +60,8 @@ function home_url($path = '', $scheme = null)
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    return $app->request()->getUrl() . $path;
+
+    return $app->request()->getUrl().$path;
 }
 
 function wp_title()
@@ -69,35 +73,39 @@ function get_template_directory_uri()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    return '/app/themes/' . $app->config('theme');
+
+    return '/app/themes/'.$app->config('theme');
 }
 
 function get_template_directory()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    return __DIR__ . '/../../themes/' . $app->config('theme');
+
+    return __DIR__.'/../../themes/'.$app->config('theme');
 }
 
 function site_description()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return $app->config('site.description');
 }
 
 function the_feed_link($anchor)
 {
-    return '<a href="/feed">' . $anchor . '</a>';
+    return '<a href="/feed">'.$anchor.'</a>';
 }
 
 function home_link($label, $attrs = array())
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    if($app->request->getPath() == "/") {
-        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'] . ' active') : 'active';
+    if ($app->request->getPath() == '/') {
+        $attrs['class'] = isset($attrs['class']) ? ($attrs['class'].' active') : 'active';
     }
+
     return _make_link('/', $label, $attrs);
 }
 
@@ -131,6 +139,7 @@ function get_search_query()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return htmlentities($app->request()->params('q'));
 }
 
@@ -146,9 +155,11 @@ function get_search_form($echo = true)
     }
 }
 
-function get_calendar() {
+function get_calendar()
+{
     global $WPGLOBAL;
     $prismic = $WPGLOBAL['prismic'];
+
     return $prismic->get_calendar();
 }
 
@@ -157,7 +168,7 @@ function get_template_part($slug, $name = null)
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     if ($name) {
-        render_include($app, $slug . '-' . $name);
+        render_include($app, $slug.'-'.$name);
     } else {
         render_include($app, $slug);
     }
@@ -165,22 +176,24 @@ function get_template_part($slug, $name = null)
 
 function is_search()
 {
-
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
-    echo 'look for ' . $app->request()->params('q');
+    echo 'look for '.$app->request()->params('q');
+
     return $app->request()->params('q') != null;
 }
 
 function is_single()
 {
     global $WPGLOBAL;
+
     return isset($WPGLOBAL['single_post']);
 }
 
 function is_page()
 {
     global $WPGLOBAL;
+
     return isset($WPGLOBAL['page']);
 }
 
@@ -195,9 +208,10 @@ function _make_link($url, $label, $attrs)
 {
     $attrs['href'] = $url;
     $result = '<a ';
-    foreach($attrs as $k => $v) {
-        $result .= ($k . '="' . $v . '" ');
+    foreach ($attrs as $k => $v) {
+        $result .= ($k.'="'.$v.'" ');
     }
-    $result .= ('>' . $label . '</a>');
+    $result .= ('>'.$label.'</a>');
+
     return $result;
 }

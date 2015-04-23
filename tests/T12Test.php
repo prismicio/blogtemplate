@@ -2,10 +2,10 @@
 
 class T12Test extends LocalWebTestCase
 {
-
-    public function getConfig() {
+    public function getConfig()
+    {
         return array_merge(parent::getConfig(), array(
-            'theme'          => 'twentytwelve'
+            'theme'          => 'twentytwelve',
         ));
     }
 
@@ -64,7 +64,7 @@ class T12Test extends LocalWebTestCase
 
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals("My First Blog Post", trim($html('h1.entry-title', 0)->getPlainText()));
+        $this->assertEquals('My First Blog Post', trim($html('h1.entry-title', 0)->getPlainText()));
     }
 
     public function testCategory()
@@ -83,7 +83,7 @@ class T12Test extends LocalWebTestCase
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals("Starter Project", trim($html('h1.entry-title', 0)->getPlainText()));
+        $this->assertEquals('Starter Project', trim($html('h1.entry-title', 0)->getPlainText()));
     }
 
     public function testSubPage()
@@ -92,7 +92,7 @@ class T12Test extends LocalWebTestCase
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
         $this->assertEquals(1, count($html('#colophon')));
-        $this->assertEquals("Pages", trim($html('h1.entry-title', 0)->getPlainText()));
+        $this->assertEquals('Pages', trim($html('h1.entry-title', 0)->getPlainText()));
     }
 
     public function testTag()
@@ -104,5 +104,4 @@ class T12Test extends LocalWebTestCase
         $this->assertEquals(1, count($html('#colophon')));
         $this->assertEquals(1, count($html('article')));
     }
-
 }

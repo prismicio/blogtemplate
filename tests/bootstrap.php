@@ -11,39 +11,39 @@ date_default_timezone_set('UTC');
 
 use There4\Slim\Test\WebTestCase;
 
-define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
+define('PROJECT_ROOT', realpath(__DIR__.'/..'));
 
-require_once PROJECT_ROOT . '/vendor/autoload.php';
-require_once PROJECT_ROOT . '/app/includes/PrismicHelper.php';
+require_once PROJECT_ROOT.'/vendor/autoload.php';
+require_once PROJECT_ROOT.'/app/includes/PrismicHelper.php';
 
-class LocalWebTestCase extends WebTestCase {
-
-    public function getConfig() {
+class LocalWebTestCase extends WebTestCase
+{
+    public function getConfig()
+    {
         return array(
             'version'        => '0.0.0',
             'debug'          => false,
             'mode'           => 'testing',
             'site.title'     => 'Blog Template',
             'prismic.url'    => 'https://blogtemplate.prismic.io/api',
-            'theme'          => 'bootstrap'
+            'theme'          => 'bootstrap',
         );
     }
 
-    public function getSlimInstance() {
+    public function getSlimInstance()
+    {
         $app = new \Slim\Slim($this->getConfig());
         $prismic = new PrismicHelper($app);
 
         global $WPGLOBAL;
         $WPGLOBAL = array(
             'app' => $app,
-            'prismic' => $prismic
+            'prismic' => $prismic,
         );
 
         // Include our core application file
-        require PROJECT_ROOT . '/app/app.php';
+        require PROJECT_ROOT.'/app/app.php';
+
         return $app;
     }
-
 };
-
-

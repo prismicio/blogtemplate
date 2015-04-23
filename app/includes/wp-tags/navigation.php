@@ -4,6 +4,7 @@ function is_home()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
+
     return $app->request()->getResourceUri() == '/';
 }
 
@@ -13,61 +14,70 @@ function is_front_page()
     return is_home();
 }
 
-function get_previous_posts_link($label = '« Previous Page') {
+function get_previous_posts_link($label = '« Previous Page')
+{
     global $WPGLOBAL, $loop;
     $app = $WPGLOBAL['app'];
     if ($loop->page == 1) {
-        return "";
+        return '';
     }
     $qs = $app->request()->params();
     $qs['page'] = ($loop->page - 1);
-    $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
+    $url = $app->request->getPath().'?'.http_build_query($qs);
+
+    return '<a href="'.$url.'">'.htmlentities($label).'</a>';
 }
 
-function previous_posts_link($label = '« Previous Page') {
+function previous_posts_link($label = '« Previous Page')
+{
     echo get_previous_posts_link($label);
 }
 
-function get_next_posts_link($label = 'Next Page »') {
+function get_next_posts_link($label = 'Next Page »')
+{
     global $WPGLOBAL, $loop;
     $app = $WPGLOBAL['app'];
     if ($loop->page >= $loop->totalPages) {
-        return "";
+        return '';
     }
     $qs = $app->request()->params();
     $qs['page'] = ($loop->page + 1);
-    $url = $app->request->getPath() . '?' . http_build_query($qs);
-    return '<a href="' . $url . '">' . htmlentities($label) . '</a>';
+    $url = $app->request->getPath().'?'.http_build_query($qs);
+
+    return '<a href="'.$url.'">'.htmlentities($label).'</a>';
 }
 
-function next_posts_link($label = 'Next Page »') {
+function next_posts_link($label = 'Next Page »')
+{
     echo get_next_posts_link($label);
 }
 
-function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
+function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+{
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $previous = $prismic->get_prev_post($loop->current_post()->getId());
     if ($previous) {
         $url = $prismic->linkResolver->resolveDocument($previous);
         $label = str_replace('%link', htmlentities($previous->getText('post.title')), $format);
-        echo '<a href="' . $url . '">' . $label . '</a>';
+        echo '<a href="'.$url.'">'.$label.'</a>';
     }
 }
 
-function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
+function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+{
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $next = $prismic->get_next_post($loop->current_post()->getId());
     if ($next) {
         $url = $prismic->linkResolver->resolveDocument($next);
         $label = str_replace('%link', htmlentities($next->getText('post.title')), $format);
-        echo '<a href="' . $url . '">' . $label . '</a>';
+        echo '<a href="'.$url.'">'.$label.'</a>';
     }
 }
 
-function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previous = true, $taxonomy = 'category') {
+function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previous = true, $taxonomy = 'category')
+{
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     if ($previous) {
@@ -77,49 +87,64 @@ function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previou
     }
 }
 
-function wp_link_pages($args) {
+function wp_link_pages($args)
+{
     // TODO
 }
 
-function wp_nav_menu($args) {
+function wp_nav_menu($args)
+{
     $p = array_merge(array(
         'menu_class' => null,
         'menu_id' => null,
         'container' => 'div',
         'container_class' => null,
-        'container_id' => null
+        'container_id' => null,
     ), $args);
     if (!function_exists('cls')) {
-        function cls($c) { return $c ? ' class="' . $c . '"' : ''; }
-        function id($id) { return $id ? ' id="' . $id . '"' : ''; }
+        function cls($c)
+        {
+            return $c ? ' class="'.$c.'"' : '';
+        }
+        function id($id)
+        {
+            return $id ? ' id="'.$id.'"' : '';
+        }
     }
 
-    echo '<' . $p['container'] . cls($p['container_class']) . id($p['container_id']) . '>';
-    echo '<ul' . cls($p['menu_class']) . id($p['menu_id']) . '>';
-    echo '<li>' . home_link('Home') . '</li>';
-    foreach(get_pages() as $page) {
+    echo '<'.$p['container'].cls($p['container_class']).id($p['container_id']).'>';
+    echo '<ul'.cls($p['menu_class']).id($p['menu_id']).'>';
+    echo '<li>'.home_link('Home').'</li>';
+    foreach (get_pages() as $page) {
         if (count($page['children']) > 0) {
-            echo '<li>' . page_link($page) . '<ul>';
-            foreach($page['children'] as $subpage) {
+            echo '<li>'.page_link($page).'<ul>';
+            foreach ($page['children'] as $subpage) {
                 echo page_link($subpage);
             }
             echo '</ul></li>';
         } else {
-            echo '<li>' . page_link($page) . '</li>';
+            echo '<li>'.page_link($page).'</li>';
         }
     }
 
-    echo '</ul></' . $p['container'] . '>';
+    echo '</ul></'.$p['container'].'>';
 }
 
 function get_day_link($year, $month, $day)
 {
     $now = new DateTime('now');
-    if (!$year) $year = $now->format('Y');
-    if (!$month) $month = $now->format('m');
-    if (!$day) $day = $now->format('j');
-    $date = DateTime::createFromFormat('Y-m-d', $year . '-' . $month . '-' . $day);
-    $label = date_format($date, "F, jS Y");
+    if (!$year) {
+        $year = $now->format('Y');
+    }
+    if (!$month) {
+        $month = $now->format('m');
+    }
+    if (!$day) {
+        $day = $now->format('j');
+    }
+    $date = DateTime::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day);
+    $label = date_format($date, 'F, jS Y');
     $url = archive_link($year, $month, $date->format('d'));
-    return '<a href="' . $url . '">' . $label . '</a>';
+
+    return '<a href="'.$url.'">'.$label.'</a>';
 }

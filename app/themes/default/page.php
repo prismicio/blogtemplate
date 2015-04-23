@@ -26,7 +26,7 @@
     <div id="main" <?= wio_attributes(); ?>>
         <a id="menu-hamburger" href="#right-panel"></a>
 
-        <?php while ( have_posts() ) : the_post(); ?>
+        <?php while (have_posts()) : the_post(); ?>
 
         <div id="page-content">
             <?php page_content() ?>

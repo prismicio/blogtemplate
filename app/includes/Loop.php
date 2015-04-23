@@ -1,7 +1,7 @@
 <?php
 
-class Loop {
-
+class Loop
+{
     public $loop_index = -1;
     private $posts;
 
@@ -12,34 +12,40 @@ class Loop {
     {
     }
 
-    public function setResponse($response) {
+    public function setResponse($response)
+    {
         $this->setPosts($response->getResults());
         $this->page = $response->getPage();
         $this->totalPages = $response->getTotalPages();
     }
 
-    public function setPosts($posts) {
+    public function setPosts($posts)
+    {
         $this->posts = $posts;
     }
 
-    function reset() {
+    public function reset()
+    {
         $this->loop_index = -1;
     }
 
-    function increment() {
+    public function increment()
+    {
         $this->loop_index += 1;
     }
 
-    function has_more() {
+    public function has_more()
+    {
         // -1 because we check before incrementing
         return $this->loop_index < (count($this->posts) - 1);
     }
 
-    function current_post() {
+    public function current_post()
+    {
         if ($this->loop_index < 0 || $this->loop_index >= count($this->posts)) {
-            return null;
+            return;
         }
+
         return $this->posts[$this->loop_index];
     }
-
 }
