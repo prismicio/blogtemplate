@@ -196,7 +196,7 @@ li p {
   overflow: hidden;
 }
 
-.row-separate {
+.row-separate:not(:last-child) {
   margin: 0 auto 70px auto;
   padding: 0;
 }
