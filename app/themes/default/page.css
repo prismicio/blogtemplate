@@ -400,6 +400,8 @@ li p {
   height: 100%;
   width: 100%;
   background-color: #201145;
+  background: url(/app/themes/default/blank.png);
+  background-size: cover;
 }
 
 .slides .slide h2 {
