@@ -196,3 +196,23 @@ a {
   right: 0px;
   top: 10px;
 }
+
+
+.not-found .illustration {
+  background: url('images/not-found.png');
+  width: 200px;
+  height: 200px;
+  background-size: 100%;
+  display: inline-block;
+}
+
+.not-found {
+  height: 100vh;
+  text-align: center;
+}
+
+.blog-header.not-found h1 {
+  margin-top: 30px;
+  font-size: 26px;
+  text-transform: uppercase;
+}
