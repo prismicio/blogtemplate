@@ -8,8 +8,8 @@
     src : url('fonts/starterkit.woff') format('woff'),
           url('fonts/starterkit.svg#abcd') format('svg'),
           url('fonts/starterkit.ttf') format('truetype');
-    font-weight: normal
-    font-style: normal
+    font-weight: normal;
+    font-style: normal;
 }
 
 
@@ -164,11 +164,14 @@ a {
 }
 
 .page .wio-link:hover {
-  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .page .wio-link {
-  transition: transform 0.2s ease-in-out;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+          transition: transform 0.2s ease-in-out;
   z-index: 1;
   border-radius: 50%;
   background: #FFF !important;

@@ -22,8 +22,6 @@ body {
 }
 
 #page-content * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -204,6 +202,7 @@ li p {
 .round-image {
   background-size: cover;
   border-radius: 50%;
+  background-color: #F3F3F9;
 }
 
 /*
@@ -321,10 +320,6 @@ li p {
   width: 90%;
   top: 50%;
   left: 50%;
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
@@ -348,10 +343,6 @@ li p {
   width: 60%;
   top: 50%;
   left: 50%;
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
@@ -398,10 +389,6 @@ li p {
 }
 
 .slides .slide {
-  -moz-transform: translate3d(100%, 0, 0);
-  -ms-transform: translate3d(100%, 0, 0);
-  -o-transform: translate3d(100%, 0, 0);
-  -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
   background-size: cover;
   padding: 10px 20px;
@@ -439,10 +426,6 @@ li p {
   left: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  -moz-transform: translatey(-50%) rotate(180deg);
-  -ms-transform: translatey(-50%) rotate(180deg);
-  -o-transform: translatey(-50%) rotate(180deg);
-  -webkit-transform: translatey(-50%) rotate(180deg);
   transform: translatey(-50%) rotate(180deg);
 }
 
@@ -450,10 +433,6 @@ li p {
   right: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  -moz-transform: translatey(-50%);
-  -ms-transform: translatey(-50%);
-  -o-transform: translatey(-50%);
-  -webkit-transform: translatey(-50%);
   transform: translatey(-50%);
 }
 
@@ -475,8 +454,6 @@ li p {
   text-transform: uppercase;
   font-size: 17px;
   border-radius: 60px;
-  -moz-box-shadow: 0 3px #412F8D;
-  -webkit-box-shadow: 0 3px #412F8D;
   box-shadow: 0px 3px #412F8D;
   cursor: pointer;
   outline: none;
@@ -487,9 +464,5 @@ li p {
   left: 50%;
   top: 50%;
   width: 80%;
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
