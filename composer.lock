@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54fbbe2083adc3f9dcdb06afea0b51e3",
+    "hash": "1171eef43aab38b7953ca5eae104e3e5",
     "packages": [
         {
             "name": "egeloen/http-adapter",
@@ -86,22 +86,23 @@
         },
         {
             "name": "prismic/php-sdk",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prismicio/php-kit.git",
-                "reference": "c6d3a7046082d8de2c62b617c96fc25a71b614b2"
+                "reference": "db32f85f9cad7b164bc6c6a8fd79281997c42824"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/c6d3a7046082d8de2c62b617c96fc25a71b614b2",
-                "reference": "c6d3a7046082d8de2c62b617c96fc25a71b614b2",
+                "url": "https://api.github.com/repos/prismicio/php-kit/zipball/db32f85f9cad7b164bc6c6a8fd79281997c42824",
+                "reference": "db32f85f9cad7b164bc6c6a8fd79281997c42824",
                 "shasum": ""
             },
             "require": {
                 "egeloen/http-adapter": "0.6.0",
                 "ext-curl": "*",
                 "ext-json": "*",
+                "ext-mbstring": "*",
                 "php": ">=5.3.3",
                 "symfony/event-dispatcher": "~2.0"
             },
@@ -126,7 +127,7 @@
                 "Apache 2 license"
             ],
             "description": "PHP development kit for prismic.io",
-            "time": "2015-04-20 14:55:13"
+            "time": "2015-04-23 08:24:19"
         },
         {
             "name": "psr/http-message",
