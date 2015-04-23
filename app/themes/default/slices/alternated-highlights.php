@@ -16,9 +16,7 @@
 
     <div class="col-2">
 
-      <?php if ($illustration) { ?>
-        <div class="illustration" style="background-image: url(<?= $illustration->getUrl(); ?>)"></div>
-      <?php } ?>
+        <div class="illustration" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?>></div>
 
     </div>
 
@@ -30,9 +28,11 @@
 
        <h2><?= $item->get('title') ? $item->get('title')->asText() : 'No title'; ?></h2>
 
-       <?php if($item->get('summary')) { ?>
+       <?php if($item->get('summary')): ?>
+
          <?= $item->get('summary')->asHtml(); ?>
-       <?php } ?>
+
+       <?php endif ?>
 
        <?php $readMore = $item->get('read-more'); ?>
 
@@ -52,7 +52,7 @@
 
     <div class="col-2">
 
-      <div class="illustration" style="background-image: url(<?= $illustration->getUrl(); ?>)"></div>
+      <div class="illustration" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?>></div>
 
     </div>
 

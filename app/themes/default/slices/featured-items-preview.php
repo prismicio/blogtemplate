@@ -8,17 +8,13 @@
 
       <?php $illustration = $item->get('illustration'); ?>
 
-      <li data-illustration="<?= $illustration->getMain()->getUrl(); ?>">
+      <li data-illustration="<?= $illustration ? $illustration->getMain()->getUrl() : '' ?>">
 
-      <?php if (!is_null($illustration) && !is_null($illustration->getView('icon'))): ?>
+      <div class="illustration" <?= $illustration ? 'style="background-image: url('.$illustration->getView("icon")->getUrl().')"' : '' ?>></div>
 
-        <div class="illustration" style="background-image: url('<?= $illustration->getView('icon')->getUrl() ?>')"></div>
+      <h3><?= $item->get('title') ? $item->get('title')->asText() : ''; ?></h3>
 
-      <?php endif ?>
-
-      <h3><?= $item->get('title')->asText(); ?></h3>
-
-      <?= $item->get('summary')->asHtml(); ?>
+      <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
     </li>
 

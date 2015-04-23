@@ -6,13 +6,9 @@
 
     <div class="col-3 center">
 
-      <?php if ($illustration) { ?>
+      <div class="illustration round-image" <?= $illustration ? 'style="background-image: url('.$illustration->getView("icon")->getUrl().')"' : '' ?>></div>
 
-        <div class="illustration round-image" style="background-image: url(<?= $illustration->getView("icon")->getUrl(); ?>)"></div>
-
-      <?php } ?>
-
-      <?= $item->get('title') ? $item->get('title')->asHtml() : ''; ?>
+      <h3><?= $item->get('title') ? $item->get('title')->asText() : ''; ?></h3>
 
       <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 

@@ -10,13 +10,13 @@
 
 <div class="row alternated-highlights-full">
 
-  <?php $illustrationUrl = $item->get('illustration')->getMain()->getUrl(); ?>
+  <?php $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null; ?>
 
   <?php if(!$odd): ?>
 
     <div class="col-illustration">
 
-      <div class="illustration" style="background-image: url(<?= $illustrationUrl; ?>)"></div>
+      <div class="illustration" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?>></div>
 
     </div>
 
@@ -26,9 +26,9 @@
 
      <div class="text-wrapper">
 
-       <h2><?= $item->get('title')->asText(); ?></h2>
+       <h2><?= $item->get('title') ? $item->get('title')->asText() : ''; ?></h2>
 
-       <?= $item->get('summary')->asHtml(); ?>
+       <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
      </div>
   </div>
@@ -37,7 +37,7 @@
 
     <div class="col-illustration">
 
-      <div class="illustration" style="background-image: url(<?= $illustrationUrl; ?>)"></div>
+      <div class="illustration" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?>></div>
 
     </div>
 
