@@ -12,7 +12,9 @@
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 
     <!-- disqus integration -->
-    <?php if(disqus_forum()) { ?>
+
+    <?php if(disqus_forum()): ?>
+
     <script type="application/javascript">
       $(document).ready(function() {
           Disqium('.blog-main.single', {
@@ -22,9 +24,12 @@
       });
     </script>
 
-    <?php } ?>
+    <?php endif ?>
+
     <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
     <script src="/app/static/disqium/disqium.js"></script>
+
+    <!-- prismic toolbar -->
 
     <?php include('prismic.php') ?>
 
@@ -33,21 +38,30 @@
 <body>
 
     <div id="right-panel">
+
         <?php get_sidebar(); ?>
+
     </div>
 
     <div id="main">
+
         <a id="menu-hamburger" href="#right-panel"></a>
 
 
 <?php while ( have_posts() ) : the_post(); ?>
 
 <div class="blog-header single" style="<?= post_thumbnail_url() ? 'background-image: url(' . post_thumbnail_url() . ')' : '' ?>">
+
     <div class="wrapper">
+
        <?php single_post_date(); ?>
+
        <?php single_post_author(); ?>
+
        <h1 class="blog-title"><?= single_post_title(); ?></h1>
+
        <?php single_post_shortlede(); ?>
+
     </div>
 </div>
 
@@ -60,14 +74,20 @@
 <?php endwhile; ?>
 
 <footer class="blog-footer single">
+
     <?php single_prev_post_link() ?>
+
     <a class="menu" href="/blog">Home</a>
+
     <?php single_next_post_link() ?>
+
 </footer>
 
 <!-- Hamburger menu -->
 <script src="/app/static/jquery.panelslider.js"></script>
+
 <script type="text/javascript">
+
   $(document).ready(function() {
     $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
   });
@@ -76,6 +96,7 @@
 
 <!-- Handle footer -->
 <script type="text/javascript">
+
   $(document).ready(function() {
     var viewportHeight =  Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var latestKnownScrollY = 0;
@@ -124,7 +145,9 @@
     }
 
   });
+
 </script>
 
 </body>
+
 </html>

@@ -56,7 +56,9 @@ $(function(){
         $slides.addClass('moving');
 
         Zanimo($next[0], 'transform', 'translate3d(100%, 0, 0)', 0).then(function() {
-          Zanimo($current[0], 'transform', 'translate3d(-100%, 0, 0)', duration);
+          window.setTimeout(function() {
+            Zanimo($current[0], 'transform', 'translate3d(-100%, 0, 0)', duration);
+          }, 10);
           Zanimo($next[0], 'transform', 'translate3d(0, 0, 0)', duration).fin(function() {
             $slides.removeClass('moving');
           });

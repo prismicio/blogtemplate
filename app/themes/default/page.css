@@ -146,6 +146,14 @@ li p {
   .alternated-highlights-full .col-text, .alternated-highlights-full .col-illustration {
     float: left;
   }
+
+  .featured-mini p {
+    padding-right: 100px;
+  }
+
+  .featured-items-simple p {
+    padding-right: 100px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -257,17 +265,10 @@ li p {
 }
 
 .featured-preview li {
+  border-top: 1px solid #F3F3F9;
   min-height: 120px;
   position: relative;
-  padding: 30px 1em 30px 100px;
-}
-
-.featured-preview li:first-child:hover {
-  border-top: 1px solid #F3F3F9;
-}
-
-.featured-preview li:last-child:hover {
-  border-top: 1px solid #F3F3F9;
+  padding: 30px 50px 30px 100px;
 }
 
 .featured-preview li:hover {
@@ -306,7 +307,7 @@ li p {
 
 .alternated-highlights .col-2, .alternated-highlights-full .col-text, .alternated-highlights-full .col-illustration {
   position: relative;
-  height: 100%;
+  height: 50vh;
 }
 
 .alternated-highlights, .alternated-highlights-full {
@@ -318,7 +319,9 @@ li p {
   width: 90%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 }
 
 .alternated-highlights .illustration {
@@ -341,7 +344,9 @@ li p {
   width: 60%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 }
 
 .alternated-highlights-full .illustration {
@@ -387,7 +392,8 @@ li p {
 }
 
 .slides .slide {
-  transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
   background-size: cover;
   padding: 10px 20px;
   position: absolute;
@@ -424,14 +430,18 @@ li p {
   left: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  transform: translatey(-50%) rotate(180deg);
+  -webkit-transform: translatey(-50%) rotate(180deg);
+          -ms-transform: translatey(-50%) rotate(180deg);
+      transform: translatey(-50%) rotate(180deg);
 }
 
 .slides .arrow-next {
   right: 0px;
   background: url(arrow.svg);
   background-size: 100%;
-  transform: translatey(-50%);
+  -webkit-transform: translatey(-50%);
+          -ms-transform: translatey(-50%);
+      transform: translatey(-50%);
 }
 
 .slides .button:not(.home):hover {
@@ -462,5 +472,7 @@ li p {
   left: 50%;
   top: 50%;
   width: 80%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 }
