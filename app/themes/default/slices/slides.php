@@ -12,6 +12,8 @@
 
     <?php $readMore = $item->get('read-more'); ?>
 
+    <?php $readMoreLabel = $item->get('read-more-label'); ?>
+
     <div class="slide" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?> >
 
         <div class="slide-container">
@@ -25,7 +27,9 @@
             <?php $url = $linkResolver->resolve($readMore); ?>
 
             <a class="button <?= is_home() ? 'home' : '';?>" href="<?= $url ?>">
-              <?= is_home() ? 'download' : 'learn more' ?>
+
+              <?= $readMoreLabel ? $readMoreLabel->asText() : 'learn more' ?>
+
             </a>
 
             <?php endif ?>
