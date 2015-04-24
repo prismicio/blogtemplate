@@ -302,6 +302,16 @@ function link_to_post($post)
     return '<a href="'.document_url($post).'">'.post_title($post).'</a>';
 }
 
+function the_theme()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['theme'])) {
+        return $WPGLOBAL['theme'];
+    }
+
+    return;
+}
+
 function blog_home()
 {
     global $WPGLOBAL;

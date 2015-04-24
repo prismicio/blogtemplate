@@ -7,30 +7,38 @@
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
     <link rel="stylesheet" href="/app/themes/default/page.css">
-    <link rel="stylesheet" href="/app/themes/default/common-page.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="/app/static/jquery-1.11.2.min.js"></script>
     <script src="/app/themes/default/slices/slices.js"></script>
 
+    <!-- prismic toolbar -->
     <?php include('prismic.php') ?>
+
+    <!-- theme -->
+    <?php include('pagetheme.php') ?>
 
 </head>
 
 <body class="page">
 
     <div id="right-panel">
+
         <?php get_sidebar() ?>
+
     </div>
 
     <div id="main" <?= wio_attributes(); ?>>
+
         <a id="menu-hamburger" href="#right-panel"></a>
 
         <?php while (have_posts()) : the_post(); ?>
 
         <div id="page-content">
+
             <?php page_content() ?>
+
         </div>
 
 
