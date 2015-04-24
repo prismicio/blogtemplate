@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
     <link rel="stylesheet" href="/app/themes/default/blog.css">
+    <link rel="stylesheet" href="/app/themes/default/common-blog.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="/app/static/modernizr.js"></script>
