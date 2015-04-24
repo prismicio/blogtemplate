@@ -1,10 +1,29 @@
+
+<style>
+
+<?php
+
+  $theme = the_theme();
+
+  $textColor = $theme->getColor('theme.blog-text-color');
+
+  $titleColor = $theme->getColor('theme.blog-title-color');
+
+  $textFont = $theme->getText('theme.blog-text-font');
+
+  $titleFont = $theme->getText('theme.blog-title-font');
+
+?>
+
 body {
-  font-family: 'PT Serif', serif;
-  color: #5D5F86;
+
+  <?= $textFont ? 'font-family:'.$textFont : ''; ?>
+
+  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>
 }
 
 a {
-  color: #5D5F86;
+  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>
 }
 
 h1, .h1,
@@ -13,12 +32,13 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-  font-family: 'Lato', sans-serif;
-  color: #2F3163;
+
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
+  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>
 }
 
 .blog-header {
-  font-family: 'Lato', sans-serif;
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
   background-color: #201145;
 }
 
@@ -27,16 +47,19 @@ h6, .h6 {
 }
 
 .blog-footer.single a .label {
-  font-family: 'Lato', sans-serif;
+
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
 }
 
 .blog-description {
-  font-family: 'Lato', sans-serif;
+
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
   color: rgba(255, 255, 255, 0.60);
 }
 
 .blog-post-title a, .blog-post-meta a {
-  font-family: 'Lato', sans-serif;
+
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
 }
 
 .blog-post-meta a {
@@ -44,7 +67,8 @@ h6, .h6 {
 }
 
 .blog-post-title a {
-  color: #2F3163;
+
+  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>
 }
 
 .author-image {
@@ -83,3 +107,5 @@ h6, .h6 {
 .blog-main.single .image-left + .image-label, .blog-main.single .image-full-column + .image-label {
   border-right: solid #9494AF 7px;
 }
+
+</style>
