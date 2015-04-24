@@ -146,6 +146,14 @@ li p {
   .alternated-highlights-full .col-text, .alternated-highlights-full .col-illustration {
     float: left;
   }
+
+  .featured-mini p {
+    padding-right: 100px;
+  }
+
+  .featured-items-simple p {
+    padding-right: 100px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -400,6 +408,8 @@ li p {
   height: 100%;
   width: 100%;
   background-color: #201145;
+  background: url(/app/themes/default/blank.png);
+  background-size: cover;
 }
 
 .slides .slide h2 {

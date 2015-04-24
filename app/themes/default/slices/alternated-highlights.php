@@ -36,11 +36,17 @@
 
        <?php $readMore = $item->get('read-more'); ?>
 
+       <?php $readMoreLabel = $item->get('read-more-label'); ?>
+
        <?php if ($readMore): ?>
 
        <?php $url = $linkResolver->resolve($readMore); ?>
 
-       <a class="button" href="<?= $url ?>">READ MORE</a>
+       <a class="button" href="<?= $url ?>">
+
+           <?= $readMoreLabel ? $readMoreLabel->asText() : 'learn more' ?>
+
+       </a>
 
        <?php endif ?>
 
