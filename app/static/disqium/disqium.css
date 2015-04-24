@@ -1,12 +1,11 @@
 .disqium-container {
     transition: transform 0.2s;
-    -webkit-transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
     -moz-transition: transform 0.2s;
 }
 
 .disqium-container.shift {
     -webkit-transform: translate3d(-240px, 0, 0);
-    -moz-transform: translate3d(-240px, 0, 0);
     transform: translate3d(-240px, 0, 0);
 }
 
@@ -32,13 +31,12 @@
     left: 100px;
     width: 100%;
     transition: transform 0.2s;
-    -webkit-transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
     -moz-transition: transform 0.2s;
 }
 
 [data-disqium-thread-id] .disqium-wrapper.fade-in .disqium-panel {
     -webkit-transform: translate3d(-70px, 0, 0);
-    -moz-transform: translate3d(-70px, 0, 0);
     transform: translate3d(-70px,0, 0);
 }
 
