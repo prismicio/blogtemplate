@@ -31,6 +31,7 @@ h1, h2 {
 }
 
 .blog-header {
+  height: 50vh;
   position: relative;
   font-weight: 400;
   background: url(/app/themes/default/blank.png);
@@ -39,10 +40,6 @@ h1, h2 {
 
 .blog-header.single, .blog-header.home {
   height: 100vh;
-}
-
-.blog-header.tag, .blog-header.category, .blog-header.archive, .blog-header.author {
-  height: 50vh;
 }
 
 .blog-header.author {
