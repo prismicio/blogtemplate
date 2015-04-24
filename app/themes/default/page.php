@@ -13,23 +13,32 @@
     <script src="/app/static/jquery-1.11.2.min.js"></script>
     <script src="/app/themes/default/slices/slices.js"></script>
 
+    <!-- prismic toolbar -->
     <?php include('prismic.php') ?>
+
+    <!-- theme -->
+    <?php include('pagetheme.php') ?>
 
 </head>
 
 <body class="page">
 
     <div id="right-panel">
+
         <?php get_sidebar() ?>
+
     </div>
 
     <div id="main" <?= wio_attributes(); ?>>
+
         <a id="menu-hamburger" href="#right-panel"></a>
 
         <?php while (have_posts()) : the_post(); ?>
 
         <div id="page-content">
+
             <?php page_content() ?>
+
         </div>
 
 

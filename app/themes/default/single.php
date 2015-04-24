@@ -12,9 +12,7 @@
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 
     <!-- disqus integration -->
-
     <?php if(disqus_forum()): ?>
-
     <script type="application/javascript">
       $(document).ready(function() {
           Disqium('.blog-main.single', {
@@ -23,15 +21,16 @@
           });
       });
     </script>
-
     <?php endif ?>
 
     <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
     <script src="/app/static/disqium/disqium.js"></script>
 
     <!-- prismic toolbar -->
-
     <?php include('prismic.php') ?>
+
+    <!-- theme -->
+    <?php include('blogtheme.php') ?>
 
 </head>
 

@@ -320,8 +320,8 @@ li p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .alternated-highlights .illustration {
@@ -345,8 +345,8 @@ li p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .alternated-highlights-full .illustration {
@@ -393,7 +393,7 @@ li p {
 
 .slides .slide {
   -webkit-transform: translate3d(100%, 0, 0);
-          transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
   background-size: cover;
   padding: 10px 20px;
   position: absolute;
@@ -433,8 +433,8 @@ li p {
   background: url(arrow.svg);
   background-size: 100%;
   -webkit-transform: translatey(-50%) rotate(180deg);
-          -ms-transform: translatey(-50%) rotate(180deg);
-      transform: translatey(-50%) rotate(180deg);
+  -ms-transform: translatey(-50%) rotate(180deg);
+  transform: translatey(-50%) rotate(180deg);
 }
 
 .slides .arrow-next {
@@ -442,8 +442,8 @@ li p {
   background: url(arrow.svg);
   background-size: 100%;
   -webkit-transform: translatey(-50%);
-          -ms-transform: translatey(-50%);
-      transform: translatey(-50%);
+  -ms-transform: translatey(-50%);
+  transform: translatey(-50%);
 }
 
 .slides .button:not(.home):hover {
@@ -475,6 +475,6 @@ li p {
   top: 50%;
   width: 80%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

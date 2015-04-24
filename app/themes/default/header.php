@@ -14,23 +14,11 @@
     <script src="/app/static/jquery-1.11.2.min.js"></script>
     <script src="/app/themes/default/slices/slices.js"></script>
 
-    <!-- disqus integration -->
-    <?php if(disqus_forum()) { ?>
-    <script type="application/javascript">
-      $(document).ready(function() {
-          Disqium('.blog-main.single', {
-              apiKey: 'E8Uh5l5fHZ6gD8U3KycjAIAk46f68Zw7C6eW8WSjZvCLXebZ7p0r1yrYDrLilk2F',
-              forum: '<?= disqus_forum() ?>'
-          });
-      });
-    </script>
-
-    <?php } ?>
-    <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
-    <script src="/app/static/disqium/disqium.js"></script>
-
+    <!-- prismic toolbar -->
     <?php include('prismic.php') ?>
 
+    <!-- theme -->
+    <?php include('blogtheme.php') ?>
 </head>
 
 <body>

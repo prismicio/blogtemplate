@@ -328,13 +328,32 @@ class PrismicHelper
         return $calendar;
     }
 
+    public function get_theme()
+    {
+        $themeId = $this->get_api()->bookmark('theme');
+
+        if (!$themeId) {
+            return array();
+        }
+
+        $theme = $this->get_document($themeId);
+
+        if (!$theme) {
+            return array();
+        }
+
+        return $theme;
+    }
+
     public function home()
     {
         $homeId = $this->get_api()->bookmark('home');
         if (!$homeId) {
             return array();
         }
+
         $home = $this->get_document($homeId);
+
         if (!$home || $home->getType() != 'page') {
             return array();
         }
