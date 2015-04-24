@@ -39,6 +39,7 @@ h1, h2 {
 }
 
 .blog-header {
+  height: 50vh;
   position: relative;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -49,10 +50,6 @@ h1, h2 {
 
 .blog-header.single, .blog-header.home {
   height: 100vh;
-}
-
-.blog-header.tag, .blog-header.category, .blog-header.archive, .blog-header.author {
-  height: 50vh;
 }
 
 .blog-header.author {
