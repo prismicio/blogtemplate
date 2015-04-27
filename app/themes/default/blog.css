@@ -427,10 +427,8 @@ h1, h2 {
   }
 
   .blog-header {
-    background: #201145 none;
     padding: 5px;
     height: 40px;
-    border-bottom: 1px solid #2F3163;
   }
 
   .blog-header.home {
@@ -564,6 +562,7 @@ h1, h2 {
     display: block;
     width: 100%;
     margin: 40px 0;
+    float: left;
   }
 
   .blog-main.single .image-full-column + .image-label {

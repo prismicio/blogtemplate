@@ -29,6 +29,7 @@
 
   $slideTextColor = $theme->getColor('theme.page-slide-text-color');
 
+  $faqSeparationColor = $theme->getColor('theme.page-faq-separation-color');
 ?>
 
 body {
@@ -39,6 +40,7 @@ body {
 
   <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
+
 
 h1, h2, h3 {
 
@@ -62,6 +64,19 @@ h2, h3 {
   color: #fff;
 }
 
+.faq h3 {
+  <?= $faqSeparationColor ? 'border-bottom-color:'.$faqSeparationColor->asText() : ''; ?>;
+}
+
+.slides .slide {
+  $backgroundColor = $theme->getColor('theme.page-background-color');
+}
+
+.button.home {
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
+  background: #5154AB;
+}
+
 .round-image {
   <?= $themeColor ? 'background-color:'.$themeColor->asText() : ''; ?>;
 }
@@ -72,10 +87,6 @@ h2, h3 {
 
 .featured-preview li {
   <?= $themeColor ? 'border-top: 1px solid '.$themeColor->asText() : ''; ?>;
-}
-
-.featured-preview li:hover {
-  background: #FFF;
 }
 
 .alternated-items > div {
@@ -90,8 +101,8 @@ h2, h3 {
   <?= $themeColor ? 'background-color: '.$themeColor->asText() : ''; ?>;
 }
 
-.faq h3 {
-  border-bottom: 1px solid #D6D6D6;
+.featured-preview li:hover {
+  background: #FFF;
 }
 
 .slides .slide h2 {
@@ -106,10 +117,6 @@ h2, h3 {
   <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
 }
 
-.slides .slide {
-  background-color: #201145;
-}
-
 .slides .button {
   <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
 }
@@ -121,12 +128,6 @@ h2, h3 {
 .slides .button:not(.home):hover {
   <?= $slideTextColor ? 'background:'.$slideTextColor->asText() : ''; ?>;
   <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
-}
-
-.button.home {
-  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
-  background: #5154AB;
-  box-shadow: 0px 3px #412F8D;
 }
 
 </style>

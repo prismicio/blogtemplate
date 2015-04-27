@@ -60,7 +60,7 @@ h6, .h6 {
 
 .blog-header {
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
-  background-color: #201145;
+  <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
 
 .blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
@@ -83,11 +83,11 @@ h6, .h6 {
   <?= $footerTextColor ? 'color:'.$footerTextColor->asText() : ''; ?>;
 }
 
-
 .blog-description {
 
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
-  color: rgba(255, 255, 255, 0.60);
+
+  <?= $homeTextColor ? 'color:'.$homeTextColor->asText() : ''; ?>;
 }
 
 .blog-post-title a, .blog-post-meta a {
@@ -115,14 +115,13 @@ h6, .h6 {
   <?= $imageLabelTextColor ? 'color:'.$imageLabelTextColor->asText() : ''; ?>;
 }
 
-.blog-header {
-  background: #201145 none;
-  border-bottom: 1px solid #2F3163;
-}
-
 .blog-main.single .image-left + .image-label, .blog-main.single .image-full-column + .image-label {
 
   <?= $imageLabelTextColor ? 'border-right-color:'.$imageLabelTextColor->asText() : ''; ?>;
+}
+
+.blog-main.single .block-citation {
+  <?= $imageLabelTextColor ? 'border-left-color:'.$imageLabelTextColor->asText() : ''; ?>;
 }
 
 </style>
