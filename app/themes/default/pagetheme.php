@@ -7,53 +7,63 @@
 
   $textColor = $theme->getColor('theme.page-text-color');
 
+  $backgroundColor = $theme->getColor('theme.page-background-color');
+
   $titleColor = $theme->getColor('theme.page-title-color');
 
   $textFont = $theme->getText('theme.page-text-font');
 
   $titleFont = $theme->getText('theme.page-title-font');
 
+  $themeColor = $theme->getColor('theme.page-main-color');
+
+  $themeAlternateColor = $theme->getColor('theme.page-alternate-color');
+
+  $slideTextColor = $theme->getColor('theme.page-slide-text-color');
+
 ?>
 
 body {
 
-  <?= $textFont ? 'font-family:'.$textFont : ''; ?>
+  <?= $textFont ? 'font-family:'.$textFont : ''; ?>;
 
-  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>
+  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>;
+
+  <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
 
 h1, h2, h3 {
 
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 }
 
 h2, h3 {
 
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>
+  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
 }
 
 .button {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
   text-transform: uppercase;
 }
 
 .button:hover {
-  <?= $titleColor ? 'background:'.$titleColor->asText() : ''; ?>
-  <?= $titleColor ? 'border-color:'.$titleColor->asText() : ''; ?>
+  <?= $titleColor ? 'background:'.$titleColor->asText() : ''; ?>;
+  <?= $titleColor ? 'border-color:'.$titleColor->asText() : ''; ?>;
   color: #fff;
 }
 
 .round-image {
-  background-color: #F3F3F9;
+  <?= $themeColor ? 'background-color:'.$themeColor->asText() : ''; ?>;
 }
 
 .featured-preview {
-  background: #F3F3F9;
+  <?= $themeColor ? 'background-color:'.$themeColor->asText() : ''; ?>;
 }
 
 .featured-preview li {
-  border-top: 1px solid #F3F3F9;
+  <?= $themeColor ? 'border-top: 1px solid '.$themeColor->asText() : ''; ?>;
 }
 
 .featured-preview li:hover {
@@ -61,15 +71,15 @@ h2, h3 {
 }
 
 .alternated-items > div {
-  background: #F3F3F9;
+  <?= $themeColor ? 'background: '.$themeColor->asText() : ''; ?>;
 }
 
 .alternated-items .alternate {
-  background: #E9E9F5;
+  <?= $themeAlternateColor ? 'background-color: '.$themeAlternateColor->asText() : ''; ?>;
 }
 
 .featured-items-simple .illustration {
-  background-color: #F3F3F9;
+  <?= $themeColor ? 'background-color: '.$themeColor->asText() : ''; ?>;
 }
 
 .faq h3 {
@@ -77,11 +87,15 @@ h2, h3 {
 }
 
 .slides .slide h2 {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 }
 
 .slides, .slides h2, .slide-arrows a {
-  color: #FFF;
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
+}
+
+.slides .arrow-prev, .slides .arrow-next {
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
 }
 
 .slides .slide {
@@ -89,21 +103,21 @@ h2, h3 {
 }
 
 .slides .button {
-  color: #FFF;
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
 }
 
 .slides p {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 }
 
 .slides .button:not(.home):hover {
-  background: #FFF;
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>
+  <?= $slideTextColor ? 'background:'.$slideTextColor->asText() : ''; ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
 }
 
 .button.home {
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
   background: #5154AB;
-  color: #FFF;
   box-shadow: 0px 3px #412F8D;
 }
 
