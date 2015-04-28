@@ -22,13 +22,13 @@
 
             <?= $item->get('summary') ? $item->get('summary')->asHtml() : ''; ?>
 
-            <?php if ($readMore): ?>
+            <?php if ($readMore && $readMoreLabel): ?>
 
             <?php $url = $linkResolver->resolve($readMore); ?>
 
             <a class="button <?= is_home() ? 'home' : '';?>" href="<?= $url ?>">
 
-              <?= $readMoreLabel ? $readMoreLabel->asText() : 'learn more' ?>
+              <?= $readMoreLabel->asText() ?>
 
             </a>
 

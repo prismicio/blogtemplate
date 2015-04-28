@@ -151,6 +151,19 @@ li p {
     padding-right: 100px;
   }
 
+  .featured-items > div {
+    position: relative;
+  }
+
+  .featured-items .button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+  }
+
   .featured-items-simple p {
     padding-right: 100px;
   }
@@ -193,6 +206,10 @@ li p {
 
   .faq {
     text-align: center;
+  }
+
+  .slides .arrow-next {
+    right: 0;
   }
 
   .slides .arrow-prev::before, .slides .arrow-next::before {

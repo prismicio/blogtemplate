@@ -79,6 +79,18 @@ $(function(){
 
   })();
 
+  (function FeaturedItem() {
+    $('.featured-items').each(function() {
+      var $featuredItems = $(this);
+      var height = $featuredItems.find('> div').toArray().reduce(function(acc, x) {
+        var h = $(x).height();
+        return (h > acc) ? h : acc;
+      }, 0);
+      var buttonHeight = $featuredItems.find('.button').height();
+      $featuredItems.find('> div').css('height', 20 + buttonHeight + height + 'px');
+    });
+  })();
+
   (function FeaturedItemPreview() {
 
     function select() {
