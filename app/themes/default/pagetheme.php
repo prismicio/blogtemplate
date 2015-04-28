@@ -67,7 +67,7 @@ h2, h3 {
 .button:hover {
   <?= $titleColor ? 'background:'.$titleColor->asText() : ''; ?>;
   <?= $titleColor ? 'border-color:'.$titleColor->asText() : ''; ?>;
-  color: #fff;
+  <?= $backgroundColor ? 'color:'.$backgroundColor->asText() : ''; ?>;
 }
 
 .faq h3 {
