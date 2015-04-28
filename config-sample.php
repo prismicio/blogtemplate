@@ -36,3 +36,10 @@ define('ADMIN_EMAIL', '');
  */
 define('MODE', 'production');
 define('DEBUG', 'false');
+
+/**
+ * Mailgun API key and domain, for the contact module
+ */
+define('MAILGUN_APIKEY', null); // API Key, e.g. key-XYZ
+define('MAILGUN_PUBKEY', null); // Public API KEY, e.g. pubkey-XYZ
+define('MAILGUN_DOMAIN', null); // e.g. sandboxXYZ.mailgun.org
