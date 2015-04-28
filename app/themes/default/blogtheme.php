@@ -10,6 +10,8 @@
 
 <style>
 
+<?php include('sidebartheme.php') ?>
+
 <?php
 
   $textColor = $theme->getColor('theme.blog-text-color');

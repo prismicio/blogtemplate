@@ -11,6 +11,8 @@
 
 <style>
 
+<?php include('sidebartheme.php') ?>
+
 <?php
 
   $textColor = $theme->getColor('theme.page-text-color');
@@ -55,7 +57,7 @@ h2, h3 {
 .button {
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
   <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
-  text-transform: uppercase;
+  <?= $titleColor ? 'border-color:'.$titleColor->asText() : ''; ?>;
 }
 
 .button:hover {
@@ -102,7 +104,7 @@ h2, h3 {
 }
 
 .featured-preview li:hover {
-  background: #FFF;
+  <?= $backgroundColor ? 'background-color: '.$backgroundColor->asText() : ''; ?>;
 }
 
 .slides .slide h2 {
