@@ -41,7 +41,9 @@ $app->get('/', function () use ($app, $prismic) {
         return;
     }
 
-    render($app, 'page', array('single_post' => $home));
+    $theme = $prismic->get_theme();
+
+    render($app, 'page', array('single_post' => $home, 'theme' => $theme));
 });
 
 // Author
@@ -70,7 +72,9 @@ $app->get('/author/:id/:slug', function ($id, $slug) use ($app,$prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render($app, 'author', array('posts' => $posts, 'author' => $author));
+    $theme = $prismic->get_theme();
+
+    render($app, 'author', array('posts' => $posts, 'author' => $author, 'theme' => $theme));
 });
 
 // Search results
@@ -93,7 +97,9 @@ $app->get('/search', function () use ($app,$prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render($app, 'search', array('posts' => $posts));
+    $theme = $prismic->get_theme();
+
+    render($app, 'search', array('posts' => $posts, 'theme' => $theme));
 });
 
 // Category
@@ -122,7 +128,9 @@ $app->get('/category/:uid', function ($uid) use ($app,$prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render($app, 'category', array('category' => $cat, 'posts' => $posts));
+    $theme = $prismic->get_theme();
+
+    render($app, 'category', array('category' => $cat, 'posts' => $posts, 'theme' => $theme));
 });
 
 // Tag
@@ -143,7 +151,9 @@ $app->get('/tag/:tag', function ($tag) use ($app,$prismic) {
         ->page(current_page($app))
         ->submit();
 
-    render($app, 'tag', array('posts' => $posts, 'tag' => $tag));
+    $theme = $prismic->get_theme();
+
+    render($app, 'tag', array('posts' => $posts, 'tag' => $tag, 'theme' => $theme));
 });
 
 // Archive
@@ -155,9 +165,12 @@ $app->get('/archive/:year(/:month(/:day))', function ($year, $month = null, $day
         'month' => $month,
         'day' => $day,
     ), current_page($app));
+
     $date = array('year' => $year, 'month' => $month, 'day' => $day);
 
-    render($app, 'archive', array('posts' => $posts, 'date' => $date));
+    $theme = $prismic->get_theme();
+
+    render($app, 'archive', array('posts' => $posts, 'date' => $date, 'theme' => $theme));
 });
 
 // Previews
@@ -165,7 +178,7 @@ $app->get('/preview', function () use ($app,$prismic) {
     $token = $app->request()->params('token');
     $url = $prismic->get_api()->previewSession($token, $prismic->linkResolver, '/');
     $app->setCookie(Prismic\PREVIEW_COOKIE, $token, time() + 1800, '/', null, false, false);
-    $app->response->redirect($url, 301);
+    $app->response->redirect($url ? $url : '/', 301);
 });
 
 // RSS Feed,
@@ -277,7 +290,9 @@ $app->get('/blog', function () use ($app, $prismic) {
         ->orderings('my.post.date desc')
         ->submit();
 
-    render($app, 'homeblog', array('homeblog' => $homeblog, 'posts' => $posts));
+    $theme = $prismic->get_theme();
+
+    render($app, 'homeblog', array('homeblog' => $homeblog, 'posts' => $posts, 'theme' => $theme));
 });
 
 // Post
@@ -303,7 +318,9 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
     $ctx['single_post'] = $doc;
 
     $prev_doc = $prismic->get_prev_post($doc->getId());
+
     $next_doc = $prismic->get_next_post($doc->getId());
+
     if ($prev_doc) {
         $ctx['single_prev_post'] = $prev_doc;
     }
@@ -312,12 +329,16 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
     }
 
     $permalink = $prismic->linkResolver->resolveDocument($doc);
+
     if ($app->request()->getPath() != $permalink) {
         // The user came from a URL with an older uid or date
         $app->response->redirect($permalink);
 
         return;
     }
+
+    $theme = $prismic->get_theme();
+    $ctx['theme'] = $theme;
 
     render($app, 'single', $ctx);
 });
@@ -334,6 +355,8 @@ $app->get('/:path+', function ($path) use ($app,$prismic) {
             return;
         }
 
-        render($app, 'page', array('single_post' => $page));
+        $theme = $prismic->get_theme();
+
+        render($app, 'page', array('single_post' => $page, 'theme' => $theme));
     }
 });

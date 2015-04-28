@@ -12,6 +12,7 @@ similar to existing CMS like Wordpress:
 
 * Download the [latest release](https://github.com/prismicio/blogtemplate/releases)
 * Unzip locally or on your server
+* Install dependencies using [composer](https://getcomposer.org/): `composer install`
 * Edit `config.php` to point `PRISMIC_URL` to your repository (should be a clone of http://blogtemplate.prismic.io/), and adjust `PRISMIC_TOKEN`.
 * That's it!
 

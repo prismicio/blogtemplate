@@ -151,8 +151,33 @@ li p {
     padding-right: 100px;
   }
 
+  .featured-items > div {
+    position: relative;
+  }
+
+  .featured-items .button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+  }
+
   .featured-items-simple p {
     padding-right: 100px;
+  }
+
+  .slides .arrow-prev {
+    left: 28px;
+  }
+
+  .slides .arrow-next {
+    right: 28px;
+  }
+
+  .slides .arrow-prev::before, .slides .arrow-next::before {
+    font-size: 40px;
   }
 }
 
@@ -181,6 +206,14 @@ li p {
 
   .faq {
     text-align: center;
+  }
+
+  .slides .arrow-next {
+    right: 0;
+  }
+
+  .slides .arrow-prev::before, .slides .arrow-next::before {
+    font-size: 30px;
   }
 }
 
@@ -324,8 +357,8 @@ li p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .alternated-highlights .illustration {
@@ -349,8 +382,8 @@ li p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .alternated-highlights-full .illustration {
@@ -401,7 +434,7 @@ li p {
 
 .slides .slide {
   -webkit-transform: translate3d(100%, 0, 0);
-          transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
   background-size: cover;
   padding: 10px 20px;
   position: absolute;
@@ -432,26 +465,31 @@ li p {
   display: block;
   z-index: 1;
   top: 50%;
-  height: 70px;
-  width: 70px;
+  color: #FFF;
 }
 
 .slides .arrow-prev {
-  left: 0px;
-  background: url(arrow.svg);
   background-size: 100%;
-  -webkit-transform: translatey(-50%) rotate(180deg);
-          -ms-transform: translatey(-50%) rotate(180deg);
-      transform: translatey(-50%) rotate(180deg);
+  -webkit-transform: translatey(-50%);
+  -ms-transform: translatey(-50%);
+  transform: translatey(-50%);
+}
+
+.slides .arrow-prev::before {
+  font-family: 'StarterKit';
+  content: '\e007';
 }
 
 .slides .arrow-next {
-  right: 0px;
-  background: url(arrow.svg);
   background-size: 100%;
   -webkit-transform: translatey(-50%);
-          -ms-transform: translatey(-50%);
-      transform: translatey(-50%);
+  -ms-transform: translatey(-50%);
+  transform: translatey(-50%);
+}
+
+.slides .arrow-next::before {
+  font-family: 'StarterKit';
+  content: '\e008';
 }
 
 .slides .button:not(.home):hover {
@@ -483,6 +521,6 @@ li p {
   top: 50%;
   width: 80%;
   -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
