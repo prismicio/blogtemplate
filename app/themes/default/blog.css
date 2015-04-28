@@ -84,6 +84,11 @@ h1, h2 {
   transform: translate(-50%, -50%);
 }
 
+.blog-header.search .description {
+  text-align: right;
+  color: #FFF;
+}
+
 .blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
   color: #FFF;
 }
@@ -402,6 +407,7 @@ h1, h2 {
   }
 
   .blog-header .wrapper {
+    text-align: center;
     width: 100%;
   }
 
@@ -469,6 +475,10 @@ h1, h2 {
 
   .blog-footer.single .menu::before {
     font-size: 22px;
+  }
+
+  .blog-header.search .description {
+    display: none;
   }
 }
 
@@ -640,5 +650,10 @@ h1, h2 {
 
   .blog-footer.single .menu::before {
     font-size: 30px;
+  }
+
+  .blog-header.search .description {
+    margin-top: 40px;
+    font-size: 28px;
   }
 }

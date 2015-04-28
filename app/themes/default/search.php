@@ -6,7 +6,12 @@
 
     <h1>Query: <?= get_search_query() ?></h1>
 
+    <?php $count = count_posts() ?>
+
+    <p class="description"><?= $count ?> result<?= $count > 1 ? 's' : '' ?></p>
+
   </div>
+
 </div>
 
 <div class="container blog-main">

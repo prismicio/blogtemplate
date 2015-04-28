@@ -19,6 +19,12 @@ function have_posts()
     return $loop->has_more();
 }
 
+function count_posts() {
+    global $loop;
+
+    return $loop->size();
+}
+
 function the_post()
 {
     global $loop;

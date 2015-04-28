@@ -40,6 +40,11 @@ class Loop
         return $this->loop_index < (count($this->posts) - 1);
     }
 
+    public function size()
+    {
+        return count($this->posts);
+    }
+
     public function current_post()
     {
         if ($this->loop_index < 0 || $this->loop_index >= count($this->posts)) {
