@@ -347,8 +347,18 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
 
 // Contact
 $app->get('/contact', function() use ($app, $prismic) {
-    $mc = mailgun_config();
-    render($app, 'contact', ($mc) ? $mc : array());
+
+    $contactId = $prismic->get_api()->bookmark('contact');
+
+    if (!$contactId) {
+        not_found($app);
+
+        return;
+    }
+
+    $contact = $prismic->get_document($contactId);
+
+    render($app, 'contact', array('contact' => $contact));
 });
 
 $app->post('/contact', function() use ($app) {
@@ -373,7 +383,7 @@ $app->post('/contact', function() use ($app) {
     'to' => $mc['recipient'],
     'subject' => $app->request->post('subject'),
     'text' => $app->request->post('message'));
-    
+
   $mailgun = new Mailgun($mc['mailgunApiKey']);
 
   try {
@@ -381,7 +391,7 @@ $app->post('/contact', function() use ($app) {
       $data = ($res->http_response_code == 200)
         ? array("success" => $res->http_response_body->message)
         : array("error" => $res->http_response_body->message);
-        
+
       $resp->setBody(json_encode($data));
   } catch (Exception $e) {
       $resp->setBody(json_encode(array("error" => $e->getMessage())));

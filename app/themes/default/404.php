@@ -4,11 +4,9 @@
 
   <div class="wrapper">
 
-
     <div class="illustration"></div>
 
-
-    <h1> THIS IS NOT THE PAGE YOU ARE LOOKING FOR</h1>
+    <h1>THIS IS NOT THE PAGE YOU ARE LOOKING FOR</h1>
 
   </div>
 

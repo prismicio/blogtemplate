@@ -1,85 +1,91 @@
 // require('mailgun-validator.min.js')
-$(document).ready(function(){
-    var submit = $('#send'),
-        pubKey = submit.data('pubkey'),
-        token = submit.data('token'),
-        sender = $('#sender'),
-        subject = $('#subject'),
-        message = $('#message'),
-        notEmpty = function(){
-            var input = $(this);
-            
-            if ($.trim(input.val()) == "") {
-                input.addClass("has-error");
-                submit.attr("disabled", "disabled")
-            } else {
-                input.removeClass("has-error");
-                validate()
-            }
-        },
-    validate = function(){
+$(function(){
+
+  var $form = $('form[name=contact-form]'),
+      $submit = $form.find('button.send'),
+      pubKey = $form.find('[name=pubkey]').val(),
+      token = $form.find('[name=token]').val(),
+      $sender = $form.find('[name=sender]'),
+      $subject = $form.find('[name=subject]'),
+      $message = $form.find('[name=message]'),
+
+      notEmpty = function() {
+        var input = $(this);
+        if ($.trim(input.val()) == "") {
+          input.addClass("has-error");
+          $submit.attr("disabled", "disabled");
+        } else {
+          input.removeClass("has-error");
+          validate();
+        }
+      },
+
+      validate = function() {
         if ($(".has-error").length > 0) return;
 
-        if ($.trim(sender.val()) == "" ||
-            $.trim(subject.val()) == "" ||
-            $.trim(message.val()) == "") { // not changed empty val
-            return
+        if ($.trim($sender.val()) == "" ||
+            $.trim($subject.val()) == "" ||
+            $.trim($message.val()) == "") { // not changed empty val
+          return;
         }
-        
-        submit.removeAttr("disabled")
-    },
-    alert = $("#contact-alert");
+        $submit.removeAttr("disabled");
+      };
 
-    subject.on('change keyup', notEmpty);
-    message.on('change keyup', notEmpty);
+  $subject.on('change', notEmpty);
 
-    sender.on('change keyup', function(){
-        var email = sender.val();
-        
-        if (email.length < 7) { // quick client validation
-            sender.addClass("has-error");
-            submit.attr("disabled", "disabled");
-            return
+  $message.on('change', notEmpty);
+
+  $sender.on('change', function() {
+    var email = $sender.val();
+
+    if (email.length < 7) { // quick client validation
+      $sender.addClass("has-error");
+      $submit.attr("disabled", "disabled");
+      return;
+    }
+
+    run_validator(email, {
+      api_key: pubKey,
+      success: function(res){
+        if (res.is_valid) {
+          $sender.removeClass("has-error");
+          validate();
+        } else {
+          $sender.addClass("has-error");
+          $submit.attr("disabled", "disabled");
         }
+      }
+    });
+  });
 
-        run_validator(email, {
-            api_key: pubKey,
-            success: function(res){
-                if (res.is_valid) {
-                    sender.removeClass("has-error");
-                    validate()
-                } else {
-                    sender.addClass("has-error");
-                    submit.attr("disabled", "disabled")
-                }
-            }
-        })
+  $submit.click(function() {
+
+    $submit.attr("disabled", "disabled");
+
+    $submit.text('sending...');
+
+    $.ajax({
+      type: "POST",
+      url: "/contact",
+      dataType: "json",
+      data: {
+        'token': token,
+        'sender': $sender.val(),
+        'subject': $subject.val(),
+        'message': $message.val()
+      }
+    }).then(function(res) {
+      //$alert.text(res.success).attr("class", "alert-success");
+    }).fail(function(res) {
+      //$alert.text(res.error).attr("class", "alert-error");
+    }).always(function() {
+      $subject.val('');
+      $message.val('');
+      $sender.val('');
+      $submit.text('send');
+      $submit.removeAttr("disabled");
     });
 
-    submit.click(function(){
-        submit.attr("disabled", "disabled");
-        
-        $.ajax({
-            type: "POST",
-            url: "/contact",
-            dataType: "json",
-            data: {
-                'token': token,
-                'sender': sender.val(),
-                'subject': subject.val(),
-                'message': message.val()
-            },
-            success: function(res){
-                if (res['success']) {
-                    alert.text(res.success).attr("class", "alert-success")
-                } else if (res['error']) {
-                    alert.text(res.error).attr("class", "alert-error")
-                }
-                    
-                submit.removeAttr("disabled")
-            }
-        });
-        
-        return false
-    });
+    return false;
+  });
 });

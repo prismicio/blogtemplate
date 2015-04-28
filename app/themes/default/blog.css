@@ -48,6 +48,10 @@ h1, h2 {
   background-size: cover;
 }
 
+.blog-header.author {
+  height: 50vh;
+}
+
 .blog-header.single, .blog-header.home {
   height: 100vh;
 }
@@ -434,7 +438,7 @@ h1, h2 {
 
   .blog-header {
     padding: 5px;
-    height: 40px;
+    height: 40vh;
   }
 
   .blog-header.home {

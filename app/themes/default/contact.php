@@ -1,49 +1,50 @@
 <?php get_header() ?>
-    <div class="blog-header contact">
-    <div class="container">
-        <h1 class="blog-title">Contact</h1>
-    </div>
+
+  <div class="blog-header contact" style="background-image: url(<?= contact_image_url() ?>)">
+
+    <div class="wrapper">
+
+      <h1><?= contact_title() ?></h1>
+
     </div>
 
-<div class="container blog-main">
+  </div>
+
+<div class="main">
 <?php if (!mailgun_loaded()) { ?>
     <p class="lead">The contact module is not configured (API keys, domain and administrator email).</p>
 <?php } else { /* is configure */ ?>
-    <p class="lead">You can submit your message using the form bellow.</p>
-    
-    <form name="contact_form" action="#">
+
+    <p data-success="Your email has been successfuly send" data-failure="An error occured while sending the email" class="info success"><?= contact_description() ?></p>
+
+    <form name="contact-form" action="#">
       <div class="form-group">
-        <label for="sender" class="control-label">Your email</label>
-        <input type="email" class="form-control" id="sender" name="sender" />
-      </div>
-      
-      <div class="form-group">
-        <label for="subject" class="control-label">Subject</label>
-        <input type="text" class="form-control" id="subject" name="subject" />
-      </div>
-      
-      <div class="form-group">
-        <label for="message" class="control-label">Message</label>
-        <textarea class="form-control" id="message" name="message"></textarea>
+        <label for="sender">Your email</label>
+        <input type="email" spellcheck="false" name="sender" />
       </div>
 
-      <button id="send" class="btn" disabled="disabled"
-        data-token="<?php echo mailgun_domain_sha1() ?>"
-        data-pubkey="<?php echo mailgun_pubkey() ?>">Send</button>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" spellcheck="false" name="subject" />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea name="message"></textarea>
+      </div>
+
+      <input type="hidden" name="token" value="<?=  mailgun_domain_sha1() ?>" />
+
+      <input type="hidden" name="pubkey" value="<?= mailgun_pubkey() ?>" />
+
+      <div class="actions">
+        <button class="send button" disabled="disabled">Send</button>
+      </div>
     </form>
-
-    <p id="contact-alert" class="hidden"></p>
 <?php } ?>
 </div>
-
-<!-- Hamburger menu -->
-<script src="/app/static/jquery.panelslider.js"></script>
-<script type="text/javascript">
-    $('#menu-hamburger').panelslider({side: 'right', duration: 200 });
-</script>
 
 <script src="/app/static/mailgun-validator.min.js"></script>
 <script src="/app/static/contact.js"></script>
 
-</body>
-</html>
+<?php get_footer() ?>

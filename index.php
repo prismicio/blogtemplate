@@ -27,6 +27,9 @@ $app = new \Slim\Slim(
       'disqus.apikey'  => DISQUS_API_KEY,
       'disqus.apisecret'  => DISQUS_API_SECRET,
       'disqus.accesstoken'  => DISQUS_API_ACCESSTOKEN,
+      'mailgun.apikey'  => MAILGUN_APIKEY,
+      'mailgun.pubkey'  => MAILGUN_PUBKEY,
+      'mailgun.domain'  => MAILGUN_DOMAIN,
     )
 );
 $prismic = new PrismicHelper($app);

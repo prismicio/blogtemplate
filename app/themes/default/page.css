@@ -67,26 +67,6 @@ p {
   margin: 15px 0 20px 0;
 }
 
-.button {
-  font-family: 'Lato', sans-serif;
-  color: #0C0E57;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid #D8D8D8;
-  padding: 10px 15px;
-  border-radius: 4px;
-  letter-spacing: 1px;
-  display: inline-block;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.button:hover {
-  border: 1px solid #0C0E57;
-  background: #0C0E57;
-  color: #fff;
-}
-
 li.col-2, li.col-3 {
   border: none;
   padding: 30px 30px 30px 100px;
@@ -147,7 +127,7 @@ li p {
     float: left;
   }
 
-  .featured-mini p {
+  .featured-mini p, .featured-items-simple p {
     padding-right: 100px;
   }
 
@@ -162,10 +142,6 @@ li p {
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
-  }
-
-  .featured-items-simple p {
-    padding-right: 100px;
   }
 
   .slides .arrow-prev {

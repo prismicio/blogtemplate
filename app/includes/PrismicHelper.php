@@ -23,6 +23,9 @@ class StarterKitLinkResolver extends LinkResolver
         if ($link->isBroken()) {
             return;
         }
+        if ($link->getType() == 'contact') {
+            return '/contact';
+        }
         if ($link->getType() == 'author') {
             return '/author/'.$link->getId().'/'.$link->getSlug();
         }

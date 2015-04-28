@@ -1,33 +1,56 @@
 <?php
 
-function mailgun_loaded(){
+function mailgun_loaded()
+{
     global $WPGLOBAL;
-    return (isset($WPGLOBAL['mailgunApiKey']) &&
-      isset($WPGLOBAL['mailgunPubKey']) &&
-      isset($WPGLOBAL['mailgunDomain']));
+    $app = $WPGLOBAL['app'];
+
+    return $app->config('mailgun.apikey') &&
+           $app->config('mailgun.pubkey') &&
+           $app->config('mailgun.domain');
 }
 
-function mailgun_pubkey(){
+function mailgun_pubkey()
+{
     global $WPGLOBAL;
-    return @$WPGLOBAL['mailgunPubKey'];
+    $app = $WPGLOBAL['app'];
+
+    return $app->config('mailgun.pubkey');
 }
 
-function mailgun_config(){
-    $apiKey = (defined("MAILGUN_APIKEY")) ? MAILGUN_APIKEY : null;
-    $pubKey = (defined("MAILGUN_PUBKEY")) ? MAILGUN_PUBKEY : null;
-    $domain = (defined("MAILGUN_DOMAIN")) ? MAILGUN_DOMAIN : null;
-    $recipient = (defined("ADMIN_EMAIL")) ? ADMIN_EMAIL : null;
+function mailgun_domain_sha1()
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+    $domain = $app->config('mailgun.domain');
 
-    if (!$apiKey || !$pubKey || !$domain || !$recipient) return null;
-    
-    return array(
-        'mailgunApiKey' => $apiKey,
-        'mailgunPubKey' => $pubKey,
-        'mailgunDomain' => $domain,
-        'recipient' => $recipient);
+    return $domain ? sha1($domain) : null;
 }
 
-function mailgun_domain_sha1(){
-    if (!defined("MAILGUN_DOMAIN") || !MAILGUN_DOMAIN) return null;
-    return sha1(MAILGUN_DOMAIN);
+function contact()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['contact'])) {
+        return $WPGLOBAL['contact'];
+    }
+
+    return;
+}
+
+function contact_title()
+{
+    $contact = contact();
+    return $contact->getText('contact.headline');
+}
+
+function contact_image_url()
+{
+    $contact = contact();
+    return $contact->getImage('contact.image')->getMain()->getUrl();
+}
+
+function contact_description()
+{
+    $contact = contact();
+    return $contact->getText('contact.description');
 }
