@@ -86,7 +86,7 @@ class WPTest extends LocalWebTestCase
         $this->client->get('/sample-page');
         $this->assertEquals(200, $this->client->response->status());
         $html = str_get_dom($this->client->response->body());
-        $this->assertEquals('Sample Website Starter Page', trim($html('h2', 0)->getPlainText()));
+        $this->assertEquals('Website Starter Sample Page', trim($html('h2', 0)->getPlainText()));
     }
 
     public function testTag()
