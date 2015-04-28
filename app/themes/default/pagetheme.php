@@ -32,6 +32,10 @@
   $slideTextColor = $theme->getColor('theme.page-slide-text-color');
 
   $faqSeparationColor = $theme->getColor('theme.page-faq-separation-color');
+
+  $slideHomeButtonBackgroundFirstColor = $theme->getColor('theme.page-slide-home-button-background-first-color');
+
+  $slideHomeButtonBackgroundSecondColor = $theme->getColor('theme.page-slide-home-button-background-second-color');
 ?>
 
 body {
@@ -76,7 +80,8 @@ h2, h3 {
 
 .button.home {
   <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
-  background: #5154AB;
+  <?= $slideHomeButtonBackgroundFirstColor ? 'background-color:'.$slideHomeButtonBackgroundFirstColor->asText() : ''; ?>;
+  <?= $slideHomeButtonBackgroundSecondColor ? 'box-shadow: 0px 3px '.$slideHomeButtonBackgroundSecondColor->asText() : ''; ?>;
 }
 
 .round-image {
