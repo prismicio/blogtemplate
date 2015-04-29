@@ -37,17 +37,10 @@ function rewind_posts()
     $loop->reset();
 }
 
-// To be used within the loop
-
 function the_ID()
 {
     global $loop;
     echo $loop->current_post()->getId();
-}
-
-function is_sticky()
-{
-    return false;
 }
 
 function the_permalink()
@@ -55,23 +48,13 @@ function the_permalink()
     echo get_permalink();
 }
 
-function get_permalink($id = null, $leavename = false)
+function get_permalink($id = null)
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $post = $id ? $prismic->get_document($id) : $loop->current_post();
 
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
-}
-
-function current_experiment_id()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    $api = $prismic->get_api();
-    $currentExperiment = $api->getExperiments()->getCurrent();
-
-    return $currentExperiment ? $currentExperiment->getGoogleId() : null;
 }
 
 function the_title()
@@ -131,7 +114,7 @@ function get_the_time($format = 'g:iA')
     return date_format($date, $format);
 }
 
-function the_content($more_link_text = '(more...')
+function the_content()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
@@ -197,12 +180,6 @@ function has_post_thumbnail()
     $doc = $loop->current_post();
 
     return ($doc != null && $doc->getImage($doc->getType().'.image') != null);
-}
-
-function has_post_format($format = array(), $post = null)
-{
-    // TODO
-    return false;
 }
 
 function get_the_excerpt()
@@ -274,17 +251,6 @@ function get_the_tag_list($before = '', $sep = '', $after = '')
 
 // Other tags
 
-function wio_attributes()
-{
-    global $WPGLOBAL, $loop;
-    $page = single_post();
-    $doc = $page ? $page : $loop->current_post();
-    if (!$doc) {
-        return;
-    }
-    echo 'data-wio-id="'.$doc->getId().'"';
-}
-
 function single_post()
 {
     global $WPGLOBAL;
@@ -306,66 +272,6 @@ function document_url($document)
 function link_to_post($post)
 {
     return '<a href="'.document_url($post).'">'.post_title($post).'</a>';
-}
-
-function the_theme()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['theme'])) {
-        return $WPGLOBAL['theme'];
-    }
-
-    return;
-}
-
-function the_blankimage()
-{
-    return the_theme()->getImage('theme.blank-image') ? the_theme()->getImage('theme.blank-image')->getMain() : null;
-}
-
-function blog_home()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['homeblog'])) {
-        return $WPGLOBAL['homeblog'];
-    }
-
-    return;
-}
-
-function blog_home_title()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.headline');
-}
-
-function blog_home_description()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.description');
-}
-
-function blog_home_image_url()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-    $image = blog_home()->getImage('homeblog.image');
-    if ($image) {
-        return $image->getMain()->getUrl();
-    }
 }
 
 function single_post_title($prefix = '', $display = true)
@@ -476,4 +382,51 @@ function get_date($field, $doc)
     }
 
     return $doc->getDate($field);
+}
+
+function blog_home()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['homeblog'])) {
+        return $WPGLOBAL['homeblog'];
+    }
+
+    return;
+}
+
+// Blog home
+
+function blog_home_title()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.headline');
+}
+
+function blog_home_description()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.description');
+}
+
+function blog_home_image_url()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+    $image = blog_home()->getImage('homeblog.image');
+    if ($image) {
+        return $image->getMain()->getUrl();
+    }
 }

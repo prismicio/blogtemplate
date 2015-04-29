@@ -10,7 +10,6 @@ function is_home()
 
 function is_front_page()
 {
-    // TODO: These 2 functions are not exactly the same, although I think in our case they will be
     return is_home();
 }
 
@@ -85,11 +84,6 @@ function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previou
     } else {
         return $prismic->get_next_post($loop->current_post()->getId());
     }
-}
-
-function wp_link_pages($args)
-{
-    // TODO
 }
 
 function wp_nav_menu($args)

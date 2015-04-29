@@ -1,5 +1,5 @@
 
-<div class="blog-post" <?= wio_attributes() ?>>
+<div class="blog-post" <?= the_wio_attributes() ?>>
 
     <h2 class="blog-post-title">
 

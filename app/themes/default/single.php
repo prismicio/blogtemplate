@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="blog-main single container" <?= wio_attributes(); ?>>
+<div class="blog-main single container" <?= the_wio_attributes(); ?>>
 
     <?php the_content(); ?>
 
