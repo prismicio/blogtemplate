@@ -47,7 +47,13 @@
 
 <?php while ( have_posts() ) : the_post(); ?>
 
-<div class="blog-header single" style="<?= post_thumbnail_url() ? 'background-image: url(' . post_thumbnail_url() . ')' : '' ?>">
+<?php
+
+  $headerImageUrl = post_thumbnail_url() ? post_thumbnail_url() : (the_blankimage() ? the_blankimage()->getUrl() : '');
+
+?>
+
+<div class="blog-header single" style="<?= $headerImageUrl ? 'background-image: url('.$headerImageUrl.')' : '' ?>">
 
     <div class="wrapper">
 

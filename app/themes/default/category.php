@@ -1,6 +1,12 @@
 <?php get_header() ?>
 
-<div class="blog-header category" style="<?php if (single_cat_illustration_url()) { ?>background-image: url(<?= single_cat_illustration_url() ?>)<?php } ?>">
+<?php
+
+  $headerImageUrl = single_cat_illustration_url() ? single_cat_illustration_url() : (the_blankimage() ? the_blankimage()->getUrl() : '');
+
+?>
+
+<div class="blog-header category" style="<?= $headerImageUrl ? 'background-image: url('.$headerImageUrl.')' : '' ?>">
 
     <div class="wrapper">
 

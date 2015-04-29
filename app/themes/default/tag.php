@@ -1,6 +1,6 @@
 <?php get_header() ?>
 
-<div class="blog-header tag">
+<div class="blog-header tag" style="<?= the_blankimage() ? 'background-image: url('.the_blankimage()->getUrl().')' : '' ?>">
 
     <div class="wrapper">
 

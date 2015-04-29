@@ -8,13 +8,20 @@
 
 <?php foreach($slice->getValue()->getArray() as $item) { ?>
 
-    <?php $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null; ?>
+    <?php
 
-    <?php $readMore = $item->get('read-more'); ?>
+      $illustration = $item->get('illustration') ? $item->get('illustration')->getMain() : null;
 
-    <?php $readMoreLabel = $item->get('read-more-label'); ?>
+      $blankImage = the_theme()->getImage('theme.blank-image') ? the_theme()->getImage('theme.blank-image')->getMain() : null;
 
-    <div class="slide" <?= $illustration ? 'style="background-image: url('.$illustration->getUrl().')"' : '' ?> >
+      $illustrationUrl = $illustration ? $illustration->getUrl() : ($blankImage ? $blankImage->getUrl() : '');
+
+      $readMore = $item->get('read-more');
+
+      $readMoreLabel = $item->get('read-more-label');
+    ?>
+
+    <div class="slide" style="<?= $illustrationUrl ? 'background-image: url('.$illustrationUrl.')' : '' ?>">
 
         <div class="slide-container">
 

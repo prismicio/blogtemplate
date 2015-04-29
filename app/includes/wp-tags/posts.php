@@ -318,6 +318,11 @@ function the_theme()
     return;
 }
 
+function the_blankimage()
+{
+    return the_theme()->getImage('theme.blank-image') ? the_theme()->getImage('theme.blank-image')->getMain() : null;
+}
+
 function blog_home()
 {
     global $WPGLOBAL;
