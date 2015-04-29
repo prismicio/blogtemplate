@@ -11,7 +11,7 @@
 
     <?php include('prismic.php') ?>
 
-    <?php include('theme/fonts.php') ?>
+    <?php include('theme/blog.php') ?>
 
 </head>
 
@@ -22,8 +22,6 @@
     <div class="wrapper">
 
       <h1><?= contact_title() ?></h1>
-
-      <p><?= contact_description() ?></p>
 
     </div>
 

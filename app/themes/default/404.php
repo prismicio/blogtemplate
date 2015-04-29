@@ -5,12 +5,14 @@
     <link rel="icon" type="image/png" href="/app/static/favicon.png">
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
+    <link rel="stylesheet" href="/app/themes/default/errorpage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 
     <?php include('prismic.php') ?>
 
-    <?php include('theme/page.php') ?>
+    <?php include('theme/errorpage.php') ?>
+
 </head>
 
 <body class="error-page">

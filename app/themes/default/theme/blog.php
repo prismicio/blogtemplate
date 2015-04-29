@@ -6,8 +6,6 @@
 
 <style>
 
-<?php include('sidebar.php') ?>
-
 <?php
 
   $textColor = $theme->getColor('theme.blog-text-color');
