@@ -30,6 +30,7 @@ $app = new \Slim\Slim(
       'mailgun.apikey'  => MAILGUN_APIKEY,
       'mailgun.pubkey'  => MAILGUN_PUBKEY,
       'mailgun.domain'  => MAILGUN_DOMAIN,
+      'mailgun.email'  => MAILGUN_EMAIL,
     )
 );
 $prismic = new PrismicHelper($app);

@@ -8,14 +8,14 @@ $(function(){
       $sender = $form.find('[name=sender]'),
       $subject = $form.find('[name=subject]'),
       $message = $form.find('[name=message]'),
+      $feedback = $form.find('.feedback'),
 
-      notEmpty = function() {
-        var input = $(this);
-        if ($.trim(input.val()) == "") {
-          input.addClass("has-error");
+      notEmpty = function($input) {
+        if ($.trim($input.val()) == "") {
+          $input.addClass("has-error");
           $submit.attr("disabled", "disabled");
         } else {
-          input.removeClass("has-error");
+          $input.removeClass("has-error");
           validate();
         }
       },
@@ -29,13 +29,24 @@ $(function(){
           return;
         }
         $submit.removeAttr("disabled");
+      },
+
+      onChange = function() {
+
+        $feedback.text('');
+
+        var $input = $(this);
+        notEmpty($input);
       };
 
-  $subject.on('change', notEmpty);
+  $subject.on('change keyup', onChange);
 
-  $message.on('change', notEmpty);
+  $message.on('change keyup', onChange);
 
-  $sender.on('change', function() {
+  $sender.on('change keyup', function() {
+
+    $feedback.text('');
+
     var email = $sender.val();
 
     if (email.length < 7) { // quick client validation
@@ -75,9 +86,11 @@ $(function(){
         'message': $message.val()
       }
     }).then(function(res) {
-      //$alert.text(res.success).attr("class", "alert-success");
+      $feedback.addClass('success');
+      $feedback.text($feedback.data('success'));
     }).fail(function(res) {
-      //$alert.text(res.error).attr("class", "alert-error");
+      $feedback.addClass('error');
+      $feedback.text($feedback.data('error'));
     }).always(function() {
       $subject.val('');
       $message.val('');

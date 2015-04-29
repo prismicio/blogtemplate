@@ -364,30 +364,26 @@ $app->get('/contact', function() use ($app, $prismic) {
 $app->post('/contact', function() use ($app) {
   $resp = $app->response;
   $resp->headers->set('Content-Type', 'application/json');
-  $mc = mailgun_config();
 
-  if (!$mc) {
-      $resp->setBody(json_encode(array("error" => "Missing configuration")));
-      return;
-  }
+  $domain = $app->config('mailgun.domain');
 
   $token = $app->request->post('token');
 
-  if ($token != sha1($mc['mailgunDomain'])) {
+  if ($token != sha1($domain)) {
       $resp->setBody(json_encode(array("error" => "Unauthorized contact token")));
       return;
   }
 
   $message = array(
     'from' => $app->request->post('sender'),
-    'to' => $mc['recipient'],
+    'to' => $app->config('mailgun.email'),
     'subject' => $app->request->post('subject'),
     'text' => $app->request->post('message'));
 
-  $mailgun = new Mailgun($mc['mailgunApiKey']);
+  $mailgun = new Mailgun($app->config('mailgun.apikey'));
 
   try {
-      $res = $mailgun->sendMessage($mc['mailgunDomain'], $message);
+      $res = $mailgun->sendMessage($domain, $message);
       $data = ($res->http_response_code == 200)
         ? array("success" => $res->http_response_body->message)
         : array("error" => $res->http_response_body->message);

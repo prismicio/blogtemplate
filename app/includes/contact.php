@@ -54,3 +54,15 @@ function contact_description()
     $contact = contact();
     return $contact->getText('contact.description');
 }
+
+function contact_feedback_success()
+{
+    $contact = contact();
+    return $contact->getText('contact.feedback-success');
+}
+
+function contact_feedback_error()
+{
+    $contact = contact();
+    return $contact->getText('contact.feedback-error');
+}

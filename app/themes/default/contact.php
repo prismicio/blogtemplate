@@ -1,23 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?= single_post_title() ?> <?= site_title() ?></title>
+    <link rel="icon" type="image/png" href="/app/static/favicon.png">
+    <link rel="stylesheet" href="/app/static/common.css">
+    <link rel="stylesheet" href="/app/themes/default/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/app/static/jquery-1.11.2.min.js"></script>
+
+    <?php include('fontstheme.php') ?>
+
+</head>
+
+<body class="contact-page">
+
 <?php get_header() ?>
 
-  <div class="blog-header contact" style="background-image: url(<?= contact_image_url() ?>)">
+  <div class="contact-header" style="<?= contact_image_url() ? 'background-image: url('.contact_image_url().')' : ''?>">
 
     <div class="wrapper">
 
       <h1><?= contact_title() ?></h1>
 
+      <p><?= contact_description() ?></p>
+
     </div>
 
   </div>
 
-<div class="main">
-<?php if (!is_mailgun_loaded()) { ?>
-    <p class="lead">The contact module is not configured (API keys, domain and administrator email).</p>
-<?php } else { /* is configure */ ?>
+  <div class="main">
 
-    <p data-success="Your email has been successfuly send" data-failure="An error occured while sending the email" class="info success"><?= contact_description() ?></p>
+  <?php if (!is_mailgun_loaded()) { ?>
+
+    <p class="lead">The contact module is not configured (API keys, domain and administrator email).</p>
+
+  <?php } else { /* is configure */ ?>
 
     <form name="contact-form" action="#">
+
       <div class="form-group">
         <label for="sender">Your email</label>
         <input type="email" spellcheck="false" name="sender" />
@@ -37,11 +57,14 @@
 
       <input type="hidden" name="pubkey" value="<?= mailgun_pubkey() ?>" />
 
-      <div class="actions">
-        <button class="send button" disabled="disabled">Send</button>
-      </div>
+      <button class="send button" disabled="disabled">Send</button>
+
+      <span data-success="<?= contact_feedback_success() ?>" data-error="<?= contact_feedback_error() ?>" class="feedback"></span>
+
     </form>
-<?php } ?>
+
+  <?php } ?>
+
 </div>
 
 <script src="/app/static/mailgun-validator.min.js"></script>

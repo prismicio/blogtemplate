@@ -43,3 +43,4 @@ define('DEBUG', 'false');
 define('MAILGUN_APIKEY', null); // API Key, e.g. key-XYZ
 define('MAILGUN_PUBKEY', null); // Public API KEY, e.g. pubkey-XYZ
 define('MAILGUN_DOMAIN', null); // e.g. sandboxXYZ.mailgun.org
+define('MAILGUN_EMAIL', null);
