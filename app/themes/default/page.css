@@ -13,11 +13,6 @@ img {
 
 body {
   color: #9698B9;
-  font-size: 12px;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  padding: 0;
-  margin: 0;
 }
 
 #page-content * {

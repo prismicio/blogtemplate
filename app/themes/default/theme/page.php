@@ -3,11 +3,11 @@
 
 <?php if($theme) : ?>
 
-<?php include('fontstheme.php') ?>
+<?php include('fonts.php') ?>
 
 <style>
 
-<?php include('sidebartheme.php') ?>
+<?php include('sidebar.php') ?>
 
 <?php
 
@@ -129,9 +129,5 @@ h2, h3 {
 }
 
 </style>
-
-<?php else: ?>
-
-<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
 
 <?php endif ?>

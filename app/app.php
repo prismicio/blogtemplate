@@ -358,7 +358,9 @@ $app->get('/contact', function() use ($app, $prismic) {
 
     $contact = $prismic->get_document($contactId);
 
-    render($app, 'contact', array('contact' => $contact));
+    $theme = $prismic->get_theme();
+
+    render($app, 'contact', array('contact' => $contact, 'theme' => $theme));
 });
 
 $app->post('/contact', function() use ($app) {

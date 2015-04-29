@@ -14,11 +14,11 @@
     <script src="/app/static/jquery-1.11.2.min.js"></script>
     <script src="/app/themes/default/slices/slices.js"></script>
 
-    <!-- prismic toolbar -->
+
     <?php include('prismic.php') ?>
 
-    <!-- theme -->
-    <?php include('blogtheme.php') ?>
+    <?php include('theme/blog.php') ?>
+
 </head>
 
 <body>

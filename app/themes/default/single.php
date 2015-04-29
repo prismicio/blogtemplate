@@ -26,11 +26,9 @@
     <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
     <script src="/app/static/disqium/disqium.js"></script>
 
-    <!-- prismic toolbar -->
     <?php include('prismic.php') ?>
 
-    <!-- theme -->
-    <?php include('blogtheme.php') ?>
+    <?php include('theme/blog.php') ?>
 
 </head>
 

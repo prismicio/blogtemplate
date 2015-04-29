@@ -5,16 +5,17 @@
     <link rel="icon" type="image/png" href="/app/static/favicon.png">
     <link rel="stylesheet" href="/app/static/common.css">
     <link rel="stylesheet" href="/app/themes/default/main.css">
+    <link rel="stylesheet" href="/app/themes/default/contact.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 
-    <?php include('fontstheme.php') ?>
+    <?php include('prismic.php') ?>
+
+    <?php include('theme/fonts.php') ?>
 
 </head>
 
 <body class="contact-page">
-
-<?php get_header() ?>
 
   <div class="contact-header" style="<?= contact_image_url() ? 'background-image: url('.contact_image_url().')' : ''?>">
 
@@ -28,7 +29,13 @@
 
   </div>
 
+  <div id="right-panel">
+      <?php get_sidebar() ?>
+  </div>
+
   <div class="main">
+
+  <a id="menu-hamburger" href="#right-panel"></a>
 
   <?php if (!is_mailgun_loaded()) { ?>
 

@@ -1,0 +1,109 @@
+@media (max-width: 767px) {
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .contact-page .contact-header {
+    height: 30vh;
+  }
+
+  .contact-page form[name=contact-form] {
+    width: 80%;
+    margin: auto;
+  }
+
+  .contact-page form[name=contact-form] .form-group input, form[name=contact-form] .form-group textarea {
+    width: 100%;
+  }
+
+  .contact-page .feedback {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+
+  h1 {
+    font-size: 60px;
+  }
+
+  .contact-page .contact-header {
+    height: 40vh;
+  }
+
+  .contact-page form[name=contact-form] {
+    margin: auto;
+    width: 400px;
+  }
+
+  .contact-page form[name=contact-form] .form-group input, form[name=contact-form] .form-group textarea {
+    width: 400px;
+  }
+
+  .contact-page .feedback {
+    font-size: 12px;
+  }
+}
+
+.contact-page {
+  margin: 0;
+  padding: 0;
+}
+
+.contact-page .contact-header {
+  position: relative;
+}
+
+.contact-page .contact-header .wrapper {
+  color: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.contact-page .contact-header .wrapper h1 {
+  color: #FFF;
+}
+
+.contact-page .feedback {
+  margin-left: 16px;
+}
+
+.contact-page form[name=contact-form] {
+  margin-top: 40px;
+}
+
+.contact-page form[name=contact-form] .form-group {
+  margin: 10px 0;
+}
+
+.contact-page form[name=contact-form] .form-group label {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  display: inline-block;
+  width: 100px;
+  vertical-align: top;
+  padding: 6px 0;
+}
+
+.contact-page form[name=contact-form] .form-group input, form[name=contact-form] .form-group textarea {
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #D8D8D8;
+  outline: none;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.contact-page form[name=contact-form] .form-group input.has-error, form[name=contact-form] .form-group textarea.hasError {
+  border-color: #ea6344;
+}
+
+.contact-page form[name=contact-form] .form-group textarea {
+  resize: none;
+  min-height: 100px;
+}

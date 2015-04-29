@@ -2,11 +2,11 @@
 
 <?php if($theme) : ?>
 
-<?php include('fontstheme.php') ?>
+<?php include('fonts.php') ?>
 
 <style>
 
-<?php include('sidebartheme.php') ?>
+<?php include('sidebar.php') ?>
 
 <?php
 
@@ -26,7 +26,7 @@
 
   $metaTextColor = $theme->getColor('theme.blog-meta-text-color');
 
-  $homeTextColor = $theme->getColor('theme.blog-home-text-color');
+  $headerTextColor = $theme->getColor('theme.blog-header-text-color');
 
   $imageLabelTextColor = $theme->getColor('theme.blog-imagelabel-text-color');
 
@@ -62,7 +62,7 @@ h6, .h6 {
 }
 
 .blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
-  <?= $homeTextColor ? 'color:'.$homeTextColor->asText() : ''; ?>;
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
 }
 
 .blog-footer.single {
@@ -85,7 +85,7 @@ h6, .h6 {
 
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 
-  <?= $homeTextColor ? 'color:'.$homeTextColor->asText() : ''; ?>;
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
 }
 
 .blog-post-title a, .blog-post-meta a {
@@ -122,10 +122,18 @@ h6, .h6 {
   <?= $imageLabelTextColor ? 'border-left-color:'.$imageLabelTextColor->asText() : ''; ?>;
 }
 
+.contact-page form[name=contact-form] .form-group label {
+  <?= $textFont ? 'font-family:'.$textFont : ''; ?>;
+}
+
+.contact-page .contact-header .wrapper {
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
+}
+
+.contact-page .contact-header .wrapper h1 {
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
+}
+
 </style>
-
-<?php else: ?>
-
-<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
 
 <?php endif ?>

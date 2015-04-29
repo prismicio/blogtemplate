@@ -9,4 +9,8 @@
 
 <?php } ?>
 
+<?php else: ?>
+
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
 <?php endif ?>

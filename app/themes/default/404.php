@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 
-    <?php include('fontstheme.php') ?>
+    <?php include('prismic.php') ?>
 
+    <?php include('theme/page.php') ?>
 </head>
 
 <body class="error-page">
