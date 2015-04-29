@@ -11,7 +11,7 @@
   </div>
 
 <div class="main">
-<?php if (!mailgun_loaded()) { ?>
+<?php if (!is_mailgun_loaded()) { ?>
     <p class="lead">The contact module is not configured (API keys, domain and administrator email).</p>
 <?php } else { /* is configure */ ?>
 

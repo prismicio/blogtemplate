@@ -1,7 +1,6 @@
 * { padding: 0; margin: 0; }
 
 body {
-  font-family: 'PT Serif', serif;
   color: #5D5F86;
 }
 
@@ -20,7 +19,6 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: 'Lato', sans-serif;
   color: #2F3163;
 }
 

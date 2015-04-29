@@ -48,10 +48,13 @@ function current_page($app)
     return $pageQuery == null ? '1' : $pageQuery;
 }
 
-function not_found($app)
+function not_found($app, $theme)
 {
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $notfound = $prismic->get_404();
     $app->response->setStatus(404);
-    render($app, '404');
+    render($app, '404', array('theme' => $theme, 'notfound' => $notfound));
 }
 
 function check_page_path1($path, $prismic)

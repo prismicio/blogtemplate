@@ -1,6 +1,6 @@
 <?php
 
-function mailgun_loaded()
+function is_mailgun_loaded()
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];

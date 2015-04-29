@@ -402,15 +402,15 @@ $app->post('/contact', function() use ($app) {
 $app->get('/:path+', function ($path) use ($app,$prismic) {
     $page_uid = check_page_path($path, $prismic, $app);
 
+    $theme = $prismic->get_theme();
+
     if ($page_uid) {
         $page = $prismic->by_uid('page', $page_uid);
         if (!$page) {
-            not_found($app);
+            not_found($app, $theme);
 
             return;
         }
-
-        $theme = $prismic->get_theme();
 
         render($app, 'page', array('single_post' => $page, 'theme' => $theme));
     }
