@@ -69,7 +69,7 @@ class WPTest extends LocalWebTestCase
         $this->assertEquals(200, $this->client->response->status());
 
         $html = str_get_dom($this->client->response->body());
-        $this->assertEquals('My First Blog Post', trim($html('.blog-post-title', 0)->getPlainText()));
+        $this->assertEquals('Second Blog Post', trim($html('.blog-post-title', 0)->getPlainText()));
     }
 
     public function testCategory()
