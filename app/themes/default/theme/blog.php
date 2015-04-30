@@ -54,6 +54,10 @@ h6, .h6 {
   <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
 }
 
+.previous-post, .next-post {
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+}
+
 .blog-header {
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
   <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
