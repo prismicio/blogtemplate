@@ -69,6 +69,18 @@ function next_posts_link($label = 'Next Page »')
 
 /////
 
+function previous_post_link_title()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $previous = $prismic->get_prev_post($loop->current_post()->getId());
+    if ($previous) {
+        return $previous->getText($previous->getType().'.title');
+    }
+
+    return;
+}
+
 function previous_post_link_url()
 {
     global $WPGLOBAL, $loop;
@@ -91,6 +103,18 @@ function previous_post_link($format = '&laquo; %link', $link = '%title', $in_sam
 }
 
 /////
+
+function next_post_link_title()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $next = $prismic->get_next_post($loop->current_post()->getId());
+    if ($next) {
+        return $next->getText($next->getType().'.title');
+    }
+
+    return;
+}
 
 function next_post_link_url()
 {

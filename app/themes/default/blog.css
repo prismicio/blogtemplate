@@ -77,6 +77,10 @@ h1, h2 {
  * Blog name and description
  */
 
+.blog-header h1 {
+  margin: 20px 0;
+}
+
 .blog-header .wrapper {
   position: absolute;
   left: 50%;
@@ -95,18 +99,6 @@ h1, h2 {
   color: #FFF;
 }
 
-.blog-header.single .date {
-  display: inline-block;
-}
-
-.blog-header.single .author {
-  margin-left: 20px;
-}
-
-.blog-header.single .shortlede {
-  font-size: 30px;
-}
-
 .blog-description {
   font-family: 'Lato', sans-serif;
   font-size: 22px;
@@ -116,7 +108,7 @@ h1, h2 {
 .blog-title {
   text-align: center;
   margin: 0;
-  padding: 10px;
+  padding: 10px 0;
   font-weight: normal;
 }
 
@@ -430,13 +422,17 @@ h1, h2 {
     padding: 14px 0;
   }
 
-  .blog-header.single .date, .blog-header.single .shortlede, .blog-header.single .author {
-    display: none;
-  }
-
   .blog-header {
     padding: 5px;
     height: 40vh;
+  }
+
+  .blog-header.single .author {
+    margin-top: 10px;
+  }
+
+  .blog-header.single .date, .blog-header.single .author, .blog-header.single .shortlede {
+    font-size: 16px;
   }
 
   .blog-header.home {
@@ -520,10 +516,6 @@ h1, h2 {
     margin-top: 40px;
   }
 
-  .blog-header h1 {
-    margin: 10px 0;
-  }
-
   .blog-footer.single a {
     padding: 10px;
   }
@@ -546,6 +538,10 @@ h1, h2 {
 
   .blog-footer.single .label {
     font-size: 14px;
+  }
+
+  .blog-footer.single .title {
+    font-size: 18px;
   }
 
   .blog-footer.single .previous .label::before {
@@ -657,5 +653,21 @@ h1, h2 {
   .blog-header.search .description {
     margin-top: 40px;
     font-size: 28px;
+  }
+
+  .blog-header.single .date, .blog-header.single .author {
+    display: inline-block;
+  }
+
+  .blog-header.single .author {
+    margin-left: 20px;
+  }
+
+  .blog-header.single .shortlede {
+    font-size: 30px;
+  }
+
+  .blog-header.single .date, .blog-header.single .author {
+    font-size: 16px;
   }
 }

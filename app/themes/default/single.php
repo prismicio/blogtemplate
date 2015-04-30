@@ -78,11 +78,31 @@
 
 <footer class="blog-footer single">
 
-    <?php single_prev_post_link() ?>
+    <?php if (previous_post_link_url()) : ?>
+
+      <a href="<?=previous_post_link_url()?>" class="previous">
+
+        <span class="label">Previous article</span>
+
+        <p class="title"><?=previous_post_link_title()?></p>
+
+      </a>
+
+    <?php endif ?>
 
     <a class="menu" href="/blog">Home</a>
 
-    <?php single_next_post_link() ?>
+    <?php if (next_post_link_url()) : ?>
+
+      <a href="<?=next_post_link_url()?>" class="next">
+
+        <span class="label">Next article</span>
+
+        <p class="title"><?=next_post_link_title()?></p>
+
+      </a>
+
+    <?php endif ?>
 
 </footer>
 

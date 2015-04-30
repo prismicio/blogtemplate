@@ -299,6 +299,7 @@ $app->get('/blog', function () use ($app, $prismic) {
 
 // Post
 $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) use ($app,$prismic) {
+
     $fetch = array(
         'post.date',
         'category.name',
@@ -308,26 +309,12 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
         'author.company',
     );
 
-    $ctx = array();
-
     $doc = $prismic->by_uid('post', $uid, $fetch);
+
     if (!$doc) {
         not_found($app);
 
         return;
-    }
-
-    $ctx['single_post'] = $doc;
-
-    $prev_doc = $prismic->get_prev_post($doc->getId());
-
-    $next_doc = $prismic->get_next_post($doc->getId());
-
-    if ($prev_doc) {
-        $ctx['single_prev_post'] = $prev_doc;
-    }
-    if ($next_doc) {
-        $ctx['single_next_post'] = $next_doc;
     }
 
     $permalink = $prismic->linkResolver->resolveDocument($doc);
@@ -340,9 +327,8 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
     }
 
     $theme = $prismic->get_theme();
-    $ctx['theme'] = $theme;
 
-    render($app, 'single', $ctx);
+    render($app, 'single', array('single_post' => $doc, 'theme' => $theme));
 });
 
 // Contact
