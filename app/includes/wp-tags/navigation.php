@@ -13,7 +13,9 @@ function is_front_page()
     return is_home();
 }
 
-function get_previous_posts_link($label = '« Previous Page')
+/////
+
+function get_previous_posts_link_url()
 {
     global $WPGLOBAL, $loop;
     $app = $WPGLOBAL['app'];
@@ -22,9 +24,15 @@ function get_previous_posts_link($label = '« Previous Page')
     }
     $qs = $app->request()->params();
     $qs['page'] = ($loop->page - 1);
-    $url = $app->request->getPath().'?'.http_build_query($qs);
 
-    return '<a href="'.$url.'">'.htmlentities($label).'</a>';
+    return $app->request->getPath().'?'.http_build_query($qs);
+}
+
+function get_previous_posts_link($label = '« Previous Page')
+{
+    $url = get_previous_posts_link_url();
+
+    return $url ? '<a href="'.$url.'">'.htmlentities($label).'</a>' : '';
 }
 
 function previous_posts_link($label = '« Previous Page')
@@ -32,7 +40,9 @@ function previous_posts_link($label = '« Previous Page')
     echo get_previous_posts_link($label);
 }
 
-function get_next_posts_link($label = 'Next Page »')
+/////
+
+function get_next_posts_link_url($label = 'Next Page »')
 {
     global $WPGLOBAL, $loop;
     $app = $WPGLOBAL['app'];
@@ -41,9 +51,15 @@ function get_next_posts_link($label = 'Next Page »')
     }
     $qs = $app->request()->params();
     $qs['page'] = ($loop->page + 1);
-    $url = $app->request->getPath().'?'.http_build_query($qs);
 
-    return '<a href="'.$url.'">'.htmlentities($label).'</a>';
+    return $app->request->getPath().'?'.http_build_query($qs);
+}
+
+function get_next_posts_link($label = 'Next Page »')
+{
+    $url = get_next_posts_link_url();
+
+    return $url ? '<a href="'.$url.'">'.htmlentities($label).'</a>' : '';
 }
 
 function next_posts_link($label = 'Next Page »')
@@ -51,29 +67,53 @@ function next_posts_link($label = 'Next Page »')
     echo get_next_posts_link($label);
 }
 
-function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+/////
+
+function previous_post_link_url()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $previous = $prismic->get_prev_post($loop->current_post()->getId());
     if ($previous) {
-        $url = $prismic->linkResolver->resolveDocument($previous);
+        return $prismic->linkResolver->resolveDocument($previous);
+    }
+
+    return;
+}
+
+function previous_post_link($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+{
+    $url = previous_post_link();
+    if ($url) {
         $label = str_replace('%link', htmlentities($previous->getText('post.title')), $format);
         echo '<a href="'.$url.'">'.$label.'</a>';
     }
 }
 
-function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+/////
+
+function next_post_link_url()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $next = $prismic->get_next_post($loop->current_post()->getId());
     if ($next) {
-        $url = $prismic->linkResolver->resolveDocument($next);
+        return $prismic->linkResolver->resolveDocument($next);
+    }
+
+    return;
+}
+
+function next_post_link($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category')
+{
+    $url = next_post_link_url();
+    if ($url) {
         $label = str_replace('%link', htmlentities($next->getText('post.title')), $format);
         echo '<a href="'.$url.'">'.$label.'</a>';
     }
 }
+
+/////
 
 function get_adjacent_post($in_same_term = false, $excluded_terms = '', $previous = true, $taxonomy = 'category')
 {
@@ -124,21 +164,34 @@ function wp_nav_menu($args)
     echo '</ul></'.$p['container'].'>';
 }
 
-function get_day_link($year, $month, $day)
+/////
+
+function get_day_link_url()
 {
     $now = new DateTime('now');
+
     if (!$year) {
         $year = $now->format('Y');
     }
+
     if (!$month) {
         $month = $now->format('m');
     }
+
     if (!$day) {
         $day = $now->format('j');
     }
+
     $date = DateTime::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day);
+
     $label = date_format($date, 'F, jS Y');
-    $url = archive_link($year, $month, $date->format('d'));
+
+    return archive_link($year, $month, $date->format('d'));
+}
+
+function get_day_link($year, $month, $day)
+{
+    $url = get_day_link_url();
 
     return '<a href="'.$url.'">'.$label.'</a>';
 }

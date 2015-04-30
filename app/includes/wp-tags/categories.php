@@ -115,8 +115,3 @@ function category_description($uid = null)
         return $description->asHtml($prismic->linkResolver, $htmlSerializer);
     }
 }
-
-function tag_description($tag_id = null)
-{
-    // TODO
-}

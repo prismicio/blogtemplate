@@ -250,3 +250,50 @@ function _make_link($url, $label, $attrs)
 
     return $result;
 }
+
+// Blog home
+
+function blog_home()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['homeblog'])) {
+        return $WPGLOBAL['homeblog'];
+    }
+
+    return;
+}
+
+function blog_home_title()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.headline');
+}
+
+function blog_home_description()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.description');
+}
+
+function blog_home_image_url()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+    $image = blog_home()->getImage('homeblog.image');
+    if ($image) {
+        return $image->getMain()->getUrl();
+    }
+}

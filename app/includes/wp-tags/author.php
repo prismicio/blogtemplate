@@ -32,6 +32,29 @@ function get_author_posts_url($author_id, $author_nicename = '')
     return $prismic->linkResolver->resolveDocument($auth);
 }
 
+/////
+
+function get_the_author_link_url()
+{
+    global $WPGLOBAL, $loop;
+    $prismic = $WPGLOBAL['prismic'];
+    $post = $loop->current_post();
+    if (!$post) {
+        return;
+    }
+    $auth = null;
+    if ($post->getType() == 'author') {
+        $auth = $post;
+    } else {
+        $auth = $post->getLink($post->getType().'.author');
+    }
+    if (!$auth) {
+        return;
+    }
+
+    return $prismic->linkResolver->resolve($auth);
+}
+
 function get_the_author_link()
 {
     global $WPGLOBAL, $loop;
@@ -49,6 +72,7 @@ function get_the_author_link()
     if (!$auth) {
         return;
     }
+
     $author_link = $prismic->linkResolver->resolve($auth);
 
     return '<a class="author" href = "'.$author_link.'">'.$auth->getText('author.full_name').'</a>';
@@ -58,6 +82,8 @@ function the_author_link()
 {
     echo get_the_author_link();
 }
+
+/////
 
 function author_image()
 {
@@ -79,6 +105,8 @@ function get_author_image()
         return;
     }
 }
+
+/////
 
 function single_author_name()
 {

@@ -19,7 +19,8 @@ function have_posts()
     return $loop->has_more();
 }
 
-function count_posts() {
+function count_posts()
+{
     global $loop;
 
     return $loop->size();
@@ -382,51 +383,4 @@ function get_date($field, $doc)
     }
 
     return $doc->getDate($field);
-}
-
-function blog_home()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['homeblog'])) {
-        return $WPGLOBAL['homeblog'];
-    }
-
-    return;
-}
-
-// Blog home
-
-function blog_home_title()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.headline');
-}
-
-function blog_home_description()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.description');
-}
-
-function blog_home_image_url()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-    $image = blog_home()->getImage('homeblog.image');
-    if ($image) {
-        return $image->getMain()->getUrl();
-    }
 }
