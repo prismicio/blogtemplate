@@ -26,11 +26,9 @@
     <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
     <script src="/app/static/disqium/disqium.js"></script>
 
-    <!-- prismic toolbar -->
     <?php include('prismic.php') ?>
 
-    <!-- theme -->
-    <?php include('blogtheme.php') ?>
+    <?php include('theme/blog.php') ?>
 
 </head>
 
@@ -49,7 +47,13 @@
 
 <?php while ( have_posts() ) : the_post(); ?>
 
-<div class="blog-header single" style="<?= post_thumbnail_url() ? 'background-image: url(' . post_thumbnail_url() . ')' : '' ?>">
+<?php
+
+  $headerImageUrl = post_thumbnail_url() ? post_thumbnail_url() : (the_blankimage() ? the_blankimage()->getUrl() : '');
+
+?>
+
+<div class="blog-header single" style="<?= $headerImageUrl ? 'background-image: url('.$headerImageUrl.')' : '' ?>">
 
     <div class="wrapper">
 
@@ -64,7 +68,7 @@
     </div>
 </div>
 
-<div class="blog-main single container" <?= wio_attributes(); ?>>
+<div class="blog-main single container" <?= the_wio_attributes(); ?>>
 
     <?php the_content(); ?>
 
@@ -74,11 +78,31 @@
 
 <footer class="blog-footer single">
 
-    <?php single_prev_post_link() ?>
+    <?php if (previous_post_link_url()) : ?>
+
+      <a href="<?=previous_post_link_url()?>" class="previous">
+
+        <span class="label">Previous article</span>
+
+        <p class="title"><?=previous_post_link_title()?></p>
+
+      </a>
+
+    <?php endif ?>
 
     <a class="menu" href="/blog">Home</a>
 
-    <?php single_next_post_link() ?>
+    <?php if (next_post_link_url()) : ?>
+
+      <a href="<?=next_post_link_url()?>" class="next">
+
+        <span class="label">Next article</span>
+
+        <p class="title"><?=next_post_link_title()?></p>
+
+      </a>
+
+    <?php endif ?>
 
 </footer>
 

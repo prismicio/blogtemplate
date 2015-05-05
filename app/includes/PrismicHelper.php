@@ -23,6 +23,9 @@ class StarterKitLinkResolver extends LinkResolver
         if ($link->isBroken()) {
             return;
         }
+        if ($link->getType() == 'contact') {
+            return '/contact';
+        }
         if ($link->getType() == 'author') {
             return '/author/'.$link->getId().'/'.$link->getSlug();
         }
@@ -333,16 +336,21 @@ class PrismicHelper
         $themeId = $this->get_api()->bookmark('theme');
 
         if (!$themeId) {
-            return array();
+            return null;
         }
 
-        $theme = $this->get_document($themeId);
+        return $this->get_document($themeId);
+    }
 
-        if (!$theme) {
-            return array();
+    public function get_404()
+    {
+        $notfoundId = $this->get_api()->bookmark('notfound');
+
+        if (!$notfoundId) {
+            return null;
         }
 
-        return $theme;
+        return $this->get_document($notfoundId);
     }
 
     public function home()

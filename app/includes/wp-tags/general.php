@@ -40,23 +40,7 @@ function site_title()
     return $app->config('site.title');
 }
 
-function prismic_endpoint()
-{
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-
-    return $app->config('prismic.url');
-}
-
-function disqus_forum()
-{
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-
-    return $app->config('disqus.forum');
-}
-
-function home_url($path = '', $scheme = null)
+function home_url($path = '')
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
@@ -114,11 +98,6 @@ function get_sidebar()
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
     render_include($app, 'sidebar');
-}
-
-function is_active_sidebar()
-{
-    return true;
 }
 
 function get_header()
@@ -202,6 +181,62 @@ function is_singular()
     return is_single() || is_page() || is_attachment();
 }
 
+function the_blankimage()
+{
+    return the_theme()->getImage('theme.blank-image') ? the_theme()->getImage('theme.blank-image')->getMain() : null;
+}
+
+function the_wio_attributes()
+{
+    global $WPGLOBAL, $loop;
+    $page = single_post();
+    $doc = $page ? $page : $loop->current_post();
+    if (!$doc) {
+        return;
+    }
+    echo 'data-wio-id="'.$doc->getId().'"';
+}
+
+// Pismic helper
+
+function the_theme()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['theme'])) {
+        return $WPGLOBAL['theme'];
+    }
+
+    return;
+}
+
+function current_experiment_id()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    $api = $prismic->get_api();
+    $currentExperiment = $api->getExperiments()->getCurrent();
+
+    return $currentExperiment ? $currentExperiment->getGoogleId() : null;
+}
+
+function prismic_endpoint()
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+
+    return $app->config('prismic.url');
+}
+
+// Disqus
+
+function disqus_forum()
+{
+    global $WPGLOBAL;
+    $app = $WPGLOBAL['app'];
+
+    return $app->config('disqus.forum');
+}
+
 // Helpers (shouldn't be used in templates)
 
 function _make_link($url, $label, $attrs)
@@ -214,4 +249,51 @@ function _make_link($url, $label, $attrs)
     $result .= ('>'.$label.'</a>');
 
     return $result;
+}
+
+// Blog home
+
+function blog_home()
+{
+    global $WPGLOBAL;
+    if (isset($WPGLOBAL['homeblog'])) {
+        return $WPGLOBAL['homeblog'];
+    }
+
+    return;
+}
+
+function blog_home_title()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.headline');
+}
+
+function blog_home_description()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+
+    return blog_home()->getText('homeblog.description');
+}
+
+function blog_home_image_url()
+{
+    global $WPGLOBAL;
+    $prismic = $WPGLOBAL['prismic'];
+    if (!blog_home()) {
+        return '';
+    }
+    $image = blog_home()->getImage('homeblog.image');
+    if ($image) {
+        return $image->getMain()->getUrl();
+    }
 }

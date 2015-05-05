@@ -22,6 +22,8 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
+use Mailgun\Mailgun;
+
 // Index
 $app->get('/', function () use ($app, $prismic) {
 
@@ -297,6 +299,7 @@ $app->get('/blog', function () use ($app, $prismic) {
 
 // Post
 $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) use ($app,$prismic) {
+
     $fetch = array(
         'post.date',
         'category.name',
@@ -306,26 +309,12 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
         'author.company',
     );
 
-    $ctx = array();
-
     $doc = $prismic->by_uid('post', $uid, $fetch);
+
     if (!$doc) {
         not_found($app);
 
         return;
-    }
-
-    $ctx['single_post'] = $doc;
-
-    $prev_doc = $prismic->get_prev_post($doc->getId());
-
-    $next_doc = $prismic->get_next_post($doc->getId());
-
-    if ($prev_doc) {
-        $ctx['single_prev_post'] = $prev_doc;
-    }
-    if ($next_doc) {
-        $ctx['single_next_post'] = $next_doc;
     }
 
     $permalink = $prismic->linkResolver->resolveDocument($doc);
@@ -338,24 +327,74 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
     }
 
     $theme = $prismic->get_theme();
-    $ctx['theme'] = $theme;
 
-    render($app, 'single', $ctx);
+    render($app, 'single', array('single_post' => $doc, 'theme' => $theme));
+});
+
+// Contact
+$app->get('/contact', function() use ($app, $prismic) {
+
+    $contactId = $prismic->get_api()->bookmark('contact');
+
+    if (!$contactId) {
+        not_found($app);
+
+        return;
+    }
+
+    $contact = $prismic->get_document($contactId);
+
+    $theme = $prismic->get_theme();
+
+    render($app, 'contact', array('contact' => $contact, 'theme' => $theme));
+});
+
+$app->post('/contact', function() use ($app) {
+  $resp = $app->response;
+  $resp->headers->set('Content-Type', 'application/json');
+
+  $domain = $app->config('mailgun.domain');
+
+  $token = $app->request->post('token');
+
+  if ($token != sha1($domain)) {
+      $resp->setBody(json_encode(array("error" => "Unauthorized contact token")));
+      return;
+  }
+
+  $message = array(
+    'from' => $app->request->post('sender'),
+    'to' => $app->config('mailgun.email'),
+    'subject' => $app->request->post('subject'),
+    'text' => $app->request->post('message'));
+
+  $mailgun = new Mailgun($app->config('mailgun.apikey'));
+
+  try {
+      $res = $mailgun->sendMessage($domain, $message);
+      $data = ($res->http_response_code == 200)
+        ? array("success" => $res->http_response_body->message)
+        : array("error" => $res->http_response_body->message);
+
+      $resp->setBody(json_encode($data));
+  } catch (Exception $e) {
+      $resp->setBody(json_encode(array("error" => $e->getMessage())));
+  }
 });
 
 // Page
 $app->get('/:path+', function ($path) use ($app,$prismic) {
     $page_uid = check_page_path($path, $prismic, $app);
 
+    $theme = $prismic->get_theme();
+
     if ($page_uid) {
         $page = $prismic->by_uid('page', $page_uid);
         if (!$page) {
-            not_found($app);
+            not_found($app, $theme);
 
             return;
         }
-
-        $theme = $prismic->get_theme();
 
         render($app, 'page', array('single_post' => $page, 'theme' => $theme));
     }

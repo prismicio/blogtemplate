@@ -19,7 +19,8 @@ function have_posts()
     return $loop->has_more();
 }
 
-function count_posts() {
+function count_posts()
+{
     global $loop;
 
     return $loop->size();
@@ -37,17 +38,10 @@ function rewind_posts()
     $loop->reset();
 }
 
-// To be used within the loop
-
 function the_ID()
 {
     global $loop;
     echo $loop->current_post()->getId();
-}
-
-function is_sticky()
-{
-    return false;
 }
 
 function the_permalink()
@@ -55,23 +49,13 @@ function the_permalink()
     echo get_permalink();
 }
 
-function get_permalink($id = null, $leavename = false)
+function get_permalink($id = null)
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
     $post = $id ? $prismic->get_document($id) : $loop->current_post();
 
     return $post ? $prismic->linkResolver->resolveDocument($post) : null;
-}
-
-function current_experiment_id()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    $api = $prismic->get_api();
-    $currentExperiment = $api->getExperiments()->getCurrent();
-
-    return $currentExperiment ? $currentExperiment->getGoogleId() : null;
 }
 
 function the_title()
@@ -131,7 +115,7 @@ function get_the_time($format = 'g:iA')
     return date_format($date, $format);
 }
 
-function the_content($more_link_text = '(more...')
+function the_content()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
@@ -197,12 +181,6 @@ function has_post_thumbnail()
     $doc = $loop->current_post();
 
     return ($doc != null && $doc->getImage($doc->getType().'.image') != null);
-}
-
-function has_post_format($format = array(), $post = null)
-{
-    // TODO
-    return false;
 }
 
 function get_the_excerpt()
@@ -274,17 +252,6 @@ function get_the_tag_list($before = '', $sep = '', $after = '')
 
 // Other tags
 
-function wio_attributes()
-{
-    global $WPGLOBAL, $loop;
-    $page = single_post();
-    $doc = $page ? $page : $loop->current_post();
-    if (!$doc) {
-        return;
-    }
-    echo 'data-wio-id="'.$doc->getId().'"';
-}
-
 function single_post()
 {
     global $WPGLOBAL;
@@ -308,61 +275,6 @@ function link_to_post($post)
     return '<a href="'.document_url($post).'">'.post_title($post).'</a>';
 }
 
-function the_theme()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['theme'])) {
-        return $WPGLOBAL['theme'];
-    }
-
-    return;
-}
-
-function blog_home()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['homeblog'])) {
-        return $WPGLOBAL['homeblog'];
-    }
-
-    return;
-}
-
-function blog_home_title()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.headline');
-}
-
-function blog_home_description()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-
-    return blog_home()->getText('homeblog.description');
-}
-
-function blog_home_image_url()
-{
-    global $WPGLOBAL;
-    $prismic = $WPGLOBAL['prismic'];
-    if (!blog_home()) {
-        return '';
-    }
-    $image = blog_home()->getImage('homeblog.image');
-    if ($image) {
-        return $image->getMain()->getUrl();
-    }
-}
-
 function single_post_title($prefix = '', $display = true)
 {
     global $WPGLOBAL;
@@ -378,7 +290,7 @@ function single_post_title($prefix = '', $display = true)
     }
 }
 
-function single_post_shortlede()
+function single_post_shortlede_text()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
@@ -389,12 +301,20 @@ function single_post_shortlede()
     if ($doc instanceof Author) {
         return;
     }
-    if ($doc->getStructuredText('post.shortlede')) {
-        echo '<p class="shortlede">'.substr($doc->getStructuredText('post.shortlede')->asText(), 0, 200).'...</p>';
+
+    return $doc->getText('post.shortlede');
+}
+
+function single_post_shortlede()
+{
+    $shortlede = single_post_shortlede_text();
+    if ($shortlede) {
+        $text = mb_strlen($shortlede) > 200 ? mb_substr($shortlede, 0, 200).'...' : $shortlede;
+        echo '<p class="shortlede">'.$text.'</p>';
     }
 }
 
-function single_post_date($format = 'F, jS Y')
+function single_post_date_text($format = 'F, jS Y')
 {
     global $loop;
     $date = get_date('post.date', $loop->current_post());
@@ -402,11 +322,19 @@ function single_post_date($format = 'F, jS Y')
         if ($date instanceof \Prismic\Fragment\Date) {
             $date = $date->asDateTime();
         }
-        echo '<p class="date">'.date_format($date, $format).'</p>';
+        return date_format($date, $format);
     }
 }
 
-function single_post_author()
+function single_post_date($format = 'F, jS Y')
+{
+    $date = single_post_date_text($format);
+    if ($date) {
+        echo '<p class="date">'.$date.'</p>';
+    }
+}
+
+function single_post_author_text()
 {
     global $WPGLOBAL, $loop;
     $prismic = $WPGLOBAL['prismic'];
@@ -418,35 +346,14 @@ function single_post_author()
     if (!$author) {
         return;
     }
-    echo '<span class="author">'.$author->getText('author.full_name').'</span>';
+    return $author->getText('author.full_name');
 }
 
-function single_prev_post_link()
+function single_post_author()
 {
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['single_prev_post'])) {
-        $post = $WPGLOBAL['single_prev_post'];
-        $title = $post->getText($post->getType().'.title');
-        $url = document_url($post);
-        echo '<a href="'.$url.'" class="previous">
-                <span class="label">Previous article</span>
-                <p class="title">'.$title.'</p>
-              </a>';
-    }
-}
+    $author = single_post_author_text();
 
-function single_next_post_link()
-{
-    global $WPGLOBAL;
-    if (isset($WPGLOBAL['single_next_post'])) {
-        $post = $WPGLOBAL['single_next_post'];
-        $title = $post->getText($post->getType().'.title');
-        $url = document_url($post);
-        echo '<a href="'.$url.'" class="next">
-                <span class="label">Next article</span>
-                <p class="title">'.$title.'</p>
-              </a>';
-    }
+    echo '<p class="author">'.$author.'</p>';
 }
 
 function get_html($field, $document = null)

@@ -8,7 +8,7 @@ function home()
     return $prismic->home();
 }
 
-function page_link($page, $attrs = array())
+function page_link($page)
 {
     global $WPGLOBAL;
     $app = $WPGLOBAL['app'];
@@ -66,10 +66,4 @@ function get_pages()
     } else {
         return array();
     }
-}
-
-function is_page_template($template = null)
-{
-    // TODO
-    return false;
 }

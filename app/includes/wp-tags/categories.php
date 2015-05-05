@@ -91,6 +91,21 @@ function single_tag_title($prefix = '', $display = true)
     }
 }
 
+function category_description_text($uid = null)
+{
+    global $WPGLOBAL;
+
+    $prismic = $WPGLOBAL['prismic'];
+
+    if ($uid != null) {
+        $category = $prismic->by_uid('category', $uid);
+    } else {
+        $category = $WPGLOBAL['category'];
+    }
+
+    return $category->getText('category.description');
+}
+
 function category_description($uid = null)
 {
     global $WPGLOBAL;
@@ -114,9 +129,4 @@ function category_description($uid = null)
 
         return $description->asHtml($prismic->linkResolver, $htmlSerializer);
     }
-}
-
-function tag_description($tag_id = null)
-{
-    // TODO
 }
