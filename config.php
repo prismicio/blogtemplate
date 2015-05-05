@@ -40,7 +40,7 @@ define('DEBUG', 'false');
 /**
  * Mailgun API key and domain, for the contact module
  */
-define('MAILGUN_APIKEY', null); // API Key, e.g. key-XYZ
-define('MAILGUN_PUBKEY', null); // Public API KEY, e.g. pubkey-XYZ
-define('MAILGUN_DOMAIN', null); // e.g. sandboxXYZ.mailgun.org
-define('MAILGUN_EMAIL', null);
+define('MAILGUN_APIKEY', 'key-9ff5111148f85af114733af275ed02be'); // API Key, e.g. key-XYZ
+define('MAILGUN_PUBKEY', 'pubkey-5e365423532de1374451f86550d3251d'); // Public API KEY, e.g. pubkey-XYZ
+define('MAILGUN_DOMAIN', 'sandboxdf80dd347c554c49bb2d116aed33a40f.mailgun.org'); // e.g. sandboxXYZ.mailgun.org
+define('MAILGUN_EMAIL', 'wroom-team@zenexity.com');
