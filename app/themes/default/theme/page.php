@@ -5,9 +5,9 @@
 
 <?php include('fonts.php') ?>
 
-<style>
-
 <?php
+
+  $faviconImage = $theme->getImage('theme.favicon-image');
 
   $textColor = $theme->getColor('theme.page-text-color');
 
@@ -31,6 +31,18 @@
 
   $slideHomeButtonBackgroundSecondColor = $theme->getColor('theme.page-slide-home-button-background-second-color');
 ?>
+
+<?php if ($faviconImage && $faviconImage->getMain()) : ?>
+
+  <link rel="icon" type="image/png" href="<?=$faviconImage->getMain()->getUrl()?>">
+
+<?php else: ?>
+
+  <link rel="icon" type="image/png" href="/app/static/favicon.png">
+
+<?php endif ?>
+
+<style>
 
 body {
 

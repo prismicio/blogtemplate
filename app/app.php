@@ -336,7 +336,7 @@ $app->get('/contact', function() use ($app, $prismic) {
 
     $contactId = $prismic->get_api()->bookmark('contact');
 
-    if (!$contactId) {
+    if (!$contactId || !is_mailgun_loaded()) {
         not_found($app);
 
         return;
