@@ -103,7 +103,8 @@ $(function(){
     function select() {
       var $previewPane = $(this).parents('.featured-preview').find('.preview-pane');
       var url = $(this).data('illustration');
-      $previewPane.find('img').attr('src', url);
+      $previewPane.css('background', 'url('+url+') no-repeat');
+      $previewPane.css('background-size', 'cover');
     }
 
     $('.featured-preview [data-illustration]:not(:first-child)').each(function() {

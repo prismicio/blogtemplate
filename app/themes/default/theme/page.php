@@ -95,11 +95,7 @@ h2, h3 {
 }
 
 .featured-preview {
-  <?= $themeColor ? 'background-color:'.$themeColor->asText() : ''; ?>;
-}
-
-.featured-preview li {
-  <?= $themeColor ? 'border-top: 1px solid '.$themeColor->asText() : ''; ?>;
+  <?= $themeAlternateColor ? 'background-color:'.$themeAlternateColor->asText() : ''; ?>;
 }
 
 .alternated-items > div {
@@ -115,7 +111,7 @@ h2, h3 {
 }
 
 .featured-preview li:hover {
-  <?= $backgroundColor ? 'background-color: '.$backgroundColor->asText() : ''; ?>;
+  <?= $themeColor ? 'background-color: '.$themeColor->asText() : ''; ?>;
 }
 
 .slides .slide h2 {

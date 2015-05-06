@@ -26,8 +26,6 @@
 
   <div class="col-2 preview-pane">
 
-    <img src="" width="100%">
-
   </div>
 
 </div>
