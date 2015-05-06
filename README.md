@@ -22,11 +22,9 @@ Running locally:
 
 *Note: for the best performances, it is strongly recommended to enable APC to activate the cache.*
 
-#### Selecting a theme
+#### Configuring the theme
 
-This blog template comes with 4 standard themes, inspired from Wordpress themes: `default`, `twentytwelve`, `twentythirteen` and `twentyfourteen`.
-
-The theme can be switched from the default one to another provided theme, by setting `PI_THEME` in `config.php` to the name of choosen one.
+TODO
 
 #### Writing a theme
 
