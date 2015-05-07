@@ -27,6 +27,8 @@
 
   $faqSeparationColor = $theme->getColor('theme.page-faq-separation-color');
 
+  $slideHeight = $theme->getNumber('theme.page-slide-height');
+
   $slideHomeButtonBackgroundFirstColor = $theme->getColor('theme.page-slide-home-button-background-first-color');
 
   $slideHomeButtonBackgroundSecondColor = $theme->getColor('theme.page-slide-home-button-background-second-color');
@@ -141,6 +143,10 @@ h2, h3 {
 
 .contact-us form[name=contact-form] .form-group label {
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+}
+
+.slides {
+  <?= $slideHeight ? 'height:'.$slideHeight->asText().'vh' : ''; ?>;
 }
 
 </style>
