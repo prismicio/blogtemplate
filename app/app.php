@@ -332,23 +332,6 @@ $app->get('/blog/:year/:month/:day/:uid', function ($year, $month, $day, $uid) u
 });
 
 // Contact
-$app->get('/contact', function() use ($app, $prismic) {
-
-    $contactId = $prismic->get_api()->bookmark('contact');
-
-    if (!$contactId || !is_mailgun_loaded()) {
-        not_found($app);
-
-        return;
-    }
-
-    $contact = $prismic->get_document($contactId);
-
-    $theme = $prismic->get_theme();
-
-    render($app, 'contact', array('contact' => $contact, 'theme' => $theme));
-});
-
 $app->post('/contact', function() use ($app) {
   $resp = $app->response;
   $resp->headers->set('Content-Type', 'application/json');

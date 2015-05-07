@@ -139,6 +139,10 @@ h2, h3 {
   <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
 }
 
+.contact-us form[name=contact-form] .form-group label {
+  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+}
+
 </style>
 
 <?php endif ?>

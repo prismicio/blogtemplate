@@ -2,6 +2,10 @@
 
 <script src="/app/static/Zanimo.js"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script src="/app/static/mailgun-validator.min.js"></script>
+
 <!-- Hamburger menu -->
 <script src="/app/static/jquery.panelslider.js"></script>
 <script type="text/javascript">
