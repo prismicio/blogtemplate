@@ -405,7 +405,7 @@ class PrismicHelper
             $label = $item->getText('label');
             $link = $item->getLink('link');
             $children = array();
-            if ($link instanceof \Prismic\Fragment\Link\DocumentLink) {
+            if ($link instanceof \Prismic\Fragment\Link\DocumentLink && !$link->isBroken()) {
                 $doc = $children_by_id[$link->getId()];
                 if (!$label) {
                     $label = 'No label';
