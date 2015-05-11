@@ -466,6 +466,14 @@ li p {
   background-size: cover;
 }
 
+.slides.medium {
+  height: 50vh;
+}
+
+.slides.small {
+  height: 25vh;
+}
+
 .slides .slide h2 {
   font-size: 52px;
   font-weight: 300;

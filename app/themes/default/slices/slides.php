@@ -1,4 +1,4 @@
-<div class="slides row-separate">
+<div class="slides row-separate <?= $slice->getLabel() ?>">
 
 <?php if(count($slice->getValue()->getArray()) > 1): ?>
 
