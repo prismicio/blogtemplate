@@ -24,7 +24,7 @@ use Suin\RSSWriter\Item;
 
 use Mailgun\Mailgun;
 
-// Index
+// Index page, built from the "home" bookmark from your repository
 $app->get('/', function () use ($app, $prismic) {
 
     $homeId = $prismic->get_api()->bookmark('home');
@@ -209,6 +209,7 @@ $app->get('/feed', function () use ($app, $prismic) {
 });
 
 $app->post('/disqus/threads/create', function () use ($app) {
+// URL to create a comment, only used if you decide to activate Disqus
     $title = $_POST['title'];
     $identifier = $_POST['identifier'];
     $httpClient = \Prismic\Api::defaultHttpAdapter();
@@ -265,7 +266,10 @@ $app->post('/disqus/threads/create', function () use ($app) {
     }
 });
 
-// Blog home
+// Blog home: list of the post most recent first.
+// If you want this page to be your site front page,
+// replace '/blog' by '/' and remove the index rule
+// at the beginning of this file.
 $app->get('/blog', function () use ($app, $prismic) {
 
     $homeblogId = $prismic->get_api()->bookmark('homeblog');
@@ -366,7 +370,8 @@ $app->post('/contact', function() use ($app) {
 });
 
 // Page
-$app->get('/:path+', function ($path) use ($app,$prismic) {
+// Since pages can have parent pages, the URL can contains several portions
+$app->get('/:path+', function ($path) use($app, $prismic) {
     $page_uid = check_page_path($path, $prismic, $app);
 
     $theme = $prismic->get_theme();

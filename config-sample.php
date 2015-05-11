@@ -1,13 +1,20 @@
 <?php
 
-/**
+/**********************************************************
+ * This is a sample configuration file for the starter.
+ * Copy it to "config.php" and change the values that you need;
+ * the only necessary change is the repository URL, other
+ * changes are optional
+ **********************************************************/
+
+/*
  * Change this for the URL of your repository.
  */
 define('PRISMIC_URL', 'https://blogtemplate.cdn.prismic.io/api');
 define('PRISMIC_TOKEN', null);
 
 /*
- * Disqus integration
+ * Disqus integration for comments
  */
 define('DISQUS_FORUM', 'prismic-blogtemplate');
 define('DISQUS_API_KEY', null);
