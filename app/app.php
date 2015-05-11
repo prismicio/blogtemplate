@@ -217,7 +217,7 @@ $app->post('/disqus/threads/create', function () use ($app) {
     $identifier = $_POST['identifier'];
     $httpClient = \Prismic\Api::defaultHttpAdapter();
 
-    if ($app->config('disqus.forum')) { // OVERWRITTEN DISQUS CONFIGURATION
+    if ($app->config('disqus.forum') && $app->config('disqus.apikey')) { // OVERWRITTEN DISQUS CONFIGURATION
 
         $data = array(
             'api_key' => $app->config('disqus.apikey'),
