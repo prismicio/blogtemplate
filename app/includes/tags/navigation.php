@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Tags related to navigation links: previous post, next post, etc.
+ */
+
 function is_home()
 {
     global $WPGLOBAL;

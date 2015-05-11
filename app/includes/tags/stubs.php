@@ -5,6 +5,8 @@ $GLOBALS['wp_version'] = '10.0';
 
 /**
  * Stubs for compatibility with wordpress.
+ * That allows some of the themes to work with minimal effort, although it is recommended
+ * to remove unsupported tags from the theme when migrating from Wordpress.
  */
 function language_attributes()
 {

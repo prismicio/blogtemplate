@@ -8,6 +8,9 @@
  *
  * The order of the routes matter, as it will define the priority of routes. For that reason we
  * need to keep the more "generic" routes, such as the pages route, at the end of the file.
+ *
+ * If you decide to change the URLs, make sure to change StarterKitLinkResolver in includes/PrismicHelper.php
+ * as well to make sures links in your site are correctly generated.
  */
 
 use Prismic\Api;

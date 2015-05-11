@@ -2,7 +2,7 @@
 
 /**
  * The way the tags are written can lead to the same request being done several times,
- * but it's OK because the Prismic kit has a built-in cache (APC).
+ * so make sure that APC is activated so Prismic's default cache is used
  */
 
 // General tags

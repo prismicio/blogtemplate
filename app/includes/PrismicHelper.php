@@ -4,6 +4,13 @@ use Prismic\Api;
 use Prismic\LinkResolver;
 use Prismic\Predicates;
 
+/**
+ * The link resolver is the code building URLs for pages corresponding to
+ * a Prismic document.
+ *
+ * If you want to change the URLs of your site, you need to update this class
+ * as well as the routes in app.php.
+ */
 class StarterKitLinkResolver extends LinkResolver
 {
     private $prismic;
@@ -62,6 +69,11 @@ class StarterKitLinkResolver extends LinkResolver
     }
 }
 
+/**
+ * This class contains helpers for the Prismic API. Most of these can't go
+ * to the PHP kit because they are specific to the default Document Masks
+ * or to the way we retrieve configuration in this project.
+ */
 class PrismicHelper
 {
     private $app;
@@ -91,6 +103,12 @@ class PrismicHelper
         return $this->api;
     }
 
+    /**
+     * Get the reference that should be used, in this order:
+     *  - from the experiment cookies if present (A/B testing)
+     *  - from the preview cookie if present (a writer clicked the "preview" button in the writing room)
+     *  - defaults to the master release
+     */
     public function get_ref()
     {
         $api = $this->get_api();

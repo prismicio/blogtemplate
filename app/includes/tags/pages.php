@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Tags related to pages (as in: documents of the "page" type)
+ */
+
 function home()
 {
     global $WPGLOBAL;
