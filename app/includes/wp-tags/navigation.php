@@ -3,9 +3,13 @@
 function is_home()
 {
     global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
+    $prismic = $WPGLOBAL['prismic'];
 
-    return $app->request()->getResourceUri() == '/';
+    $page = single_post();
+
+    $homeId = $prismic->get_api()->bookmark('home');
+
+    return $page->getId() == $homeId;
 }
 
 function is_front_page()

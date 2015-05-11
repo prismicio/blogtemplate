@@ -10,6 +10,20 @@ $(function(){
 
       var duration = 400;
 
+      (function HomeButton() {
+
+        var matches = prismic.endpoint.match(new RegExp("(https?://(.*?)/)")) || [];
+
+        var baseURL = matches[2].replace(/\.cdn\.prismic\.io/, ".prismic.io");
+
+        if(baseURL == 'blogtemplate.prismic.io') {
+
+          $('.home .slides .button').addClass('home');
+
+        }
+
+      })();
+
       function previous(e) {
         e.preventDefault();
 

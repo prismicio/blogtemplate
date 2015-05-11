@@ -33,7 +33,7 @@
 
             <?php $url = $linkResolver->resolve($readMore); ?>
 
-            <a class="button <?= is_home() ? 'home' : '';?>" href="<?= $url ?>">
+            <a class="button" href="<?= $url ?>">
 
               <?= $readMoreLabel->asText() ?>
 

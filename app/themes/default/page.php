@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="page">
+<body class="page <?= is_home() ? "home" : "" ?>">
 
     <div id="right-panel">
 
