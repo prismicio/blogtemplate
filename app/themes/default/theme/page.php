@@ -48,9 +48,9 @@
 
 body {
 
-  <?= $textFont ? 'font-family:'.$textFont : ''; ?>;
+  <?= $textFont ? 'font-family:'.$textFont : '' ?>;
 
-  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>;
+  <?= $textColor ? 'color:'.$textColor->asText() : '' ?>;
 
   <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
@@ -58,17 +58,17 @@ body {
 
 h1, h2, h3 {
 
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>
 }
 
 h2, h3 {
 
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : '' ?>;
 }
 
 .button {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : '' ?>;
   <?= $titleColor ? 'border-color:'.$titleColor->asText() : ''; ?>;
 }
 
@@ -83,7 +83,7 @@ h2, h3 {
 }
 
 .slides .slide {
-  $backgroundColor = $theme->getColor('theme.page-background-color');
+  <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
 
 .button.home {
@@ -117,32 +117,32 @@ h2, h3 {
 }
 
 .slides .slide h2 {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
 }
 
 .slides, .slides h2, .slide-arrows a {
-  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : '' ?>;
 }
 
 .slides .arrow-prev, .slides .arrow-next {
-  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : '' ?>;
 }
 
 .slides .button {
-  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : ''; ?>;
+  <?= $slideTextColor ? 'color:'.$slideTextColor->asText() : '' ?>;
 }
 
 .slides p {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
 }
 
 .slides .button:not(.home):hover {
   <?= $slideTextColor ? 'background:'.$slideTextColor->asText() : ''; ?>;
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : '' ?>;
 }
 
 .contact-us form[name=contact-form] .form-group label {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
 }
 
 .slides {

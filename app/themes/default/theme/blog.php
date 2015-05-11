@@ -46,13 +46,13 @@ body {
 
   <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 
-  <?= $textFont ? 'font-family:'.$textFont : ''; ?>;
+  <?= $textFont ? 'font-family:'.$textFont : '' ?>;
 
-  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>;
+  <?= $textColor ? 'color:'.$textColor->asText() : '' ?>;
 }
 
 a {
-  <?= $textColor ? 'color:'.$textColor->asText() : ''; ?>;
+  <?= $textColor ? 'color:'.$textColor->asText() : '' ?>;
 }
 
 h1, .h1,
@@ -67,77 +67,77 @@ h6, .h6 {
 }
 
 .previous-post, .next-post {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
 }
 
 .blog-header {
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
   <?= $backgroundColor ? 'background-color:'.$backgroundColor->asText() : ''; ?>;
 }
 
 .blog-header h1, .blog-header .date, .blog-header .shortlede, .blog-header .author {
-  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : '' ?>;
 }
 
 .blog-footer.single {
 
-  <?= $footerBackgroundColor ? 'background-color:'.$footerBackgroundColor->asText() : ''; ?>;
+  <?= $footerBackgroundColor ? 'background-color:'.$footerBackgroundColor->asText() : '' ?>;
  }
 
 .blog-footer.single a .label {
 
-  <?= $footerTextColor ? 'color:'.$footerTextColor->asText() : ''; ?>;
+  <?= $footerTextColor ? 'color:'.$footerTextColor->asText() : '' ?>;
 
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 }
 
 .blog-footer.single .menu::before {
-  <?= $footerTextColor ? 'color:'.$footerTextColor->asText() : ''; ?>;
+  <?= $footerTextColor ? 'color:'.$footerTextColor->asText() : '' ?>;
 }
 
 .blog-description {
 
   <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
 
-  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : ''; ?>;
+  <?= $headerTextColor ? 'color:'.$headerTextColor->asText() : '' ?>;
 }
 
 .blog-post-title a, .blog-post-meta a {
 
-  <?= $titleFont ? 'font-family:'.$titleFont : ''; ?>;
+  <?= $titleFont ? 'font-family:'.$titleFont : '' ?>;
 }
 
 .blog-post-meta a {
 
-  <?= $metaTextColor ? 'color:'.$metaTextColor->asText() : ''; ?>;
+  <?= $metaTextColor ? 'color:'.$metaTextColor->asText() : '' ?>;
 }
 
 .blog-post-title a {
 
-  <?= $titleColor ? 'color:'.$titleColor->asText() : ''; ?>;
+  <?= $titleColor ? 'color:'.$titleColor->asText() : '' ?>;
 }
 
 .blog-post-meta > *, .blog-post-meta .tags::before, .blog-post-meta .categories::before, .blog-post-meta .author::before {
 
-  <?= $metaTextColor ? 'color:'.$metaTextColor->asText() : ''; ?>;
+  <?= $metaTextColor ? 'color:'.$metaTextColor->asText() : '' ?>;
 }
 
 .blog-main.single .image-label {
 
-  <?= $imageLabelTextColor ? 'color:'.$imageLabelTextColor->asText() : ''; ?>;
+  <?= $imageLabelTextColor ? 'color:'.$imageLabelTextColor->asText() : '' ?>;
 }
 
 .blog-main.single .image-left + .image-label, .blog-main.single .image-full-column + .image-label {
 
-  <?= $imageLabelTextColor ? 'border-right-color:'.$imageLabelTextColor->asText() : ''; ?>;
+  <?= $imageLabelTextColor ? 'border-right-color:'.$imageLabelTextColor->asText() : '' ?>;
 }
 
 .blog-main.single .block-citation {
-  <?= $imageLabelTextColor ? 'border-left-color:'.$imageLabelTextColor->asText() : ''; ?>;
+  <?= $imageLabelTextColor ? 'border-left-color:'.$imageLabelTextColor->asText() : '' ?>;
 }
 
 .contact-page form[name=contact-form] .form-group label {
-  <?= $textFont ? 'font-family:'.$textFont : ''; ?>;
+  <?= $textFont ? 'font-family:'.$textFont : '' ?>;
 }
 
 .contact-page .contact-header .wrapper {

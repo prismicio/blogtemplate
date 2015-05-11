@@ -1,7 +1,5 @@
 $(function(){
 
-  "use strict";
-
   $('.button.home').click(function(e) {
     e.preventDefault();
   });
