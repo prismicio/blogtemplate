@@ -13,10 +13,10 @@ similar to existing CMS like Wordpress:
 * Download the [latest release](https://github.com/prismicio/blogtemplate/releases)
 * Unzip locally or on your server
 * Install dependencies using [composer](https://getcomposer.org/): `composer install`. Be sure to have the last version of composer: `composer self-update`.
-* Edit `config.php` to point `PRISMIC_URL` to your repository (should be a clone of http://blogtemplate.prismic.io/), and adjust `PRISMIC_TOKEN`.
+* Copy `config-sample.php` to `config.php`, and edit it to point `PRISMIC_URL` to your repository (should be a clone of http://blogtemplate.prismic.io/). Adjust `PRISMIC_TOKEN` if needed.
 * That's it!
 
-Running locally:
+Running on your local machine:
 
 * `php -S localhost:8000`
 
@@ -27,6 +27,13 @@ Running locally:
 The default theme colors and fonts can be changed directly from the Writing Room, without having to edit the theme or redeploy the application.
 
 You can either change the default theme, or create a new one and set the active theme by pointing the "theme" bookmark to the theme you want to use.
+
+#### Activating Disqus comments
+
+If you want to give visitors the opportunity to leave comments on your blog posts, you can activate the Disqus comments.
+
+* Register your site on [Disqus](https://disqus.com/admin/create/)
+* Edit `config.php` to update the DISQUS related variables
 
 #### Writing a theme
 
@@ -53,7 +60,7 @@ you need, directly in the code.
 
 The application is based on the [Slim microframework](http://www.slimframework.com/).
 
-Most of the application (routes and controllers) are located in the [app/index.php](https://github.com/prismicio/blogtemplate/blob/master/app/app.php) file.
+Most of the application (routes and controllers) are located in the [app/app.php](https://github.com/prismicio/blogtemplate/blob/master/app/app.php) file.
 
 #### License
 
