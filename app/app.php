@@ -21,6 +21,8 @@ date_default_timezone_set('UTC');
 
 require_once __DIR__.'/includes.php';
 
+init_i18n($app);
+
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;

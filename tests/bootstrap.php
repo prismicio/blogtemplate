@@ -27,6 +27,7 @@ class LocalWebTestCase extends WebTestCase
             'site.title'     => 'Blog Template',
             'prismic.url'    => 'https://blogtemplate.prismic.io/api',
             'theme'          => 'bootstrap',
+            'lang'           => 'en_US'
         );
     }
 

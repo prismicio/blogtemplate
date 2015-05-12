@@ -15,7 +15,7 @@
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <?php get_template_part('content'); ?>
 <?php endwhile; else : ?>
-    <p>Sorry, no posts matched your criteria.</p>
+    <p><?= __('Sorry, no posts matched your criteria.', 'theme') ?></p>
 <?php endif; ?>
 
 </div>

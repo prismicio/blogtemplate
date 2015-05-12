@@ -5,12 +5,12 @@
     <link rel="icon" type="image/png" href="/app/static/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
     <link rel="stylesheet" href="/app/static/common.css">
-    <link rel="stylesheet" href="/app/themes/default/main.css">
-    <link rel="stylesheet" href="/app/themes/default/page.css">
+    <link rel="stylesheet" href="/app/themes/defaulttheme/main.css">
+    <link rel="stylesheet" href="/app/themes/defaulttheme/page.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="/app/static/jquery-1.11.2.min.js"></script>
-    <script src="/app/themes/default/slices/slices.js"></script>
+    <script src="/app/themes/defaulttheme/slices/slices.js"></script>
 
     <?php include('prismic.php') ?>
 

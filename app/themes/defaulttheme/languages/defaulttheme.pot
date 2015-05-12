@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#: page.php
+#: landing-page.php
+#: index.php
+#: image.php
+#: full-width-page.php
+#: content-sidebar-page.php
+#: content-sidebar-half-page.php
+#: blog.php
+#: archive.php
+#: home.php
+#: search.php
+#: sidebar-content-half-page.php
+#: sidebar-content-page.php
+#: single.php
+#: sitemap.php
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+

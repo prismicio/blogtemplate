@@ -82,10 +82,6 @@ function get_comments_number($post_id = null)
     return 0;
 }
 
-function __()
-{
-}
-
 function add_action($name)
 {
 }

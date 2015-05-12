@@ -26,7 +26,7 @@
 
 <?php endwhile; else : ?>
 
-    <p>Sorry, no posts matched your criteria.</p>
+    <p>__('Sorry, no posts matched your criteria.', 'default')</p>
 
 <?php endif; ?>
 

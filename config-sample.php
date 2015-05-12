@@ -24,7 +24,13 @@ define('DISQUS_API_ACCESSTOKEN', null);
 /*
  * The theme corresponds to a subfolder of ./app/themes/
  */
-define('PI_THEME', 'default');
+define('PI_THEME', 'defaulttheme');
+
+/*
+ * To translate your site, the file corresponding to the requested language
+ * must be present in the theme 'language' subdirectory
+ */
+define('PLANG', 'en_US');
 
 /*
  * Page size: applies for any page containing multiple posts: index, archive, search...

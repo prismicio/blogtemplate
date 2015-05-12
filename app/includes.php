@@ -4,6 +4,7 @@ require 'includes/Loop.php';
 require 'includes/http.php';
 
 // Template tags
+require_once 'includes/tags/i18n.php';
 require_once 'includes/tags/general.php';
 require_once 'includes/tags/navigation.php';
 require_once 'includes/tags/posts.php';

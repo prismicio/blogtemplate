@@ -20,6 +20,7 @@ $app = new \Slim\Slim(
       'prismic.url'    => PRISMIC_URL,
       'prismic.token'  => PRISMIC_TOKEN,
       'theme'          => PI_THEME,
+      'lang'           => PLANG,
       'site.title'     => SITE_TITLE,
       'site.description' => SITE_DESCRIPTION,
       'page_size'      => PAGE_SIZE,

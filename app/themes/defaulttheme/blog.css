@@ -41,7 +41,7 @@ h1, h2 {
   position: relative;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  background: url(/app/themes/default/blank.png);
+  background: url(/app/themes/defaulttheme/blank.png);
   background-color: #201145;
   background-size: cover;
 }
