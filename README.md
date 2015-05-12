@@ -3,24 +3,24 @@
 
 
 This application is a "batteries included", ready to use blog engine. It is designed with document types
-similar to existing CMS like Wordpress:
-
-* Blog posts
-* Pages
+similar to existing CMS like Wordpress, **blog posts** and **pages**.
 
 #### Getting started
 
 * Download the [latest release](https://github.com/prismicio/blogtemplate/releases)
 * Unzip locally or on your server
-* Install dependencies using [composer](https://getcomposer.org/): `composer install`. Be sure to have the last version of composer: `composer self-update`.
-* Copy `config-sample.php` to `config.php`, and edit it to point `PRISMIC_URL` to your repository (should be a clone of http://blogtemplate.prismic.io/). Adjust `PRISMIC_TOKEN` if needed.
+* Copy `config-sample.php` to `config.php`, edit `PRISMIC_URL` and if needed `PRISMIC_TOKEN`.
 * That's it!
 
 Running on your local machine:
 
-* `php -S localhost:8000`
+> `php -S localhost:8000`
 
-*Note: for the best performances, it is strongly recommended to enable APC to activate the cache.*
+Some remarks:
+
+* Your repository must be a clone of http://blogtemplate.prismic.io/. You can modify the default document masks, but that may require adapted the php source code.
+* For the best performances, it is strongly recommended to enable APC to activate the cache. You can also use another caching system such as [memcached](http://memcached.org/), see the Prismic [Developer's Manual](https://developers.prismic.io/documentation/VBgeDDYAADMAz2Rw/developers-manual#cache) for more details.
+* If you cloned the repository instead of downloading the zip, you need to install dependencies using [composer](https://getcomposer.org/): `composer install`.*
 
 #### Configuring the theme
 
