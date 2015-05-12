@@ -24,7 +24,9 @@ Running locally:
 
 #### Configuring the theme
 
-TODO
+The default theme colors and fonts can be changed directly from the Writing Room, without having to edit the theme or redeploy the application.
+
+You can either change the default theme, or create a new one and set the active theme by pointing the "theme" bookmark to the theme you want to use.
 
 #### Writing a theme
 
