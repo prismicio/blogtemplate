@@ -249,6 +249,10 @@ class PrismicHelper
             }
         }
 
+        if ($uid == null) {
+            return array();
+        }
+
         $p = $uid;
 
         $path = array($uid);
