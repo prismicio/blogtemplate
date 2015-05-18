@@ -2,7 +2,7 @@
 
 /**
  * This class is a stateful object to iterate on the posts present on a given page.
- * See how it is used in the default themes for usage example.
+ * See how it is used in the default views for usage example.
  */
 class Loop
 {

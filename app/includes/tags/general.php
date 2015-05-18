@@ -95,23 +95,17 @@ function home_link($label, $attrs = array())
 
 function get_sidebar()
 {
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-    render_include($app, 'sidebar');
+    render_include('sidebar');
 }
 
 function get_header()
 {
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-    render_include($app, 'header');
+    render_include('header');
 }
 
 function get_footer()
 {
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-    render_include($app, 'footer');
+    render_include('footer');
 }
 
 function get_search_query()
@@ -144,12 +138,10 @@ function get_calendar()
 
 function get_template_part($slug, $name = null)
 {
-    global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
     if ($name) {
-        render_include($app, $slug.'-'.$name);
+        render_include($slug.'-'.$name);
     } else {
-        render_include($app, $slug);
+        render_include($slug);
     }
 }
 

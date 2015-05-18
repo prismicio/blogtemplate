@@ -1,13 +1,13 @@
 <?php
 
-function theme_dir($app)
+function views_dir()
 {
-    return __DIR__.'/../themes/'.$app->config('theme');
+    return __DIR__.'/../views/';
 }
 
-function render_include($app, $page)
+function render_include($page)
 {
-    require theme_dir($app).'/'.$page.'.php';
+    require views_dir() . $page . '.php';
 }
 
 function render($app, $page, $data = array())
@@ -30,10 +30,10 @@ function render($app, $page, $data = array())
     $wp_query = new WP_Query();
     // Optional helpers that theme developers can provide
     try {
-        include_once theme_dir($app).'/functions.php';
+        include_once views_dir().'/functions.php';
     } catch (Exception $ex) {
     }
-    $file_path = theme_dir($app).'/'.$page.'.php';
+    $file_path = views_dir().'/'.$page.'.php';
     if (file_exists($file_path)) {
         require $file_path;
     } else {
@@ -58,7 +58,7 @@ function not_found($app, $theme = null)
     if ($theme) {
         $ctx['theme'] = $theme;
     }
-    $file_path = theme_dir($app).'/404.php';
+    $file_path = views_dir().'/404.php';
     if (file_exists($file_path)) { // Avoid an infinite loop
        render($app, '404', $ctx);
     } else {

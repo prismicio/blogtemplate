@@ -3,8 +3,8 @@
 <head>
     <title><?= single_post_title() ?> <?= site_title() ?></title>
     <link rel="stylesheet" href="/app/static/common.css">
-    <link rel="stylesheet" href="/app/themes/default/main.css">
-    <link rel="stylesheet" href="/app/themes/default/errorpage.css">
+    <link rel="stylesheet" href="/app/views/main.css">
+    <link rel="stylesheet" href="/app/views/errorpage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/app/static/jquery-1.11.2.min.js"></script>
 

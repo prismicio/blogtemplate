@@ -2,12 +2,6 @@
 
 class WPTest extends LocalWebTestCase
 {
-    public function getConfig()
-    {
-        return array_merge(parent::getConfig(), array(
-            'theme'          => 'default',
-        ));
-    }
 
     public function testBlogHome()
     {

@@ -3,7 +3,7 @@
   padding: 0;
   width: 100%;
   color: #FFF;
-  background: url(/app/themes/default/blank.png);
+  background: url(/app/views/blank.png);
   display: inline-block;
 }
 

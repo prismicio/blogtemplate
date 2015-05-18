@@ -31,8 +31,7 @@ function page_link($page)
 function slice_content($slice, $linkResolver)
 {
     global $WPGLOBAL;
-    $app = $WPGLOBAL['app'];
-    $sliceFile  = theme_dir($app)
+    $sliceFile  = views_dir()
                 .'/slices/'
                 .$slice->getSliceType();
     $sliceLabelFile = $sliceFile.'-'.$slice->getLabel().'.php';

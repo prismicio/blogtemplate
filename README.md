@@ -37,21 +37,7 @@ If you want to give visitors the opportunity to leave comments on your blog post
 
 #### Writing a theme
 
-The theme API is designed to be as close as possible as the Wordpress theme API. Themes are located in the `themes` directory.
-
-The following files must be present in each theme directory:
-
-* index.php
-* page.php
-* single.php
-* content.php
-* author.php
-* category.php (only if you use categories)
-* tag.php (only if you use tags)
-
-> You can copy the `default` theme directory to a `custom` directory, to write your theme by customizing the default one.
-
-As for the provided themes, the name of your custom theme is to be set as `PI_THEME` to switch it on.
+TODO
 
 #### Customizing the blog engine
 
