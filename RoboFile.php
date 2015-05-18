@@ -12,7 +12,10 @@ class RoboFile extends \Robo\Tasks
     function dist($version)
     {
         $this->taskFileSystemStack()->mkdir('dist')->run();
-        $this->_exec('zip -r dist/' . str_replace('%VER%', $version, $this->archive) . ' ' . implode(' ', $this->source));
+        $this->taskFileSystemStack()->mkdir('webkitstarter')->run();
+        $this->_exec('cp -r ' . implode(' ', $this->source) . ' webkitstarter');
+        $this->_exec('zip -r dist/' . str_replace('%VER%', $version, $this->archive) . ' webkitstarter');
+        $this->_deleteDir(['webkitstarter']);
     }
 
 }
