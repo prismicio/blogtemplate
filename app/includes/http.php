@@ -37,7 +37,7 @@ function render($app, $page, $data = array())
     if (file_exists($file_path)) {
         require $file_path;
     } else {
-        render($app, '404');
+        not_found($app);
     }
 }
 
@@ -58,7 +58,13 @@ function not_found($app, $theme = null)
     if ($theme) {
         $ctx['theme'] = $theme;
     }
-    render($app, '404', $ctx);
+    $file_path = theme_dir($app).'/404.php';
+    if (file_exists($file_path)) { // Avoid an infinite loop
+       render($app, '404', $ctx);
+    } else {
+       echo '<h1>404 Not found</h1>';
+       echo 'Additionnaly the 404 template seems to be missing from the theme.';
+    }
 }
 
 function check_page_path1($path, $prismic)
