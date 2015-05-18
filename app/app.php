@@ -372,6 +372,29 @@ $app->post('/contact', function() use ($app) {
   }
 });
 
+// This is a generic route for user-created document masks.
+// To have nicer looking URLs, it is recommended to add a specific route for each mask you create.
+$app->get('/document/:id/:slug', function ($id, $slug) use($app, $prismic) {
+    $doc = $prismic->get_document($id);
+
+    if (!$doc) {
+        not_found($app);
+        return;
+    }
+
+    $permalink = $prismic->linkResolver->resolveDocument($doc);
+
+    if ($app->request()->getPath() != $permalink) {
+        // The user came from a URL with an older slug
+        $app->response->redirect($permalink);
+        return;
+    }
+
+    $theme = $prismic->get_theme();
+
+    render($app, 'document', array('single_post' => $doc, 'theme' => $theme));
+});
+
 // Page
 // Since pages can have parent pages, the URL can contains several portions
 $app->get('/:path+', function ($path) use($app, $prismic) {

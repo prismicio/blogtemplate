@@ -66,6 +66,10 @@ class StarterKitLinkResolver extends LinkResolver
                 return '/'.implode('/', $pieces_encoded);
             }
         }
+
+        // This is a generic route for user-created document masks.
+        // To have nicer looking URLs, it is recommended to add a specific rule for any mask you create.
+        return '/document/' . $link->getId() . '/' . $link->getSlug();
     }
 }
 

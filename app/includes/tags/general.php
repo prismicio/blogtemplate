@@ -183,6 +183,7 @@ function is_singular()
 
 function the_blankimage()
 {
+    if (the_theme() == null) return null;
     return the_theme()->getImage('theme.blank-image') ? the_theme()->getImage('theme.blank-image')->getMain() : null;
 }
 
@@ -206,7 +207,7 @@ function the_theme()
         return $WPGLOBAL['theme'];
     }
 
-    return;
+    return null;
 }
 
 function current_experiment_id()
