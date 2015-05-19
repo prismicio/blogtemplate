@@ -4,8 +4,8 @@ class RoboFile extends \Robo\Tasks
 {
 
     private $source = array(
-        '.htaccess', 'README.md', 'RoboFile.php', 'app', 'test', 'composer.json', 'composer.lock',
-        'config-sample.php', 'index.php', 'vendor');
+        'serve.sh', 'README.md', 'RoboFile.php', 'app', 'tests', 'composer.json', 'composer.lock',
+        'config-sample.php', 'vendor', 'public');
 
     private $archive = 'blogtemplate-%VER%.zip';
 
