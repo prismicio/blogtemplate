@@ -14,7 +14,9 @@ similar to existing CMS like Wordpress, **blog posts** and **pages**.
 
 Running on your local machine:
 
-> `php -S localhost:8000`
+> `serve.sh`
+
+You can also run it with [MAMP](https://www.mamp.info/) by pointing the Document Root configuration to the `public` folder of your Webkit Starter installation.
 
 Some remarks:
 
