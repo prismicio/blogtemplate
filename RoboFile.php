@@ -14,7 +14,7 @@ class RoboFile extends \Robo\Tasks
         $this->taskFileSystemStack()->mkdir('dist')->run();
         $this->taskFileSystemStack()->mkdir('webkitstarter')->run();
         $this->_exec('cp -r ' . implode(' ', $this->source) . ' webkitstarter');
-        $this->_exec('zip -r dist/' . str_replace('%VER%', $version, $this->archive) . ' webkitstarter');
+        $this->_exec('zip -r dist/' . str_replace('%VER%', $version, $this->archive) . ' ');
         $this->_deleteDir(['webkitstarter']);
     }
 
