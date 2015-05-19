@@ -12,11 +12,10 @@ similar to existing CMS like Wordpress, **blog posts** and **pages**.
 * Copy `config-sample.php` to `config.php`, edit `PRISMIC_URL` and if needed `PRISMIC_TOKEN`.
 * That's it!
 
-Running on your local machine:
+To run it on your local machine, 2 possibilities:
 
-> `serve.sh`
-
-You can also run it with [MAMP](https://www.mamp.info/) by pointing the Document Root configuration to the `public` folder of your Webkit Starter installation.
+* With PHP in command line: `serve.sh`
+* With [MAMP](https://www.mamp.info/) point the Document Root configuration to the `public` folder of your Webkit Starter installation
 
 Some remarks:
 
