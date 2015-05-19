@@ -4,14 +4,14 @@
 <head>
     <title><?= single_post_title() ?> <?= site_title() ?></title>
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
-    <link rel="stylesheet" href="/assets/common.css">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/blog.css">
+    <link rel="stylesheet" href="/app/static/common.css">
+    <link rel="stylesheet" href="/app/views/main.css">
+    <link rel="stylesheet" href="/app/views/blog.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="/assets/vendor/modernizr.js"></script>
-    <script src="/assets/vendor/jquery-1.11.2.min.js"></script>
-    <script src="/assets/slices.js"></script>
+    <script src="/app/static/modernizr.js"></script>
+    <script src="/app/static/jquery-1.11.2.min.js"></script>
+    <script src="/app/views/slices/slices.js"></script>
 
 
     <?php include('prismic.php') ?>

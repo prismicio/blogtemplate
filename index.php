@@ -1,17 +1,17 @@
 <?php
 
-require_once '../vendor/autoload.php';
-require_once '../app/includes/PrismicHelper.php';
+require_once 'vendor/autoload.php';
+require_once 'app/includes/PrismicHelper.php';
 
 // config.php is not present by default, so we show a message explaining to create one
-if (file_exists('../config.php')) {
-    include '../config.php';
+if (file_exists('config.php')) {
+    include 'config.php';
 } else {
-    include '../app/includes/templates/firstrun.php';
+    include 'app/includes/templates/firstrun.php';
     exit();
 }
 
-$composer = json_decode(file_get_contents(__DIR__.'/../composer.json'));
+$composer = json_decode(file_get_contents(__DIR__.'/composer.json'));
 $app = new \Slim\Slim(
     array(
       'version'        => $composer->version,
@@ -40,6 +40,6 @@ $WPGLOBAL = array(
     'prismic' => $prismic,
 );
 
-require_once __DIR__.'/../app/app.php';
+require_once __DIR__.'/app/app.php';
 
 $app->run();
