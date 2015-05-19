@@ -4,12 +4,12 @@
 <head>
     <title><?= single_post_title() ?> <?= site_title() ?></title>
     <link rel="alternate" type="application/rss+xml" title="<?= site_title() ?>'s Feed" href="/feed" />
-    <link rel="stylesheet" href="/app/static/common.css">
-    <link rel="stylesheet" href="/app/views/main.css">
-    <link rel="stylesheet" href="/app/views/blog.css">
+    <link rel="stylesheet" href="/assets/common.css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/blog.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="/app/static/jquery-1.11.2.min.js"></script>
+    <script src="/assets/vendor/jquery-1.11.2.min.js"></script>
 
     <!-- disqus integration -->
     <?php if(disqus_forum()): ?>
@@ -23,8 +23,8 @@
     </script>
     <?php endif ?>
 
-    <link rel="stylesheet" href="/app/static/disqium/disqium.css" />
-    <script src="/app/static/disqium/disqium.js"></script>
+    <link rel="stylesheet" href="/assets/vendor/disqium/disqium.css" />
+    <script src="/assets/vendor/disqium/disqium.js"></script>
 
     <?php include('prismic.php') ?>
 
@@ -107,7 +107,7 @@
 </footer>
 
 <!-- Hamburger menu -->
-<script src="/app/static/jquery.panelslider.js"></script>
+<script src="/assets/vendor/jquery.panelslider.js"></script>
 
 <script type="text/javascript">
 
